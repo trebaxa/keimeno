@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Kalender</module_name>
+      <id>event</id>
+      <active>false</active>
+      <version>1.2</version>
+      <php>events.inc</php>
+      <hasperm>true</hasperm>
+      <xmlsitemap>true</xmlsitemap>
+      <epage>event.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>true</is_content_page>
+      <class_name>event_class</class_name>
+      <developer_id>1</developer_id>
+      <description>Der multible Terrminkalender erm&#xF6;glich themenspezifische Termine zu verwalten.</description>
+      <change_date>2016-11-22</change_date>
+    </settings>
+    <events>
+      <event eventname="autorun" method="class" classname="event_class" function="load_latest_events"/>
+      <event eventname="beforesmartycompile" method="class" classname="event_class" function="preparse"/>
+      <event eventname="xmlsitemap" method="class" classname="event_class" function="gen_xmlsitemap"/>
+      <event eventname="OnDeleteLanguage" method="class" classname="event_class" function="delete_lang_content"/>
+    </events>
+    <includes>
+      <include type="class" classname="event_master_class">event.master</include>
+      <include type="class" classname="event_class">event</include>
+    </includes>
+    <contentplugins>
+      <plugin>
+        <name>Kalender - Events</name>
+        <id>event_inlay</id>
+        <tpl>calendar.plugin</tpl>
+        <lists>
+          <list name="templates" classname="event_admin_class" idname="id" label="description" function="load_homepage_integration"/>
+        </lists>
+        <save classname="event_admin_class" function="save_homepage_integration"/>
+      </plugin>
+      <plugin>
+        <name>Kalender - App</name>
+        <id>event_cal_inlay</id>
+        <tpl>calendar.cal.plugin</tpl>
+        <lists>
+          <list name="templates" classname="event_admin_class" idname="id" label="description" function="load_cal_homepage_integration"/>
+        </lists>
+        <save classname="event_admin_class" function="save_cal_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+    <admin_includes>
+      <include type="class" classname="event_admin_class">event</include>
+    </admin_includes>
+    <admin_menu parent="96" icon="calendar.png" label="Kalender" query="cmd=load_events"/>
+  </module>
+</config>

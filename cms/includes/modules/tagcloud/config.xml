@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>TagCloud</module_name>
+      <id>tagcloud</id>
+      <active>false</active>
+      <version>1.0</version>
+      <php>tagcloud.inc</php>
+      <hasperm>false</hasperm>
+      <parse>false</parse>
+      <epage>tagcloud.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>true</is_content_page>
+      <developer_id>1</developer_id>
+      <description>Eine einfache Tagcloud f&#xFC;r Ihre Homepage.</description>
+    </settings>
+    <events>
+      <event eventname="autorun" method="class" classname="tagcloud_class" function="build_tagcloud"/>
+      <event eventname="globalrequest" method="exec" classname="tagcloud_class"/>
+    </events>
+    <includes>
+      <include type="class" classname="tagcloud_class">tagcloud</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="tagcloud_admin_class">tagcloud</include>
+    </admin_includes>
+    <admin_menu parent="96" icon="tagcloud.png" label="Tag Cloud"/>
+  </module>
+</config>

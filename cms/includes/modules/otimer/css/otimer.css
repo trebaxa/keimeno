@@ -1,0 +1,86 @@
+#ottable .otbusy,
+#ottable .otover {
+ height:100%;
+ background-color:#FFD6A0;
+ border:0px #a9a9a9 solid;
+ margin:0;
+ vertical-align:middle;
+ padding:0;
+ margin-bottom:1px;
+ border-bottom:1px solid #A3A3A3;
+}
+#ottable .otbusy,
+#ottable .otover {
+ float:left;
+}
+
+#ottable .otfree,
+#ottable .otfree_right {
+ height:100%;
+ background-color:#D0ED77;
+ border:0px #a9a9a9 solid;
+ margin:0;
+ padding:0;
+ text-align:center;
+ vertical-align:middle;
+ margin-bottom:1px;
+ /*border-bottom:1px solid #A3A3A3;*/
+}
+#ottable .otfree {
+ float:left;
+}
+#ottable .otfree_right {
+ float:right;
+}
+
+#ottable .trenner,
+#ottable .trenner_rechts {
+height:100%;
+width:auto;
+border:0px;
+margin:0;
+padding:0;
+background-color:transparent;
+}
+
+#ottable .trenner {
+ float:left;
+ border-left:1px dotted #000000;
+  line-height:100%;
+ vertical-align:bottom;
+}
+#ottable .trenner_rechts {
+ float:right;
+ border-right:1px dotted #000000; 
+
+}
+#ottable .trenner_rechts img {
+ vertical-align:bottom;
+ float:right;
+}
+#ottable .otdateinfo {
+	padding:1px;
+	float:left;
+	width:auto;
+}
+#ottable .otdateinfo span,
+#ottable .otovertext span{
+ font-weight:bold;
+}
+#ottable .otovertext{
+ float:right;
+ text-align:right;
+}
+#ottable {
+/* float:left;*/
+}
+#ottable td{
+ /*height:30px;
+ vertical-align:top;*/
+}
+#gblrescont .dotbox{
+ width:100%;
+}
+#gblrescont .dotbox{
+border:3px dotted #CECECE;padding:3px;margin-top:3px;margin-bottom:10px;
+}

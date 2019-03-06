@@ -1,0 +1,102 @@
+<lngpack>
+ <replacements id="1">
+<replacement>LA_EMAILALTERNATIV</replacement>
+	<value><![CDATA[alternative E-Mail]]></value>
+</replacements>
+<replacements id="2">
+<replacement>LA_WEBSEITEADD</replacement>
+	<value><![CDATA[Homepage]]></value>
+</replacements>
+<replacements id="3">
+<replacement>LA_IMINDEXVEROEFF</replacement>
+	<value><![CDATA[publisched]]></value>
+</replacements>
+<replacements id="4">
+<replacement>LA_ALLEKUNDEN</replacement>
+	<value><![CDATA[all customers]]></value>
+</replacements>
+<replacements id="5">
+<replacement>LA_FIRMENKUNDEN</replacement>
+	<value><![CDATA[customers of firms]]></value>
+</replacements>
+<replacements id="6">
+<replacement>LA_INAKTIV</replacement>
+	<value><![CDATA[inactive]]></value>
+</replacements>
+<replacements id="7">
+<replacement>LA_KUNDENIMPORTIEREN</replacement>
+	<value><![CDATA[LA_KUNDENIMPORTIEREN]]></value>
+</replacements>
+<replacements id="8">
+<replacement>LA_DASDATEIFORMATMUSSIMC</replacement>
+	<value><![CDATA[LA_DASDATEIFORMATMUSSIMC]]></value>
+</replacements>
+<replacements id="9">
+<replacement>LA_CSVTRENNZEICHEN</replacement>
+	<value><![CDATA[LA_CSVTRENNZEICHEN]]></value>
+</replacements>
+<replacements id="10">
+<replacement>LA_KUNDENPASSWORTWIRDAUT</replacement>
+	<value><![CDATA[LA_KUNDENPASSWORTWIRDAUT]]></value>
+</replacements>
+<replacements id="11">
+<replacement>LA_EXISTIERTBEREITSEINKU</replacement>
+	<value><![CDATA[LA_EXISTIERTBEREITSEINKU]]></value>
+</replacements>
+<replacements id="12">
+<replacement>LA_CSVDATEI</replacement>
+	<value><![CDATA[LA_CSVDATEI]]></value>
+</replacements>
+<replacements id="13">
+<replacement>LA_ZIELKUNDENGRUPPE</replacement>
+	<value><![CDATA[LA_ZIELKUNDENGRUPPE]]></value>
+</replacements>
+<replacements id="14">
+<replacement>LA_AKTUALISIEREN</replacement>
+	<value><![CDATA[LA_AKTUALISIEREN]]></value>
+</replacements>
+<replacements id="15">
+<replacement>LA_JADATENSATZAKTUALISIE</replacement>
+	<value><![CDATA[LA_JADATENSATZAKTUALISIE]]></value>
+</replacements>
+<replacements id="16">
+<replacement>LA_MITARBEITERZUORDNUNG</replacement>
+	<value><![CDATA[LA_MITARBEITERZUORDNUNG]]></value>
+</replacements>
+<replacements id="17">
+<replacement>LA_IDENTIFIZIERUNG</replacement>
+	<value><![CDATA[LA_IDENTIFIZIERUNG]]></value>
+</replacements>
+<replacements id="18">
+<replacement>LA_DOPPELTEEINTRAGUNGENV</replacement>
+	<value><![CDATA[LA_DOPPELTEEINTRAGUNGENV]]></value>
+</replacements>
+<replacements id="19">
+<replacement>LA_PEREMAIL</replacement>
+	<value><![CDATA[LA_PEREMAIL]]></value>
+</replacements>
+<replacements id="20">
+<replacement>LA_PERNACHNAMEVORNAME</replacement>
+	<value><![CDATA[LA_PERNACHNAMEVORNAME]]></value>
+</replacements>
+<replacements id="21">
+<replacement>LA_DATENSATZOHNEEMAILAUC</replacement>
+	<value><![CDATA[LA_DATENSATZOHNEEMAILAUC]]></value>
+</replacements>
+<replacements id="22">
+<replacement>LA_JA</replacement>
+	<value><![CDATA[LA_JA]]></value>
+</replacements>
+<replacements id="23">
+<replacement>LA_NEIN</replacement>
+	<value><![CDATA[LA_NEIN]]></value>
+</replacements>
+<replacements id="24">
+<replacement>LA_CSVDATENLIEGENIMUTF8F</replacement>
+	<value><![CDATA[LA_CSVDATENLIEGENIMUTF8F]]></value>
+</replacements>
+<replacements id="25">
+<replacement>LA_PASSWORTISTMD5VERSCHL</replacement>
+	<value><![CDATA[LA_PASSWORTISTMD5VERSCHL]]></value>
+</replacements>
+</lngpack>

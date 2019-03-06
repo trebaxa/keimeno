@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>RA-Micro News</module_name>
+      <id>ramicronews</id>
+      <active>false</active>
+      <version>1.1</version>
+      <php>ramicronews.inc</php>
+      <hasperm>true</hasperm>
+      <epage>ramicronews.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>false</is_content_page>
+      <stdclass>ramicronews_class</stdclass>
+      <description>Integration des RA-Micro News Flash</description>
+      <developer_id>1</developer_id>
+      <change_date>2016-09-23</change_date>
+      <encode>false</encode>
+    </settings>
+    <events>
+      <event eventname="beforesmartycompile" method="class" classname="ramicronews_class" function="parse_ramicronews"/>
+    </events>
+    <includes>
+      <include type="class" classname="ramicronews_master_class">ramicronews.master</include>
+      <include type="class" classname="ramicronews_class">ramicronews</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="ramicronews_admin_class">ramicronews</include>
+    </admin_includes>
+    <admin_menu parent="96" icon="ramicronews/admin/images/plugin.png" morder="1"/>
+    <contentplugins>
+      <plugin>
+        <name>RA-Micro News</name>
+        <id>ramicronews_inlay</id>
+        <tpl>ramicronews.plugin</tpl>
+        <lists>
+          <list name="templates" classname="ramicronews_admin_class" idname="id" label="description" function="load_template_integration"/>
+        </lists>
+        <save classname="ramicronews_admin_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+  </module>
+</config>

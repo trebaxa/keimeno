@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Features</module_name>
+      <id>features</id>
+      <active>false</active>
+      <version>1.0</version>
+      <php>features.inc</php>
+      <hasperm>true</hasperm>
+      <epage>features.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>false</is_content_page>
+      <stdclass>features_class</stdclass>
+      <description>Verwaltung und Auflistung von Features</description>
+      <change_date>2014-01-01</change_date>
+      <developer_id>1</developer_id>
+    </settings>
+    <events>
+      <event eventname="beforesmartycompile" method="class" classname="features_class" function="parse_feature_inlay"/>
+    </events>
+    <includes>
+      <include type="class" classname="features_master_class">features.master</include>
+      <include type="class" classname="features_class">features</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="features_admin_class">features</include>
+    </admin_includes>
+    <admin_menu parent="96" icon="features/admin/images/plugin.png" morder="1"/>
+    <contentplugins>
+      <plugin>
+        <name>Feature Auflistung</name>
+        <id>feature_inlay</id>
+        <tpl>feature.plugin</tpl>
+        <lists>
+          <list name="groups" classname="features_admin_class" idname="id" label="fg_name" function="load_plugin_fgroup_list"/>
+          <list name="templates" classname="features_admin_class" idname="tpl_name" label="description" function="load_template_integration"/>
+        </lists>
+        <save classname="features_admin_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+  </module>
+</config>

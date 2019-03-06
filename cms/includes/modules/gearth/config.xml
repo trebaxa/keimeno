@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Google Earth</module_name>
+      <id>gearth</id>
+      <active>false</active>
+      <version>1.0</version>
+      <php>gearth.inc</php>
+      <hasperm>true</hasperm>
+      <epage>gearth.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>false</is_content_page>
+      <developer_id>1</developer_id>
+      <description>Erzeugen Sie f&#xFC;r Google Earth sogenannte KML Dateien, um Google Earth mitzuteilen, wo Ihre Standort ist.</description>
+    </settings>
+    <includes>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="gearth_admin_class">gearth</include>
+    </admin_includes>
+    <admin_menu parent="96" icon="gearth/admin/images/gearth.png" morder="1"/>
+  </module>
+</config>

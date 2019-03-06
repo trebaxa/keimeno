@@ -1,0 +1,11 @@
+#fotolist {
+    margin-top:10px;
+}
+
+
+#fotolist .fotodel {
+    position:absolute;
+    margin-left:150px;
+    margin-top:5px;
+    cursor:pointer;
+}

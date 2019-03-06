@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Website Search</module_name>
+      <id>websitesearch</id>
+      <active>false</active>
+      <version>1.1</version>
+      <php>websitesearch.inc</php>
+      <hasperm>true</hasperm>
+      <epage>websitesearch.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <iscore>false</iscore>
+      <is_content_page>true</is_content_page>
+      <developer_id>1</developer_id>
+    </settings>
+    <events>
+    
+    </events>
+    <includes>
+      <include type="class" classname="websitesearch_class">websitesearch</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="websitesearch_admin_class">websitesearch</include>
+    </admin_includes>
+    <contentplugins>
+      <plugin>
+        <name>Website Search</name>
+        <id>websitesearch</id>
+        <tpl>websitesearch.plugin</tpl>
+        <lists>
+          <list name="templates" classname="websitesearch_admin_class" idname="id" label="description" function="load_homepage_integration"/>
+        </lists>
+        <save classname="websitesearch_admin_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+  </module>
+</config>

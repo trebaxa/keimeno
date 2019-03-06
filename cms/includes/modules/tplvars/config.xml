@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Template Vorlagen</module_name>
+      <id>tplvars</id>
+      <active>true</active>
+      <version>1.1</version>
+      <php>tplvars.inc</php>
+      <hasperm>false</hasperm>
+      <iscore>true</iscore>
+      <epage>tplvars.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>false</is_content_page>
+      <developer_id>1</developer_id>
+      <description>Gestalten Sie Ihre eigenen Template Vorlagen und verwenden Sie diese bei der Homepage Gestaltung. Definieren Sie z.B. einen 3 Spalten Text mit Bild als Vorlage und verwenden ihn sp&#xE4;ter im Seiteneditor.</description>
+    </settings>
+    <includes>
+      <include type="class" classname="tplvars_class">tplvars</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="tplvars_admin_class">tplvars</include>
+    </admin_includes>
+    <contentplugins>
+      <plugin>
+        <name>Template Vorlage</name>
+        <id>tpls_inlay</id>
+        <tpl>tpls.plugin</tpl>
+        <stdoptions classname="tplvars_admin_class" function="load_homepage_integration"/>
+        <save classname="tplvars_admin_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+  </module>
+</config>

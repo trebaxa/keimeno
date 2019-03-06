@@ -1,0 +1,2446 @@
+<lngpack>
+ <replacements id="1">
+<replacement>BTN_SENDREC</replacement>
+	<value><![CDATA[Senden->Empfänger]]></value>
+</replacements>
+<replacements id="2">
+<replacement>BTN_SENDTEST</replacement>
+	<value><![CDATA[Senden->Test]]></value>
+</replacements>
+<replacements id="3">
+<replacement>CFG_BANKBLZ</replacement>
+	<value><![CDATA[BLZ]]></value>
+</replacements>
+<replacements id="4">
+<replacement>CFG_BANKKONTO</replacement>
+	<value><![CDATA[Konto]]></value>
+</replacements>
+<replacements id="5">
+<replacement>CFG_BANKNAME</replacement>
+	<value><![CDATA[Bankname]]></value>
+</replacements>
+<replacements id="6">
+<replacement>CFG_CITY</replacement>
+	<value><![CDATA[Stadt]]></value>
+</replacements>
+<replacements id="7">
+<replacement>CFG_CMSFOLDER</replacement>
+	<value><![CDATA[CMS Verzeichnis auf dem Server]]></value>
+</replacements>
+<replacements id="8">
+<replacement>CFG_CMSPROTECTION</replacement>
+	<value><![CDATA[CMS-Inhalt-Schutz]]></value>
+</replacements>
+<replacements id="9">
+<replacement>CFG_COMPANYNAME</replacement>
+	<value><![CDATA[Firmenname]]></value>
+</replacements>
+<replacements id="10">
+<replacement>CFG_DOMAIN</replacement>
+	<value><![CDATA[Domain]]></value>
+</replacements>
+<replacements id="11">
+<replacement>CFG_EMAILFOOTER</replacement>
+	<value><![CDATA[Email Absender]]></value>
+</replacements>
+<replacements id="12">
+<replacement>CFG_FAX</replacement>
+	<value><![CDATA[Fax]]></value>
+</replacements>
+<replacements id="13">
+<replacement>CFG_FLAGWIDTH</replacement>
+	<value><![CDATA[Flaggenbreite]]></value>
+</replacements>
+<replacements id="14">
+<replacement>CFG_FORENAME</replacement>
+	<value><![CDATA[Vorname]]></value>
+</replacements>
+<replacements id="15">
+<replacement>CFG_GENERAL</replacement>
+	<value><![CDATA[Setup]]></value>
+</replacements>
+<replacements id="16">
+<replacement>CFG_GOOGLE_ACCOUNT_NUM</replacement>
+	<value><![CDATA[Google Account Nummer]]></value>
+</replacements>
+<replacements id="17">
+<replacement>CFG_MAXUPLPICSIZE</replacement>
+	<value><![CDATA[Max. Dateigröße in Kilobyte für Bilderupload]]></value>
+</replacements>
+<replacements id="18">
+<replacement>CFG_PERSDATA</replacement>
+	<value><![CDATA[Persönliche Daten]]></value>
+</replacements>
+<replacements id="19">
+<replacement>CFG_PLZ</replacement>
+	<value><![CDATA[PLZ]]></value>
+</replacements>
+<replacements id="20">
+<replacement>CFG_SHOP_ROOT</replacement>
+	<value><![CDATA[Server-Verzeichnis vom Shop:]]></value>
+</replacements>
+<replacements id="21">
+<replacement>CFG_STEUERNR</replacement>
+	<value><![CDATA[Steuernummer]]></value>
+</replacements>
+<replacements id="22">
+<replacement>CFG_STREET</replacement>
+	<value><![CDATA[Strasse]]></value>
+</replacements>
+<replacements id="23">
+<replacement>CFG_SURENAME</replacement>
+	<value><![CDATA[Nachname]]></value>
+</replacements>
+<replacements id="24">
+<replacement>CFG_TELEFON</replacement>
+	<value><![CDATA[Telefon]]></value>
+</replacements>
+<replacements id="25">
+<replacement>CFG_TELEFONCOST</replacement>
+	<value><![CDATA[Telefongebühren]]></value>
+</replacements>
+<replacements id="26">
+<replacement>CFG_THUMBBORDERWIDTH</replacement>
+	<value><![CDATA[Bild-Vorschau Rahmenbreite]]></value>
+</replacements>
+<replacements id="27">
+<replacement>CFG_THUMBWIDTH</replacement>
+	<value><![CDATA[Bild-Vorschau Breite]]></value>
+</replacements>
+<replacements id="28">
+<replacement>CFG_USE_SHOP_FOR_CUSTOMER</replacement>
+	<value><![CDATA[Kundenverwaltung vom Shop nutzen:]]></value>
+</replacements>
+<replacements id="29">
+<replacement>CMS_UPDMANAGER</replacement>
+	<value><![CDATA[CMS Wartung]]></value>
+</replacements>
+<replacements id="30">
+<replacement>ERR_NOTDELETED_INUSE</replacement>
+	<value><![CDATA[Löschung verweigert, da dieser Bereich in Benutzung ist.]]></value>
+</replacements>
+<replacements id="31">
+<replacement>ERR_TERMSNOTCONFIRMED</replacement>
+	<value><![CDATA[Bedingungen wurden nicht angenommen]]></value>
+</replacements>
+<replacements id="32">
+<replacement>LA_AAKTIV</replacement>
+	<value><![CDATA[Aktiv]]></value>
+</replacements>
+<replacements id="33">
+<replacement>LA_ADD</replacement>
+	<value><![CDATA[hinzufügen]]></value>
+</replacements>
+<replacements id="34">
+<replacement>LA_AKTUELLECMSVERSION</replacement>
+	<value><![CDATA[Aktuelle CMS-Version]]></value>
+</replacements>
+<replacements id="35">
+<replacement>LA_ALLEABWHLEN</replacement>
+	<value><![CDATA[alle abwählen]]></value>
+</replacements>
+<replacements id="36">
+<replacement>LA_ALLEAUSWHLEN</replacement>
+	<value><![CDATA[alle auswählen]]></value>
+</replacements>
+<replacements id="37">
+<replacement>LA_ALTERNATIV</replacement>
+	<value><![CDATA[Alternativ]]></value>
+</replacements>
+<replacements id="38">
+<replacement>LA_ANREDE</replacement>
+	<value><![CDATA[Anrede]]></value>
+</replacements>
+<replacements id="39">
+<replacement>LA_ANSCHRIFT</replacement>
+	<value><![CDATA[Anschrift]]></value>
+</replacements>
+<replacements id="40">
+<replacement>LA_APPROVEDDATE</replacement>
+	<value><![CDATA[genehmigt am]]></value>
+</replacements>
+<replacements id="41">
+<replacement>LA_AUFGABEN</replacement>
+	<value><![CDATA[Aufgaben]]></value>
+</replacements>
+<replacements id="42">
+<replacement>LA_AUSWAHLAUFHEBEN</replacement>
+	<value><![CDATA[alle abwählen]]></value>
+</replacements>
+<replacements id="43">
+<replacement>LA_AUTHOR</replacement>
+	<value><![CDATA[Autor]]></value>
+</replacements>
+<replacements id="44">
+<replacement>LA_BANKEINZUGERLAUBNISFR</replacement>
+	<value><![CDATA[Bankeinzugerlaubnis]]></value>
+</replacements>
+<replacements id="45">
+<replacement>LA_BANKNAME</replacement>
+	<value><![CDATA[Bankname]]></value>
+</replacements>
+<replacements id="46">
+<replacement>LA_BANKVERBINDUNG</replacement>
+	<value><![CDATA[Bankverbindung]]></value>
+</replacements>
+<replacements id="47">
+<replacement>LA_BEINCHSTERANMELDUNGNE</replacement>
+	<value><![CDATA[Beim nächsten Anmeldung]]></value>
+</replacements>
+<replacements id="48">
+<replacement>LA_BITTEALLEFELDERAUSFLL</replacement>
+	<value><![CDATA[Bitte alle Felder ausfÃ¼llen]]></value>
+</replacements>
+<replacements id="49">
+<replacement>LA_BITTELOGGENSIESICHEIN</replacement>
+	<value><![CDATA[Bitte loggen Sie sich ein]]></value>
+</replacements>
+<replacements id="50">
+<replacement>LA_BLZ</replacement>
+	<value><![CDATA[BLZ]]></value>
+</replacements>
+<replacements id="51">
+<replacement>LA_DIESENKUNDENFRBAREINZ</replacement>
+	<value><![CDATA[Diesen Kunden Bar einzahlen]]></value>
+</replacements>
+<replacements id="52">
+<replacement>LA_DISABLEGALALBUM</replacement>
+	<value><![CDATA[Album aktivieren]]></value>
+</replacements>
+<replacements id="53">
+<replacement>LA_EMAIL</replacement>
+	<value><![CDATA[Email]]></value>
+</replacements>
+<replacements id="54">
+<replacement>LA_EMPLOYEE</replacement>
+	<value><![CDATA[Mitarbeiter]]></value>
+</replacements>
+<replacements id="55">
+<replacement>LA_ERFOLGREICHANGELEGT</replacement>
+	<value><![CDATA[Erfolgreich angelegt]]></value>
+</replacements>
+<replacements id="56">
+<replacement>LA_ERFOLGREICHGELSCHT</replacement>
+	<value><![CDATA[Erfolgreich gelöscht]]></value>
+</replacements>
+<replacements id="57">
+<replacement>LA_FAX</replacement>
+	<value><![CDATA[Fax]]></value>
+</replacements>
+<replacements id="58">
+<replacement>LA_FIRMA</replacement>
+	<value><![CDATA[Firma]]></value>
+</replacements>
+<replacements id="59">
+<replacement>LA_FIRMAINHABER</replacement>
+	<value><![CDATA[Firmeninhaber]]></value>
+</replacements>
+<replacements id="60">
+<replacement>LA_GEBURTSTAG</replacement>
+	<value><![CDATA[Geburtstag]]></value>
+</replacements>
+<replacements id="61">
+<replacement>LA_GEFUNDENVON</replacement>
+	<value><![CDATA[Gefunden von]]></value>
+</replacements>
+<replacements id="62">
+<replacement>LA_GENERAL</replacement>
+	<value><![CDATA[- allgemein -]]></value>
+</replacements>
+<replacements id="63">
+<replacement>LA_HAUSNR</replacement>
+	<value><![CDATA[Hausnummer]]></value>
+</replacements>
+<replacements id="64">
+<replacement>LA_HOST</replacement>
+	<value><![CDATA[Host]]></value>
+</replacements>
+<replacements id="65">
+<replacement>LA_IHRECMSVERSION</replacement>
+	<value><![CDATA[Ihre CMS-Version]]></value>
+</replacements>
+<replacements id="66">
+<replacement>LA_INDIVIDUELLEFELDER</replacement>
+	<value><![CDATA[Individuellefelder]]></value>
+</replacements>
+<replacements id="67">
+<replacement>LA_ISSTARTSITE</replacement>
+	<value><![CDATA[Hauptstartseite]]></value>
+</replacements>
+<replacements id="68">
+<replacement>LA_JAVASCRIPTISTINIHREMB</replacement>
+	<value><![CDATA[Javascript ist in Ihrem Browser deaktiviert. Um das Keimeno Backend nutzen zu k&ouml;nnen, muss Javascript aktiviert sein.]]></value>
+</replacements>
+<replacements id="69">
+<replacement>LA_KATEGORIEFFNEN</replacement>
+	<value><![CDATA[Kategorie öffnen]]></value>
+</replacements>
+<replacements id="70">
+<replacement>LA_KNR</replacement>
+	<value><![CDATA[KNR]]></value>
+</replacements>
+<replacements id="71">
+<replacement>LA_KONTAKT</replacement>
+	<value><![CDATA[Kontakt]]></value>
+</replacements>
+<replacements id="72">
+<replacement>LA_KONTO</replacement>
+	<value><![CDATA[Konto]]></value>
+</replacements>
+<replacements id="73">
+<replacement>LA_KUNDENSPERREN</replacement>
+	<value><![CDATA[Kundensperren]]></value>
+</replacements>
+<replacements id="74">
+<replacement>LA_KUNDENSUCHEN</replacement>
+	<value><![CDATA[Kunden suche]]></value>
+</replacements>
+<replacements id="75">
+<replacement>LA_LAND</replacement>
+	<value><![CDATA[Land]]></value>
+</replacements>
+<replacements id="76">
+<replacement>LA_LANDHINZUFGEN</replacement>
+	<value><![CDATA[Land hinzufügen]]></value>
+</replacements>
+<replacements id="77">
+<replacement>LA_LANDSCHONVORHANDEN</replacement>
+	<value><![CDATA[Land schon vorhanden]]></value>
+</replacements>
+<replacements id="78">
+<replacement>LA_LBLADDBTN</replacement>
+	<value><![CDATA[hinzufügen]]></value>
+</replacements>
+<replacements id="79">
+<replacement>LA_LOGINFEHLGESCHLAGEN</replacement>
+	<value><![CDATA[Login fehlgeschlagen]]></value>
+</replacements>
+<replacements id="80">
+<replacement>LA_MEMBERGROUP</replacement>
+	<value><![CDATA[Mitglieder]]></value>
+</replacements>
+<replacements id="81">
+<replacement>LA_MGLICHKEITEN</replacement>
+	<value><![CDATA[Möglichkeiten]]></value>
+</replacements>
+<replacements id="82">
+<replacement>LA_MOBIL</replacement>
+	<value><![CDATA[Mobil]]></value>
+</replacements>
+<replacements id="83">
+<replacement>LA_MODCONFIGURATION</replacement>
+	<value><![CDATA[Konfiguration]]></value>
+</replacements>
+<replacements id="84">
+<replacement>LA_NACH</replacement>
+	<value><![CDATA[Nach]]></value>
+</replacements>
+<replacements id="85">
+<replacement>LA_NACHNAME</replacement>
+	<value><![CDATA[Nachname]]></value>
+</replacements>
+<replacements id="86">
+<replacement>LA_NDERN</replacement>
+	<value><![CDATA[Ändern]]></value>
+</replacements>
+<replacements id="87">
+<replacement>LA_NEUERKUNDE</replacement>
+	<value><![CDATA[Neuer Kunde]]></value>
+</replacements>
+<replacements id="88">
+<replacement>LA_NEUESPASSWORTZUSENDEN</replacement>
+	<value><![CDATA[Neues Passwort senden]]></value>
+</replacements>
+<replacements id="89">
+<replacement>LA_NR</replacement>
+	<value><![CDATA[Nr.]]></value>
+</replacements>
+<replacements id="90">
+<replacement>LA_ORT</replacement>
+	<value><![CDATA[Ort]]></value>
+</replacements>
+<replacements id="91">
+<replacement>LA_PASSWORT</replacement>
+	<value><![CDATA[Passwort]]></value>
+</replacements>
+<replacements id="92">
+<replacement>LA_PFLICHFELDERBITTEAUSF</replacement>
+	<value><![CDATA[Pflichfelder bitte ausfüllen.]]></value>
+</replacements>
+<replacements id="93">
+<replacement>LA_PLZ</replacement>
+	<value><![CDATA[PLZ]]></value>
+</replacements>
+<replacements id="94">
+<replacement>LA_PUBLICGROUP</replacement>
+	<value><![CDATA[öffentliche Gruppe]]></value>
+</replacements>
+<replacements id="95">
+<replacement>LA_RECHNUNGENSTEUERBEFRE</replacement>
+	<value><![CDATA[Rechnung Steuerbefreit]]></value>
+</replacements>
+<replacements id="96">
+<replacement>LA_REDIRECT</replacement>
+	<value><![CDATA[Weiterleitung]]></value>
+</replacements>
+<replacements id="97">
+<replacement>LA_REGION</replacement>
+	<value><![CDATA[Region]]></value>
+</replacements>
+<replacements id="98">
+<replacement>LA_REPORTS</replacement>
+	<value><![CDATA[Reports]]></value>
+</replacements>
+<replacements id="99">
+<replacement>LA_STAFFELZONE</replacement>
+	<value><![CDATA[Staffelzone]]></value>
+</replacements>
+<replacements id="100">
+<replacement>LA_STANDARDSTUNDENLOHNFR</replacement>
+	<value><![CDATA[Standartstundenlohn]]></value>
+</replacements>
+<replacements id="101">
+<replacement>LA_STEUERFREI</replacement>
+	<value><![CDATA[Steuerfrei]]></value>
+</replacements>
+<replacements id="102">
+<replacement>LA_STRASSE</replacement>
+	<value><![CDATA[Strasse]]></value>
+</replacements>
+<replacements id="103">
+<replacement>LA_SUCHEFILTER</replacement>
+	<value><![CDATA[Suchfilter]]></value>
+</replacements>
+<replacements id="104">
+<replacement>LA_TARGETROOT</replacement>
+	<value><![CDATA[Zielverzeichnis]]></value>
+</replacements>
+<replacements id="105">
+<replacement>LA_TELEFON</replacement>
+	<value><![CDATA[Telefon]]></value>
+</replacements>
+<replacements id="106">
+<replacement>LA_TELEFONDIENSTLICH</replacement>
+	<value><![CDATA[Telefondienstlich]]></value>
+</replacements>
+<replacements id="107">
+<replacement>LA_TESTEST</replacement>
+	<value><![CDATA[testest]]></value>
+</replacements>
+<replacements id="108">
+<replacement>LA_UND</replacement>
+	<value><![CDATA[Und]]></value>
+</replacements>
+<replacements id="109">
+<replacement>LA_UPLOADDATE</replacement>
+	<value><![CDATA[Upload Datum]]></value>
+</replacements>
+<replacements id="110">
+<replacement>LA_USTID</replacement>
+	<value><![CDATA[USTID]]></value>
+</replacements>
+<replacements id="111">
+<replacement>LA_VERSANDKOSTEN</replacement>
+	<value><![CDATA[Versandkosten]]></value>
+</replacements>
+<replacements id="112">
+<replacement>LA_VIP</replacement>
+	<value><![CDATA[VIP]]></value>
+</replacements>
+<replacements id="113">
+<replacement>LA_VISIBLEMENU</replacement>
+	<value><![CDATA[sichtbar im Menü]]></value>
+</replacements>
+<replacements id="114">
+<replacement>LA_VORNAME</replacement>
+	<value><![CDATA[Vorname]]></value>
+</replacements>
+<replacements id="115">
+<replacement>LA_WEITERES</replacement>
+	<value><![CDATA[Weiteres]]></value>
+</replacements>
+<replacements id="116">
+<replacement>LA_ZONE</replacement>
+	<value><![CDATA[Zone]]></value>
+</replacements>
+<replacements id="117">
+<replacement>LA_ZUSTZLICHEKUNDENNUMME</replacement>
+	<value><![CDATA[Zusätzliche KundenNr.]]></value>
+</replacements>
+<replacements id="118">
+<replacement>LBLA_ADD</replacement>
+	<value><![CDATA[hinzufügen]]></value>
+</replacements>
+<replacements id="119">
+<replacement>LBLA_ADDJOKER</replacement>
+	<value><![CDATA[Joker hinzufügen]]></value>
+</replacements>
+<replacements id="120">
+<replacement>LBLA_ADMINGROUPS_MANAGER</replacement>
+	<value><![CDATA[Mitarbeitergruppen]]></value>
+</replacements>
+<replacements id="121">
+<replacement>LBLA_ADMIN_MANAGER</replacement>
+	<value><![CDATA[Mitarbeiter Verwaltung]]></value>
+</replacements>
+<replacements id="122">
+<replacement>LBLA_APPROVED</replacement>
+	<value><![CDATA[veröffentliicht]]></value>
+</replacements>
+<replacements id="123">
+<replacement>LBLA_BTN_SAVE</replacement>
+	<value><![CDATA[Speichern]]></value>
+</replacements>
+<replacements id="124">
+<replacement>LBLA_CHECKALL</replacement>
+	<value><![CDATA[alle markieren]]></value>
+</replacements>
+<replacements id="125">
+<replacement>LBLA_CLEANPICCACHE</replacement>
+	<value><![CDATA[Bilder Cache leeren]]></value>
+</replacements>
+<replacements id="126">
+<replacement>LBLA_CLONE</replacement>
+	<value><![CDATA[klonen]]></value>
+</replacements>
+<replacements id="127">
+<replacement>LBLA_CMSSAPCE</replacement>
+	<value><![CDATA[CMS-Space]]></value>
+</replacements>
+<replacements id="128">
+<replacement>LBLA_CMS_CONFIG</replacement>
+	<value><![CDATA[Konfiguration]]></value>
+</replacements>
+<replacements id="129">
+<replacement>LBLA_CONFIRM</replacement>
+	<value><![CDATA[Sind Sie sicher?]]></value>
+</replacements>
+<replacements id="130">
+<replacement>LBLA_CONFIRMATION</replacement>
+	<value><![CDATA[Bestätigung]]></value>
+</replacements>
+<replacements id="131">
+<replacement>LBLA_CONTENT</replacement>
+	<value><![CDATA[Inhalt]]></value>
+</replacements>
+<replacements id="132">
+<replacement>LBLA_CONTENT_TYPE</replacement>
+	<value><![CDATA[Inhalt Typ]]></value>
+</replacements>
+<replacements id="133">
+<replacement>LBLA_CREATENEWS</replacement>
+	<value><![CDATA[Newsletter anlegen]]></value>
+</replacements>
+<replacements id="134">
+<replacement>LBLA_CUSTOMER</replacement>
+	<value><![CDATA[Kunde]]></value>
+</replacements>
+<replacements id="135">
+<replacement>LBLA_DEAK_NEWS</replacement>
+	<value><![CDATA[Tragen Sie hier Emails ein, die deaktiviert werden sollen (pro Zeile eine Email)]]></value>
+</replacements>
+<replacements id="136">
+<replacement>LBLA_DELETE</replacement>
+	<value><![CDATA[löschen]]></value>
+</replacements>
+<replacements id="137">
+<replacement>LBLA_DELETED</replacement>
+	<value><![CDATA[gelöscht]]></value>
+</replacements>
+<replacements id="138">
+<replacement>LBLA_DESCRIPTION</replacement>
+	<value><![CDATA[Beschreibung]]></value>
+</replacements>
+<replacements id="139">
+<replacement>LBLA_DISABLELINK_SENTENCE</replacement>
+	<value><![CDATA[Satz des Deaktivierungslinks]]></value>
+</replacements>
+<replacements id="140">
+<replacement>LBLA_DOUPDATE</replacement>
+	<value><![CDATA[Update durchführen]]></value>
+</replacements>
+<replacements id="141">
+<replacement>LBLA_EDIT</replacement>
+	<value><![CDATA[bearbeiten]]></value>
+</replacements>
+<replacements id="142">
+<replacement>LBLA_EDITJOKER</replacement>
+	<value><![CDATA[Joker bearbeiten]]></value>
+</replacements>
+<replacements id="143">
+<replacement>LBLA_EDITOR</replacement>
+	<value><![CDATA[Editor]]></value>
+</replacements>
+<replacements id="144">
+<replacement>LBLA_FILEMANAGER</replacement>
+	<value><![CDATA[System Dateien]]></value>
+</replacements>
+<replacements id="145">
+<replacement>LBLA_FINISHED</replacement>
+	<value><![CDATA[Bisher gesendet]]></value>
+</replacements>
+<replacements id="146">
+<replacement>LBLA_FOTOSOURCEURL</replacement>
+	<value><![CDATA[Quellenangabe]]></value>
+</replacements>
+<replacements id="147">
+<replacement>LBLA_GALLERY</replacement>
+	<value><![CDATA[Galerie Fotos]]></value>
+</replacements>
+<replacements id="148">
+<replacement>LBLA_GALLERYGROUPS</replacement>
+	<value><![CDATA[Foto-Alben]]></value>
+</replacements>
+<replacements id="149">
+<replacement>LBLA_GAL_EDITPIC</replacement>
+	<value><![CDATA[Foto bearbeiten]]></value>
+</replacements>
+<replacements id="150">
+<replacement>LBLA_GAL_EDITPICTURE</replacement>
+	<value><![CDATA[Foto bearbeiten]]></value>
+</replacements>
+<replacements id="151">
+<replacement>LBLA_GAL_UPFINISHED</replacement>
+	<value><![CDATA[Upload beendet]]></value>
+</replacements>
+<replacements id="152">
+<replacement>LBLA_GAL_UPLOADPIC</replacement>
+	<value><![CDATA[Foto speichern]]></value>
+</replacements>
+<replacements id="153">
+<replacement>LBLA_GBLTEMP</replacement>
+	<value><![CDATA[Globale Templates]]></value>
+</replacements>
+<replacements id="154">
+<replacement>LBLA_GBLTEMPLATES</replacement>
+	<value><![CDATA[Globale Templates]]></value>
+</replacements>
+<replacements id="155">
+<replacement>LBLA_GUESTBOOK</replacement>
+	<value><![CDATA[Gästebuch]]></value>
+</replacements>
+<replacements id="156">
+<replacement>LBLA_ICON</replacement>
+	<value><![CDATA[Icon]]></value>
+</replacements>
+<replacements id="157">
+<replacement>LBLA_INLAY_BOXES</replacement>
+	<value><![CDATA[Inlays]]></value>
+</replacements>
+<replacements id="158">
+<replacement>LBLA_INSTALLADMINLANG</replacement>
+	<value><![CDATA[Übersetzung im admin. Bereich neu installieren]]></value>
+</replacements>
+<replacements id="159">
+<replacement>LBLA_LANGUAGE</replacement>
+	<value><![CDATA[Sprache]]></value>
+</replacements>
+<replacements id="160">
+<replacement>LBLA_LEFT</replacement>
+	<value><![CDATA[übrig]]></value>
+</replacements>
+<replacements id="161">
+<replacement>LBLA_LEGEND</replacement>
+	<value><![CDATA[Legende]]></value>
+</replacements>
+<replacements id="162">
+<replacement>LBLA_LINKNAME</replacement>
+	<value><![CDATA[Linkname]]></value>
+</replacements>
+<replacements id="163">
+<replacement>LBLA_LINKS</replacement>
+	<value><![CDATA[Links]]></value>
+</replacements>
+<replacements id="164">
+<replacement>LBLA_METASGEN</replacement>
+	<value><![CDATA[Meta Description und Metakeywords neu erzeugen]]></value>
+</replacements>
+<replacements id="165">
+<replacement>LBLA_NEWHISTORY</replacement>
+	<value><![CDATA[Bisherige Newsletter]]></value>
+</replacements>
+<replacements id="166">
+<replacement>LBLA_NEWSDEACTEMAILS</replacement>
+	<value><![CDATA[Newsletter deaktivieren]]></value>
+</replacements>
+<replacements id="167">
+<replacement>LBLA_NEWSFINISHED</replacement>
+	<value><![CDATA[Newsletter wurde erfolgreich versendet.]]></value>
+</replacements>
+<replacements id="168">
+<replacement>LBLA_NEWSHASREAD</replacement>
+	<value><![CDATA[Folgende Empfänger haben den Newsletter gelesen]]></value>
+</replacements>
+<replacements id="169">
+<replacement>LBLA_NEWSMEMBERS</replacement>
+	<value><![CDATA[Mitglieder]]></value>
+</replacements>
+<replacements id="170">
+<replacement>LBLA_NEWSNOTREADED</replacement>
+	<value><![CDATA[Folgende Empfänger haben den Newsletter noch nicht gelesen]]></value>
+</replacements>
+<replacements id="171">
+<replacement>LBLA_NEWSTRACKINGOF</replacement>
+	<value><![CDATA[Tracking von Newsletter]]></value>
+</replacements>
+<replacements id="172">
+<replacement>LBLA_NEW_SETUP</replacement>
+	<value><![CDATA[neu anlegen]]></value>
+</replacements>
+<replacements id="173">
+<replacement>LBLA_NO</replacement>
+	<value><![CDATA[Nein]]></value>
+</replacements>
+<replacements id="174">
+<replacement>LBLA_NODISABLELINK</replacement>
+	<value><![CDATA[Der Abmeldelink wurde nicht gesetzt.]]></value>
+</replacements>
+<replacements id="175">
+<replacement>LBLA_NOEMPTY</replacement>
+	<value><![CDATA[Kein]]></value>
+</replacements>
+<replacements id="176">
+<replacement>LBLA_NOFOUND</replacement>
+	<value><![CDATA[nicht gefunden]]></value>
+</replacements>
+<replacements id="177">
+<replacement>LBLA_NOTAPPROVED</replacement>
+	<value><![CDATA[nicht veröffentlicht]]></value>
+</replacements>
+<replacements id="178">
+<replacement>LBLA_NOTRACKINGCODE</replacement>
+	<value><![CDATA[Der Trackingcode wurde nicht gesetzt.]]></value>
+</replacements>
+<replacements id="179">
+<replacement>LBLA_NOT_DELETED</replacement>
+	<value><![CDATA[Nicht gelöscht:]]></value>
+</replacements>
+<replacements id="180">
+<replacement>LBLA_OF</replacement>
+	<value><![CDATA[von]]></value>
+</replacements>
+<replacements id="181">
+<replacement>LBLA_OTBLOCK</replacement>
+	<value><![CDATA[Kunde gesperrt]]></value>
+</replacements>
+<replacements id="182">
+<replacement>LBLA_OTMISSED</replacement>
+	<value><![CDATA[Termin wurde nicht wahrgenommen]]></value>
+</replacements>
+<replacements id="183">
+<replacement>LBLA_OTNOTBLOCK</replacement>
+	<value><![CDATA[Kunde nicht gesperrt]]></value>
+</replacements>
+<replacements id="184">
+<replacement>LBLA_OTNOTMISSED</replacement>
+	<value><![CDATA[Termin wurde wahrgenommen]]></value>
+</replacements>
+<replacements id="185">
+<replacement>LBLA_PAGELINK</replacement>
+	<value><![CDATA[Seitenaufruf]]></value>
+</replacements>
+<replacements id="186">
+<replacement>LBLA_PICTURES</replacement>
+	<value><![CDATA[Bilder]]></value>
+</replacements>
+<replacements id="187">
+<replacement>LBLA_PLUS</replacement>
+	<value><![CDATA[hinzufügen]]></value>
+</replacements>
+<replacements id="188">
+<replacement>LBLA_PREVIEW</replacement>
+	<value><![CDATA[Vorschau]]></value>
+</replacements>
+<replacements id="189">
+<replacement>LBLA_PUBLIC</replacement>
+	<value><![CDATA[öffentlicher]]></value>
+</replacements>
+<replacements id="190">
+<replacement>LBLA_READED</replacement>
+	<value><![CDATA[Gelesen]]></value>
+</replacements>
+<replacements id="191">
+<replacement>LBLA_RECIPIENT</replacement>
+	<value><![CDATA[Empfänger]]></value>
+</replacements>
+<replacements id="192">
+<replacement>LBLA_RECIPIENTS</replacement>
+	<value><![CDATA[Empfänger]]></value>
+</replacements>
+<replacements id="193">
+<replacement>LBLA_REPLACE</replacement>
+	<value><![CDATA[alle ersetzen]]></value>
+</replacements>
+<replacements id="194">
+<replacement>LBLA_REPLACED</replacement>
+	<value><![CDATA[ersetzt]]></value>
+</replacements>
+<replacements id="195">
+<replacement>LBLA_REPLACEWORD</replacement>
+	<value><![CDATA[ersetzen durch:]]></value>
+</replacements>
+<replacements id="196">
+<replacement>LBLA_RESTARTIN</replacement>
+	<value><![CDATA[Neustart in]]></value>
+</replacements>
+<replacements id="197">
+<replacement>LBLA_SALUTATION_FEMALE</replacement>
+	<value><![CDATA[Weibliche Anrede]]></value>
+</replacements>
+<replacements id="198">
+<replacement>LBLA_SALUTATION_MALE</replacement>
+	<value><![CDATA[Männliche Anrede]]></value>
+</replacements>
+<replacements id="199">
+<replacement>LBLA_SAVE</replacement>
+	<value><![CDATA[speichern]]></value>
+</replacements>
+<replacements id="200">
+<replacement>LBLA_SAVED</replacement>
+	<value><![CDATA[gespeichert]]></value>
+</replacements>
+<replacements id="201">
+<replacement>LBLA_SEARCH</replacement>
+	<value><![CDATA[suchen]]></value>
+</replacements>
+<replacements id="202">
+<replacement>LBLA_SEARCHREPLACE</replacement>
+	<value><![CDATA[Suchen&Ersetzen]]></value>
+</replacements>
+<replacements id="203">
+<replacement>LBLA_SEARCHWORD</replacement>
+	<value><![CDATA[Suchbegriff:]]></value>
+</replacements>
+<replacements id="204">
+<replacement>LBLA_SECONDS</replacement>
+	<value><![CDATA[Sekunden]]></value>
+</replacements>
+<replacements id="205">
+<replacement>LBLA_SENDER</replacement>
+	<value><![CDATA[Absender]]></value>
+</replacements>
+<replacements id="206">
+<replacement>LBLA_SHOWALL</replacement>
+	<value><![CDATA[alle anzeigen]]></value>
+</replacements>
+<replacements id="207">
+<replacement>LBLA_SHOWCUSTOMERS</replacement>
+	<value><![CDATA[Kunden]]></value>
+</replacements>
+<replacements id="208">
+<replacement>LBLA_STANDARDGROUP</replacement>
+	<value><![CDATA[Standard Gruppe]]></value>
+</replacements>
+<replacements id="209">
+<replacement>LBLA_STATISTIC</replacement>
+	<value><![CDATA[Statistik]]></value>
+</replacements>
+<replacements id="210">
+<replacement>LBLA_STOPPNEWS</replacement>
+	<value><![CDATA[Das Senden des Newsletters wird verweigert.]]></value>
+</replacements>
+<replacements id="211">
+<replacement>LBLA_SUBJECT</replacement>
+	<value><![CDATA[Betreff:]]></value>
+</replacements>
+<replacements id="212">
+<replacement>LBLA_TITLE</replacement>
+	<value><![CDATA[Titel]]></value>
+</replacements>
+<replacements id="213">
+<replacement>LBLA_TITLE_LINK</replacement>
+	<value><![CDATA[Titel in der Menüstruktur]]></value>
+</replacements>
+<replacements id="214">
+<replacement>LBLA_TRACKINGINFO</replacement>
+	<value><![CDATA[Tracking des Newsletter (kann nur bei Newslettern in HTML verwendet werden)]]></value>
+</replacements>
+<replacements id="215">
+<replacement>LBLA_TRANSLATION</replacement>
+	<value><![CDATA[Übersetzungen (basic)]]></value>
+</replacements>
+<replacements id="216">
+<replacement>LBLA_TRANSLATION_ADMIN</replacement>
+	<value><![CDATA[Übersetzungen Admin]]></value>
+</replacements>
+<replacements id="217">
+<replacement>LBLA_TRANSLATION_CUST</replacement>
+	<value><![CDATA[Übersetzungen (individuell)]]></value>
+</replacements>
+<replacements id="218">
+<replacement>LBLA_UNCHECKALL</replacement>
+	<value><![CDATA[alle demarkieren]]></value>
+</replacements>
+<replacements id="219">
+<replacement>LBLA_UPDATE_DONE</replacement>
+	<value><![CDATA[Aktualisierung durchgeführt]]></value>
+</replacements>
+<replacements id="220">
+<replacement>LBLA_USFORALLANG</replacement>
+	<value><![CDATA[Dieses Template für alle Sprachen verwenden]]></value>
+</replacements>
+<replacements id="221">
+<replacement>LBLA_WARNINGS</replacement>
+	<value><![CDATA[Warnungen]]></value>
+</replacements>
+<replacements id="222">
+<replacement>LBLA_WEBEXPLORER</replacement>
+	<value><![CDATA[Web Explorer]]></value>
+</replacements>
+<replacements id="223">
+<replacement>LBLA_WEBSPACE</replacement>
+	<value><![CDATA[Allg. Webspace]]></value>
+</replacements>
+<replacements id="224">
+<replacement>LBLA_YES</replacement>
+	<value><![CDATA[Ja]]></value>
+</replacements>
+<replacements id="225">
+<replacement>LBLNOT_DELETED</replacement>
+	<value><![CDATA[Nicht gelöscht.]]></value>
+</replacements>
+<replacements id="226">
+<replacement>LBL_ABOINUSE</replacement>
+	<value><![CDATA[Es besteht noch ein Abo Vertrag.]]></value>
+</replacements>
+<replacements id="227">
+<replacement>LBL_ACCESSTO</replacement>
+	<value><![CDATA[Zugriff auf]]></value>
+</replacements>
+<replacements id="228">
+<replacement>LBL_ACTIONS</replacement>
+	<value><![CDATA[Aktion]]></value>
+</replacements>
+<replacements id="229">
+<replacement>LBL_ADD</replacement>
+	<value><![CDATA[Hinzufügen]]></value>
+</replacements>
+<replacements id="230">
+<replacement>LBL_ADDCOLLECTION</replacement>
+	<value><![CDATA[Kollektion hinzufügen]]></value>
+</replacements>
+<replacements id="231">
+<replacement>LBL_ADDGAL</replacement>
+	<value><![CDATA[Bitte legen Sie erst ein Album an.]]></value>
+</replacements>
+<replacements id="232">
+<replacement>LBL_ADDGROUP</replacement>
+	<value><![CDATA[Bereich hinzugfügen]]></value>
+</replacements>
+<replacements id="233">
+<replacement>LBL_ADDTRANSLATION</replacement>
+	<value><![CDATA[Übersetzung hinzufügen]]></value>
+</replacements>
+<replacements id="234">
+<replacement>LBL_ADD_APPOINT</replacement>
+	<value><![CDATA[Termin hinzufügen]]></value>
+</replacements>
+<replacements id="235">
+<replacement>LBL_ADD_GROUP</replacement>
+	<value><![CDATA[Gruppe hinzufügen]]></value>
+</replacements>
+<replacements id="236">
+<replacement>LBL_ADD_LANGUAGE</replacement>
+	<value><![CDATA[Sprache hinzufügen]]></value>
+</replacements>
+<replacements id="237">
+<replacement>LBL_ADD_OTDATE</replacement>
+	<value><![CDATA[Neuer Termin für den]]></value>
+</replacements>
+<replacements id="238">
+<replacement>LBL_ADD_REGION</replacement>
+	<value><![CDATA[Region hinzufügen]]></value>
+</replacements>
+<replacements id="239">
+<replacement>LBL_ADD_ROLE</replacement>
+	<value><![CDATA[Rolle hinzufügen]]></value>
+</replacements>
+<replacements id="240">
+<replacement>LBL_ADMINDESC</replacement>
+	<value><![CDATA[Admin. Bezeichnung]]></value>
+</replacements>
+<replacements id="241">
+<replacement>LBL_ADMINISTRATORS</replacement>
+	<value><![CDATA[Super Admin]]></value>
+</replacements>
+<replacements id="242">
+<replacement>LBL_ADMINWORKON</replacement>
+	<value><![CDATA[letzte administrative Bearbeitung durch]]></value>
+</replacements>
+<replacements id="243">
+<replacement>LBL_ALBUMFOTO</replacement>
+	<value><![CDATA[Title-Foto für dieses Album]]></value>
+</replacements>
+<replacements id="244">
+<replacement>LBL_ALL</replacement>
+	<value><![CDATA[alle]]></value>
+</replacements>
+<replacements id="245">
+<replacement>LBL_ALLDATALOST</replacement>
+	<value><![CDATA[Alle Mitgliedsdaten gehen verloren.]]></value>
+</replacements>
+<replacements id="246">
+<replacement>LBL_ALLFILESDELETED</replacement>
+	<value><![CDATA[Sämtliche Dateien und Unterverzeichnisse werden gelöscht. Fortfahren?]]></value>
+</replacements>
+<replacements id="247">
+<replacement>LBL_ALREADYEXISTS</replacement>
+	<value><![CDATA[existiert bereits]]></value>
+</replacements>
+<replacements id="248">
+<replacement>LBL_ARBEITSZEITEN</replacement>
+	<value><![CDATA[Arbeitszeiten]]></value>
+</replacements>
+<replacements id="249">
+<replacement>LBL_ARCHIVE</replacement>
+	<value><![CDATA[archivieren]]></value>
+</replacements>
+<replacements id="250">
+<replacement>LBL_ARTICLECONTENT</replacement>
+	<value><![CDATA[Artikel Verzeichnis]]></value>
+</replacements>
+<replacements id="251">
+<replacement>LBL_ARTICLES</replacement>
+	<value><![CDATA[Artikel]]></value>
+</replacements>
+<replacements id="252">
+<replacement>LBL_ARTICLESCONF</replacement>
+	<value><![CDATA[Konfiguration]]></value>
+</replacements>
+<replacements id="253">
+<replacement>LBL_ARTICLESGROUPS</replacement>
+	<value><![CDATA[Verzeichnis]]></value>
+</replacements>
+<replacements id="254">
+<replacement>LBL_ASC</replacement>
+	<value><![CDATA[aufsteigend]]></value>
+</replacements>
+<replacements id="255">
+<replacement>LBL_AUTHOR</replacement>
+	<value><![CDATA[Author]]></value>
+</replacements>
+<replacements id="256">
+<replacement>LBL_BACKTOPAGE</replacement>
+	<value><![CDATA[Zurück zur Seitenbearbeitung]]></value>
+</replacements>
+<replacements id="257">
+<replacement>LBL_BACKTOROOT</replacement>
+	<value><![CDATA[Zurück ins Hauptverzeichnis]]></value>
+</replacements>
+<replacements id="258">
+<replacement>LBL_BASEDON</replacement>
+	<value><![CDATA[basierend auf]]></value>
+</replacements>
+<replacements id="259">
+<replacement>LBL_BEREICH</replacement>
+	<value><![CDATA[Bereich]]></value>
+</replacements>
+<replacements id="260">
+<replacement>LBL_BLOGADMININFO</replacement>
+	<value><![CDATA[Klicken Sie auf den "GO" Button, um in die Administration Ihres Blogs zu gelangen]]></value>
+</replacements>
+<replacements id="261">
+<replacement>LBL_BTN_REFRESH</replacement>
+	<value><![CDATA[Anzeigen]]></value>
+</replacements>
+<replacements id="262">
+<replacement>LBL_CALENDAR</replacement>
+	<value><![CDATA[Terminkalender]]></value>
+</replacements>
+<replacements id="263">
+<replacement>LBL_CALGROUPS</replacement>
+	<value><![CDATA[Kalender Themen]]></value>
+</replacements>
+<replacements id="264">
+<replacement>LBL_CALTHEME</replacement>
+	<value><![CDATA[Kalender Thema]]></value>
+</replacements>
+<replacements id="265">
+<replacement>LBL_CANNOTDEL</replacement>
+	<value><![CDATA[Kann nicht gelöscht werden]]></value>
+</replacements>
+<replacements id="266">
+<replacement>LBL_CATEGORY</replacement>
+	<value><![CDATA[Kategorie]]></value>
+</replacements>
+<replacements id="267">
+<replacement>LBL_CFCHECKBOX</replacement>
+	<value><![CDATA[Checkbox]]></value>
+</replacements>
+<replacements id="268">
+<replacement>LBL_CFDATE</replacement>
+	<value><![CDATA[Datum]]></value>
+</replacements>
+<replacements id="269">
+<replacement>LBL_CFDECIMAL</replacement>
+	<value><![CDATA[Dezimalzahl]]></value>
+</replacements>
+<replacements id="270">
+<replacement>LBL_CFDUTY</replacement>
+	<value><![CDATA[Pflichtfeld]]></value>
+</replacements>
+<replacements id="271">
+<replacement>LBL_CFINPUTJOKER</replacement>
+	<value><![CDATA[Joker]]></value>
+</replacements>
+<replacements id="272">
+<replacement>LBL_CFLABEL</replacement>
+	<value><![CDATA[Feldname]]></value>
+</replacements>
+<replacements id="273">
+<replacement>LBL_CFLIST</replacement>
+	<value><![CDATA[Liste]]></value>
+</replacements>
+<replacements id="274">
+<replacement>LBL_CFNAME</replacement>
+	<value><![CDATA[Feldbez.]]></value>
+</replacements>
+<replacements id="275">
+<replacement>LBL_CFNUMERIC</replacement>
+	<value><![CDATA[Zahl]]></value>
+</replacements>
+<replacements id="276">
+<replacement>LBL_CFRADIOBUTTON</replacement>
+	<value><![CDATA[Radiobutton]]></value>
+</replacements>
+<replacements id="277">
+<replacement>LBL_CFSEARCH</replacement>
+	<value><![CDATA[durchsuchbar]]></value>
+</replacements>
+<replacements id="278">
+<replacement>LBL_CFSELECT</replacement>
+	<value><![CDATA[Auswahl]]></value>
+</replacements>
+<replacements id="279">
+<replacement>LBL_CFSTRING</replacement>
+	<value><![CDATA[Kurzer Text]]></value>
+</replacements>
+<replacements id="280">
+<replacement>LBL_CFTEXT</replacement>
+	<value><![CDATA[Langer Text]]></value>
+</replacements>
+<replacements id="281">
+<replacement>LBL_CFTYPES</replacement>
+	<value><![CDATA[Typ]]></value>
+</replacements>
+<replacements id="282">
+<replacement>LBL_CFVERIFY</replacement>
+	<value><![CDATA[überprüfen]]></value>
+</replacements>
+<replacements id="283">
+<replacement>LBL_CHOOSEAREAS</replacement>
+	<value><![CDATA[Zugriff auf folgende Bereiche gewähren]]></value>
+</replacements>
+<replacements id="284">
+<replacement>LBL_CLONE</replacement>
+	<value><![CDATA[Element kopieren]]></value>
+</replacements>
+<replacements id="285">
+<replacement>LBL_CLOSEALL</replacement>
+	<value><![CDATA[alle schließen]]></value>
+</replacements>
+<replacements id="286">
+<replacement>LBL_COLLECTIONS</replacement>
+	<value><![CDATA[Kollektionen]]></value>
+</replacements>
+<replacements id="287">
+<replacement>LBL_COMMENT_CU</replacement>
+	<value><![CDATA[Kunde Kommentar]]></value>
+</replacements>
+<replacements id="288">
+<replacement>LBL_COMMENT_MA</replacement>
+	<value><![CDATA[Mitarbeiter Kommentare]]></value>
+</replacements>
+<replacements id="289">
+<replacement>LBL_COMPANIES</replacement>
+	<value><![CDATA[Firmen]]></value>
+</replacements>
+<replacements id="290">
+<replacement>LBL_COMPANY</replacement>
+	<value><![CDATA[Firma]]></value>
+</replacements>
+<replacements id="291">
+<replacement>LBL_CONFIG</replacement>
+	<value><![CDATA[Konfiguration]]></value>
+</replacements>
+<replacements id="292">
+<replacement>LBL_CONFIGURATION</replacement>
+	<value><![CDATA[Konfiguartion]]></value>
+</replacements>
+<replacements id="293">
+<replacement>LBL_CONFIRM</replacement>
+	<value><![CDATA[Sind Sie sicher?]]></value>
+</replacements>
+<replacements id="294">
+<replacement>LBL_CONFIRM_LNGDELETE</replacement>
+	<value><![CDATA[WARNUNG!!! Alle sprachenabhängige Inhalte von dieser Sprache werden gelöscht.]]></value>
+</replacements>
+<replacements id="295">
+<replacement>LBL_CONTACT</replacement>
+	<value><![CDATA[Kontakt Formular]]></value>
+</replacements>
+<replacements id="296">
+<replacement>LBL_CONTENT</replacement>
+	<value><![CDATA[Inhalt]]></value>
+</replacements>
+<replacements id="297">
+<replacement>LBL_CONTENTPAGE</replacement>
+	<value><![CDATA[Normaler Webinhalt]]></value>
+</replacements>
+<replacements id="298">
+<replacement>LBL_CONTENTPAGES</replacement>
+	<value><![CDATA[Seiten Manager]]></value>
+</replacements>
+<replacements id="299">
+<replacement>LBL_CONTENTSITES</replacement>
+	<value><![CDATA[Webinhalte]]></value>
+</replacements>
+<replacements id="300">
+<replacement>LBL_CORREKTROOT</replacement>
+	<value><![CDATA[ACHTUNG! Achten Sie darauf, dass Sie bei der Einbindung von Medien die gesamte URL zur Datei angeben. Z.B.: http://ihredomain.de/images/logo.jpg]]></value>
+</replacements>
+<replacements id="301">
+<replacement>LBL_COUNT</replacement>
+	<value><![CDATA[Anzahl]]></value>
+</replacements>
+<replacements id="302">
+<replacement>LBL_COUNTFOTOSGAL</replacement>
+	<value><![CDATA[Anzahl Foto-Preview (Gallery)]]></value>
+</replacements>
+<replacements id="303">
+<replacement>LBL_COUNTMETAKEYS</replacement>
+	<value><![CDATA[Anzahl Metakeywords pro Seite]]></value>
+</replacements>
+<replacements id="304">
+<replacement>LBL_COUNTRIES</replacement>
+	<value><![CDATA[Länder]]></value>
+</replacements>
+<replacements id="305">
+<replacement>LBL_COUNTRY</replacement>
+	<value><![CDATA[Land]]></value>
+</replacements>
+<replacements id="306">
+<replacement>LBL_CREATE</replacement>
+	<value><![CDATA[anlegen]]></value>
+</replacements>
+<replacements id="307">
+<replacement>LBL_CREATEDIR</replacement>
+	<value><![CDATA[Verzeichnis anlegen]]></value>
+</replacements>
+<replacements id="308">
+<replacement>LBL_CUSTOMER</replacement>
+	<value><![CDATA[Kunde]]></value>
+</replacements>
+<replacements id="309">
+<replacement>LBL_CUSTOMERCOUNT</replacement>
+	<value><![CDATA[Kunden Anzahl]]></value>
+</replacements>
+<replacements id="310">
+<replacement>LBL_CUSTOMERMANAGER</replacement>
+	<value><![CDATA[Mitgliederverwaltung]]></value>
+</replacements>
+<replacements id="311">
+<replacement>LBL_CUSTOMERS</replacement>
+	<value><![CDATA[Kunden]]></value>
+</replacements>
+<replacements id="312">
+<replacement>LBL_CUSTOMFIELDS</replacement>
+	<value><![CDATA[Kunden Felder]]></value>
+</replacements>
+<replacements id="313">
+<replacement>LBL_DATE</replacement>
+	<value><![CDATA[Datum]]></value>
+</replacements>
+<replacements id="314">
+<replacement>LBL_DBSIZE</replacement>
+	<value><![CDATA[Datenbankgröße]]></value>
+</replacements>
+<replacements id="315">
+<replacement>LBL_DC_EXPLORER</replacement>
+	<value><![CDATA[Explorer]]></value>
+</replacements>
+<replacements id="316">
+<replacement>LBL_DC_MANAGEDFILES</replacement>
+	<value><![CDATA[Verwaltung]]></value>
+</replacements>
+<replacements id="317">
+<replacement>LBL_DC_SYNCFILES</replacement>
+	<value><![CDATA[Dateien synchronisieren]]></value>
+</replacements>
+<replacements id="318">
+<replacement>LBL_DELETE</replacement>
+	<value><![CDATA[löschen]]></value>
+</replacements>
+<replacements id="319">
+<replacement>LBL_DELETED</replacement>
+	<value><![CDATA[gelöscht]]></value>
+</replacements>
+<replacements id="320">
+<replacement>LBL_DESC</replacement>
+	<value><![CDATA[absteigend]]></value>
+</replacements>
+<replacements id="321">
+<replacement>LBL_DESCRIPTION</replacement>
+	<value><![CDATA[Beschreibung]]></value>
+</replacements>
+<replacements id="322">
+<replacement>LBL_DIRECTORY</replacement>
+	<value><![CDATA[Verzeichnis]]></value>
+</replacements>
+<replacements id="323">
+<replacement>LBL_DONE</replacement>
+	<value><![CDATA[erfolgreich abgeschlossen]]></value>
+</replacements>
+<replacements id="324">
+<replacement>LBL_DOWNLOADALLMISSLNG</replacement>
+	<value><![CDATA[Alle fehlende Sprachdateien importieren]]></value>
+</replacements>
+<replacements id="325">
+<replacement>LBL_DOWNLOADALLMISSLNGJOKERS</replacement>
+	<value><![CDATA[Fehlende Übersetzungen importieren]]></value>
+</replacements>
+<replacements id="326">
+<replacement>LBL_DOWNLOADCENTER</replacement>
+	<value><![CDATA[Dokumenten Center]]></value>
+</replacements>
+<replacements id="327">
+<replacement>LBL_DOWNLOADLINK</replacement>
+	<value><![CDATA[Download-Link]]></value>
+</replacements>
+<replacements id="328">
+<replacement>LBL_DOWNLOADS</replacement>
+	<value><![CDATA[Downloads]]></value>
+</replacements>
+<replacements id="329">
+<replacement>LBL_DURATION</replacement>
+	<value><![CDATA[Dauer in Stunden]]></value>
+</replacements>
+<replacements id="330">
+<replacement>LBL_EDIT</replacement>
+	<value><![CDATA[bearbeiten]]></value>
+</replacements>
+<replacements id="331">
+<replacement>LBL_EDITFOTOS</replacement>
+	<value><![CDATA[Fotos bearbeiten]]></value>
+</replacements>
+<replacements id="332">
+<replacement>LBL_EDIT_APPOINT</replacement>
+	<value><![CDATA[Termin bearbeiten]]></value>
+</replacements>
+<replacements id="333">
+<replacement>LBL_EMAIL</replacement>
+	<value><![CDATA[Email]]></value>
+</replacements>
+<replacements id="334">
+<replacement>LBL_EMAILCOPY</replacement>
+	<value><![CDATA[erhält Kopie von bestimmten Emails:(z.B. Registrierungsemails)]]></value>
+</replacements>
+<replacements id="335">
+<replacement>LBL_EMAILERHALTEN</replacement>
+	<value><![CDATA[Email gesendet]]></value>
+</replacements>
+<replacements id="336">
+<replacement>LBL_EMPLOYEE</replacement>
+	<value><![CDATA[Mitarbeiter]]></value>
+</replacements>
+<replacements id="337">
+<replacement>LBL_EMPLOYEELOG</replacement>
+	<value><![CDATA[System Log]]></value>
+</replacements>
+<replacements id="338">
+<replacement>LBL_EMPLOYEES</replacement>
+	<value><![CDATA[Mitarbeiter]]></value>
+</replacements>
+<replacements id="339">
+<replacement>LBL_EXEC</replacement>
+	<value><![CDATA[ausführen]]></value>
+</replacements>
+<replacements id="340">
+<replacement>LBL_FDR</replacement>
+	<value><![CDATA[Frau Dr.]]></value>
+</replacements>
+<replacements id="341">
+<replacement>LBL_FEEDBACK</replacement>
+	<value><![CDATA[Feedback Formular]]></value>
+</replacements>
+<replacements id="342">
+<replacement>LBL_FEEDBACKS</replacement>
+	<value><![CDATA[Feedbacks]]></value>
+</replacements>
+<replacements id="343">
+<replacement>LBL_FIELDNAME</replacement>
+	<value><![CDATA[Feldname]]></value>
+</replacements>
+<replacements id="344">
+<replacement>LBL_FIELDTYPE</replacement>
+	<value><![CDATA[Feld Typ]]></value>
+</replacements>
+<replacements id="345">
+<replacement>LBL_FILE</replacement>
+	<value><![CDATA[Datei]]></value>
+</replacements>
+<replacements id="346">
+<replacement>LBL_FILES</replacement>
+	<value><![CDATA[Dateien]]></value>
+</replacements>
+<replacements id="347">
+<replacement>LBL_FILESDELETED</replacement>
+	<value><![CDATA[Dateien gelöscht]]></value>
+</replacements>
+<replacements id="348">
+<replacement>LBL_FILESIZE</replacement>
+	<value><![CDATA[Dateigröße]]></value>
+</replacements>
+<replacements id="349">
+<replacement>LBL_FILES_NOTFOUND</replacement>
+	<value><![CDATA[Keine Dateien gefunden]]></value>
+</replacements>
+<replacements id="350">
+<replacement>LBL_FIRMA</replacement>
+	<value><![CDATA[Firma]]></value>
+</replacements>
+<replacements id="351">
+<replacement>LBL_FIRSTNAME</replacement>
+	<value><![CDATA[Vorname]]></value>
+</replacements>
+<replacements id="352">
+<replacement>LBL_FIRSTPAGE</replacement>
+	<value><![CDATA[Einstiegsseite]]></value>
+</replacements>
+<replacements id="353">
+<replacement>LBL_FLAG</replacement>
+	<value><![CDATA[Flagge]]></value>
+</replacements>
+<replacements id="354">
+<replacement>LBL_FORUM</replacement>
+	<value><![CDATA[Forum]]></value>
+</replacements>
+<replacements id="355">
+<replacement>LBL_FOTOALBUM</replacement>
+	<value><![CDATA[Foto Album]]></value>
+</replacements>
+<replacements id="356">
+<replacement>LBL_FOTOALBUMS</replacement>
+	<value><![CDATA[Foto Alben]]></value>
+</replacements>
+<replacements id="357">
+<replacement>LBL_FOUND</replacement>
+	<value><![CDATA[Gefunden:]]></value>
+</replacements>
+<replacements id="358">
+<replacement>LBL_FPROF</replacement>
+	<value><![CDATA[Frau Prof.]]></value>
+</replacements>
+<replacements id="359">
+<replacement>LBL_FPROFDR</replacement>
+	<value><![CDATA[Frau Prof. Dr.]]></value>
+</replacements>
+<replacements id="360">
+<replacement>LBL_FRAU</replacement>
+	<value><![CDATA[Frau]]></value>
+</replacements>
+<replacements id="361">
+<replacement>LBL_FROM</replacement>
+	<value><![CDATA[Von]]></value>
+</replacements>
+<replacements id="362">
+<replacement>LBL_FULLACCESS</replacement>
+	<value><![CDATA[VOLLZUGRIFF]]></value>
+</replacements>
+<replacements id="363">
+<replacement>LBL_GALERIE</replacement>
+	<value><![CDATA[Galerie]]></value>
+</replacements>
+<replacements id="364">
+<replacement>LBL_GALLERY</replacement>
+	<value><![CDATA[Galerie]]></value>
+</replacements>
+<replacements id="365">
+<replacement>LBL_GALPICUTRE</replacement>
+	<value><![CDATA[Galerie Vorschaubild]]></value>
+</replacements>
+<replacements id="366">
+<replacement>LBL_GAL_CROP</replacement>
+	<value><![CDATA[Bildausschnitt]]></value>
+</replacements>
+<replacements id="367">
+<replacement>LBL_GAL_RESIZE</replacement>
+	<value><![CDATA[verkleinern 1zu1]]></value>
+</replacements>
+<replacements id="368">
+<replacement>LBL_GAL_ROUNDCORNER</replacement>
+	<value><![CDATA[runde Ecken]]></value>
+</replacements>
+<replacements id="369">
+<replacement>LBL_GBLLANGTRANS</replacement>
+	<value><![CDATA[Allgemeine Übersetzungen]]></value>
+</replacements>
+<replacements id="370">
+<replacement>LBL_GOLIVE_EVENTS</replacement>
+	<value><![CDATA[WebCam - GO LIVE]]></value>
+</replacements>
+<replacements id="371">
+<replacement>LBL_GROUP</replacement>
+	<value><![CDATA[Gruppe]]></value>
+</replacements>
+<replacements id="372">
+<replacement>LBL_GROUPNAME</replacement>
+	<value><![CDATA[Gruppenname]]></value>
+</replacements>
+<replacements id="373">
+<replacement>LBL_GROUPS</replacement>
+	<value><![CDATA[Gruppen]]></value>
+</replacements>
+<replacements id="374">
+<replacement>LBL_GROUP_POLICIES</replacement>
+	<value><![CDATA[Gruppenrichtlinien]]></value>
+</replacements>
+<replacements id="375">
+<replacement>LBL_HASSUBCONTENT</replacement>
+	<value><![CDATA[beinhaltet Subcontent]]></value>
+</replacements>
+<replacements id="376">
+<replacement>LBL_HDR</replacement>
+	<value><![CDATA[Herr Dr.]]></value>
+</replacements>
+<replacements id="377">
+<replacement>LBL_HEADER_THEME_IMAGE</replacement>
+	<value><![CDATA[Theme Bild]]></value>
+</replacements>
+<replacements id="378">
+<replacement>LBL_HEIGHT</replacement>
+	<value><![CDATA[Höhe]]></value>
+</replacements>
+<replacements id="379">
+<replacement>LBL_HERR</replacement>
+	<value><![CDATA[Herr]]></value>
+</replacements>
+<replacements id="380">
+<replacement>LBL_HEUTE</replacement>
+	<value><![CDATA[HEUTE]]></value>
+</replacements>
+<replacements id="381">
+<replacement>LBL_HITS</replacement>
+	<value><![CDATA[Downloads]]></value>
+</replacements>
+<replacements id="382">
+<replacement>LBL_HPROF</replacement>
+	<value><![CDATA[Herr Prof.]]></value>
+</replacements>
+<replacements id="383">
+<replacement>LBL_HPROFDR</replacement>
+	<value><![CDATA[Herr Prof. Dr.]]></value>
+</replacements>
+<replacements id="384">
+<replacement>LBL_HTADELIMETER</replacement>
+	<value><![CDATA[Trenner]]></value>
+</replacements>
+<replacements id="385">
+<replacement>LBL_HTADESCRIPTION</replacement>
+	<value><![CDATA[Beschreibung]]></value>
+</replacements>
+<replacements id="386">
+<replacement>LBL_HTAPREFIX</replacement>
+	<value><![CDATA[Prefix]]></value>
+</replacements>
+<replacements id="387">
+<replacement>LBL_IMPORT</replacement>
+	<value><![CDATA[import]]></value>
+</replacements>
+<replacements id="388">
+<replacement>LBL_IMPORTED</replacement>
+	<value><![CDATA[importiert]]></value>
+</replacements>
+<replacements id="389">
+<replacement>LBL_INCLUDEDMENUSTRUCTURE</replacement>
+	<value><![CDATA[aktive Menüstruktur]]></value>
+</replacements>
+<replacements id="390">
+<replacement>LBL_INLAYCOUNT</replacement>
+	<value><![CDATA[Inlay Anzahl]]></value>
+</replacements>
+<replacements id="391">
+<replacement>LBL_INLAYPUBLISHED</replacement>
+	<value><![CDATA[Aktiv]]></value>
+</replacements>
+<replacements id="392">
+<replacement>LBL_INSERTCAP</replacement>
+	<value><![CDATA[Neu anlegen]]></value>
+</replacements>
+<replacements id="393">
+<replacement>LBL_INSERTNEW</replacement>
+	<value><![CDATA[Neu anlegen]]></value>
+</replacements>
+<replacements id="394">
+<replacement>LBL_INSTALLHEADERBAR</replacement>
+	<value><![CDATA[Top-Level Navigationsleiste Hintergrundbild installieren]]></value>
+</replacements>
+<replacements id="395">
+<replacement>LBL_INSTALLHEADERLOGO</replacement>
+	<value><![CDATA[Header-Logo installieren]]></value>
+</replacements>
+<replacements id="396">
+<replacement>LBL_INTRODUCTION</replacement>
+	<value><![CDATA[Einleitung]]></value>
+</replacements>
+<replacements id="397">
+<replacement>LBL_INTROSITEACTIVE</replacement>
+	<value><![CDATA[Intro-Seite aktivieren]]></value>
+</replacements>
+<replacements id="398">
+<replacement>LBL_INUSE</replacement>
+	<value><![CDATA[in Benutzung]]></value>
+</replacements>
+<replacements id="399">
+<replacement>LBL_INVALIDFILE</replacement>
+	<value><![CDATA[ungültige Datei]]></value>
+</replacements>
+<replacements id="400">
+<replacement>LBL_ITEMS</replacement>
+	<value><![CDATA[Einträge]]></value>
+</replacements>
+<replacements id="401">
+<replacement>LBL_JSMODULE</replacement>
+	<value><![CDATA[JavaS Plugins]]></value>
+</replacements>
+<replacements id="402">
+<replacement>LBL_KALENDER</replacement>
+	<value><![CDATA[Kalender]]></value>
+</replacements>
+<replacements id="403">
+<replacement>LBL_LANGUAGE</replacement>
+	<value><![CDATA[Sprache]]></value>
+</replacements>
+<replacements id="404">
+<replacement>LBL_LANGUAGEPACKFILE</replacement>
+	<value><![CDATA[Sprachpacket]]></value>
+</replacements>
+<replacements id="405">
+<replacement>LBL_LANGUAGES</replacement>
+	<value><![CDATA[Sprachen]]></value>
+</replacements>
+<replacements id="406">
+<replacement>LBL_LASTNAME</replacement>
+	<value><![CDATA[Nachname]]></value>
+</replacements>
+<replacements id="407">
+<replacement>LBL_LAST_500</replacement>
+	<value><![CDATA[Letzten 500 Kunden]]></value>
+</replacements>
+<replacements id="408">
+<replacement>LBL_LINKEDITOR</replacement>
+	<value><![CDATA[Link Darstellung]]></value>
+</replacements>
+<replacements id="409">
+<replacement>LBL_LINKLABEL</replacement>
+	<value><![CDATA[Menü Linkname:]]></value>
+</replacements>
+<replacements id="410">
+<replacement>LBL_LINKS</replacement>
+	<value><![CDATA[Linkliste]]></value>
+</replacements>
+<replacements id="411">
+<replacement>LBL_LISTLANG</replacement>
+	<value><![CDATA[Sprachen]]></value>
+</replacements>
+<replacements id="412">
+<replacement>LBL_LNGENGLISH</replacement>
+	<value><![CDATA[Englisch]]></value>
+</replacements>
+<replacements id="413">
+<replacement>LBL_LNGGERMAN</replacement>
+	<value><![CDATA[Deutsch]]></value>
+</replacements>
+<replacements id="414">
+<replacement>LBL_LNGSPAIN</replacement>
+	<value><![CDATA[Spanisch]]></value>
+</replacements>
+<replacements id="415">
+<replacement>LBL_LOGOUT</replacement>
+	<value><![CDATA[Abmelden]]></value>
+</replacements>
+<replacements id="416">
+<replacement>LBL_MANAGER</replacement>
+	<value><![CDATA[Verwaltung]]></value>
+</replacements>
+<replacements id="417">
+<replacement>LBL_MANAGING</replacement>
+	<value><![CDATA[Verwaltung]]></value>
+</replacements>
+<replacements id="418">
+<replacement>LBL_MARKEDFILES</replacement>
+	<value><![CDATA[markierte Dateien]]></value>
+</replacements>
+<replacements id="419">
+<replacement>LBL_MASTER_ROLE</replacement>
+	<value><![CDATA[Master-Rolle]]></value>
+</replacements>
+<replacements id="420">
+<replacement>LBL_MAXLENGTHDESC</replacement>
+	<value><![CDATA[Max. Länge der Meta-Description pro Seite]]></value>
+</replacements>
+<replacements id="421">
+<replacement>LBL_MAXPAGESREACHED</replacement>
+	<value><![CDATA[max. Anzahl anlegbarer Seiten erreicht]]></value>
+</replacements>
+<replacements id="422">
+<replacement>LBL_MEMBER</replacement>
+	<value><![CDATA[Kunde]]></value>
+</replacements>
+<replacements id="423">
+<replacement>LBL_MEMSELECTIONS</replacement>
+	<value><![CDATA[Kunden Bereiche]]></value>
+</replacements>
+<replacements id="424">
+<replacement>LBL_MENUPOSITIONSYMBOL</replacement>
+	<value><![CDATA[Menüpositionsanzeiger (Trenner)]]></value>
+</replacements>
+<replacements id="425">
+<replacement>LBL_MESSAGE</replacement>
+	<value><![CDATA[Nachricht]]></value>
+</replacements>
+<replacements id="426">
+<replacement>LBL_MOBILEPHONE</replacement>
+	<value><![CDATA[Handy]]></value>
+</replacements>
+<replacements id="427">
+<replacement>LBL_MODULESTRANS</replacement>
+	<value><![CDATA[Module Übersetzungen]]></value>
+</replacements>
+<replacements id="428">
+<replacement>LBL_MODULE_TYP</replacement>
+	<value><![CDATA[Seiten Typ]]></value>
+</replacements>
+<replacements id="429">
+<replacement>LBL_NAVBAR</replacement>
+	<value><![CDATA[Navigationsleiste]]></value>
+</replacements>
+<replacements id="430">
+<replacement>LBL_NEW</replacement>
+	<value><![CDATA[neu anlegen]]></value>
+</replacements>
+<replacements id="431">
+<replacement>LBL_NEWCFENTRY</replacement>
+	<value><![CDATA[neues Feld anlegen]]></value>
+</replacements>
+<replacements id="432">
+<replacement>LBL_NEWCOLLECTION</replacement>
+	<value><![CDATA[Neue Kollektion]]></value>
+</replacements>
+<replacements id="433">
+<replacement>LBL_NEWJOKER</replacement>
+	<value><![CDATA[Joker]]></value>
+</replacements>
+<replacements id="434">
+<replacement>LBL_NEWS</replacement>
+	<value><![CDATA[Neuigkeiten]]></value>
+</replacements>
+<replacements id="435">
+<replacement>LBL_NEWSECTION</replacement>
+	<value><![CDATA[Neuer Bereich]]></value>
+</replacements>
+<replacements id="436">
+<replacement>LBL_NEWSGROUPS</replacement>
+	<value><![CDATA[News Gruppen]]></value>
+</replacements>
+<replacements id="437">
+<replacement>LBL_NEWSISVISINGROUPS</replacement>
+	<value><![CDATA[veröffentlicht in]]></value>
+</replacements>
+<replacements id="438">
+<replacement>LBL_NEWSLIST</replacement>
+	<value><![CDATA[News Manager]]></value>
+</replacements>
+<replacements id="439">
+<replacement>LBL_NEWSTABLE</replacement>
+	<value><![CDATA[News Auflistung]]></value>
+</replacements>
+<replacements id="440">
+<replacement>LBL_NEW_ADMIN</replacement>
+	<value><![CDATA[Neuer Mitarbeiter]]></value>
+</replacements>
+<replacements id="441">
+<replacement>LBL_NEW_GROUP</replacement>
+	<value><![CDATA[Neue Gruppe]]></value>
+</replacements>
+<replacements id="442">
+<replacement>LBL_NEW_NEWS</replacement>
+	<value><![CDATA[neue News]]></value>
+</replacements>
+<replacements id="443">
+<replacement>LBL_NEXT</replacement>
+	<value><![CDATA[weiter]]></value>
+</replacements>
+<replacements id="444">
+<replacement>LBL_NEXT_PIC</replacement>
+	<value><![CDATA[nächstes Foto]]></value>
+</replacements>
+<replacements id="445">
+<replacement>LBL_NO</replacement>
+	<value><![CDATA[Nein]]></value>
+</replacements>
+<replacements id="446">
+<replacement>LBL_NOENTRIES</replacement>
+	<value><![CDATA[Keine Einträge]]></value>
+</replacements>
+<replacements id="447">
+<replacement>LBL_NOGREENHOOK</replacement>
+	<value><![CDATA[Seite wurde noch nicht für das Menü freigegeben]]></value>
+</replacements>
+<replacements id="448">
+<replacement>LBL_NOGROUPS</replacement>
+	<value><![CDATA[Keine Gruppen gefunden]]></value>
+</replacements>
+<replacements id="449">
+<replacement>LBL_NOITEMS</replacement>
+	<value><![CDATA[Keine Einträge]]></value>
+</replacements>
+<replacements id="450">
+<replacement>LBL_NONEWSLETTER</replacement>
+	<value><![CDATA[Newsletter deaktiviert]]></value>
+</replacements>
+<replacements id="451">
+<replacement>LBL_NOPICUTREGIVEN</replacement>
+	<value><![CDATA[Kein Bild ausgewählt]]></value>
+</replacements>
+<replacements id="452">
+<replacement>LBL_NORELATION</replacement>
+	<value><![CDATA[Keine Zuordnung]]></value>
+</replacements>
+<replacements id="453">
+<replacement>LBL_NOSELECTION</replacement>
+	<value><![CDATA[- Keine Auswahl -]]></value>
+</replacements>
+<replacements id="454">
+<replacement>LBL_NOTDELETED</replacement>
+	<value><![CDATA[nicht gelöscht]]></value>
+</replacements>
+<replacements id="455">
+<replacement>LBL_NOTEXISTSFILE</replacement>
+	<value><![CDATA[Gelöschte DB Einträge, da Bilddatei nicht mehr existiert]]></value>
+</replacements>
+<replacements id="456">
+<replacement>LBL_NOTFILEDOUT</replacement>
+	<value><![CDATA[noch nicht ausgefüllt]]></value>
+</replacements>
+<replacements id="457">
+<replacement>LBL_NOTINDEXED</replacement>
+	<value><![CDATA[nicht im Index veröffentlicht]]></value>
+</replacements>
+<replacements id="458">
+<replacement>LBL_NOTMEMBER</replacement>
+	<value><![CDATA[nicht in Gruppe Mitglieder]]></value>
+</replacements>
+<replacements id="459">
+<replacement>LBL_NOTOPLEVEL</replacement>
+	<value><![CDATA[Keine Toplevel Auswahl]]></value>
+</replacements>
+<replacements id="460">
+<replacement>LBL_NOTOPLEVELCHECKED</replacement>
+	<value><![CDATA[Seite ist keinem Thema zugeordnet]]></value>
+</replacements>
+<replacements id="461">
+<replacement>LBL_NOTPOSSIBLE</replacement>
+	<value><![CDATA[Aktion nicht möglich]]></value>
+</replacements>
+<replacements id="462">
+<replacement>LBL_NOWONDEL</replacement>
+	<value><![CDATA["Jetzt online" - Eintraglöschung nach X min]]></value>
+</replacements>
+<replacements id="463">
+<replacement>LBL_NOWONLINE</replacement>
+	<value><![CDATA[Jetzt online]]></value>
+</replacements>
+<replacements id="464">
+<replacement>LBL_NO_FIRSTPAGE</replacement>
+	<value><![CDATA[keine Einstiegsseite]]></value>
+</replacements>
+<replacements id="465">
+<replacement>LBL_NUMCOLS</replacement>
+	<value><![CDATA[Anzahl Spalten]]></value>
+</replacements>
+<replacements id="466">
+<replacement>LBL_OF</replacement>
+	<value><![CDATA[von]]></value>
+</replacements>
+<replacements id="467">
+<replacement>LBL_ONEDIRBACK</replacement>
+	<value><![CDATA[Ein Verzeichnis zurück]]></value>
+</replacements>
+<replacements id="468">
+<replacement>LBL_ONLINESHEET</replacement>
+	<value><![CDATA[Online Antrag]]></value>
+</replacements>
+<replacements id="469">
+<replacement>LBL_ONLINESHEETMANAGER</replacement>
+	<value><![CDATA[Antrag Designer]]></value>
+</replacements>
+<replacements id="470">
+<replacement>LBL_ONLYURL_REDIRECT</replacement>
+	<value><![CDATA[URL Weiterleitung:]]></value>
+</replacements>
+<replacements id="471">
+<replacement>LBL_ONLYURL_TARGET</replacement>
+	<value><![CDATA[URL Ziel:]]></value>
+</replacements>
+<replacements id="472">
+<replacement>LBL_OPTIONS</replacement>
+	<value><![CDATA[Optionen]]></value>
+</replacements>
+<replacements id="473">
+<replacement>LBL_OSARCIVES</replacement>
+	<value><![CDATA[Anträge Archiv]]></value>
+</replacements>
+<replacements id="474">
+<replacement>LBL_OSNOCONN</replacement>
+	<value><![CDATA[- Keine Verknüpfung -]]></value>
+</replacements>
+<replacements id="475">
+<replacement>LBL_OTBLACKLIST</replacement>
+	<value><![CDATA[Blacklist]]></value>
+</replacements>
+<replacements id="476">
+<replacement>LBL_OTOVERVIEW</replacement>
+	<value><![CDATA[Überblick]]></value>
+</replacements>
+<replacements id="477">
+<replacement>LBL_OTPROGRAMS</replacement>
+	<value><![CDATA[Programme]]></value>
+</replacements>
+<replacements id="478">
+<replacement>LBL_OTRESERV</replacement>
+	<value><![CDATA[Reservierungen]]></value>
+</replacements>
+<replacements id="479">
+<replacement>LBL_OTTHEME</replacement>
+	<value><![CDATA[Themen]]></value>
+</replacements>
+<replacements id="480">
+<replacement>LBL_OVERVIEWDAY</replacement>
+	<value><![CDATA[Tagesüberblick]]></value>
+</replacements>
+<replacements id="481">
+<replacement>LBL_OVERVIEWMONTH</replacement>
+	<value><![CDATA[Monatsüberblick]]></value>
+</replacements>
+<replacements id="482">
+<replacement>LBL_OVERVIEWYEAR</replacement>
+	<value><![CDATA[Jahresüberlick]]></value>
+</replacements>
+<replacements id="483">
+<replacement>LBL_PAGE</replacement>
+	<value><![CDATA[Seite]]></value>
+</replacements>
+<replacements id="484">
+<replacement>LBL_PAGECOUNT</replacement>
+	<value><![CDATA[Seiten Anzahl]]></value>
+</replacements>
+<replacements id="485">
+<replacement>LBL_PAGES</replacement>
+	<value><![CDATA[Seiten]]></value>
+</replacements>
+<replacements id="486">
+<replacement>LBL_PASSWORD</replacement>
+	<value><![CDATA[Passwort]]></value>
+</replacements>
+<replacements id="487">
+<replacement>LBL_PERMISSIONS</replacement>
+	<value><![CDATA[Berechtigungen]]></value>
+</replacements>
+<replacements id="488">
+<replacement>LBL_PHONE</replacement>
+	<value><![CDATA[Telefon]]></value>
+</replacements>
+<replacements id="489">
+<replacement>LBL_PICMANAGER</replacement>
+	<value><![CDATA[Bilder verwalten]]></value>
+</replacements>
+<replacements id="490">
+<replacement>LBL_PICTURE</replacement>
+	<value><![CDATA[Bild]]></value>
+</replacements>
+<replacements id="491">
+<replacement>LBL_PINWAND</replacement>
+	<value><![CDATA[Pinwand]]></value>
+</replacements>
+<replacements id="492">
+<replacement>LBL_PLACE</replacement>
+	<value><![CDATA[Veranstaltungsort]]></value>
+</replacements>
+<replacements id="493">
+<replacement>LBL_PLEASECHOOSE</replacement>
+	<value><![CDATA[bitte auswählen]]></value>
+</replacements>
+<replacements id="494">
+<replacement>LBL_PLEASECHOOSEGAL</replacement>
+	<value><![CDATA[Bitte wählen Sie ein Album.]]></value>
+</replacements>
+<replacements id="495">
+<replacement>LBL_PLEASEFILLOUT</replacement>
+	<value><![CDATA[bitte leere Felder ausfüllen]]></value>
+</replacements>
+<replacements id="496">
+<replacement>LBL_PLEASESELECT</replacement>
+	<value><![CDATA[- bitte auswählen -]]></value>
+</replacements>
+<replacements id="497">
+<replacement>LBL_PREVIEW</replacement>
+	<value><![CDATA[Vorschau]]></value>
+</replacements>
+<replacements id="498">
+<replacement>LBL_PREV_PIC</replacement>
+	<value><![CDATA[vorheriges Foto]]></value>
+</replacements>
+<replacements id="499">
+<replacement>LBL_PROFILFIELDS</replacement>
+	<value><![CDATA[Profilfelder]]></value>
+</replacements>
+<replacements id="500">
+<replacement>LBL_PROGRAM</replacement>
+	<value><![CDATA[Programm]]></value>
+</replacements>
+<replacements id="501">
+<replacement>LBL_PUBLIC_GROUP</replacement>
+	<value><![CDATA[Öffentliche Gruppe]]></value>
+</replacements>
+<replacements id="502">
+<replacement>LBL_PUBLISHED</replacement>
+	<value><![CDATA[im Menü sichtbar]]></value>
+</replacements>
+<replacements id="503">
+<replacement>LBL_PUBLISHEDAT</replacement>
+	<value><![CDATA[gespeichert]]></value>
+</replacements>
+<replacements id="504">
+<replacement>LBL_RANDOMPICUTRE</replacement>
+	<value><![CDATA[Zufallsbild aktivieren]]></value>
+</replacements>
+<replacements id="505">
+<replacement>LBL_REASONFORNOTPUBLISH</replacement>
+	<value><![CDATA[Aus folgen Gründen erscheint dieser Inhalt nicht im Menü:]]></value>
+</replacements>
+<replacements id="506">
+<replacement>LBL_RECEIPIENTNEWS</replacement>
+	<value><![CDATA[Absender-Email (Newsletter)]]></value>
+</replacements>
+<replacements id="507">
+<replacement>LBL_REGIONS</replacement>
+	<value><![CDATA[Regionen]]></value>
+</replacements>
+<replacements id="508">
+<replacement>LBL_REMOVED</replacement>
+	<value><![CDATA[entfernt]]></value>
+</replacements>
+<replacements id="509">
+<replacement>LBL_REPLACECONFIRM</replacement>
+	<value><![CDATA[Alles ersetzen bestätigen. Fortfahren?]]></value>
+</replacements>
+<replacements id="510">
+<replacement>LBL_RESOLUTION</replacement>
+	<value><![CDATA[Auflösung]]></value>
+</replacements>
+<replacements id="511">
+<replacement>LBL_ROLE</replacement>
+	<value><![CDATA[Rolle]]></value>
+</replacements>
+<replacements id="512">
+<replacement>LBL_ROLES</replacement>
+	<value><![CDATA[Rollen]]></value>
+</replacements>
+<replacements id="513">
+<replacement>LBL_RSSFEDSHOW</replacement>
+	<value><![CDATA[RSS Feed Link anzeigen]]></value>
+</replacements>
+<replacements id="514">
+<replacement>LBL_SAVE</replacement>
+	<value><![CDATA[speichern]]></value>
+</replacements>
+<replacements id="515">
+<replacement>LBL_SAVED</replacement>
+	<value><![CDATA[gespeichert]]></value>
+</replacements>
+<replacements id="516">
+<replacement>LBL_SEARCH</replacement>
+	<value><![CDATA[Suche]]></value>
+</replacements>
+<replacements id="517">
+<replacement>LBL_SEARCHENGINES</replacement>
+	<value><![CDATA[Suchmaschinen]]></value>
+</replacements>
+<replacements id="518">
+<replacement>LBL_SELECT</replacement>
+	<value><![CDATA[auswählen]]></value>
+</replacements>
+<replacements id="519">
+<replacement>LBL_SEND</replacement>
+	<value><![CDATA[gesendet]]></value>
+</replacements>
+<replacements id="520">
+<replacement>LBL_SENDBTN</replacement>
+	<value><![CDATA[Senden]]></value>
+</replacements>
+<replacements id="521">
+<replacement>LBL_SENDTHISPERMAIL</replacement>
+	<value><![CDATA[Diesen Beitrag als Newsletter verschicken]]></value>
+</replacements>
+<replacements id="522">
+<replacement>LBL_SERVERPASSWORD</replacement>
+	<value><![CDATA[Server Passwort]]></value>
+</replacements>
+<replacements id="523">
+<replacement>LBL_SETTINGS</replacement>
+	<value><![CDATA[Einstellungen]]></value>
+</replacements>
+<replacements id="524">
+<replacement>LBL_SHOWALL</replacement>
+	<value><![CDATA[alle anzeigen]]></value>
+</replacements>
+<replacements id="525">
+<replacement>LBL_SHOWINACTIV</replacement>
+	<value><![CDATA[zeige inaktive Kunden]]></value>
+</replacements>
+<replacements id="526">
+<replacement>LBL_SHOWPARENTCAT</replacement>
+	<value><![CDATA[Vater Kategorie anzeigen]]></value>
+</replacements>
+<replacements id="527">
+<replacement>LBL_SIGNDELIMETER</replacement>
+	<value><![CDATA[Trennzeichen für Short-URLs]]></value>
+</replacements>
+<replacements id="528">
+<replacement>LBL_SITELOADING</replacement>
+	<value><![CDATA[Seite wird geladen. Bitte warten...]]></value>
+</replacements>
+<replacements id="529">
+<replacement>LBL_SORTALPHA</replacement>
+	<value><![CDATA[alphabetisch]]></value>
+</replacements>
+<replacements id="530">
+<replacement>LBL_SORTING</replacement>
+	<value><![CDATA[Sortierung]]></value>
+</replacements>
+<replacements id="531">
+<replacement>LBL_STANDARDLANG</replacement>
+	<value><![CDATA[Standard Sprache]]></value>
+</replacements>
+<replacements id="532">
+<replacement>LBL_STATISTIC</replacement>
+	<value><![CDATA[Statistiken]]></value>
+</replacements>
+<replacements id="533">
+<replacement>LBL_SUBJECT</replacement>
+	<value><![CDATA[Betreff]]></value>
+</replacements>
+<replacements id="534">
+<replacement>LBL_SUBTITLE</replacement>
+	<value><![CDATA[Untertitel]]></value>
+</replacements>
+<replacements id="535">
+<replacement>LBL_SYNCDIR</replacement>
+	<value><![CDATA[Diesen Ordner syncronisieren]]></value>
+</replacements>
+<replacements id="536">
+<replacement>LBL_SYNCNOW</replacement>
+	<value><![CDATA[Jetzt Dateien in Datenbank aufnehmen]]></value>
+</replacements>
+<replacements id="537">
+<replacement>LBL_SYSTEMFILES</replacement>
+	<value><![CDATA[System Dateien]]></value>
+</replacements>
+<replacements id="538">
+<replacement>LBL_TABELLEN</replacement>
+	<value><![CDATA[Tabellen]]></value>
+</replacements>
+<replacements id="539">
+<replacement>LBL_TABLIST</replacement>
+	<value><![CDATA[Tabellen]]></value>
+</replacements>
+<replacements id="540">
+<replacement>LBL_TASK</replacement>
+	<value><![CDATA[Aufgabe]]></value>
+</replacements>
+<replacements id="541">
+<replacement>LBL_TASKS</replacement>
+	<value><![CDATA[Aufgaben]]></value>
+</replacements>
+<replacements id="542">
+<replacement>LBL_TEMPIMPORTINFO</replacement>
+	<value><![CDATA[Import des originale Templates. Fortfahren?]]></value>
+</replacements>
+<replacements id="543">
+<replacement>LBL_TEMPLATE</replacement>
+	<value><![CDATA[Template]]></value>
+</replacements>
+<replacements id="544">
+<replacement>LBL_TEMPLCACHEACTIVE</replacement>
+	<value><![CDATA[Template Cache aktivieren]]></value>
+</replacements>
+<replacements id="545">
+<replacement>LBL_TERMINE</replacement>
+	<value><![CDATA[Termine]]></value>
+</replacements>
+<replacements id="546">
+<replacement>LBL_THEME</replacement>
+	<value><![CDATA[Thema]]></value>
+</replacements>
+<replacements id="547">
+<replacement>LBL_TIME</replacement>
+	<value><![CDATA[Uhrzeit]]></value>
+</replacements>
+<replacements id="548">
+<replacement>LBL_TITLE</replacement>
+	<value><![CDATA[Titel]]></value>
+</replacements>
+<replacements id="549">
+<replacement>LBL_TITLEPICTURE</replacement>
+	<value><![CDATA[Titelbild auswählen]]></value>
+</replacements>
+<replacements id="550">
+<replacement>LBL_TO</replacement>
+	<value><![CDATA[bis]]></value>
+</replacements>
+<replacements id="551">
+<replacement>LBL_TOPLEVELFILTER</replacement>
+	<value><![CDATA[TopLevel Filter]]></value>
+</replacements>
+<replacements id="552">
+<replacement>LBL_TRANSLATE</replacement>
+	<value><![CDATA[übersetzen]]></value>
+</replacements>
+<replacements id="553">
+<replacement>LBL_TRANSLATION</replacement>
+	<value><![CDATA[Übersetzungen]]></value>
+</replacements>
+<replacements id="554">
+<replacement>LBL_TRANSMITFORM</replacement>
+	<value><![CDATA[Formular Transmitter]]></value>
+</replacements>
+<replacements id="555">
+<replacement>LBL_TREEPOSITION</replacement>
+	<value><![CDATA[Struktur-Position]]></value>
+</replacements>
+<replacements id="556">
+<replacement>LBL_TREESTRUCSYMBOL</replacement>
+	<value><![CDATA[Menüstruktur Symbol]]></value>
+</replacements>
+<replacements id="557">
+<replacement>LBL_UPDATE</replacement>
+	<value><![CDATA[Update]]></value>
+</replacements>
+<replacements id="558">
+<replacement>LBL_UPDATED</replacement>
+	<value><![CDATA[aktualisiert]]></value>
+</replacements>
+<replacements id="559">
+<replacement>LBL_UPDATEDONE</replacement>
+	<value><![CDATA[Update abgeschlossen]]></value>
+</replacements>
+<replacements id="560">
+<replacement>LBL_UPD_CONFIRM</replacement>
+	<value><![CDATA[Hiermit bestätige ich die oben aufgeführten Punkte]]></value>
+</replacements>
+<replacements id="561">
+<replacement>LBL_UPLOADFILE</replacement>
+	<value><![CDATA[Datei hochladen]]></value>
+</replacements>
+<replacements id="562">
+<replacement>LBL_VALIDATE_FOTOS</replacement>
+	<value><![CDATA[Fotos validieren]]></value>
+</replacements>
+<replacements id="563">
+<replacement>LBL_VIEW</replacement>
+	<value><![CDATA[anschauen]]></value>
+</replacements>
+<replacements id="564">
+<replacement>LBL_WATERMARK</replacement>
+	<value><![CDATA[Wasserzeichen]]></value>
+</replacements>
+<replacements id="565">
+<replacement>LBL_WEBCONTENT</replacement>
+	<value><![CDATA[Webinhalt Verzeichnis]]></value>
+</replacements>
+<replacements id="566">
+<replacement>LBL_WEBCONTENTS</replacement>
+	<value><![CDATA[Webinhalt]]></value>
+</replacements>
+<replacements id="567">
+<replacement>LBL_WEBPAGECONTENT</replacement>
+	<value><![CDATA[Homepage Seiten]]></value>
+</replacements>
+<replacements id="568">
+<replacement>LBL_WEBSPACE</replacement>
+	<value><![CDATA[Webspace]]></value>
+</replacements>
+<replacements id="569">
+<replacement>LBL_WEITER</replacement>
+	<value><![CDATA[weiter]]></value>
+</replacements>
+<replacements id="570">
+<replacement>LBL_WHOISONLINE</replacement>
+	<value><![CDATA[Wer ist online?]]></value>
+</replacements>
+<replacements id="571">
+<replacement>LBL_WHOISWORKING</replacement>
+	<value><![CDATA[Wer arbeitet gerade hier:]]></value>
+</replacements>
+<replacements id="572">
+<replacement>LBL_WHOLEDAY</replacement>
+	<value><![CDATA[Ganztägig]]></value>
+</replacements>
+<replacements id="573">
+<replacement>LBL_WHOSEES</replacement>
+	<value><![CDATA[Sichtbar für:]]></value>
+</replacements>
+<replacements id="574">
+<replacement>LBL_WRITTENDATE</replacement>
+	<value><![CDATA[geschrieben am]]></value>
+</replacements>
+<replacements id="575">
+<replacement>LBL_YEAR</replacement>
+	<value><![CDATA[Jahr]]></value>
+</replacements>
+<replacements id="576">
+<replacement>LBL_YES</replacement>
+	<value><![CDATA[Ja]]></value>
+</replacements>
+<replacements id="577">
+<replacement>LBL_YOUARE</replacement>
+	<value><![CDATA[Sie sind hier:]]></value>
+</replacements>
+<replacements id="578">
+<replacement>LBL_ZURUECK</replacement>
+	<value><![CDATA[zurück]]></value>
+</replacements>
+<replacements id="579">
+<replacement>LNL_NOSEARCHRESULT</replacement>
+	<value><![CDATA[Keine Einträge gefunden]]></value>
+</replacements>
+<replacements id="580">
+<replacement>NO_PERMISSIONS</replacement>
+	<value><![CDATA[Es fehlen Ihnen die nötigen Zugriffsrechte.]]></value>
+</replacements>
+<replacements id="581">
+<replacement>NO_UPDATE_NEEDED</replacement>
+	<value><![CDATA[Kein Update nötig]]></value>
+</replacements>
+<replacements id="582">
+<replacement>LA_KUNDENSTAMM</replacement>
+	<value><![CDATA[Kundenstamm]]></value>
+</replacements>
+<replacements id="583">
+<replacement>LA_FILTER</replacement>
+	<value><![CDATA[Filter]]></value>
+</replacements>
+<replacements id="584">
+<replacement>LA_EINGETRAGENAM</replacement>
+	<value><![CDATA[eingetragen am]]></value>
+</replacements>
+<replacements id="585">
+<replacement>LA_SAVE</replacement>
+	<value><![CDATA[speichern]]></value>
+</replacements>
+<replacements id="586">
+<replacement>LA_NEWSLETTER</replacement>
+	<value><![CDATA[Newsletter]]></value>
+</replacements>
+<replacements id="587">
+<replacement>LA_GESPERRT</replacement>
+	<value><![CDATA[gesperrt]]></value>
+</replacements>
+<replacements id="588">
+<replacement>LA_TRANSLATE</replacement>
+	<value><![CDATA[übersetzen]]></value>
+</replacements>
+<replacements id="589">
+<replacement>LA_SITELOADING</replacement>
+	<value><![CDATA[bitte warten...]]></value>
+</replacements>
+<replacements id="590">
+<replacement>LA_PASSWORD</replacement>
+	<value><![CDATA[Passwort]]></value>
+</replacements>
+<replacements id="591">
+<replacement>LA_EMAILANKUNDEN</replacement>
+	<value><![CDATA[Email an Kunden]]></value>
+</replacements>
+<replacements id="592">
+<replacement>LA_IMINDEXVEROEFF</replacement>
+	<value><![CDATA[{LA_IMINDEXVEROEFF}]]></value>
+</replacements>
+<replacements id="593">
+<replacement>LA_KONTAKTMGLICHKEITEN</replacement>
+	<value><![CDATA[Kontakt Möglichkeiten]]></value>
+</replacements>
+<replacements id="594">
+<replacement>LA_PASSNEUSETZEN</replacement>
+	<value><![CDATA[Passwort neu setzen]]></value>
+</replacements>
+<replacements id="595">
+<replacement>LA_BESCHREIBUNG</replacement>
+	<value><![CDATA[Beschreibung]]></value>
+</replacements>
+<replacements id="596">
+<replacement>LA_PROFILBILD</replacement>
+	<value><![CDATA[Profilbild]]></value>
+</replacements>
+<replacements id="597">
+<replacement>LA_UMBENNEN</replacement>
+	<value><![CDATA[umbennen]]></value>
+</replacements>
+<replacements id="598">
+<replacement>LA_NEUESTEMPLATE</replacement>
+	<value><![CDATA[Neue Seite]]></value>
+</replacements>
+<replacements id="599">
+<replacement>LA_SETTINGS</replacement>
+	<value><![CDATA[Einstellungen]]></value>
+</replacements>
+<replacements id="600">
+<replacement>LA_NEUEINHALTSSEITEANLEG</replacement>
+	<value><![CDATA[Neue Inhaltsseite anlegen]]></value>
+</replacements>
+<replacements id="601">
+<replacement>LA_INHALTEDURCHSUCHEN</replacement>
+	<value><![CDATA[Inhalte durchsuchen]]></value>
+</replacements>
+<replacements id="602">
+<replacement>LA_INHALTAUFALLESPRACHEN</replacement>
+	<value><![CDATA[Inhalt auf alle Sprachen replizieren]]></value>
+</replacements>
+<replacements id="603">
+<replacement>LA_NEUERBEITRAGNACHDIESE</replacement>
+	<value><![CDATA[Neuer Beitrag nach diesem]]></value>
+</replacements>
+<replacements id="604">
+<replacement>LA_INHALTHINZUFGEN</replacement>
+	<value><![CDATA[Inhalt hinzufügen]]></value>
+</replacements>
+<replacements id="605">
+<replacement>LA_INHALTBEARBEITEN</replacement>
+	<value><![CDATA[Inhalt bearbeiten]]></value>
+</replacements>
+<replacements id="606">
+<replacement>LBL_EDIT_MODUS</replacement>
+	<value><![CDATA[Modus Editieren]]></value>
+</replacements>
+<replacements id="607">
+<replacement>LBL_PASSWORDCONFIRM</replacement>
+	<value><![CDATA[Passwort bestätigen]]></value>
+</replacements>
+<replacements id="608">
+<replacement>LA_IHREDATEIEN</replacement>
+	<value><![CDATA[Ihre Dateien]]></value>
+</replacements>
+<replacements id="609">
+<replacement>LA_BENUTZERNAME</replacement>
+	<value><![CDATA[Benutzername]]></value>
+</replacements>
+<replacements id="610">
+<replacement>LA_SICHERHEIT</replacement>
+	<value><![CDATA[Sicherheit]]></value>
+</replacements>
+<replacements id="611">
+<replacement>LA_SEARCHFOR</replacement>
+	<value><![CDATA[suchen...]]></value>
+</replacements>
+</lngpack>

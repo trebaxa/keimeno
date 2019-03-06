@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Online Antrag</module_name>
+      <id>onlinesheet</id>
+      <active>false</active>
+      <version>1.1</version>
+      <php>os.inc</php>
+      <hasperm>true</hasperm>
+      <parse>false</parse>
+      <epage>os_fields.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <stdclass>osfield_class</stdclass>
+      <is_content_page>true</is_content_page>
+      <developer_id>1</developer_id>
+      <description>Designen Sie online Formulare, die Kunden ausf&#xFC;llen k&#xF6;nnen. Der Kunde erh&#xE4;lt nach Abschluss eine fertige PDF Datei. Ideal um Vertr&#xE4;ge abzuschlie&#xDF;en, die eine Unterschrift ben&#xF6;tigen.</description>
+      <change_date>2015-06-24</change_date>
+    </settings>
+    <events>
+      <event eventname="beforesmartycompile" method="class" classname="osfield_class" function="parse_ossheet_inlay"/>
+    </events>
+    <includes>
+      <include type="class" classname="osfields_master_class" varname="">os_fields.master</include>
+      <include type="class" classname="osfield_class">os_fields</include>
+    </includes>
+    <admin_menu parent="96" icon="bookmark_document.png" epage="os_fields" query="aktion=archives" label="Online Antrag"/>
+    <admin_includes>
+      <include type="class" classname="os_fields_admin_class">os_fields</include>
+    </admin_includes>
+    <contentplugins>
+      <plugin>
+        <name>Online Auftrag</name>
+        <id>ossheet_inlay</id>
+        <tpl>os.plugin</tpl>
+        <lists>
+          <list name="sheets" classname="os_fields_admin_class" idname="id" label="s_name" function="load_sheets_integration"/>
+        </lists>
+        <save classname="os_fields_admin_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+  </module>
+</config>

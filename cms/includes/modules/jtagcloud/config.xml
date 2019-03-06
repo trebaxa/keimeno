@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>jTagCloud</module_name>
+      <id>jtagcloud</id>
+      <active>false</active>
+      <version>1.0</version>
+      <php>jtagcloud.inc</php>
+      <hasperm>true</hasperm>
+      <epage>jtagcloud.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>false</is_content_page>
+      <developer_id>1</developer_id>
+      <description>3D TagCloud basierend auf JavaScript und jQuery.</description>
+    </settings>
+    <events>
+      <event eventname="beforesmartycompile" method="class" classname="jtagcloud_class" function="parse_jtagcloud"/>
+    </events>
+    <includes>
+      <include type="class" classname="jtagcloud_class">jtagcloud</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="jtagcloud_admin_class">jtagcloud</include>
+    </admin_includes>
+    <contentplugins>
+      <plugin>
+        <name>jTagCloud</name>
+        <id>jtagcloud_inlay</id>
+        <tpl>jtagcloud.plugin</tpl>
+        <lists>
+          <list name="templates" classname="jtagcloud_admin_class" idname="id" label="description" function="load_template_integration"/>
+          <list name="webpages" classname="jtagcloud_admin_class" function="load_webpages_integration"/>
+        </lists>
+        <save classname="jtagcloud_admin_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+  </module>
+</config>

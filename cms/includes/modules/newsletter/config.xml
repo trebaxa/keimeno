@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Newsletter</module_name>
+      <id>newsletter</id>
+      <active>false</active>
+      <version>1.1</version>
+      <php>newsletter.inc</php>
+      <hasperm>true</hasperm>
+      <parse>true</parse>
+      <epage>newsletter.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>false</is_content_page>
+      <developer_id>1</developer_id>
+      <description>Besucher k&#xF6;nnen sich an Ihrem Newsletter Programm einschreiben. Versenden Sie im Backend an Ihre Kunden Newsletter. Das Modul hat Auswertungen und eine Historie.</description>
+    </settings>
+    <includes>
+      <include type="class" classname="newsletter_class">newsletter</include>
+    </includes>
+    <admin_menu parent="96" icon="mail.png" label="Newsletter" query="cmd=show_hist"/>
+  </module>
+</config>

@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Gallery</module_name>
+      <id>gallery</id>
+      <active>false</active>
+      <version>1.5</version>
+      <php>gallery.inc</php>
+      <xmlsitemap>true</xmlsitemap>
+      <hasperm>true</hasperm>
+      <parse>true</parse>
+      <epage>gallery.inc,gallerypicmanager.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>true</is_content_page>
+      <class_name>gal_class</class_name>
+      <developer_id>1</developer_id>
+      <description>Unser CMS bietet Ihnen komplette Galerie Funktion an. Legen Sie viele Verzeichnisse und Unterverzeichnisse an, wie sie m&#xF6;chten.</description>
+    </settings>
+    <events>
+      <event eventname="startpage" method="class" classname="gal_class" function="load_latest_pics"/>
+      <event eventname="autorun" method="class" classname="gal_class" function="load_latest_galgroups"/>
+      <event eventname="xmlsitemap" method="class" classname="gal_class" function="gen_xmlsitemap"/>
+      <event eventname="beforesmartycompile" method="class" classname="gal_class" function="parse_randompic"/>
+      <event eventname="beforesmartycompile" method="class" classname="gal_class" function="parse_gallery_inlay"/>
+      <event eventname="beforesmartycompile" method="class" classname="gal_class" function="parse_gallery_tpl_inlay"/>
+      <event eventname="aftersmartycompile" method="class" classname="gal_class" function="parse_urls"/>
+      <event eventname="psitemap" method="class" classname="gal_class" function="psitemap"/>
+    </events>
+    <includes>
+      <include type="class" classname="gal_class">gallery</include>
+    </includes>
+    <contentplugins>
+      <plugin>
+        <name>Gallery</name>
+        <id>gallery_inlay</id>
+        <tpl>gallery.plugin</tpl>
+        <lists>
+          <list name="groups" classname="gal_class" idname="id" label="groupname" function="load_plugin_gal_list"/>
+          <list name="templates" classname="gal_class" idname="tpl_name" label="description" function="load_template_integration"/>
+        </lists>
+        <save classname="gal_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+    <admin_menu parent="96" icon="fotos.png" label="Gallery" epage="gallerypicmanager" query="cmd=initpicman"/>
+  </module>
+</config>

@@ -1,0 +1,3 @@
+<input type="hidden" id="<% $editor_input_name %>" name="<% $editor_input_name %>" value="" style="display:none">
+<input type="hidden" id="<% $editor_input_name %>___Config" value="SkinPath=skins/office2003/" style="display:none">
+<iframe id="<% $editor_input_name %>___Frame" src="./fckeditor/editor/fckeditor.html?InstanceName=<% $editor_input_name %>&amp;Toolbar=Standard" width="100%" height="300" frame scrolling="no"></iframe>

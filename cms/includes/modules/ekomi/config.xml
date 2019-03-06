@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Ekomi</module_name>
+      <id>ekomi</id>
+      <active>false</active>
+      <version>1.1</version>
+      <php>ekomi.inc</php>
+      <epage>ekomi.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <developer_id>1</developer_id>
+      <is_content_page>true</is_content_page>
+      <change_date>2014-06-30</change_date>
+      <description>Eine Schnittstelle zum Bewertungsportal eKomi.</description>
+    </settings>
+    <events>
+      <event eventname="send_ekomi_mail" method="class" classname="ekomia_class" function="send_ekomi_mail"/>
+      <event eventname="beforesmartycompile" method="class" classname="ekomi_class" function="parse_ekomi"/>
+    </events>
+    <includes>
+      <include type="class" classname="ekomi_master_class">ekomi.master</include>
+      <include type="class" classname="ekomi_class">ekomi</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="ekomia_class">ekomi</include>
+    </admin_includes>
+    <admin_menu parent="96" icon="ekomi/admin/images/ekomi.png" query="cmd=load_latest" morder="1"/>
+    <contentplugins>
+      <plugin>
+        <name>eKomi</name>
+        <id>ekomi_inlay</id>
+        <tpl>ekomi.plugin</tpl>
+        <lists>
+          <list name="templates" classname="ekomia_class" idname="id" label="description" function="load_template_integration"/>
+        </lists>
+        <save classname="ekomia_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+  </module>
+</config>

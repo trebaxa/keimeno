@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Formulardaten senden</module_name>
+      <id>formsend</id>
+      <active>false</active>
+      <version>1.0</version>
+      <php>formsend.inc</php>
+      <hasperm>true</hasperm>
+      <epage>formsend.inc</epage>
+      <onlyadmin>false</onlyadmin>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>false</is_content_page>
+      <stdclass>formsend_class</stdclass>
+      <description>App Beschreibung</description>
+      <developer_id/>
+      <change_date>2018-04-09</change_date>
+    </settings>
+    <events>
+      <event eventname="cronjob" method="class" classname="formsend_class" function="cronjob"/>
+      <event eventname="beforesmartycompile" method="class" classname="formsend_class" function="parse_formsend"/>
+    </events>
+    <includes>
+      <include type="class" classname="formsend_master_class">formsend.master</include>
+      <include type="class" classname="formsend_class">formsend</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="formsend_admin_class">formsend</include>
+    </admin_includes>
+    <contentplugins>
+      <plugin>
+        <name>Formulardaten senden</name>
+        <id>formsend_inlay</id>
+        <tpl>formsend.plugin</tpl>
+        <lists>
+          <list name="templates" classname="formsend_admin_class" idname="id" label="description" function="load_homepage_integration"/>
+        </lists>
+        <save classname="formsend_admin_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+  </module>
+</config>

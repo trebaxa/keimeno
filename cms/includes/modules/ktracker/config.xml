@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>K-Tracker</module_name>
+      <id>ktracker</id>
+      <active>false</active>
+      <version>1.1</version>
+      <php>ktracker.inc</php>
+      <hasperm>true</hasperm>
+      <epage>ktracker.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>false</is_content_page>
+      <stdclass>ktracker_class</stdclass>
+      <description>Conversion Tracker</description>
+      <developer_id/>
+      <change_date>2014-01-01</change_date>
+    </settings>
+    <events>
+      <event eventname="autorun" method="class" classname="ktracker_class" function="autorun"/>
+    </events>
+    <includes>
+      <include type="class" classname="ktracker_master_class">ktracker.master</include>
+      <include type="class" classname="ktracker_class">ktracker</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="ktracker_admin_class">ktracker</include>
+    </admin_includes>
+    <admin_menu parent="96" label="K-Tracker" icon="ktracker/admin/images/plugin.png" morder="1"/>
+  </module>
+</config>

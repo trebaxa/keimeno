@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Kontakt Formular</module_name>
+      <id>contactform</id>
+      <active>true</active>
+      <version>1.2</version>
+      <php>contact.inc</php>
+      <hasperm>false</hasperm>
+      <parse>false</parse>
+      <epage>contact.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>true</is_content_page>
+      <stdclass>contactform_class</stdclass>
+      <developer_id>1</developer_id>
+      <change_date>2014-06-25</change_date>
+      <description>Richten Sie ein Kontaktformlar f&#xFC;r Ihre Homepage ein. Sicher dank Token und Capcha.</description>
+    </settings>
+    <events>
+      <event eventname="beforesmartycompile" method="class" classname="contactform_class" function="parse_contact_form"/>
+    </events>
+    <includes>
+      <include type="class" classname="contactform_class">contact</include>
+    </includes>
+    <admin_menu parent="96" epage="contact" icon="contactform/admin/images/contact.png" morder="1"/>
+    <admin_includes>
+      <include type="class" classname="contact_admin_class">contact</include>
+    </admin_includes>
+    <contentplugins>
+      <plugin>
+        <name>Kontakt Form</name>
+        <id>contact_inlay</id>
+        <tpl>contact.plugin</tpl>
+        <lists>
+          <list name="templates" classname="contactform_class" idname="id" label="description" function="load_homepage_integration"/>
+        </lists>
+        <save classname="contactform_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+  </module>
+</config>

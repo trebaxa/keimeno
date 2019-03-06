@@ -1,0 +1,44 @@
+#fb {
+ width:500px;
+ overflow:hidden;
+}
+
+.box {
+border:3px solid #898057;
+padding:6px;
+text-align:left;
+min-height:160px;
+overflow:hidden;
+width:460px;
+-moz-border-radius:21px;
+-webkit-border-radius:21px; 
+}
+
+#fbilikenow {
+ width:480px;
+ background-color:#3B5998;
+ color:#fff;
+ font-size:130%;
+ text-align:left;
+ padding:10px;
+
+}
+
+#fb a {
+ color:#3B5998;
+}
+
+#fbfooter {
+ text-align:right;
+ padding:6px;
+ margin-top:10px;
+}
+
+.stdfbwidth {
+ width:460px;
+}
+
+.box ul li {
+padding-left: 13px;
+text-align:left;
+}

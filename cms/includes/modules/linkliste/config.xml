@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Links</module_name>
+      <id>linkliste</id>
+      <active>false</active>
+      <version>1.0</version>
+      <php>links.inc</php>
+      <hasperm>true</hasperm>
+      <parse>true</parse>
+      <epage>links.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>true</is_content_page>
+      <developer_id>1</developer_id>
+      <description>Mit diesem Modul k&#xF6;nnen Sie Links zu Partnern aufbauen. Verwalten und publizieren Sie Links mit Bannern zu anderen Seiten.</description>
+    </settings>
+    <events>
+      <event eventname="autorun" method="class" classname="links_class" function="load_banner_matrix"/>
+    </events>
+    <includes>
+      <include type="class" classname="links_class">links</include>
+    </includes>
+    <admin_menu parent="96" icon="linkliste/admin/images/links.png" label="Links" epage="links" query=""/>
+  </module>
+</config>

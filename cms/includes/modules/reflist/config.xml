@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Referenz Links</module_name>
+      <id>reflist</id>
+      <active>false</active>
+      <version>1.2</version>
+      <php>reflist.inc</php>
+      <hasperm>true</hasperm>
+      <epage>reflist.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>true</is_content_page>
+      <stdclass>reflist_class</stdclass>
+      <description>Verwaltung von Referenz Kontakten mit Screenshot Funktion f&#xFC;r verweisende Links.</description>
+    </settings>
+    <events>
+      <event eventname="beforesmartycompile" method="class" classname="reflist_class" function="parse_ref_inlay"/>
+    </events>
+    <includes>
+      <include type="class" classname="reflist_master_class">reflist.master</include>
+      <include type="class" classname="reflist_class">reflist</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="reflist_admin_class">reflist</include>
+    </admin_includes>
+    <admin_menu parent="96" icon="reflist/admin/images/plugin.png" morder="1"/>
+    <contentplugins>
+      <plugin>
+        <name>Referenz</name>
+        <id>referenz_inlay</id>
+        <tpl>reflist.plugin</tpl>
+        <lists>
+          <list name="templates" classname="reflist_admin_class" idname="tpl_name" label="description" function="load_template_integration"/>
+        </lists>
+        <save classname="reflist_admin_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+  </module>
+</config>

@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Blog</module_name>
+      <id>tcblog</id>
+      <active>false</active>
+      <version>1.6</version>
+      <php>tcblog.inc</php>
+      <xmlsitemap>true</xmlsitemap>
+      <hasperm>true</hasperm>
+      <epage>tcblog.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>true</is_content_page>
+      <developer_id>1</developer_id>
+      <change_date>2017-03-30</change_date>
+      <description>Der Blog erm&#xF6;glicht Ihnen nicht nur einzelne Nachrichten zu verfassen, sondern auch zeitlich gegliedert darzsutellen. Auch k&#xF6;nnen Kunden Beitr&#xE4;ge verfassen.</description>
+    </settings>
+    <events>
+      <event eventname="cronjob" method="class" classname="tcblog_class" function="cronjob"/>
+      <event eventname="autorun" method="class" classname="tcblog_class" function="autorun"/>
+      <event eventname="beforesmartycompile" method="class" classname="tcblog_class" function="parse_blog"/>
+      <event eventname="xmlsitemap" method="class" classname="tcblog_class" function="gen_xmlsitemap"/>
+    </events>
+    <constants>
+      <sqltab value="pin_items">TBL_CMS_PIN</sqltab>
+      <sqltab value="pin_content">TBL_CMS_PIN_CONTENT</sqltab>
+      <sqltab value="pin_groups">TBL_CMS_PIN_GROUPS</sqltab>
+      <sqltab value="pin_perm">TBL_CMS_PIN_PERM</sqltab>
+      <sqltab value="pin_gcontent">TBL_CMS_PIN_GCON</sqltab>
+      <sqltab value="pin_comments">TBL_CMS_PIN_COMMENTS</sqltab>
+    </constants>
+    <includes>
+      <include type="class" classname="tcblog_master_class">tcblog.master</include>
+      <include type="class" classname="tcblog_class">tcblog</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="tcblog_admin_class">tcblog</include>
+    </admin_includes>
+    <admin_menu parent="96" icon="tcblog/admin/images/blog.png" label="Blog" query="cmd=load_items"/>
+    <contentplugins>
+      <plugin>
+        <name>Blog</name>
+        <id>tcblog_inlay</id>
+        <tpl>tcblog.plugin</tpl>
+        <lists>
+          <list name="templates" classname="tcblog_admin_class" idname="id" label="description" function="load_homepage_integration"/>
+          <list name="blogs" classname="tcblog_admin_class" idname="id" label="groupname" function="load_themes_integration"/>
+        </lists>
+        <save classname="tcblog_admin_class" function="save_homepage_integration"/>
+      </plugin>
+      <plugin>
+        <name>Blog - Latest Posts</name>
+        <id>tcblog_latest_inlay</id>
+        <tpl>tcblog.latest.plugin</tpl>
+        <lists>
+          <list name="templates" classname="tcblog_admin_class" idname="id" label="description" function="load_homepage_integration"/>
+        </lists>
+        <save classname="tcblog_admin_class" function="save_homepage_integration_latest_post"/>
+      </plugin>
+    </contentplugins>
+  </module>
+</config>

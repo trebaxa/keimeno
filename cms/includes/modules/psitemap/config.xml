@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Sitemap Webpage</module_name>
+      <id>psitemap</id>
+      <active>true</active>
+      <version>1.1</version>
+      <php>psitemap.inc</php>
+      <hasperm>false</hasperm>
+      <epage>psitemap.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <stdclass>psitemap_class</stdclass>
+      <is_content_page>false</is_content_page>
+      <developer_id>1</developer_id>
+      <description>Stellen Sie Ihren Besucher oder auch den Suchmaschinen Ihre Seiten Struktur&#xFC;bersicht zur Verf&#xFC;gung.</description>
+    </settings>
+    <events>
+      <event eventname="beforesmartycompile" method="class" classname="psitemap_class" function="parse_sitemap"/>
+    </events>
+    <includes>
+      <include type="class" classname="psitemap_class">psitemap</include>
+    </includes>
+    <contentplugins>
+      <plugin>
+        <name>Sitemap Webpage</name>
+        <id>sitemap_inlay</id>
+        <tpl>psitemap.plugin</tpl>
+        <lists>
+          <list name="templates" classname="psitemap_admin_class" idname="id" label="description" function="load_template_integration"/>
+        </lists>
+        <save classname="psitemap_admin_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+    <admin_includes>
+      <include type="class" classname="psitemap_admin_class">psitemap</include>
+    </admin_includes>
+  </module>
+</config>

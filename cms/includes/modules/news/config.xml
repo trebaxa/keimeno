@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Newsmanager</module_name>
+      <id>news</id>
+      <active>false</active>
+      <version>1.2</version>
+      <php>news.inc</php>
+      <hasperm>false</hasperm>
+      <xmlsitemap>true</xmlsitemap>
+      <parse>false</parse>
+      <epage>news.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>true</is_content_page>
+      <developer_id>1</developer_id>
+      <description>Ver&#xF6;ffentlichen schnell und einfach News.</description>
+    </settings>
+    <events>
+      <event eventname="globalrequest" method="exec" classname="newsfe_class"/>
+      <event eventname="xmlsitemap" method="class" classname="newsfe_class" function="gen_xmlsitemap"/>
+      <event eventname="beforesmartycompile" method="class" classname="newsfe_class" function="parse_newslist"/>
+    </events>
+    <includes>
+      <include type="class" classname="news_class">news</include>
+      <include type="class" classname="newsfe_class">newsfe</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="news_admin_class">news</include>
+    </admin_includes>
+    <contentplugins>
+      <plugin>
+        <name>News</name>
+        <id>news_inlay</id>
+        <tpl>news.plugin</tpl>
+        <lists>
+          <list name="groups" classname="news_admin_class" idname="id" label="groupname" function="load_homepage_integration"/>
+          <list name="templates" classname="news_admin_class" idname="id" label="description" function="load_template_integration"/>
+        </lists>
+        <save classname="news_admin_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+    <admin_menu parent="96" icon="module.png" label="Newsmanager" query="cmd=list"/>
+  </module>
+</config>

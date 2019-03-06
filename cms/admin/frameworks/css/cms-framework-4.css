@@ -1,0 +1,37 @@
+#framework {
+ width:500px;
+ height:649px;
+ background:url(../img/cms-framework-4.jpg) top left no-repeat;
+ margin: 0 auto;
+}
+
+#framework input {
+ width:30px;
+ height:30px;
+ padding:3px;
+ text-align:center;
+}
+
+#framework div {
+    position:absolute;
+}
+#framework .cf-header {
+    margin-top:50px;
+    margin-left:230px;
+}
+#framework .cf-left {
+    margin-top:300px;
+    margin-left:60px;
+}
+#framework .cf-right {
+    margin-top:300px;
+    margin-left:410px;
+}
+#framework .cf-main {
+    margin-top:300px;
+    margin-left:160px;
+}
+#framework .cf-footer {
+    margin-top:580px;
+    margin-left:230px;
+}

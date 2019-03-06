@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Videothek</module_name>
+      <id>vim</id>
+      <active>false</active>
+      <version>1.0</version>
+      <php>vimeo.inc</php>
+      <hasperm>false</hasperm>
+      <parse>false</parse>
+      <epage>videothek.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>true</is_content_page>
+      <developer_id>1</developer_id>
+      <description>Durchsuchen Sie YouTube und erstellen sich Ihre eigene Video Kollektion.</description>
+    </settings>
+    <events>
+      <event eventname="autorun" method="class" classname="videothek_class" function="load_latest"/>
+      <event eventname="startpage" method="class" classname="videothek_class" function="load_for_frontpage"/>
+      <event eventname="autorun" method="class" classname="videothek_class" function="parse_to_smarty"/>
+    </events>
+    <includes>
+      <include type="class" classname="video_yt_class">video.yt</include>
+      <include type="class" classname="vimeocms_class">vimeo</include>
+      <include type="class" classname="videothek_class">videothek</include>
+    </includes>
+    <admin_menu parent="96" icon="video.png" label="Videothek" epage="videothek" query="cmd=videolist"/>
+  </module>
+</config>

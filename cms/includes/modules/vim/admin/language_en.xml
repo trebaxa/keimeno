@@ -1,0 +1,298 @@
+<lngpack>
+ <replacements id="1">
+<replacement>LA_ADDCATEGORY</replacement>
+	<value><![CDATA[Add category]]></value>
+</replacements>
+<replacements id="2">
+<replacement>LA_ADDEDITCATEGORY</replacement>
+	<value><![CDATA[edit category]]></value>
+</replacements>
+<replacements id="3">
+<replacement>LA_ADHOCVIDEO</replacement>
+	<value><![CDATA[AdHoc Link Creator]]></value>
+</replacements>
+<replacements id="4">
+<replacement>LA_AHVIDEO</replacement>
+	<value><![CDATA[AdHoc Video Options]]></value>
+</replacements>
+<replacements id="5">
+<replacement>LA_AHVIDEOURL</replacement>
+	<value><![CDATA[Video Stream URL]]></value>
+</replacements>
+<replacements id="6">
+<replacement>LA_AHVLASPOST</replacement>
+	<value><![CDATA[last post date on source [MM.YYYY]]]></value>
+</replacements>
+<replacements id="7">
+<replacement>LA_AHVNAME</replacement>
+	<value><![CDATA[Video title]]></value>
+</replacements>
+<replacements id="8">
+<replacement>LA_AHVPERMALINK</replacement>
+	<value><![CDATA[Permanent Weblink:]]></value>
+</replacements>
+<replacements id="9">
+<replacement>LA_AHVSRCNAME</replacement>
+	<value><![CDATA[Video Source]]></value>
+</replacements>
+<replacements id="10">
+<replacement>LA_AHVTAGS</replacement>
+	<value><![CDATA[Video Tags at Source]]></value>
+</replacements>
+<replacements id="11">
+<replacement>LA_AHVTHUMBNAIL</replacement>
+	<value><![CDATA[Thumbnail URL]]></value>
+</replacements>
+<replacements id="12">
+<replacement>LA_APPROVED</replacement>
+	<value><![CDATA[approved]]></value>
+</replacements>
+<replacements id="13">
+<replacement>LA_BACKTOCATEGORY</replacement>
+	<value><![CDATA[Back to category]]></value>
+</replacements>
+<replacements id="14">
+<replacement>LA_CATEGORY</replacement>
+	<value><![CDATA[Category]]></value>
+</replacements>
+<replacements id="15">
+<replacement>LA_CHOOSEQUERYSTOCK</replacement>
+	<value><![CDATA[choose stock]]></value>
+</replacements>
+<replacements id="16">
+<replacement>LA_DESCRIPTION</replacement>
+	<value><![CDATA[Description]]></value>
+</replacements>
+<replacements id="17">
+<replacement>LA_EXECCOUNT</replacement>
+	<value><![CDATA[run count]]></value>
+</replacements>
+<replacements id="18">
+<replacement>LA_EXECDATE</replacement>
+	<value><![CDATA[last run]]></value>
+</replacements>
+<replacements id="19">
+<replacement>LA_FILTERMETHOD</replacement>
+	<value><![CDATA[import method]]></value>
+</replacements>
+<replacements id="20">
+<replacement>LA_FOLGENDEAUFGABEAUSFHR</replacement>
+	<value><![CDATA[exec task]]></value>
+</replacements>
+<replacements id="21">
+<replacement>LA_KOMMASEPARATED</replacement>
+	<value><![CDATA[(Komma separated)]]></value>
+</replacements>
+<replacements id="22">
+<replacement>LA_LAEXEC</replacement>
+	<value><![CDATA[run]]></value>
+</replacements>
+<replacements id="23">
+<replacement>LA_LASHOWLIST</replacement>
+	<value><![CDATA[show list]]></value>
+</replacements>
+<replacements id="24">
+<replacement>LA_LASTRUNBY</replacement>
+	<value><![CDATA[last run by]]></value>
+</replacements>
+<replacements id="25">
+<replacement>LA_LASTUPDATE</replacement>
+	<value><![CDATA[last update]]></value>
+</replacements>
+<replacements id="26">
+<replacement>LA_LISTTYPE</replacement>
+	<value><![CDATA[Video Database]]></value>
+</replacements>
+<replacements id="27">
+<replacement>LA_MISSED</replacement>
+	<value><![CDATA[missed]]></value>
+</replacements>
+<replacements id="28">
+<replacement>LA_NOMATTERALL</replacement>
+	<value><![CDATA[- all -]]></value>
+</replacements>
+<replacements id="29">
+<replacement>LA_NOSEARCHRESULT</replacement>
+	<value><![CDATA[no search result]]></value>
+</replacements>
+<replacements id="30">
+<replacement>LA_NOSELECTION</replacement>
+	<value><![CDATA[no selection]]></value>
+</replacements>
+<replacements id="31">
+<replacement>LA_ORDER</replacement>
+	<value><![CDATA[Sorting]]></value>
+</replacements>
+<replacements id="32">
+<replacement>LA_PARAMENTERMISSING</replacement>
+	<value><![CDATA[please fill out standard fields]]></value>
+</replacements>
+<replacements id="33">
+<replacement>LA_PLEASESELECTCATEGORY</replacement>
+	<value><![CDATA[Please select category]]></value>
+</replacements>
+<replacements id="34">
+<replacement>LA_PROZESSABBRECHEN</replacement>
+	<value><![CDATA[stop sync]]></value>
+</replacements>
+<replacements id="35">
+<replacement>LA_QUERIESSAVED</replacement>
+	<value><![CDATA[No queries saved]]></value>
+</replacements>
+<replacements id="36">
+<replacement>LA_QUERSTOCK</replacement>
+	<value><![CDATA[Video stock]]></value>
+</replacements>
+<replacements id="37">
+<replacement>LA_QUERY</replacement>
+	<value><![CDATA[Query]]></value>
+</replacements>
+<replacements id="38">
+<replacement>LA_QUERYRESULTMANAGER</replacement>
+	<value><![CDATA[Query Results Manager]]></value>
+</replacements>
+<replacements id="39">
+<replacement>LA_QUERYTITLE</replacement>
+	<value><![CDATA[Query title]]></value>
+</replacements>
+<replacements id="40">
+<replacement>LA_RELATIONSHIP</replacement>
+	<value><![CDATA[relationship]]></value>
+</replacements>
+<replacements id="41">
+<replacement>LA_SEARCHINALLCATEGORIES</replacement>
+	<value><![CDATA[search in all categories]]></value>
+</replacements>
+<replacements id="42">
+<replacement>LA_SEARCHYOUTUBE</replacement>
+	<value><![CDATA[Search youTube]]></value>
+</replacements>
+<replacements id="43">
+<replacement>LA_SELECTONECAT</replacement>
+	<value><![CDATA[Please select at least one category.]]></value>
+</replacements>
+<replacements id="44">
+<replacement>LA_SHOWALL</replacement>
+	<value><![CDATA[show categories]]></value>
+</replacements>
+<replacements id="45">
+<replacement>LA_SICHBARFRFOLGENDELNDE</replacement>
+	<value><![CDATA[Sichbar für folgende Länder]]></value>
+</replacements>
+<replacements id="46">
+<replacement>LA_TIMEBACK</replacement>
+	<value><![CDATA[time piriot]]></value>
+</replacements>
+<replacements id="47">
+<replacement>LA_TOTALVIDEOCOUNT</replacement>
+	<value><![CDATA[video count in cache]]></value>
+</replacements>
+<replacements id="48">
+<replacement>LA_TOTALVIDEOCOUNTAPP</replacement>
+	<value><![CDATA[Video count]]></value>
+</replacements>
+<replacements id="49">
+<replacement>LA_TOTALVIDEOFILTERCOUNT</replacement>
+	<value><![CDATA[Video count (filtered)]]></value>
+</replacements>
+<replacements id="50">
+<replacement>LA_VIDCOUNT</replacement>
+	<value><![CDATA[Video count]]></value>
+</replacements>
+<replacements id="51">
+<replacement>LA_VIDEODURATION</replacement>
+	<value><![CDATA[duration (min)]]></value>
+</replacements>
+<replacements id="52">
+<replacement>LA_VIDEOMAN</replacement>
+	<value><![CDATA[Saved links manager]]></value>
+</replacements>
+<replacements id="53">
+<replacement>LA_VIDEOPUNCHCATEGORIES</replacement>
+	<value><![CDATA[Categories Manager]]></value>
+</replacements>
+<replacements id="54">
+<replacement>LA_VIDEOSOURCE</replacement>
+	<value><![CDATA[Video source]]></value>
+</replacements>
+<replacements id="55">
+<replacement>LA_VIDEOSTOCK</replacement>
+	<value><![CDATA[Video Stock]]></value>
+</replacements>
+<replacements id="56">
+<replacement>LA_VIDEOTITLE</replacement>
+	<value><![CDATA[Title]]></value>
+</replacements>
+<replacements id="57">
+<replacement>LA_VIMEOQUERY</replacement>
+	<value><![CDATA[Vimeo Query]]></value>
+</replacements>
+<replacements id="58">
+<replacement>LA_VISEARCHTYPE</replacement>
+	<value><![CDATA[Search type]]></value>
+</replacements>
+<replacements id="59">
+<replacement>LA_VPLOG</replacement>
+	<value><![CDATA[Log]]></value>
+</replacements>
+<replacements id="60">
+<replacement>LA_VPMIXERNOTALLOWED</replacement>
+	<value><![CDATA[You dont have the permissions to edit this category.]]></value>
+</replacements>
+<replacements id="61">
+<replacement>LA_VPTASKS</replacement>
+	<value><![CDATA[Tasks]]></value>
+</replacements>
+<replacements id="62">
+<replacement>LA_WLULNG</replacement>
+	<value><![CDATA[Language]]></value>
+</replacements>
+<replacements id="63">
+<replacement>LA_YOUAREVIDEOMIXER</replacement>
+	<value><![CDATA[You are a video mixer. This category will be stored individually.]]></value>
+</replacements>
+<replacements id="64">
+<replacement>LA_YOUTUBEQUERY</replacement>
+	<value><![CDATA[youTube Query]]></value>
+</replacements>
+<replacements id="65">
+<replacement>LA_YPTAGS</replacement>
+	<value><![CDATA[video tags]]></value>
+</replacements>
+<replacements id="66">
+<replacement>LA_YTCATS</replacement>
+	<value><![CDATA[search in category]]></value>
+</replacements>
+<replacements id="67">
+<replacement>LA_YTLNG</replacement>
+	<value><![CDATA[YT language]]></value>
+</replacements>
+<replacements id="68">
+<replacement>LA_YTMAXRESEULTS</replacement>
+	<value><![CDATA[video count each page]]></value>
+</replacements>
+<replacements id="69">
+<replacement>LA_YTSEARCHRESULT</replacement>
+	<value><![CDATA[search result]]></value>
+</replacements>
+<replacements id="70">
+<replacement>LA_YTSEARCHTERMS</replacement>
+	<value><![CDATA[search keywords]]></value>
+</replacements>
+<replacements id="71">
+<replacement>LA_YTSEARCHTERMSEXCLUDE</replacement>
+	<value><![CDATA[exclude keywords]]></value>
+</replacements>
+<replacements id="72">
+<replacement>LA_YTSECTION</replacement>
+	<value><![CDATA[Area]]></value>
+</replacements>
+<replacements id="73">
+<replacement>LA_YTTOTALLIMIT</replacement>
+	<value><![CDATA[Total number of files for download]]></value>
+</replacements>
+<replacements id="74">
+<replacement>LBL_VIEWS</replacement>
+	<value><![CDATA[Views]]></value>
+</replacements>
+</lngpack>

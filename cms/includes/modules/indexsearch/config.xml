@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Indexierte Suche</module_name>
+      <id>indexsearch</id>
+      <active>false</active>
+      <version>1.0</version>
+      <php>indexsearch.inc</php>
+      <hasperm>true</hasperm>
+      <epage>indexsearch.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>true</is_content_page>
+      <stdclass>indexsearch_class</stdclass>
+      <description>Indexierte Suche f&#xFC;r das CMS</description>
+      <change_date>2014-01-01</change_date>
+    </settings>
+    <events>
+      <event eventname="on_output" method="class" classname="indexsearch_class" function="on_output"/>
+      <event eventname="autorun" method="class" classname="indexsearch_class" function="autorun"/>
+    </events>
+    <includes>
+      <include type="class" classname="indexsearch_master_class">indexsearch.master</include>
+      <include type="class" classname="indexsearch_class">indexsearch</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="indexsearch_admin_class">indexsearch</include>
+    </admin_includes>
+    <admin_menu parent="96" icon="indexsearch/admin/images/plugin.png" query="cmd=load_index" morder="1"/>
+  </module>
+</config>

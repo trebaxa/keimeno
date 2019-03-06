@@ -1,0 +1,54 @@
+<lngpack>
+ <replacements id="1">
+<replacement>LA_BILDERVORSCHAUENNEUER</replacement>
+	<value><![CDATA[Bilder Vorschauen neu erzeugen]]></value>
+</replacements>
+<replacements id="2">
+<replacement>LA_ESWURDENOCHKEINWASSER</replacement>
+	<value><![CDATA[Es wurde noch kein Wasserzeichen hochgeladen. Bitte legen Sie dieses unter "Layout" CMS Bilder an.]]></value>
+</replacements>
+<replacements id="3">
+<replacement>LA_INFOORGBILDER</replacement>
+	<value><![CDATA[Oftmals werden zu grosse Bilder auf dem Server gespeichert. Hier können Sie alle zu grossen Bilder verkleinern lassen. Es macht nur in den seltensten Fällen Sinn eine höhere Auflösung als 1024x768 zu haben.]]></value>
+</replacements>
+<replacements id="4">
+<replacement>LA_INFOTHUMBN</replacement>
+	<value><![CDATA[Hier werden alle Bildervorschauen (Thumbnails) neu erzeuget. Dies erhöht die Geschwindigkeit der Homepage.]]></value>
+</replacements>
+<replacements id="5">
+<replacement>LA_INFOVALID</replacement>
+	<value><![CDATA[Durch fehlgeschlagene Uploads oder Migrationsprozesse können Bilder auf dem Server liegen, die nicht in der DB aufgenommen sind oder Bilder, die sich zwar in der DB befinden, jedoch nicht auf dem Server existieren. Diese Bilder können hier bereinigt werden.]]></value>
+</replacements>
+<replacements id="6">
+<replacement>LA_INFOWATERMAR</replacement>
+	<value><![CDATA[Setzen Sie auf alle Ihre Fotos ein Wasserzeichen. Unter "Layout" können Sie ein Wasserzeichen hochladen.]]></value>
+</replacements>
+<replacements id="7">
+<replacement>LA_LBLAUTOR</replacement>
+	<value><![CDATA[Autor]]></value>
+</replacements>
+<replacements id="8">
+<replacement>LA_MAXBREITE</replacement>
+	<value><![CDATA[Max. Breite]]></value>
+</replacements>
+<replacements id="9">
+<replacement>LA_MAXHHE</replacement>
+	<value><![CDATA[Max. Höhe]]></value>
+</replacements>
+<replacements id="10">
+<replacement>LA_ORIGINALBILDERVERKLEI</replacement>
+	<value><![CDATA[Original Bilder verkleinern]]></value>
+</replacements>
+<replacements id="11">
+<replacement>LA_VALIDIERUNG</replacement>
+	<value><![CDATA[Validierung]]></value>
+</replacements>
+<replacements id="12">
+<replacement>LA_WASSERZEICHEN</replacement>
+	<value><![CDATA[Wasserzeichen]]></value>
+</replacements>
+<replacements id="13">
+<replacement>LA_NEUESALBUM</replacement>
+	<value><![CDATA[Neues Album]]></value>
+</replacements>
+</lngpack>

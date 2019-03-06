@@ -1,0 +1,50 @@
+
+##-- gzip aktivieren
+SetOutputFilter DEFLATE
+AddOutputFilterByType DEFLATE text/css text/html text/plain text/xml text/js application/x-javascript application/javascript
+
+# BEGIN headers
+<IfModule mod_headers.c>
+    <FilesMatch "\.(js|css|xml|gz)$">
+        Header append Vary Accept-Encoding
+    </FilesMatch>
+
+    Header unset Last-Modified
+</IfModule>
+# END headers
+
+
+# BEGIN Expire headers
+<IfModule mod_expires.c>
+    <FilesMatch "\.(gif|jpg|jpeg|png|swf|css|js|html?|xml|txt|ico)$">
+        ExpiresActive On
+        ExpiresDefault "access plus 10 years"
+    </FilesMatch>
+</IfModule>
+# END Expire headers
+
+
+# BEGIN Cache-Control Headers
+<FilesMatch "\.(ico|jpeg|jpg|png|gif|swf|css)$">
+    Header set Cache-Control "max-age=5184000, public"
+</FilesMatch>
+<FilesMatch "\.(js)$">
+    Header set Cache-Control "max-age=5184000, private"
+</FilesMatch>
+<FilesMatch "\.(xhtml|html|htm|php)$">
+    Header set Cache-Control "max-age=5184000, private, must-revalidate"
+</FilesMatch>
+# END Cache-Control Headers
+
+
+RewriteEngine On
+Options +FollowSymLinks 
+
+RewriteCond %{QUERY_STRING} http[:%] [NC]
+RewriteRule .* /-http- [F,NC]
+RewriteRule http: /-http- [F,NC]
+
+RewriteRule ^welcome.html /admin/run.php?epage=welcome.inc&%{QUERY_STRING} [L]
+RewriteRule ^logout.html /admin/index.php?cmd=logout&%{QUERY_STRING} [L]
+RewriteRule ^login.html /admin/index.php?&%{QUERY_STRING} [L]
+RewriteRule ^fb.html /admin/run.php?epage=fbwp.inc&cmd=set_token&section=conf&%{QUERY_STRING} [L]  

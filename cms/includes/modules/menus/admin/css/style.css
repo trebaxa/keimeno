@@ -1,0 +1,16 @@
+#js-mmenu-tree-cont .jstree-anchor {
+    color:#000 !important;
+}
+
+#js-mmenu-tree-cont .jstree-anchor:hover, .jstree-anchor:active {
+    color:#555 !important;
+}
+
+
+#js-mmenu-tree-cont .jstree-default > .jstree-wholerow-ul .jstree-hovered, .jstree-default > .jstree-wholerow-ul .jstree-clicked {    
+    color: #333 !important;
+}
+
+#js-mmenu-tree-cont .jstree-hovered {
+    color: #333 !important; 
+}

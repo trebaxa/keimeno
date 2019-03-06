@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Inlay</module_name>
+      <id>inlay</id>
+      <active>true</active>
+      <version>1.0</version>
+      <php>inlay.inc</php>
+      <hasperm>true</hasperm>
+      <parse>true</parse>
+      <iscore>true</iscore>
+      <epage>inlayadmin.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>false</is_content_page>
+      <developer_id>1</developer_id>
+    </settings>
+    <includes>
+      <include type="class" classname="inlay_class">inlay</include>
+    </includes>
+    <events>
+      <event eventname="OnDeleteLanguage" method="class" classname="inlay_class" function="delete_lang_content"/>
+    </events>
+    <contentplugins>
+      <plugin>
+        <name>Inlay</name>
+        <id>html_inlay</id>
+        <tpl>inlay.plugin</tpl>
+        <lists>
+          <list name="templates" classname="inlay_class" idname="id" label="description" function="load_homepage_integration"/>
+        </lists>
+        <save classname="inlay_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+  </module>
+</config>

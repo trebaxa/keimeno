@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Redimero API</module_name>
+      <id>rediapi</id>
+      <active>false</active>
+      <version>1.2</version>
+      <php>redimeroapi.inc</php>
+      <hasperm>false</hasperm>
+      <parse>false</parse>
+      <epage>redimeroapi.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>false</is_content_page>
+      <developer_id>1</developer_id>
+      <description>Die Redimero API gibt Ihnen Zugang zu einem x-beliebigen Redimero System. &#xDC;ber eine SOAP Schnittstelle findet der Datenaustausch statt.</description>
+      <encode>false</encode>
+    </settings>
+    <events>
+      <event eventname="beforesmartycompile" method="class" classname="rediapi_class" function="parse_rediapi_inlay"/>
+    </events>
+    <includes>
+      <include type="class" classname="rediapi_master_class" varname="">rediapi.master</include>
+      <include type="class" classname="rediapi_class" varname="">redimeroapi</include>
+      <include type="externfile">CMS_ROOT/includes/modules/rediapi/ws/classes/ws_clientconfig.class.php</include>
+      <include type="externfile">CMS_ROOT/includes/modules/rediapi/ws/classes/ws_arraytoxml.class.php</include>
+      <include type="externfile">CMS_ROOT/includes/modules/rediapi/ws/classes/ws_client.class.php</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="rediapi_admin_class">redimeroapi</include>
+    </admin_includes>
+    <admin_menu parent="96" icon="rediapi/admin/images/redimero_small.png" query="" morder="1" epage="redimeroapi"/>
+    <contentplugins>
+      <plugin>
+        <name>Redimero Anbindung</name>
+        <id>redimero_inlay</id>
+        <tpl>rediapi.plugin</tpl>
+        <lists>
+          <list name="templates" classname="rediapi_admin_class" idname="tpl_name" label="description" function="load_template_integration"/>
+          <list name="functions" classname="rediapi_admin_class" idname="func_name" label="label" function="load_function_integration"/>
+          <list name="api" classname="rediapi_admin_class" idname="id" label="r_name" function="load_api_integration"/>
+        </lists>
+        <save classname="rediapi_admin_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+  </module>
+</config>

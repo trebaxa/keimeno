@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Verkaufsformular</module_name>
+      <id>sellform</id>
+      <active>false</active>
+      <version>1.2</version>
+      <php>sellform.inc</php>
+      <hasperm>true</hasperm>
+      <parse>true</parse>
+      <epage>sellform.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>true</is_content_page>
+      <developer_id>1</developer_id>
+      <change_date>2014-06-21</change_date>
+      <description>Mit dem Verkausformlar greifen Sie auf eine Redimero Installation und k&#xF6;nnen ganz bestimmte Produkte innerhalb des CMS verkaufen. Die Redimero API ist dazu n&#xF6;tig.</description>
+      <encode>false</encode>
+    </settings>
+    <events>
+      <event eventname="beforesmartycompile" method="class" classname="sellform_class" function="preparse"/>
+    </events>
+    <includes>
+      <include type="class" classname="sellform_class" varname="">sellform</include>
+    </includes>
+    <contentplugins>
+      <plugin>
+        <name>Verkaufsformulare</name>
+        <id>sellform</id>
+        <tpl>sellform.plugin</tpl>
+        <lists>
+          <list name="templates" classname="sellform_class" idname="id" label="fo_name" function="load_homepage_integration"/>
+        </lists>
+        <save classname="sellform_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+    <admin_menu parent="96" icon="sellform.png" label="Verkaufsformular" epage="sellform"/>
+  </module>
+</config>

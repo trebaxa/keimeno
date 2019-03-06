@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Twitter</module_name>
+      <id>tw</id>
+      <active>false</active>
+      <version>1.0</version>
+      <php>tw.inc</php>
+      <hasperm>false</hasperm>
+      <epage>tw.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>false</is_content_page>
+      <developer_id>1</developer_id>
+      <description>Verbinden Sie Ihre Homepage mit Twitter. Laden Sie den aktuellen Twitter Stream herunter oder posten Sie direkt Statusmeldungen.</description>
+    </settings>
+    <events>
+      <event eventname="autorun" method="class" classname="tw_class" function="on_startpage"/>
+    </events>
+    <includes>
+      <include type="class" classname="tw_class">tw</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="twitter_admin_class">tw</include>
+    </admin_includes>
+    <admin_menu icon="tw/admin/images/twitterico.png" parent="96" label="Twitter"/>
+  </module>
+</config>

@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Customer Index</module_name>
+      <id>memindex</id>
+      <active>false</active>
+      <version>1.4</version>
+      <php>memindex.inc</php>
+      <hasperm>false</hasperm>
+      <iscore>false</iscore>
+      <epage>memindex.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>true</is_content_page>
+      <developer_id>1</developer_id>
+      <description>Steuern Sie einfach und bequem Ihre Kunden.</description>
+    </settings>
+    <events>
+      <event eventname="startpage" method="class" classname="memindex_class" function="load_latest_members"/>
+      <event eventname="OnDeleteCustomer" method="class" classname="memindex_class" function="on_delete_customer"/>
+      <event eventname="xmlsitemap" method="class" classname="memindex_class" function="gen_xmlsitemap"/>
+    </events>
+    <includes>
+      <include type="class" classname="memindex_class">memindex.master</include>
+      <include type="class" classname="memindex_class">memindex</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="memindex_admin_class">memindex</include>
+    </admin_includes>
+    <admin_menu_items>
+      <admin_menu parent="96" label="{LBL_CUSTOMERS} Config" morder="11"/>
+      <admin_menu parent="96" label="{LBL_CUSTOMERS} Verwaltung" morder="10" php="kreg" query="type=-"/>
+      <admin_menu parent="96" label="{LBL_CUSTOMERS} {LBL_GROUP}" morder="12" epage="cust.groups" query="cmd=all+section=start"/>
+      <admin_menu parent="96" label="{LBL_CUSTOMFIELDS}" epage="cfields" morder="11"/>
+    </admin_menu_items>
+  </module>
+</config>

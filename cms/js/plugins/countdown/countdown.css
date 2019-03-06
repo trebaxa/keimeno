@@ -1,0 +1,55 @@
+#countdown {
+        text-align:center;
+        border:1px solid #C7C7C7;
+        background-color:rgba(255, 144, 0, 0.25);
+        width:100%;
+        margin-top:10px;
+}
+
+#countdown h1{
+    color:#000000;
+    font-size:12pt;
+    text-decoration:none;
+    margin:3px;
+    padding:0px;
+}
+
+span#cdown_tage, #countdown .cdays {
+        font-weight: bold;
+        font-size: 30px; 
+        color: #000000;
+}
+
+span#cdown_detail {
+        font-weight: bold;
+        font-size: 25px; 
+        color: #767676;
+}
+
+#countdowns {
+        text-align:center;
+        border:1px solid #C7C7C7;
+        background-color:rgba(255, 144, 0, 0.25);
+        width:100%;
+        margin-top:10px;
+}
+
+#countdowns h1{
+    color:#000000;
+    font-size:12pt;
+    text-decoration:none;
+    margin:3px;
+    padding:0px;
+}
+
+span#cdown_tages, #countdowns .cdays {
+        font-weight: bold;
+        font-size: 30px; 
+        color: #000000;
+}
+
+span#cdown_details {
+        font-weight: bold;
+        font-size: 25px; 
+        color: #767676;
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Newsletter Subscription</module_name>
+      <id>newssub</id>
+      <active>false</active>
+      <version>1.0</version>
+      <php>newssub.inc</php>
+      <hasperm>false</hasperm>
+      <epage>newssub.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>true</is_content_page>
+      <developer_id>1</developer_id>
+      <description>Eine einfache M&#xF6;glichkeit sich am Newsletter an- und abzumelden.</description>
+    </settings>
+    <includes>
+      <include type="class" classname="newssub_class">newssub</include>
+    </includes>
+  </module>
+</config>

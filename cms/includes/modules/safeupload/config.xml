@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>SafeUpload</module_name>
+      <id>safeupload</id>
+      <active>false</active>
+      <version>1.0</version>
+      <php>safeupload.inc</php>
+      <hasperm>false</hasperm>
+      <epage>safeupload.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>false</is_content_page>
+      <stdclass>safeupload_class</stdclass>
+      <description>Angemeldete Benutzer k&#xF6;nnen gesichert Dateien in Ihr Profil laden.</description>
+      <developer_id/>
+      <change_date>2017-08-21</change_date>
+    </settings>
+    <events>
+      <event eventname="beforesmartycompile" method="class" classname="safeupload_class" function="parse_safeupload"/>
+      <event eventname="OnLoadCustomerFiles" method="class" classname="safeupload_admin_class" function="on_load_customer_files"/>
+      <event eventname="OnDeleteCustomerFiles" method="class" classname="safeupload_admin_class" function="on_delete_customer_files"/>
+      <event eventname="OnUploadCustomerFiles" method="class" classname="safeupload_admin_class" function="on_upload_customer_files"/>
+    </events>
+    <includes>
+      <include type="class" classname="safeupload_master_class">safeupload.master</include>
+      <include type="class" classname="safeupload_class">safeupload</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="safeupload_admin_class">safeupload</include>
+    </admin_includes>
+    <contentplugins>
+      <plugin>
+        <name>SafeUpload</name>
+        <id>safeupload_inlay</id>
+        <tpl>safeupload.plugin</tpl>
+        <lists>
+          <list name="templates" classname="safeupload_admin_class" idname="id" label="description" function="load_homepage_integration"/>
+        </lists>
+        <save classname="safeupload_admin_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+  </module>
+</config>

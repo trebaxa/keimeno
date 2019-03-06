@@ -1,0 +1,96 @@
+BlackWidow
+Bot\ mailto:craftbot@yahoo.com
+cfetch
+BLEXBot
+SemrushBot
+Qwantify
+AhrefsBot
+Pinterestbot
+CherryPicker
+ChinaClaw
+Crescent
+Custo
+DISCo
+Download\ Demon
+eCatch
+EirGrabber
+EmailCollector
+EmailSiphon
+EmailWolf
+Express\ WebPictures
+ExtractorPro
+EyeNetIE
+FlashGet
+GetRight
+GetWeb!
+Go!Zilla
+Go-Ahead-Got-It
+GornKer
+GrabNet
+Grafula
+HMView
+HTTrack
+Image\ Stripper
+Image\ Sucker
+Indy\ Library
+InterGET
+Internet\ Ninja
+Irvine
+JetCar
+JOC\ Web\ Spider
+larbin
+LeechFTP
+Mass\ Downloader
+Microsoft.URL
+MIDown\ tool
+Mister\ PiX
+Mozilla.*NEWT
+Navroad
+NearSite
+NetAnts
+NetSpider
+Net\ Vampire
+NetZIP
+NICErsPRO
+Octopus
+oegp
+Offline\ Explorer
+Offline\ Navigator
+PageGrabber
+Papa\ Foto
+pavuk
+pcBrowser
+RealDownload
+ReGet
+SearchExpress
+SiteSnagger
+SmartDownload
+SuperBot
+SuperHTTP
+Surfbot
+Siphon
+tAkeOut
+Teleport\ Pro
+VoidEYE
+Web\ Image\ Collector
+Web\ Sucker
+WebAuto
+WebBandit
+WebCopier
+WebFetch
+WebGo\ IS
+WebLeacher
+WebReaper
+WebSauger
+Website\ eXtractor
+Website\ Quester
+WebStripper
+WebWhacker
+WebZIP
+Widow
+WWWOFFLE
+Xaldon\ WebSpider
+Zeus
+cs.uni-dortmund.de
+libwww-perl
+ZyBorg

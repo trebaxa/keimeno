@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>XML Sitemap</module_name>
+      <id>sitemap</id>
+      <active>true</active>
+      <version>1.2</version>
+      <php>xmlsm.inc</php>
+      <hasperm>false</hasperm>
+      <iscore>false</iscore>
+      <onlyadmin>true</onlyadmin>
+      <epage>xmlsm.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>true</is_content_page>
+      <developer_id>1</developer_id>
+      <change_date>2017-03-30</change_date>
+      <description>Exportieren Sie Ihre Homepage Struktur als XML und stellen Sie diese Google und anderen Suchmaschinen zur Verf&#xFC;gung.</description>
+    </settings>
+    <events>
+      <event eventname="cronjob" method="class" classname="xmlsm_class" function="cronjob"/>
+    </events>
+    <includes>
+      <include type="class" classname="SiteMap">sitemap</include>
+      <include type="class" classname="xmlsm_class">xmlsm</include>
+      <include type="class" classname="site_mapini_class">sitemapini</include>
+    </includes>
+    <admin_menu parent="96" icon="gsmap.png" label="XML Sitemap" epage="xmlsm" query=""/>
+  </module>
+</config>

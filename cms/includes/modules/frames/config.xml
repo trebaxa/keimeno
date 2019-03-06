@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Foto Rahmen</module_name>
+      <id>frames</id>
+      <active>false</active>
+      <version>1.0</version>
+      <php>frames.inc</php>
+      <hasperm>false</hasperm>
+      <epage>frames.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>false</is_content_page>
+      <developer_id>1</developer_id>
+      <description><![CDATA[Mit dem Rahmen Modul wird die Galerie ergänzt. Bildvorschauen und Bilder werden in einem fotorealistischen Rahmen dargestellt.]]></description>
+    </settings>
+    <events>
+      <event eventname="OnLoadGalleryImages" method="class" classname="frames_class" function="frame_images"/>
+    </events>
+    <includes>
+      <include type="class" classname="frames_class">frames</include>
+      <include type="class" classname="frame_class">frame</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="frames_admin_class">frames</include>
+    </admin_includes>
+    <admin_menu parent="96" icon="frames/admin/images/menu_frame.png" morder="1"/>
+  </module>
+</config>

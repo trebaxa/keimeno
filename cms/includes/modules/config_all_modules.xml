@@ -1,0 +1,462 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <module>
+      <settings>
+        <module_name>Kontakt Formular</module_name>
+        <id>contactform</id>
+        <active>true</active>
+        <version>1.2</version>
+        <php>contact.inc</php>
+        <hasperm>false</hasperm>
+        <parse>false</parse>
+        <epage>contact.inc</epage>
+        <epage_dir>MODULE_ROOT</epage_dir>
+        <is_content_page>true</is_content_page>
+        <stdclass>contactform_class</stdclass>
+        <developer_id>1</developer_id>
+        <change_date>2014-06-25</change_date>
+        <description>Richten Sie ein Kontaktformlar f&#xFC;r Ihre Homepage ein. Sicher dank Token und Capcha.</description>
+      </settings>
+      <events>
+        <event eventname="beforesmartycompile" method="class" classname="contactform_class" function="parse_contact_form"/>
+      </events>
+      <includes>
+        <include type="class" classname="contactform_class">contact</include>
+      </includes>
+      <admin_menu parent="96" epage="contact" icon="contactform/admin/images/contact.png" morder="1"/>
+      <admin_includes>
+        <include type="class" classname="contact_admin_class">contact</include>
+      </admin_includes>
+      <contentplugins>
+        <plugin>
+          <name>Kontakt Form</name>
+          <id>contact_inlay</id>
+          <tpl>contact.plugin</tpl>
+          <lists>
+            <list name="templates" classname="contactform_class" idname="id" label="description" function="load_homepage_integration"/>
+          </lists>
+          <save classname="contactform_class" function="save_homepage_integration"/>
+        </plugin>
+      </contentplugins>
+    </module>
+    <module>
+      <settings>
+        <module_name>Content</module_name>
+        <id>content</id>
+        <active>true</active>
+        <version>1.0</version>
+        <php>content.inc</php>
+        <hasperm>false</hasperm>
+        <xmlsitemap>true</xmlsitemap>
+        <parse>false</parse>
+        <epage>websitemanager.inc</epage>
+        <iscore>true</iscore>
+        <epage_dir>MODULE_ROOT</epage_dir>
+        <is_content_page>true</is_content_page>
+        <class_name>content_class</class_name>
+        <developer_id>1</developer_id>
+      </settings>
+      <events>
+        <event eventname="autorun" method="class" classname="content_class" function="parse_to_smarty"/>
+        <event eventname="xmlsitemap" method="class" classname="content_class" function="gen_xmlsitemap"/>
+        <event eventname="OnDeleteLanguage" method="class" classname="content_class" function="delete_lang_content"/>
+      </events>
+      <includes>
+        <include type="class" classname="content_class">content</include>
+      </includes>
+      <admin_includes>
+        <include type="class" classname="websites_class">websites</include>
+      </admin_includes>
+    </module>
+    <module>
+      <settings>
+        <module_name>Cookie Datenschutz App</module_name>
+        <id>cookie</id>
+        <active>true</active>
+        <version>1.0</version>
+        <php>cookie.inc</php>
+        <hasperm>true</hasperm>
+        <epage>cookie.inc</epage>
+        <epage_dir>MODULE_ROOT</epage_dir>
+        <is_content_page>false</is_content_page>
+        <description>Pop Meldung bez. Cookie Datenschutzerkl&#xE4;rung</description>
+        <developer_id/>
+        <change_date>2014-01-01</change_date>
+      </settings>
+      <includes>
+        <include type="class" classname="cookie_master_class">cookie.master</include>
+      </includes>
+      <admin_includes>
+        <include type="class" classname="cookie_admin_class">cookie</include>
+      </admin_includes>
+      <admin_menu parent="96" icon="cookie/admin/images/plugin.png" morder="1"/>
+    </module>
+    <module>
+      <settings>
+        <module_name>FlexTemplates</module_name>
+        <id>flextemp</id>
+        <active>true</active>
+        <version>1.2</version>
+        <php>flextemp.inc</php>
+        <hasperm>true</hasperm>
+        <epage>flextemp.inc</epage>
+        <epage_dir>MODULE_ROOT</epage_dir>
+        <is_content_page>false</is_content_page>
+        <stdclass>flextemp_class</stdclass>
+        <description>Flexible Templates for Multi-Datasets</description>
+        <developer_id/>
+        <change_date>2016-11-16</change_date>
+        <iscore>true</iscore>
+      </settings>
+      <events>
+        <event eventname="beforesmartycompile" method="class" classname="flextemp_class" function="parse_flxt"/>
+        <event eventname="OnReplicateContent" method="class" classname="flextemp_admin_class" function="on_replicate_content"/>
+        <event eventname="OnJavaCompile" method="class" classname="flextemp_class" function="on_java_compile"/>
+      </events>
+      <includes>
+        <include type="class" classname="flextemp_master_class">flextemp.master</include>
+        <include type="class" classname="flextemp_class">flextemp</include>
+      </includes>
+      <admin_includes>
+        <include type="class" classname="flextemp_admin_class">flextemp</include>
+      </admin_includes>
+      <contentplugins>
+        <plugin>
+          <name>Flex-Template</name>
+          <id>flxt_inlay</id>
+          <tpl>flxtpl.plugin</tpl>
+          <lists>
+            <list name="templates" classname="flextemp_admin_class" idname="id" label="f_name" function="load_template_integration"/>
+          </lists>
+          <save classname="flextemp_admin_class" function="save_homepage_integration"/>
+        </plugin>
+      </contentplugins>
+    </module>
+    <module>
+      <settings>
+        <module_name>Frameworks</module_name>
+        <id>frameworks</id>
+        <active>true</active>
+        <version>1.0</version>
+        <php>frameworks.inc</php>
+        <hasperm>true</hasperm>
+        <epage>frameworks.inc</epage>
+        <epage_dir>MODULE_ROOT</epage_dir>
+        <is_content_page>false</is_content_page>
+        <iscore>true</iscore>
+        <developer_id>1</developer_id>
+      </settings>
+      <events>
+    </events>
+      <constants>
+    </constants>
+      <includes>
+    </includes>
+      <admin_includes>
+    </admin_includes>
+    </module>
+    <module>
+      <settings>
+        <module_name>Globale Variablen</module_name>
+        <id>gblvars</id>
+        <active>true</active>
+        <version>1.0</version>
+        <php>gblvars.inc</php>
+        <hasperm>false</hasperm>
+        <iscore>true</iscore>
+        <epage>gblvars.inc</epage>
+        <epage_dir>MODULE_ROOT</epage_dir>
+        <is_content_page>false</is_content_page>
+        <description>Globale Variablen</description>
+        <change_date>2014-01-01</change_date>
+      </settings>
+      <events>
+        <event eventname="OnPageLoad" method="class" classname="gblvars_class" function="page_load_frontend"/>
+        <event eventname="OnPageEdit" method="class" classname="gblvars_admin_class" function="load_page_gblvars"/>
+      </events>
+      <includes>
+        <include type="class" classname="gblvars_master_class">gblvars.master</include>
+        <include type="class" classname="gblvars_class">gblvars</include>
+      </includes>
+      <admin_includes>
+        <include type="class" classname="gblvars_admin_class">gblvars</include>
+      </admin_includes>
+    </module>
+    <module>
+      <settings>
+        <module_name>Global Administration Translation</module_name>
+        <id>global_admintrans</id>
+        <active>true</active>
+        <version>1.0</version>
+        <php>ga.inc</php>
+        <hasperm>false</hasperm>
+        <iscore>true</iscore>
+        <parse>false</parse>
+        <epage>ga.inc</epage>
+        <epage_dir>MODULE_ROOT</epage_dir>
+        <is_content_page>false</is_content_page>
+        <developer_id>1</developer_id>
+      </settings>
+    </module>
+    <module>
+      <settings>
+        <module_name>Google Maps</module_name>
+        <id>gmap</id>
+        <active>true</active>
+        <version>1.0</version>
+        <php>gmap.inc</php>
+        <hasperm>true</hasperm>
+        <epage>gmap.inc</epage>
+        <epage_dir>MODULE_ROOT</epage_dir>
+        <is_content_page>false</is_content_page>
+        <stdclass>gmap_class</stdclass>
+        <description>Google Maps Karte</description>
+        <developer_id/>
+        <change_date>2014-01-01</change_date>
+      </settings>
+      <events>
+        <event eventname="beforesmartycompile" method="class" classname="gmap_class" function="parse_googlemaps"/>
+      </events>
+      <includes>
+        <include type="class" classname="gmap_master_class">gmap.master</include>
+        <include type="class" classname="gmap_class">gmap</include>
+      </includes>
+      <contentplugins>
+        <plugin>
+          <name>Google Maps</name>
+          <id>gmap_inlay</id>
+          <tpl>gmap.plugin</tpl>
+          <lists>
+            <list name="templates" classname="gmap_admin_class" idname="id" label="description" function="load_template_integration"/>
+          </lists>
+          <save classname="gmap_admin_class" function="save_homepage_integration"/>
+        </plugin>
+      </contentplugins>
+      <admin_includes>
+        <include type="class" classname="gmap_admin_class">gmap</include>
+      </admin_includes>
+    </module>
+    <module>
+      <settings>
+        <module_name>Inlay</module_name>
+        <id>inlay</id>
+        <active>true</active>
+        <version>1.0</version>
+        <php>inlay.inc</php>
+        <hasperm>true</hasperm>
+        <parse>true</parse>
+        <iscore>true</iscore>
+        <epage>inlayadmin.inc</epage>
+        <epage_dir>MODULE_ROOT</epage_dir>
+        <is_content_page>false</is_content_page>
+        <developer_id>1</developer_id>
+      </settings>
+      <includes>
+        <include type="class" classname="inlay_class">inlay</include>
+      </includes>
+      <events>
+        <event eventname="OnDeleteLanguage" method="class" classname="inlay_class" function="delete_lang_content"/>
+      </events>
+      <contentplugins>
+        <plugin>
+          <name>Inlay</name>
+          <id>html_inlay</id>
+          <tpl>inlay.plugin</tpl>
+          <lists>
+            <list name="templates" classname="inlay_class" idname="id" label="description" function="load_homepage_integration"/>
+          </lists>
+          <save classname="inlay_class" function="save_homepage_integration"/>
+        </plugin>
+      </contentplugins>
+    </module>
+    <module>
+      <settings>
+        <module_name>Multi Menus</module_name>
+        <id>menus</id>
+        <active>true</active>
+        <version>1.2</version>
+        <php>menus.inc</php>
+        <hasperm>true</hasperm>
+        <epage>menus.inc</epage>
+        <epage_dir>MODULE_ROOT</epage_dir>
+        <is_content_page>false</is_content_page>
+        <stdclass>menus_class</stdclass>
+        <description>Erstellung von mehreren Menues</description>
+        <developer_id/>
+        <change_date>2017-02-07</change_date>
+      </settings>
+      <events>
+        <event eventname="beforesmartycompile" method="class" classname="menus_class" function="parse_mmenus"/>
+        <event eventname="aftersmartycompile" method="class" classname="menus_class" function="parse_mmenu_manuel"/>
+      </events>
+      <includes>
+        <include type="class" classname="menus_master_class">menus.master</include>
+        <include type="class" classname="menus_class">menus</include>
+      </includes>
+      <admin_includes>
+        <include type="class" classname="menus_admin_class">menus</include>
+      </admin_includes>
+      <contentplugins>
+        <plugin>
+          <name>Menu</name>
+          <id>menus_inlay</id>
+          <tpl>menus.plugin</tpl>
+          <lists>
+            <list name="menus" classname="menus_admin_class" idname="id" label="m_name" function="load_homepage_integration"/>
+          </lists>
+          <save classname="menus_admin_class" function="save_homepage_integration"/>
+        </plugin>
+      </contentplugins>
+      <admin_menu parent="96" icon="menus/admin/images/plugin.png" morder="1"/>
+    </module>
+    <module>
+      <settings>
+        <module_name>Sitemap Webpage</module_name>
+        <id>psitemap</id>
+        <active>true</active>
+        <version>1.1</version>
+        <php>psitemap.inc</php>
+        <hasperm>false</hasperm>
+        <epage>psitemap.inc</epage>
+        <epage_dir>MODULE_ROOT</epage_dir>
+        <stdclass>psitemap_class</stdclass>
+        <is_content_page>false</is_content_page>
+        <developer_id>1</developer_id>
+        <description>Stellen Sie Ihren Besucher oder auch den Suchmaschinen Ihre Seiten Struktur&#xFC;bersicht zur Verf&#xFC;gung.</description>
+      </settings>
+      <events>
+        <event eventname="beforesmartycompile" method="class" classname="psitemap_class" function="parse_sitemap"/>
+      </events>
+      <includes>
+        <include type="class" classname="psitemap_class">psitemap</include>
+      </includes>
+      <contentplugins>
+        <plugin>
+          <name>Sitemap Webpage</name>
+          <id>sitemap_inlay</id>
+          <tpl>psitemap.plugin</tpl>
+          <lists>
+            <list name="templates" classname="psitemap_admin_class" idname="id" label="description" function="load_template_integration"/>
+          </lists>
+          <save classname="psitemap_admin_class" function="save_homepage_integration"/>
+        </plugin>
+      </contentplugins>
+      <admin_includes>
+        <include type="class" classname="psitemap_admin_class">psitemap</include>
+      </admin_includes>
+    </module>
+    <module>
+      <settings>
+        <module_name>Resource Manager</module_name>
+        <id>resource</id>
+        <active>true</active>
+        <version>1.0</version>
+        <php>resource.inc</php>
+        <hasperm>true</hasperm>
+        <epage>resource.inc</epage>
+        <epage_dir>MODULE_ROOT</epage_dir>
+        <is_content_page>false</is_content_page>
+        <stdclass>resource_class</stdclass>
+        <description>Resource Manager</description>
+        <developer_id/>
+        <change_date>2018-12-12</change_date>
+        <iscore>true</iscore>
+      </settings>
+      <events>
+        <event eventname="OnAutorunAdmin" method="class" classname="resource_admin_class" function="on_autorun_admin"/>
+      </events>
+      <includes>
+        <include type="class" classname="resource_master_class">resource.master</include>
+        <include type="class" classname="resource_class">resource</include>
+      </includes>
+      <admin_includes>
+        <include type="class" classname="resource_admin_class">resource</include>
+      </admin_includes>
+    </module>
+    <module>
+      <settings>
+        <module_name>XML Sitemap</module_name>
+        <id>sitemap</id>
+        <active>true</active>
+        <version>1.2</version>
+        <php>xmlsm.inc</php>
+        <hasperm>false</hasperm>
+        <iscore>false</iscore>
+        <onlyadmin>true</onlyadmin>
+        <epage>xmlsm.inc</epage>
+        <epage_dir>MODULE_ROOT</epage_dir>
+        <is_content_page>true</is_content_page>
+        <developer_id>1</developer_id>
+        <change_date>2017-03-30</change_date>
+        <description>Exportieren Sie Ihre Homepage Struktur als XML und stellen Sie diese Google und anderen Suchmaschinen zur Verf&#xFC;gung.</description>
+      </settings>
+      <events>
+        <event eventname="cronjob" method="class" classname="xmlsm_class" function="cronjob"/>
+      </events>
+      <includes>
+        <include type="class" classname="SiteMap">sitemap</include>
+        <include type="class" classname="xmlsm_class">xmlsm</include>
+        <include type="class" classname="site_mapini_class">sitemapini</include>
+      </includes>
+      <admin_menu parent="96" icon="gsmap.png" label="XML Sitemap" epage="xmlsm" query=""/>
+    </module>
+    <module>
+      <settings>
+        <module_name>Statistic</module_name>
+        <id>statistic</id>
+        <active>true</active>
+        <version>1.2</version>
+        <php>statistic.inc</php>
+        <onlyadmin>true</onlyadmin>
+        <hasperm>false</hasperm>
+        <epage>statistic.inc</epage>
+        <epage_dir>MODULE_ROOT</epage_dir>
+        <is_content_page>false</is_content_page>
+        <developer_id>1</developer_id>
+        <description>Erfassung von Bots und Besuchern. Auswertung mit Diagrammen.</description>
+      </settings>
+      <events>
+        <event eventname="autorun" method="class" classname="stat_class" function="autorun"/>
+      </events>
+      <includes>
+        <include type="class" classname="stat_class">statisticfe</include>
+      </includes>
+      <admin_includes>
+        <include type="class" classname="statistic_class">statistic</include>
+      </admin_includes>
+      <admin_menu parent="96" icon="statistic/admin/images/statistic.png" morder="1"/>
+    </module>
+    <module>
+      <settings>
+        <module_name>Template Vorlagen</module_name>
+        <id>tplvars</id>
+        <active>true</active>
+        <version>1.1</version>
+        <php>tplvars.inc</php>
+        <hasperm>false</hasperm>
+        <iscore>true</iscore>
+        <epage>tplvars.inc</epage>
+        <epage_dir>MODULE_ROOT</epage_dir>
+        <is_content_page>false</is_content_page>
+        <developer_id>1</developer_id>
+        <description>Gestalten Sie Ihre eigenen Template Vorlagen und verwenden Sie diese bei der Homepage Gestaltung. Definieren Sie z.B. einen 3 Spalten Text mit Bild als Vorlage und verwenden ihn sp&#xE4;ter im Seiteneditor.</description>
+      </settings>
+      <includes>
+        <include type="class" classname="tplvars_class">tplvars</include>
+      </includes>
+      <admin_includes>
+        <include type="class" classname="tplvars_admin_class">tplvars</include>
+      </admin_includes>
+      <contentplugins>
+        <plugin>
+          <name>Template Vorlage</name>
+          <id>tpls_inlay</id>
+          <tpl>tpls.plugin</tpl>
+          <stdoptions classname="tplvars_admin_class" function="load_homepage_integration"/>
+          <save classname="tplvars_admin_class" function="save_homepage_integration"/>
+        </plugin>
+      </contentplugins>
+    </module>
+  </modules>
+</config>

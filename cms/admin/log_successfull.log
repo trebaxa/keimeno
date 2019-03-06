@@ -1,0 +1,1380 @@
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_admin_gr (id int(11) NOT NULL auto_increment,mgname varchar(254) NOT NULL,allowed text NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_adminlog (zeit varchar(15) NOT NULL,ip varchar(30) NOT NULL,browser varchar(255) NOT NULL,akt_page varchar(255) NOT NULL,phpfile varchar(255) NOT NULL,getvars text NOT NULL,mname varchar(255) NOT NULL,mid int(11) NOT NULL DEFAULT '0')
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_admins (id int(11) NOT NULL auto_increment,mitarbeiter_name varchar(255) NOT NULL,passwort varchar(255) NOT NULL,gid int(11) NOT NULL DEFAULT '0',mobile varchar(255) NOT NULL,email varchar(255) NOT NULL,del tinyint(1) NOT NULL DEFAULT '0',approval tinyint(1) NOT NULL DEFAULT '1',mi_lastname varchar(255) NOT NULL,mi_firstname varchar(255) NOT NULL,mi_email_copy smallint(1) NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_blog_access (groupid int(10) unsigned NOT NULL DEFAULT '0',artifact_id int(10) unsigned NOT NULL DEFAULT '0',artifact_type varchar(64) NOT NULL,artifact_mode varchar(64) NOT NULL,artifact_index varchar(64) NOT NULL)
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_blog_authorgroups (groupid int(10) unsigned NOT NULL DEFAULT '0',authorid int(10) unsigned NOT NULL DEFAULT '0')
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_blog_authors (realname varchar(255) NOT NULL,username varchar(32),password varchar(32),authorid int(11) NOT NULL auto_increment,mail_comments int(1) DEFAULT '1',mail_trackbacks int(1) DEFAULT '1',email varchar(128) NOT NULL,userlevel int(4) unsigned NOT NULL DEFAULT '0',right_publish int(1) DEFAULT '1', PRIMARY KEY (authorid))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_blog_category (categoryid int(11) NOT NULL auto_increment,category_name varchar(255),category_icon varchar(255),category_description text,authorid int(11),category_left int(11) DEFAULT '0',category_right int(11) DEFAULT '0',parentid int(11) NOT NULL DEFAULT '0',sort_order int(11),hide_sub int(1), PRIMARY KEY (categoryid))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_blog_comments (id int(11) NOT NULL auto_increment,entry_id int(10) unsigned NOT NULL DEFAULT '0',parent_id int(10) unsigned NOT NULL DEFAULT '0',timestamp int(10) unsigned,title varchar(150),author varchar(80),email varchar(200),url varchar(200),ip varchar(64),body text,type varchar(100) DEFAULT 'regular',subscribed enum('true','false') NOT NULL DEFAULT 'true',status varchar(50) NOT NULL,referer varchar(200), PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_blog_config (name varchar(255) NOT NULL,value text NOT NULL,authorid int(11) DEFAULT '0')
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_blog_entries (id int(11) NOT NULL auto_increment,title varchar(200),timestamp int(10) unsigned,body text,comments int(4) unsigned DEFAULT '0',trackbacks int(4) unsigned DEFAULT '0',extended text,exflag int(1),author varchar(20),authorid int(11),isdraft enum('true','false') NOT NULL DEFAULT 'true',allow_comments enum('true','false') NOT NULL DEFAULT 'true',last_modified int(10) unsigned,moderate_comments enum('true','false') NOT NULL DEFAULT 'true', PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_blog_entrycat (entryid int(11) NOT NULL,categoryid int(11) NOT NULL, PRIMARY KEY (entryid))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_blog_entryproperties (entryid int(11) NOT NULL,property varchar(255) NOT NULL,value text, PRIMARY KEY (entryid))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_blog_groupconfig (id int(10) unsigned NOT NULL DEFAULT '0',property varchar(128),value varchar(32))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_blog_groups (id int(11) NOT NULL auto_increment,name varchar(64), PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_blog_images (id int(11) NOT NULL auto_increment,name varchar(255) NOT NULL,extension varchar(5) NOT NULL,mime varchar(255) NOT NULL,size int(11) NOT NULL DEFAULT '0',dimensions_width int(11) NOT NULL DEFAULT '0',dimensions_height int(11) NOT NULL DEFAULT '0',date int(11) NOT NULL DEFAULT '0',thumbnail_name varchar(255) NOT NULL,authorid int(11) DEFAULT '0',path text,hotlink int(1),realname varchar(255) NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_blog_mediaproperties (mediaid int(11) NOT NULL,property varchar(128) NOT NULL,property_group varchar(50) NOT NULL,property_subgroup varchar(50) NOT NULL,value text, PRIMARY KEY (mediaid))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_blog_options (name varchar(255) NOT NULL,value text NOT NULL,okey varchar(64) NOT NULL)
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_blog_permalinks (permalink varchar(255) NOT NULL,entry_id int(10) unsigned NOT NULL DEFAULT '0',type varchar(200) NOT NULL,data text)
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_blog_plugincategories (class_name varchar(250),category varchar(250))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_blog_pluginlist (plugin_file varchar(255) NOT NULL,class_name varchar(255) NOT NULL,plugin_class varchar(255) NOT NULL,pluginPath varchar(255) NOT NULL,name varchar(255) NOT NULL,description text NOT NULL,version varchar(12) NOT NULL,upgrade_version varchar(12) NOT NULL,plugintype varchar(255) NOT NULL,pluginlocation varchar(255) NOT NULL,stackable int(1) NOT NULL DEFAULT '0',author varchar(255) NOT NULL,requirements text NOT NULL,website varchar(255) NOT NULL,last_modified int(11) NOT NULL DEFAULT '0')
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_blog_plugins (name varchar(128) NOT NULL,placement varchar(6) NOT NULL DEFAULT 'right',sort_order int(4) NOT NULL DEFAULT '0',authorid int(11) DEFAULT '0',path varchar(255), PRIMARY KEY (name))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_blog_references (id int(11) NOT NULL auto_increment,entry_id int(10) unsigned NOT NULL DEFAULT '0',link text,name text,type varchar(128) NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_blog_referrers (entry_id int(11) NOT NULL DEFAULT '0',day date NOT NULL,count int(11) NOT NULL DEFAULT '0',scheme varchar(5),host varchar(128) NOT NULL,port varchar(5),path varchar(255),query varchar(255), PRIMARY KEY (entry_id,day,host))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_blog_shoutbox (id int(11) NOT NULL auto_increment,timestamp int(10) unsigned,ip varchar(15),body text, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_blog_spamblock_htaccess (timestamp int(10) unsigned,ip varchar(15))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_blog_spamblocklog (timestamp int(10) unsigned,type varchar(255),reason text,entry_id int(10) unsigned NOT NULL DEFAULT '0',author varchar(80),email varchar(200),url varchar(200),useragent varchar(255),ip varchar(15),referer varchar(255),body text)
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_blog_suppress (ip varchar(64),scheme varchar(5),host varchar(128),port varchar(5),path varchar(255),query varchar(255),last timestamp NOT NULL DEFAULT 'CURRENT_TIMESTAMP')
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_cal_content (id int(11) NOT NULL auto_increment,lang_id int(11) NOT NULL DEFAULT '0',content text NOT NULL,title varchar(255) NOT NULL,nid int(11) NOT NULL DEFAULT '0',introduction text NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_cal_dates (id int(11) NOT NULL auto_increment,ndate date NOT NULL DEFAULT '0000-00-00',mid int(11) NOT NULL DEFAULT '0',group_id int(11) NOT NULL DEFAULT '1',approval tinyint(1) NOT NULL DEFAULT '0',time_to time NOT NULL DEFAULT '00:00:00',time_from time NOT NULL DEFAULT '00:00:00',whole_day tinyint(1) NOT NULL DEFAULT '0',place varchar(255) NOT NULL,ndate_to date NOT NULL DEFAULT '0000-00-00',created_date date NOT NULL DEFAULT '0000-00-00', PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_cal_gcontent (id int(11) NOT NULL auto_increment,g_title varchar(255) NOT NULL,g_content text NOT NULL,g_id int(11) NOT NULL DEFAULT '0',lang_id smallint(6) NOT NULL DEFAULT '0', PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_cal_groups (groupname varchar(100) NOT NULL,id int(11) NOT NULL auto_increment, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_cal_perm (perm_did int(11) NOT NULL DEFAULT '0',perm_group_id int(11) NOT NULL DEFAULT '0', PRIMARY KEY (perm_did,perm_group_id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_config (ID_STR varchar(16) NOT NULL,wert text NOT NULL,beschr text NOT NULL, PRIMARY KEY (ID_STR))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_config_groups (id smallint(6) NOT NULL auto_increment,catgroup varchar(60) NOT NULL,visible tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_cust_collect (id int(11) NOT NULL auto_increment,col_name varchar(100) NOT NULL,col_groups text NOT NULL,approval tinyint(1) NOT NULL DEFAULT '1', PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_cust_groups (id smallint(6) NOT NULL auto_increment,groupname varchar(255) NOT NULL,rabatt double NOT NULL DEFAULT '0',is_fg smallint(6) NOT NULL DEFAULT '0',cms_approval tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_cust_perm (p_add tinyint(1) NOT NULL DEFAULT '0',p_edit tinyint(1) NOT NULL DEFAULT '0',p_del tinyint(1) NOT NULL DEFAULT '0',page_id int(11) NOT NULL DEFAULT '0',group_id int(11) NOT NULL DEFAULT '0', PRIMARY KEY (page_id,group_id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_custcolgroups (col_id int(11) NOT NULL DEFAULT '0',groups text NOT NULL,id int(11) NOT NULL auto_increment,kid int(11) NOT NULL DEFAULT '0', PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_custfields (id int(11) NOT NULL auto_increment,cf_name varchar(255) NOT NULL,cf_type char(2) NOT NULL,cf_verify smallint(6) NOT NULL DEFAULT '0',cf_duty smallint(6) NOT NULL DEFAULT '0',cf_description varchar(255) NOT NULL,cf_search smallint(6) NOT NULL DEFAULT '0',cf_select varchar(255) NOT NULL,cf_ident char(3) NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_custfields_cont (id int(11) NOT NULL auto_increment,langid int(11) NOT NULL DEFAULT '0',content text NOT NULL,cf_id int(11) NOT NULL DEFAULT '0',cf_label varchar(255) NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_customers (kid bigint(20) NOT NULL auto_increment,nachname varchar(100) NOT NULL,vorname varchar(100) NOT NULL,email varchar(40) NOT NULL,geschlecht char(1) NOT NULL,datum date NOT NULL DEFAULT '0000-00-00',newsactive smallint(1) NOT NULL DEFAULT '0',newsactivated smallint(6) NOT NULL DEFAULT '0',mailactive int(11) NOT NULL DEFAULT '0',mailsend int(11) NOT NULL DEFAULT '0',time_int int(11) NOT NULL DEFAULT '0',ip varchar(60) NOT NULL,egroup smallint(6) NOT NULL DEFAULT '1',is_cms tinyint(1) NOT NULL DEFAULT '0',jahr smallint(6) NOT NULL DEFAULT '0',monat tinyint(4) NOT NULL DEFAULT '0',tag tinyint(4) NOT NULL DEFAULT '0',passwort varchar(60) NOT NULL,strasse varchar(255) NOT NULL,plz varchar(10) NOT NULL,ort varchar(255) NOT NULL,land int(11) NOT NULL DEFAULT '0',tel varchar(60) NOT NULL,fax varchar(60) NOT NULL,mobil varchar(60) NOT NULL,firma varchar(255) NOT NULL,blz varchar(30) NOT NULL,konto varchar(30) NOT NULL,bank varchar(100) NOT NULL,anrede varchar(26) NOT NULL,cms_isindex tinyint(1) NOT NULL DEFAULT '0',rabatt_gruppe int(11) NOT NULL DEFAULT '1',knownof varchar(255) NOT NULL,vip tinyint(1) NOT NULL DEFAULT '0',sperren tinyint(1) NOT NULL DEFAULT '0',agb tinyint(1) NOT NULL DEFAULT '0',birthday date NOT NULL DEFAULT '0000-00-00',picture varchar(100) NOT NULL,knr_additional varchar(30) NOT NULL,email_notpublic varchar(100) NOT NULL,tel_office varchar(30) NOT NULL,homepage varchar(100) NOT NULL,username varchar(255) NOT NULL,sessionid varchar(60) NOT NULL,lastvisit datetime NOT NULL DEFAULT '0000-00-00 00:00:00',firma_inhaber varchar(255) NOT NULL,str_nr varchar(50) NOT NULL,is_firma tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (kid))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_custtogroup (kid int(11) NOT NULL DEFAULT '0',gid int(11) NOT NULL DEFAULT '0',id int(11) NOT NULL auto_increment, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_dc_log (dcdate date NOT NULL DEFAULT '0000-00-00',dcid int(11) NOT NULL DEFAULT '0',hits bigint(20) NOT NULL DEFAULT '0', PRIMARY KEY (dcdate,dcid))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_downcenter (id int(11) NOT NULL auto_increment,file varchar(255) NOT NULL,approval smallint(6) NOT NULL DEFAULT '0',size int(11) NOT NULL DEFAULT '0',last_upload int(11) NOT NULL DEFAULT '0',description text NOT NULL,title varchar(255) NOT NULL,morder int(11) NOT NULL DEFAULT '0',icon varchar(255) NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_email_groups (id smallint(6) NOT NULL auto_increment,group_name varchar(255) NOT NULL,admin smallint(6) NOT NULL DEFAULT '0', PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_emailer (id int(11) NOT NULL auto_increment,e_subject varchar(254) NOT NULL,e_content longtext NOT NULL,e_html int(11) NOT NULL DEFAULT '0',e_done int(11) NOT NULL DEFAULT '0',sid varchar(60) NOT NULL,e_time time NOT NULL DEFAULT '00:00:00',e_sendcount int(11) NOT NULL DEFAULT '0',e_date date NOT NULL DEFAULT '0000-00-00',e_timeint int(11) NOT NULL DEFAULT '0',e_unsubscribe varchar(255) NOT NULL,tracking longtext NOT NULL,send_emails longtext NOT NULL,groups text NOT NULL,e_anrede_m varchar(255) NOT NULL,e_anrede_w varchar(255) NOT NULL,attachments text NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_gal_content (id int(11) NOT NULL auto_increment,pic_title varchar(255) NOT NULL,pic_content text NOT NULL,pic_id int(11) NOT NULL DEFAULT '0',lang_id smallint(6) NOT NULL DEFAULT '0', PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_gal_gcontent (id int(11) NOT NULL auto_increment,g_title varchar(255) NOT NULL,g_content text NOT NULL,g_id int(11) NOT NULL DEFAULT '0',lang_id smallint(6) NOT NULL DEFAULT '0', PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_gal_groups (id bigint(20) NOT NULL auto_increment,groupname varchar(255) NOT NULL,description text NOT NULL,parent bigint(20) NOT NULL DEFAULT '0',forum_id bigint(20) NOT NULL DEFAULT '0',approval smallint(6) NOT NULL DEFAULT '0',cu_can_add smallint(6) NOT NULL DEFAULT '0',art_group smallint(6) NOT NULL DEFAULT '0',tcs_cid text NOT NULL,picid int(11) NOT NULL DEFAULT '0',tpl int(11) NOT NULL DEFAULT '900',max_width int(11) NOT NULL DEFAULT '800',max_height int(11) NOT NULL DEFAULT '600',thumb_width int(11) NOT NULL DEFAULT '100',thumb_height int(11) NOT NULL DEFAULT '90', PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_gal_pics (id int(11) NOT NULL auto_increment,pic_name varchar(254) NOT NULL,pic_size int(11) NOT NULL DEFAULT '0',group_id int(11) NOT NULL DEFAULT '0',post_time_int int(11) NOT NULL DEFAULT '0',pic_ext varchar(6) NOT NULL,pic_desc text NOT NULL,pic_kid int(11) NOT NULL DEFAULT '0',ip varchar(30) NOT NULL,pic_title varchar(254) NOT NULL,pic_agree int(11) NOT NULL DEFAULT '0',approved int(11) NOT NULL DEFAULT '0',fotoquelle varchar(254) NOT NULL,downloads int(11) NOT NULL DEFAULT '0',pic_width int(11) NOT NULL DEFAULT '0',pic_height int(11) NOT NULL DEFAULT '0',morder int(11) NOT NULL DEFAULT '0', PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_gblconfig (config_name varchar(30) NOT NULL,config_value text NOT NULL,config_desc varchar(254) NOT NULL,isnumeric tinyint(1) NOT NULL DEFAULT '0',del_spaces tinyint(1) NOT NULL DEFAULT '0',gid smallint(6) NOT NULL DEFAULT '0',is_schalter int(11) NOT NULL DEFAULT '0',is_text tinyint(1) NOT NULL DEFAULT '0',morder int(11) NOT NULL DEFAULT '1',is_time tinyint(1) NOT NULL,is_font smallint(1) NOT NULL,is_list text NOT NULL,is_lang smallint(1) NOT NULL,max smallint(6) NOT NULL DEFAULT '0', PRIMARY KEY (config_name))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_guestbook (id int(11) NOT NULL auto_increment,kname varchar(255) NOT NULL,email varchar(255) NOT NULL,ip varchar(255) NOT NULL,time_int int(11) NOT NULL DEFAULT '0',approval int(11) NOT NULL DEFAULT '0',feedback text NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_hta (id int(11) NOT NULL auto_increment,hta_delimeter1 varchar(1) NOT NULL DEFAULT ',',hta_delimeter2 varchar(1) NOT NULL DEFAULT ',',hta_prefix varchar(255) NOT NULL,hta_starcount int(11) NOT NULL,hta_ref varchar(255) NOT NULL,hta_delimeter3 varchar(1) NOT NULL DEFAULT ',',hta_fix smallint(1) NOT NULL DEFAULT '1',hta_delimeter4 varchar(1) NOT NULL DEFAULT ',',hta_locked smallint(1) NOT NULL DEFAULT '0',hta_description varchar(255) NOT NULL,hta_tmpllink varchar(255) NOT NULL,hta_ssl smallint(1) NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_land (id int(11) NOT NULL auto_increment,land varchar(30) NOT NULL,post decimal(10,4) NOT NULL DEFAULT '0.0000',ngeb decimal(10,4) NOT NULL DEFAULT '0.0000',zone tinyint(4) NOT NULL DEFAULT '0',del int(11) NOT NULL DEFAULT '0',region_id int(11) NOT NULL DEFAULT '0',ngeb_allowed int(11) NOT NULL DEFAULT '0',staffel_zone int(11) NOT NULL DEFAULT '0',last_allowed int(1) NOT NULL DEFAULT '0',paypal_netto decimal(10,4) NOT NULL DEFAULT '0.0000',rechnung_allowed smallint(6) NOT NULL DEFAULT '0',vork_allowed smallint(6) NOT NULL DEFAULT '0',paypal_allowed smallint(6) NOT NULL DEFAULT '0',kredit_allowed smallint(6) NOT NULL DEFAULT '0',tax_free int(11) NOT NULL DEFAULT '0',country_code char(3) NOT NULL,country_code_2 char(2) NOT NULL,bar_allowed smallint(6) NOT NULL DEFAULT '0',postfree decimal(10,4) NOT NULL DEFAULT '0.0000',visible smallint(6) NOT NULL DEFAULT '1',transland text NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_lang (id int(11) NOT NULL auto_increment,post_lang varchar(254) NOT NULL,bild varchar(254) NOT NULL,language varchar(25) NOT NULL,langarray longtext NOT NULL,approval int(11) NOT NULL DEFAULT '0',s_order int(11) NOT NULL DEFAULT '0',local varchar(3) NOT NULL DEFAULT 'de', PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_lang_admin (id int(11) NOT NULL auto_increment,post_lang varchar(254) NOT NULL,bild varchar(254) NOT NULL,language varchar(25) NOT NULL,langarray longtext NOT NULL,approval int(11) NOT NULL DEFAULT '0',s_order int(11) NOT NULL DEFAULT '0', PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_lang_cust (id int(11) NOT NULL auto_increment,post_lang varchar(254) NOT NULL,bild varchar(254) NOT NULL,language varchar(25) NOT NULL,langarray longtext NOT NULL,approval int(11) NOT NULL DEFAULT '0',s_order int(11) NOT NULL DEFAULT '0', PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_layout (id smallint(6) NOT NULL auto_increment,layout_name varchar(255) NOT NULL,layout_colors text NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_links (id int(11) NOT NULL auto_increment,title varchar(254) NOT NULL,url varchar(254) NOT NULL,ban_url varchar(254) NOT NULL,sp_comment text NOT NULL,spon_cat int(11) NOT NULL DEFAULT '0',s_order int(11) NOT NULL DEFAULT '0',approval int(11) NOT NULL DEFAULT '0',sid varchar(60) NOT NULL,bild varchar(254) NOT NULL,spon_alb int(11) NOT NULL DEFAULT '0',pub_email varchar(254) NOT NULL,keywords varchar(254) NOT NULL,valid int(11) NOT NULL DEFAULT '0',valid_done int(11) NOT NULL DEFAULT '0',user_id int(11) NOT NULL DEFAULT '0',sp_time varchar(30) NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_links_album (id int(11) NOT NULL auto_increment,title varchar(254) NOT NULL,description text NOT NULL,s_order int(11) NOT NULL DEFAULT '0', PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_log (id int(11) NOT NULL auto_increment,log_ip varchar(30) NOT NULL,log_time int(11) NOT NULL DEFAULT '0',log_person varchar(50) NOT NULL,log_action varchar(20) NOT NULL,log_msg varchar(255) NOT NULL,log_browser varchar(255) NOT NULL,log_date date NOT NULL DEFAULT '0000-00-00', PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_mail_content (id int(11) NOT NULL auto_increment,email_id int(11) NOT NULL DEFAULT '0',lang_id int(11) NOT NULL DEFAULT '0',content longtext NOT NULL,email_subject varchar(255) NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_mail_templates (id int(11) NOT NULL auto_increment,inhalt longtext NOT NULL,title varchar(254) NOT NULL,betreff varchar(254) NOT NULL,admin int(11) NOT NULL DEFAULT '0',is_fg smallint(6) NOT NULL DEFAULT '0',add_adress smallint(6) NOT NULL DEFAULT '1',approval tinyint(1) NOT NULL DEFAULT '1',admin_copy smallint(1) NOT NULL DEFAULT '1',mit_in_copy smallint(1) NOT NULL DEFAULT '0', PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_menu (id int(11) NOT NULL auto_increment,mname varchar(254) NOT NULL,php varchar(254) NOT NULL,counter varchar(254) NOT NULL,morder int(11) NOT NULL DEFAULT '0',icon varchar(21) NOT NULL,target varchar(10) NOT NULL DEFAULT '_self',module varchar(30) NOT NULL,parent int(11) NOT NULL,allowed varchar(255) NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_news (id int(11) NOT NULL auto_increment,picture varchar(60) NOT NULL,attachment varchar(60) NOT NULL,attachment_title varchar(255) NOT NULL,approval tinyint(1) NOT NULL DEFAULT '0',ndate date NOT NULL DEFAULT '0000-00-00',mid int(11) NOT NULL DEFAULT '0',group_id int(11) NOT NULL DEFAULT '1',timeint int(11) NOT NULL DEFAULT '0', PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_news_groups (groupname varchar(100) NOT NULL,id int(11) NOT NULL auto_increment, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_newscontent (id int(11) NOT NULL auto_increment,lang_id int(11) NOT NULL DEFAULT '1',content text NOT NULL,nid int(11) NOT NULL DEFAULT '0',introduction text NOT NULL,title varchar(255) NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_now_online (zeit varchar(15) NOT NULL,ip varchar(30) NOT NULL,browser varchar(255) NOT NULL,akt_page varchar(255) NOT NULL)
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_os_fields (id int(11) NOT NULL auto_increment,f_name varchar(100) NOT NULL,f_type varchar(6) NOT NULL DEFAULT 'TEXT',f_sheetid int(11) NOT NULL,f_force smallint(1) NOT NULL DEFAULT '0',f_isemail smallint(1) NOT NULL DEFAULT '0',f_len int(11) NOT NULL DEFAULT '20',f_autoc smallint(1) NOT NULL DEFAULT '1',f_layoutclass varchar(100) NOT NULL DEFAULT 'important',f_column varchar(100) NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_os_fields_trans (t_fieldid int(11) NOT NULL,t_langid int(11) NOT NULL,f_list text NOT NULL,f_errmsg varchar(255) NOT NULL, PRIMARY KEY (t_fieldid,t_langid))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_os_sheets (id int(11) NOT NULL auto_increment,s_name varchar(255) NOT NULL,s_custregister smallint(1) NOT NULL DEFAULT '0',s_sendpdf smallint(1) NOT NULL DEFAULT '1',s_dbsave smallint(1) NOT NULL DEFAULT '1', PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_os_sheets_archive (id int(11) NOT NULL auto_increment,a_content text NOT NULL,a_time int(11) NOT NULL,a_email varchar(100) NOT NULL,a_kid int(11) NOT NULL,a_date date NOT NULL,a_sheetid int(11) NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_os_sheets_trans (t_sid int(11) NOT NULL,t_langid int(11) NOT NULL,t_content text NOT NULL,t_donemsg text NOT NULL, PRIMARY KEY (t_sid,t_langid))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_ot_dates (id int(11) NOT NULL auto_increment,ndate date NOT NULL DEFAULT '0000-00-00',mid int(11) NOT NULL DEFAULT '0',group_id int(11) NOT NULL DEFAULT '1',approval tinyint(1) NOT NULL DEFAULT '0',time_to datetime NOT NULL DEFAULT '0000-00-00 00:00:00',time_from datetime NOT NULL DEFAULT '0000-00-00 00:00:00',created_date date NOT NULL DEFAULT '0000-00-00',comments_cu mediumtext NOT NULL,comments_ma mediumtext NOT NULL,prog_id int(11) NOT NULL,prog_title varchar(255) NOT NULL,prog_employee varchar(255) NOT NULL,kid int(11) NOT NULL,prog_employeeid int(11) NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_ot_dayoptions (id int(11) NOT NULL auto_increment,day_date date NOT NULL,day_closed smallint(1) NOT NULL,day_groupid int(11) NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_ot_dayworktime (id int(11) NOT NULL auto_increment,dt_dayid int(11) NOT NULL,dt_mid int(11) NOT NULL,dt_from time NOT NULL,dt_to time NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_ot_gcontent (id int(11) NOT NULL auto_increment,g_title varchar(255) NOT NULL,g_content text NOT NULL,g_id int(11) NOT NULL DEFAULT '0',lang_id smallint(6) NOT NULL DEFAULT '0', PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_ot_groups (groupname varchar(100) NOT NULL,id int(11) NOT NULL auto_increment, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_ot_perm (perm_did int(11) NOT NULL DEFAULT '0',perm_group_id int(11) NOT NULL DEFAULT '0', PRIMARY KEY (perm_did,perm_group_id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_ot_program_lang (id int(11) NOT NULL auto_increment,lang_id smallint(6) NOT NULL,pr_description text NOT NULL,pr_prog_id int(11) NOT NULL,pr_title varchar(255) NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_ot_programs (id int(11) NOT NULL auto_increment,pr_admintitle varchar(255) NOT NULL,pr_duration decimal(10,2) NOT NULL DEFAULT '0.00',pr_description text NOT NULL,pr_approval smallint(1) NOT NULL DEFAULT '0',pr_employees text NOT NULL,pr_employees_names text NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_permissions (perm_tid int(11) NOT NULL DEFAULT '0',perm_group_id int(11) NOT NULL DEFAULT '0', PRIMARY KEY (perm_tid,perm_group_id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_pin_content (id int(11) NOT NULL auto_increment,lang_id int(11) NOT NULL DEFAULT '0',content text NOT NULL,title varchar(255) NOT NULL,nid int(11) NOT NULL DEFAULT '0',introduction text NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_pin_gcontent (id int(11) NOT NULL auto_increment,g_title varchar(255) NOT NULL,g_content text NOT NULL,g_id int(11) NOT NULL DEFAULT '0',lang_id smallint(6) NOT NULL DEFAULT '0', PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_pin_groups (groupname varchar(100) NOT NULL,id int(11) NOT NULL auto_increment, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_pin_items (id int(11) NOT NULL auto_increment,ndate date NOT NULL DEFAULT '0000-00-00',mid int(11) NOT NULL DEFAULT '0',group_id int(11) NOT NULL DEFAULT '1',approval tinyint(1) NOT NULL DEFAULT '0',kid int(11) NOT NULL DEFAULT '0',username varchar(255) NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_pin_perm (perm_did int(11) NOT NULL DEFAULT '0',perm_group_id int(11) NOT NULL DEFAULT '0', PRIMARY KEY (perm_did,perm_group_id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_reflog (id int(11) NOT NULL auto_increment,user_domain varchar(255) NOT NULL,user_count int(11) NOT NULL DEFAULT '0',lasthit int(11) NOT NULL DEFAULT '0',referer varchar(255) NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_sitemap (id tinyint(4) NOT NULL auto_increment,sm_title varchar(50) NOT NULL,sm_changefreq varchar(10) NOT NULL DEFAULT 'weekly',sm_priority varchar(3) NOT NULL DEFAULT '0.8',sm_ident varchar(10) NOT NULL,sm_active tinyint(1) NOT NULL DEFAULT '1', PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_sitemap_defs (id int(11) NOT NULL auto_increment,sm_url varchar(255) NOT NULL,sm_key varchar(255) NOT NULL,sm_file varchar(255) NOT NULL,sm_service varchar(255) NOT NULL,sm_servicelink varchar(255) NOT NULL,sm_lastsend int(11) NOT NULL,sm_count int(11) NOT NULL DEFAULT '0',sm_filetemplate text NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_spider (id int(10) NOT NULL auto_increment,searchengine varchar(150) NOT NULL,anzahl int(8),lasthit int(15), PRIMARY KEY (id,searchengine))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_tablist (id int(11) NOT NULL auto_increment,group_id int(11) NOT NULL DEFAULT '0',tab_name varchar(255) NOT NULL,mid int(11) NOT NULL DEFAULT '0',approval tinyint(1) NOT NULL DEFAULT '0',tpl int(11) NOT NULL DEFAULT '620', PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_tablist_content (id int(11) NOT NULL auto_increment,tab_id int(11) NOT NULL DEFAULT '0',lang_id smallint(6) NOT NULL DEFAULT '0',content text NOT NULL,title varchar(255) NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_tablist_groups (id int(11) NOT NULL auto_increment,groupname varchar(255) NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_temp_content (id int(11) NOT NULL auto_increment,tid int(11) NOT NULL DEFAULT '0',lang_id int(11) NOT NULL DEFAULT '0',content longtext NOT NULL,content_plain longtext NOT NULL,linkname varchar(255) NOT NULL,use_all_lang smallint(6) NOT NULL DEFAULT '0',meta_desc text NOT NULL,meta_keywords text NOT NULL, PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_templates (description varchar(255) NOT NULL,admin int(11) NOT NULL DEFAULT '0',id int(11) NOT NULL auto_increment,approval int(11) NOT NULL DEFAULT '0',morder int(11) NOT NULL DEFAULT '0',php varchar(255) NOT NULL,intern_aktion varchar(255) NOT NULL,c_type char(3) NOT NULL DEFAULT 'T',block_name varchar(255) NOT NULL,tl int(11) NOT NULL DEFAULT '1',parent int(11) NOT NULL DEFAULT '0',gbl_template tinyint(1) NOT NULL DEFAULT '0',url_redirect_target varchar(255) NOT NULL DEFAULT '_self',url_redirect mediumtext NOT NULL,first_page int(11) NOT NULL DEFAULT '0',no_fck tinyint(1) NOT NULL DEFAULT '0',tpl_name varchar(255) NOT NULL,layout_group char(3) NOT NULL,has_perm tinyint(1) NOT NULL DEFAULT '0',sf_host varchar(100) NOT NULL,show_rss_link tinyint(1) NOT NULL,module_id varchar(20) NOT NULL DEFAULT 'content_page', PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_toplevel (id int(11) NOT NULL auto_increment,morder int(11) NOT NULL DEFAULT '0',description text NOT NULL,approval smallint(6) NOT NULL DEFAULT '0',admin int(11) NOT NULL DEFAULT '0',first_page int(11) NOT NULL DEFAULT '0',trees text NOT NULL,url_redirect mediumtext NOT NULL,url_redirect_target varchar(10) NOT NULL DEFAULT '_self',show_parent_level tinyint(1) NOT NULL DEFAULT '1', PRIMARY KEY (id))
+2009-11-24-10:48:02: CREATE TABLE IF NOT EXISTS tcms1_tpl_content (tid int(11) NOT NULL DEFAULT '0',level_name varchar(255) NOT NULL,lang_id int(11) NOT NULL DEFAULT '0',id int(11) NOT NULL auto_increment, PRIMARY KEY (id))
+2009-11-24-10:48:03: ALTER TABLE tcms1_admin_gr CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:03: ALTER TABLE tcms1_admin_gr CHANGE mgname mgname varchar(254) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_admin_gr CHANGE allowed allowed text NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_adminlog CHANGE zeit zeit varchar(15) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_adminlog CHANGE ip ip varchar(30) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_adminlog CHANGE browser browser varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_adminlog CHANGE akt_page akt_page varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_adminlog CHANGE phpfile phpfile varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_adminlog CHANGE getvars getvars text NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_adminlog CHANGE mname mname varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_adminlog CHANGE mid mid int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_admins CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:03: ALTER TABLE tcms1_admins CHANGE mitarbeiter_name mitarbeiter_name varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_admins CHANGE passwort passwort varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_admins CHANGE gid gid int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_admins CHANGE mobile mobile varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_admins CHANGE email email varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_admins CHANGE del del tinyint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_admins CHANGE approval approval tinyint(1) NOT NULL DEFAULT '1';
+2009-11-24-10:48:03: ALTER TABLE tcms1_admins CHANGE mi_lastname mi_lastname varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_admins CHANGE mi_firstname mi_firstname varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_admins CHANGE mi_email_copy mi_email_copy smallint(1) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_access CHANGE groupid groupid int(10) unsigned NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_access CHANGE artifact_id artifact_id int(10) unsigned NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_access CHANGE artifact_type artifact_type varchar(64) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_access CHANGE artifact_mode artifact_mode varchar(64) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_access CHANGE artifact_index artifact_index varchar(64) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_authorgroups CHANGE groupid groupid int(10) unsigned NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_authorgroups CHANGE authorid authorid int(10) unsigned NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_authors CHANGE realname realname varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_authors CHANGE username username varchar(32);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_authors CHANGE password password varchar(32);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_authors CHANGE authorid authorid int(11) NOT NULL auto_increment;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_authors CHANGE mail_comments mail_comments int(1) DEFAULT '1';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_authors CHANGE mail_trackbacks mail_trackbacks int(1) DEFAULT '1';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_authors CHANGE email email varchar(128) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_authors CHANGE userlevel userlevel int(4) unsigned NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_authors CHANGE right_publish right_publish int(1) DEFAULT '1';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_category CHANGE categoryid categoryid int(11) NOT NULL auto_increment;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_category CHANGE category_name category_name varchar(255);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_category CHANGE category_icon category_icon varchar(255);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_category CHANGE category_description category_description text;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_category CHANGE authorid authorid int(11);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_category CHANGE category_left category_left int(11) DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_category CHANGE category_right category_right int(11) DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_category CHANGE parentid parentid int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_category CHANGE sort_order sort_order int(11);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_category CHANGE hide_sub hide_sub int(1);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_comments CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_comments CHANGE entry_id entry_id int(10) unsigned NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_comments CHANGE parent_id parent_id int(10) unsigned NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_comments CHANGE timestamp timestamp int(10) unsigned;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_comments CHANGE title title varchar(150);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_comments CHANGE author author varchar(80);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_comments CHANGE email email varchar(200);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_comments CHANGE url url varchar(200);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_comments CHANGE ip ip varchar(64);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_comments CHANGE body body text;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_comments CHANGE type type varchar(100) DEFAULT 'regular';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_comments CHANGE subscribed subscribed enum('true','false') NOT NULL DEFAULT 'true';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_comments CHANGE status status varchar(50) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_comments CHANGE referer referer varchar(200);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_config CHANGE name name varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_config CHANGE value value text NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_config CHANGE authorid authorid int(11) DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_entries CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_entries CHANGE title title varchar(200);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_entries CHANGE timestamp timestamp int(10) unsigned;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_entries CHANGE body body text;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_entries CHANGE comments comments int(4) unsigned DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_entries CHANGE trackbacks trackbacks int(4) unsigned DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_entries CHANGE extended extended text;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_entries CHANGE exflag exflag int(1);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_entries CHANGE author author varchar(20);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_entries CHANGE authorid authorid int(11);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_entries CHANGE isdraft isdraft enum('true','false') NOT NULL DEFAULT 'true';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_entries CHANGE allow_comments allow_comments enum('true','false') NOT NULL DEFAULT 'true';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_entries CHANGE last_modified last_modified int(10) unsigned;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_entries CHANGE moderate_comments moderate_comments enum('true','false') NOT NULL DEFAULT 'true';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_entrycat CHANGE entryid entryid int(11) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_entrycat CHANGE categoryid categoryid int(11) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_entryproperties CHANGE entryid entryid int(11) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_entryproperties CHANGE property property varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_entryproperties CHANGE value value text;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_groupconfig CHANGE id id int(10) unsigned NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_groupconfig CHANGE property property varchar(128);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_groupconfig CHANGE value value varchar(32);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_groups CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_groups CHANGE name name varchar(64);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_images CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_images CHANGE name name varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_images CHANGE extension extension varchar(5) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_images CHANGE mime mime varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_images CHANGE size size int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_images CHANGE dimensions_width dimensions_width int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_images CHANGE dimensions_height dimensions_height int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_images CHANGE date date int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_images CHANGE thumbnail_name thumbnail_name varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_images CHANGE authorid authorid int(11) DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_images CHANGE path path text;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_images CHANGE hotlink hotlink int(1);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_images CHANGE realname realname varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_mediaproperties CHANGE mediaid mediaid int(11) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_mediaproperties CHANGE property property varchar(128) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_mediaproperties CHANGE property_group property_group varchar(50) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_mediaproperties CHANGE property_subgroup property_subgroup varchar(50) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_mediaproperties CHANGE value value text;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_options CHANGE name name varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_options CHANGE value value text NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_options CHANGE okey okey varchar(64) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_permalinks CHANGE permalink permalink varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_permalinks CHANGE entry_id entry_id int(10) unsigned NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_permalinks CHANGE type type varchar(200) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_permalinks CHANGE data data text;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_plugincategories CHANGE class_name class_name varchar(250);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_plugincategories CHANGE category category varchar(250);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_pluginlist CHANGE plugin_file plugin_file varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_pluginlist CHANGE class_name class_name varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_pluginlist CHANGE plugin_class plugin_class varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_pluginlist CHANGE pluginPath pluginPath varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_pluginlist CHANGE name name varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_pluginlist CHANGE description description text NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_pluginlist CHANGE version version varchar(12) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_pluginlist CHANGE upgrade_version upgrade_version varchar(12) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_pluginlist CHANGE plugintype plugintype varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_pluginlist CHANGE pluginlocation pluginlocation varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_pluginlist CHANGE stackable stackable int(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_pluginlist CHANGE author author varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_pluginlist CHANGE requirements requirements text NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_pluginlist CHANGE website website varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_pluginlist CHANGE last_modified last_modified int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_plugins CHANGE name name varchar(128) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_plugins CHANGE placement placement varchar(6) NOT NULL DEFAULT 'right';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_plugins CHANGE sort_order sort_order int(4) NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_plugins CHANGE authorid authorid int(11) DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_plugins CHANGE path path varchar(255);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_references CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_references CHANGE entry_id entry_id int(10) unsigned NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_references CHANGE link link text;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_references CHANGE name name text;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_references CHANGE type type varchar(128) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_referrers CHANGE entry_id entry_id int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_referrers CHANGE day day date NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_referrers CHANGE count count int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_referrers CHANGE scheme scheme varchar(5);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_referrers CHANGE host host varchar(128) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_referrers CHANGE port port varchar(5);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_referrers CHANGE path path varchar(255);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_referrers CHANGE query query varchar(255);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_shoutbox CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_shoutbox CHANGE timestamp timestamp int(10) unsigned;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_shoutbox CHANGE ip ip varchar(15);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_shoutbox CHANGE body body text;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_spamblock_htaccess CHANGE timestamp timestamp int(10) unsigned;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_spamblock_htaccess CHANGE ip ip varchar(15);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_spamblocklog CHANGE timestamp timestamp int(10) unsigned;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_spamblocklog CHANGE type type varchar(255);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_spamblocklog CHANGE reason reason text;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_spamblocklog CHANGE entry_id entry_id int(10) unsigned NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_spamblocklog CHANGE author author varchar(80);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_spamblocklog CHANGE email email varchar(200);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_spamblocklog CHANGE url url varchar(200);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_spamblocklog CHANGE useragent useragent varchar(255);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_spamblocklog CHANGE ip ip varchar(15);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_spamblocklog CHANGE referer referer varchar(255);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_spamblocklog CHANGE body body text;
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_suppress CHANGE ip ip varchar(64);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_suppress CHANGE scheme scheme varchar(5);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_suppress CHANGE host host varchar(128);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_suppress CHANGE port port varchar(5);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_suppress CHANGE path path varchar(255);
+2009-11-24-10:48:03: ALTER TABLE tcms1_blog_suppress CHANGE query query varchar(255);
+2009-11-24-10:48:03: ALTER TABLE tcms1_cal_content CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:03: ALTER TABLE tcms1_cal_content CHANGE lang_id lang_id int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_cal_content CHANGE content content text NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_cal_content CHANGE title title varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_cal_content CHANGE nid nid int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_cal_content CHANGE introduction introduction text NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_cal_dates CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:03: ALTER TABLE tcms1_cal_dates CHANGE ndate ndate date NOT NULL DEFAULT '0000-00-00';
+2009-11-24-10:48:03: ALTER TABLE tcms1_cal_dates CHANGE mid mid int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_cal_dates CHANGE group_id group_id int(11) NOT NULL DEFAULT '1';
+2009-11-24-10:48:03: ALTER TABLE tcms1_cal_dates CHANGE approval approval tinyint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_cal_dates CHANGE time_to time_to time NOT NULL DEFAULT '00:00:00';
+2009-11-24-10:48:03: ALTER TABLE tcms1_cal_dates CHANGE time_from time_from time NOT NULL DEFAULT '00:00:00';
+2009-11-24-10:48:03: ALTER TABLE tcms1_cal_dates CHANGE whole_day whole_day tinyint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:03: ALTER TABLE tcms1_cal_dates CHANGE place place varchar(255) NOT NULL;
+2009-11-24-10:48:03: ALTER TABLE tcms1_cal_dates CHANGE ndate_to ndate_to date NOT NULL DEFAULT '0000-00-00';
+2009-11-24-10:48:04: ALTER TABLE tcms1_cal_dates CHANGE created_date created_date date NOT NULL DEFAULT '0000-00-00';
+2009-11-24-10:48:04: ALTER TABLE tcms1_cal_gcontent CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:04: ALTER TABLE tcms1_cal_gcontent CHANGE g_title g_title varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_cal_gcontent CHANGE g_content g_content text NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_cal_gcontent CHANGE g_id g_id int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_cal_gcontent CHANGE lang_id lang_id smallint(6) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_cal_groups CHANGE groupname groupname varchar(100) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_cal_groups CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:04: ALTER TABLE tcms1_cal_perm CHANGE perm_did perm_did int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_cal_perm CHANGE perm_group_id perm_group_id int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_config CHANGE ID_STR ID_STR varchar(16) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_config CHANGE wert wert text NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_config CHANGE beschr beschr text NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_config_groups CHANGE id id smallint(6) NOT NULL auto_increment;
+2009-11-24-10:48:04: ALTER TABLE tcms1_config_groups CHANGE catgroup catgroup varchar(60) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_config_groups CHANGE visible visible tinyint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_cust_collect CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:04: ALTER TABLE tcms1_cust_collect CHANGE col_name col_name varchar(100) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_cust_collect CHANGE col_groups col_groups text NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_cust_collect CHANGE approval approval tinyint(1) NOT NULL DEFAULT '1';
+2009-11-24-10:48:04: ALTER TABLE tcms1_cust_groups CHANGE id id smallint(6) NOT NULL auto_increment;
+2009-11-24-10:48:04: ALTER TABLE tcms1_cust_groups CHANGE groupname groupname varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_cust_groups CHANGE rabatt rabatt double NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_cust_groups CHANGE is_fg is_fg smallint(6) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_cust_groups CHANGE cms_approval cms_approval tinyint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_cust_perm CHANGE p_add p_add tinyint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_cust_perm CHANGE p_edit p_edit tinyint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_cust_perm CHANGE p_del p_del tinyint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_cust_perm CHANGE page_id page_id int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_cust_perm CHANGE group_id group_id int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_custcolgroups CHANGE col_id col_id int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_custcolgroups CHANGE groups groups text NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_custcolgroups CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:04: ALTER TABLE tcms1_custcolgroups CHANGE kid kid int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_custfields CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:04: ALTER TABLE tcms1_custfields CHANGE cf_name cf_name varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_custfields CHANGE cf_type cf_type char(2) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_custfields CHANGE cf_verify cf_verify smallint(6) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_custfields CHANGE cf_duty cf_duty smallint(6) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_custfields CHANGE cf_description cf_description varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_custfields CHANGE cf_search cf_search smallint(6) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_custfields CHANGE cf_select cf_select varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_custfields CHANGE cf_ident cf_ident char(3) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_custfields_cont CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:04: ALTER TABLE tcms1_custfields_cont CHANGE langid langid int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_custfields_cont CHANGE content content text NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_custfields_cont CHANGE cf_id cf_id int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_custfields_cont CHANGE cf_label cf_label varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE kid kid bigint(20) NOT NULL auto_increment;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE nachname nachname varchar(100) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE vorname vorname varchar(100) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE email email varchar(40) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE geschlecht geschlecht char(1) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE datum datum date NOT NULL DEFAULT '0000-00-00';
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE newsactive newsactive smallint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE newsactivated newsactivated smallint(6) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE mailactive mailactive int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE mailsend mailsend int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE time_int time_int int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE ip ip varchar(60) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE egroup egroup smallint(6) NOT NULL DEFAULT '1';
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE is_cms is_cms tinyint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE jahr jahr smallint(6) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE monat monat tinyint(4) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE tag tag tinyint(4) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE passwort passwort varchar(60) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE strasse strasse varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE plz plz varchar(10) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE ort ort varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE land land int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE tel tel varchar(60) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE fax fax varchar(60) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE mobil mobil varchar(60) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE firma firma varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE blz blz varchar(30) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE konto konto varchar(30) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE bank bank varchar(100) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE anrede anrede varchar(26) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE cms_isindex cms_isindex tinyint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE rabatt_gruppe rabatt_gruppe int(11) NOT NULL DEFAULT '1';
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE knownof knownof varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE vip vip tinyint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE sperren sperren tinyint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE agb agb tinyint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE birthday birthday date NOT NULL DEFAULT '0000-00-00';
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE picture picture varchar(100) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE knr_additional knr_additional varchar(30) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE email_notpublic email_notpublic varchar(100) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE tel_office tel_office varchar(30) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE homepage homepage varchar(100) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE username username varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE sessionid sessionid varchar(60) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE lastvisit lastvisit datetime NOT NULL DEFAULT '0000-00-00 00:00:00';
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE firma_inhaber firma_inhaber varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE str_nr str_nr varchar(50) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_customers CHANGE is_firma is_firma tinyint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_custtogroup CHANGE kid kid int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_custtogroup CHANGE gid gid int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_custtogroup CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:04: ALTER TABLE tcms1_dc_log CHANGE dcdate dcdate date NOT NULL DEFAULT '0000-00-00';
+2009-11-24-10:48:04: ALTER TABLE tcms1_dc_log CHANGE dcid dcid int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_dc_log CHANGE hits hits bigint(20) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_downcenter CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:04: ALTER TABLE tcms1_downcenter CHANGE file file varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_downcenter CHANGE approval approval smallint(6) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_downcenter CHANGE size size int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_downcenter CHANGE last_upload last_upload int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_downcenter CHANGE description description text NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_downcenter CHANGE title title varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_downcenter CHANGE morder morder int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_downcenter CHANGE icon icon varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_email_groups CHANGE id id smallint(6) NOT NULL auto_increment;
+2009-11-24-10:48:04: ALTER TABLE tcms1_email_groups CHANGE group_name group_name varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_email_groups CHANGE admin admin smallint(6) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_emailer CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:04: ALTER TABLE tcms1_emailer CHANGE e_subject e_subject varchar(254) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_emailer CHANGE e_content e_content longtext NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_emailer CHANGE e_html e_html int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_emailer CHANGE e_done e_done int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_emailer CHANGE sid sid varchar(60) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_emailer CHANGE e_time e_time time NOT NULL DEFAULT '00:00:00';
+2009-11-24-10:48:04: ALTER TABLE tcms1_emailer CHANGE e_sendcount e_sendcount int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_emailer CHANGE e_date e_date date NOT NULL DEFAULT '0000-00-00';
+2009-11-24-10:48:04: ALTER TABLE tcms1_emailer CHANGE e_timeint e_timeint int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_emailer CHANGE e_unsubscribe e_unsubscribe varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_emailer CHANGE tracking tracking longtext NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_emailer CHANGE send_emails send_emails longtext NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_emailer CHANGE groups groups text NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_emailer CHANGE e_anrede_m e_anrede_m varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_emailer CHANGE e_anrede_w e_anrede_w varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_emailer CHANGE attachments attachments text NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_content CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_content CHANGE pic_title pic_title varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_content CHANGE pic_content pic_content text NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_content CHANGE pic_id pic_id int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_content CHANGE lang_id lang_id smallint(6) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_gcontent CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_gcontent CHANGE g_title g_title varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_gcontent CHANGE g_content g_content text NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_gcontent CHANGE g_id g_id int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_gcontent CHANGE lang_id lang_id smallint(6) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_groups CHANGE id id bigint(20) NOT NULL auto_increment;
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_groups CHANGE groupname groupname varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_groups CHANGE description description text NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_groups CHANGE parent parent bigint(20) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_groups CHANGE forum_id forum_id bigint(20) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_groups CHANGE approval approval smallint(6) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_groups CHANGE cu_can_add cu_can_add smallint(6) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_groups CHANGE art_group art_group smallint(6) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_groups CHANGE tcs_cid tcs_cid text NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_groups CHANGE picid picid int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_groups CHANGE tpl tpl int(11) NOT NULL DEFAULT '900';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_groups CHANGE max_width max_width int(11) NOT NULL DEFAULT '800';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_groups CHANGE max_height max_height int(11) NOT NULL DEFAULT '600';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_groups CHANGE thumb_width thumb_width int(11) NOT NULL DEFAULT '100';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_groups CHANGE thumb_height thumb_height int(11) NOT NULL DEFAULT '90';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_pics CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_pics CHANGE pic_name pic_name varchar(254) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_pics CHANGE pic_size pic_size int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_pics CHANGE group_id group_id int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_pics CHANGE post_time_int post_time_int int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_pics CHANGE pic_ext pic_ext varchar(6) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_pics CHANGE pic_desc pic_desc text NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_pics CHANGE pic_kid pic_kid int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_pics CHANGE ip ip varchar(30) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_pics CHANGE pic_title pic_title varchar(254) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_pics CHANGE pic_agree pic_agree int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_pics CHANGE approved approved int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_pics CHANGE fotoquelle fotoquelle varchar(254) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_pics CHANGE downloads downloads int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_pics CHANGE pic_width pic_width int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_pics CHANGE pic_height pic_height int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gal_pics CHANGE morder morder int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gblconfig CHANGE config_name config_name varchar(30) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_gblconfig CHANGE config_value config_value text NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_gblconfig CHANGE config_desc config_desc varchar(254) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_gblconfig CHANGE isnumeric isnumeric tinyint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gblconfig CHANGE del_spaces del_spaces tinyint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gblconfig CHANGE gid gid smallint(6) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gblconfig CHANGE is_schalter is_schalter int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gblconfig CHANGE is_text is_text tinyint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gblconfig CHANGE morder morder int(11) NOT NULL DEFAULT '1';
+2009-11-24-10:48:04: ALTER TABLE tcms1_gblconfig CHANGE is_time is_time tinyint(1) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_gblconfig CHANGE is_font is_font smallint(1) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_gblconfig CHANGE is_list is_list text NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_gblconfig CHANGE is_lang is_lang smallint(1) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_gblconfig CHANGE max max smallint(6) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_guestbook CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:04: ALTER TABLE tcms1_guestbook CHANGE kname kname varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_guestbook CHANGE email email varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_guestbook CHANGE ip ip varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_guestbook CHANGE time_int time_int int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_guestbook CHANGE approval approval int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_guestbook CHANGE feedback feedback text NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_hta CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:04: ALTER TABLE tcms1_hta CHANGE hta_delimeter1 hta_delimeter1 varchar(1) NOT NULL DEFAULT ',';
+2009-11-24-10:48:04: ALTER TABLE tcms1_hta CHANGE hta_delimeter2 hta_delimeter2 varchar(1) NOT NULL DEFAULT ',';
+2009-11-24-10:48:04: ALTER TABLE tcms1_hta CHANGE hta_prefix hta_prefix varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_hta CHANGE hta_starcount hta_starcount int(11) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_hta CHANGE hta_ref hta_ref varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_hta CHANGE hta_delimeter3 hta_delimeter3 varchar(1) NOT NULL DEFAULT ',';
+2009-11-24-10:48:04: ALTER TABLE tcms1_hta CHANGE hta_fix hta_fix smallint(1) NOT NULL DEFAULT '1';
+2009-11-24-10:48:04: ALTER TABLE tcms1_hta CHANGE hta_delimeter4 hta_delimeter4 varchar(1) NOT NULL DEFAULT ',';
+2009-11-24-10:48:04: ALTER TABLE tcms1_hta CHANGE hta_locked hta_locked smallint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_hta CHANGE hta_description hta_description varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_hta CHANGE hta_tmpllink hta_tmpllink varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_hta CHANGE hta_ssl hta_ssl smallint(1) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_land CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:04: ALTER TABLE tcms1_land CHANGE land land varchar(30) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_land CHANGE post post decimal(10,4) NOT NULL DEFAULT '0.0000';
+2009-11-24-10:48:04: ALTER TABLE tcms1_land CHANGE ngeb ngeb decimal(10,4) NOT NULL DEFAULT '0.0000';
+2009-11-24-10:48:04: ALTER TABLE tcms1_land CHANGE zone zone tinyint(4) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_land CHANGE del del int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_land CHANGE region_id region_id int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_land CHANGE ngeb_allowed ngeb_allowed int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_land CHANGE staffel_zone staffel_zone int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_land CHANGE last_allowed last_allowed int(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_land CHANGE paypal_netto paypal_netto decimal(10,4) NOT NULL DEFAULT '0.0000';
+2009-11-24-10:48:04: ALTER TABLE tcms1_land CHANGE rechnung_allowed rechnung_allowed smallint(6) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_land CHANGE vork_allowed vork_allowed smallint(6) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_land CHANGE paypal_allowed paypal_allowed smallint(6) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_land CHANGE kredit_allowed kredit_allowed smallint(6) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_land CHANGE tax_free tax_free int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_land CHANGE country_code country_code char(3) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_land CHANGE country_code_2 country_code_2 char(2) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_land CHANGE bar_allowed bar_allowed smallint(6) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_land CHANGE postfree postfree decimal(10,4) NOT NULL DEFAULT '0.0000';
+2009-11-24-10:48:04: ALTER TABLE tcms1_land CHANGE visible visible smallint(6) NOT NULL DEFAULT '1';
+2009-11-24-10:48:04: ALTER TABLE tcms1_land CHANGE transland transland text NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_lang CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:04: ALTER TABLE tcms1_lang CHANGE post_lang post_lang varchar(254) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_lang CHANGE bild bild varchar(254) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_lang CHANGE language language varchar(25) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_lang CHANGE langarray langarray longtext NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_lang CHANGE approval approval int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_lang CHANGE s_order s_order int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_lang CHANGE local local varchar(3) NOT NULL DEFAULT 'de';
+2009-11-24-10:48:04: ALTER TABLE tcms1_lang_admin CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:04: ALTER TABLE tcms1_lang_admin CHANGE post_lang post_lang varchar(254) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_lang_admin CHANGE bild bild varchar(254) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_lang_admin CHANGE language language varchar(25) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_lang_admin CHANGE langarray langarray longtext NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_lang_admin CHANGE approval approval int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_lang_admin CHANGE s_order s_order int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_lang_cust CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:04: ALTER TABLE tcms1_lang_cust CHANGE post_lang post_lang varchar(254) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_lang_cust CHANGE bild bild varchar(254) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_lang_cust CHANGE language language varchar(25) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_lang_cust CHANGE langarray langarray longtext NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_lang_cust CHANGE approval approval int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_lang_cust CHANGE s_order s_order int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_layout CHANGE id id smallint(6) NOT NULL auto_increment;
+2009-11-24-10:48:04: ALTER TABLE tcms1_layout CHANGE layout_name layout_name varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_layout CHANGE layout_colors layout_colors text NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_links CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:04: ALTER TABLE tcms1_links CHANGE title title varchar(254) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_links CHANGE url url varchar(254) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_links CHANGE ban_url ban_url varchar(254) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_links CHANGE sp_comment sp_comment text NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_links CHANGE spon_cat spon_cat int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_links CHANGE s_order s_order int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_links CHANGE approval approval int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_links CHANGE sid sid varchar(60) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_links CHANGE bild bild varchar(254) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_links CHANGE spon_alb spon_alb int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_links CHANGE pub_email pub_email varchar(254) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_links CHANGE keywords keywords varchar(254) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_links CHANGE valid valid int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_links CHANGE valid_done valid_done int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_links CHANGE user_id user_id int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_links CHANGE sp_time sp_time varchar(30) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_links_album CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:04: ALTER TABLE tcms1_links_album CHANGE title title varchar(254) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_links_album CHANGE description description text NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_links_album CHANGE s_order s_order int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_log CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:04: ALTER TABLE tcms1_log CHANGE log_ip log_ip varchar(30) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_log CHANGE log_time log_time int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:04: ALTER TABLE tcms1_log CHANGE log_person log_person varchar(50) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_log CHANGE log_action log_action varchar(20) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_log CHANGE log_msg log_msg varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_log CHANGE log_browser log_browser varchar(255) NOT NULL;
+2009-11-24-10:48:04: ALTER TABLE tcms1_log CHANGE log_date log_date date NOT NULL DEFAULT '0000-00-00';
+2009-11-24-10:48:05: ALTER TABLE tcms1_mail_content CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_mail_content CHANGE email_id email_id int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_mail_content CHANGE lang_id lang_id int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_mail_content CHANGE content content longtext NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_mail_content CHANGE email_subject email_subject varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_mail_templates CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_mail_templates CHANGE inhalt inhalt longtext NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_mail_templates CHANGE title title varchar(254) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_mail_templates CHANGE betreff betreff varchar(254) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_mail_templates CHANGE admin admin int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_mail_templates CHANGE is_fg is_fg smallint(6) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_mail_templates CHANGE add_adress add_adress smallint(6) NOT NULL DEFAULT '1';
+2009-11-24-10:48:05: ALTER TABLE tcms1_mail_templates CHANGE approval approval tinyint(1) NOT NULL DEFAULT '1';
+2009-11-24-10:48:05: ALTER TABLE tcms1_mail_templates CHANGE admin_copy admin_copy smallint(1) NOT NULL DEFAULT '1';
+2009-11-24-10:48:05: ALTER TABLE tcms1_mail_templates CHANGE mit_in_copy mit_in_copy smallint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_menu CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_menu CHANGE mname mname varchar(254) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_menu CHANGE php php varchar(254) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_menu CHANGE counter counter varchar(254) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_menu CHANGE morder morder int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_menu CHANGE icon icon varchar(21) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_menu CHANGE target target varchar(10) NOT NULL DEFAULT '_self';
+2009-11-24-10:48:05: ALTER TABLE tcms1_menu CHANGE module module varchar(30) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_menu CHANGE parent parent int(11) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_menu CHANGE allowed allowed varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_news CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_news CHANGE picture picture varchar(60) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_news CHANGE attachment attachment varchar(60) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_news CHANGE attachment_title attachment_title varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_news CHANGE approval approval tinyint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_news CHANGE ndate ndate date NOT NULL DEFAULT '0000-00-00';
+2009-11-24-10:48:05: ALTER TABLE tcms1_news CHANGE mid mid int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_news CHANGE group_id group_id int(11) NOT NULL DEFAULT '1';
+2009-11-24-10:48:05: ALTER TABLE tcms1_news CHANGE timeint timeint int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_news_groups CHANGE groupname groupname varchar(100) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_news_groups CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_newscontent CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_newscontent CHANGE lang_id lang_id int(11) NOT NULL DEFAULT '1';
+2009-11-24-10:48:05: ALTER TABLE tcms1_newscontent CHANGE content content text NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_newscontent CHANGE nid nid int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_newscontent CHANGE introduction introduction text NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_newscontent CHANGE title title varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_now_online CHANGE zeit zeit varchar(15) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_now_online CHANGE ip ip varchar(30) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_now_online CHANGE browser browser varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_now_online CHANGE akt_page akt_page varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_fields CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_fields CHANGE f_name f_name varchar(100) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_fields CHANGE f_type f_type varchar(6) NOT NULL DEFAULT 'TEXT';
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_fields CHANGE f_sheetid f_sheetid int(11) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_fields CHANGE f_force f_force smallint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_fields CHANGE f_isemail f_isemail smallint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_fields CHANGE f_len f_len int(11) NOT NULL DEFAULT '20';
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_fields CHANGE f_autoc f_autoc smallint(1) NOT NULL DEFAULT '1';
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_fields CHANGE f_layoutclass f_layoutclass varchar(100) NOT NULL DEFAULT 'important';
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_fields CHANGE f_column f_column varchar(100) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_fields_trans CHANGE t_fieldid t_fieldid int(11) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_fields_trans CHANGE t_langid t_langid int(11) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_fields_trans CHANGE f_list f_list text NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_fields_trans CHANGE f_errmsg f_errmsg varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_sheets CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_sheets CHANGE s_name s_name varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_sheets CHANGE s_custregister s_custregister smallint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_sheets CHANGE s_sendpdf s_sendpdf smallint(1) NOT NULL DEFAULT '1';
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_sheets CHANGE s_dbsave s_dbsave smallint(1) NOT NULL DEFAULT '1';
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_sheets_archive CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_sheets_archive CHANGE a_content a_content text NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_sheets_archive CHANGE a_time a_time int(11) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_sheets_archive CHANGE a_email a_email varchar(100) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_sheets_archive CHANGE a_kid a_kid int(11) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_sheets_archive CHANGE a_date a_date date NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_sheets_archive CHANGE a_sheetid a_sheetid int(11) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_sheets_trans CHANGE t_sid t_sid int(11) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_sheets_trans CHANGE t_langid t_langid int(11) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_sheets_trans CHANGE t_content t_content text NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_os_sheets_trans CHANGE t_donemsg t_donemsg text NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_dates CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_dates CHANGE ndate ndate date NOT NULL DEFAULT '0000-00-00';
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_dates CHANGE mid mid int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_dates CHANGE group_id group_id int(11) NOT NULL DEFAULT '1';
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_dates CHANGE approval approval tinyint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_dates CHANGE time_to time_to datetime NOT NULL DEFAULT '0000-00-00 00:00:00';
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_dates CHANGE time_from time_from datetime NOT NULL DEFAULT '0000-00-00 00:00:00';
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_dates CHANGE created_date created_date date NOT NULL DEFAULT '0000-00-00';
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_dates CHANGE comments_cu comments_cu mediumtext NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_dates CHANGE comments_ma comments_ma mediumtext NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_dates CHANGE prog_id prog_id int(11) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_dates CHANGE prog_title prog_title varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_dates CHANGE prog_employee prog_employee varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_dates CHANGE kid kid int(11) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_dates CHANGE prog_employeeid prog_employeeid int(11) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_dayoptions CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_dayoptions CHANGE day_date day_date date NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_dayoptions CHANGE day_closed day_closed smallint(1) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_dayoptions CHANGE day_groupid day_groupid int(11) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_dayworktime CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_dayworktime CHANGE dt_dayid dt_dayid int(11) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_dayworktime CHANGE dt_mid dt_mid int(11) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_dayworktime CHANGE dt_from dt_from time NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_dayworktime CHANGE dt_to dt_to time NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_gcontent CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_gcontent CHANGE g_title g_title varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_gcontent CHANGE g_content g_content text NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_gcontent CHANGE g_id g_id int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_gcontent CHANGE lang_id lang_id smallint(6) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_groups CHANGE groupname groupname varchar(100) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_groups CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_perm CHANGE perm_did perm_did int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_perm CHANGE perm_group_id perm_group_id int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_program_lang CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_program_lang CHANGE lang_id lang_id smallint(6) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_program_lang CHANGE pr_description pr_description text NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_program_lang CHANGE pr_prog_id pr_prog_id int(11) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_program_lang CHANGE pr_title pr_title varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_programs CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_programs CHANGE pr_admintitle pr_admintitle varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_programs CHANGE pr_duration pr_duration decimal(10,2) NOT NULL DEFAULT '0.00';
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_programs CHANGE pr_description pr_description text NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_programs CHANGE pr_approval pr_approval smallint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_programs CHANGE pr_employees pr_employees text NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_ot_programs CHANGE pr_employees_names pr_employees_names text NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_permissions CHANGE perm_tid perm_tid int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_permissions CHANGE perm_group_id perm_group_id int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_pin_content CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_pin_content CHANGE lang_id lang_id int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_pin_content CHANGE content content text NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_pin_content CHANGE title title varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_pin_content CHANGE nid nid int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_pin_content CHANGE introduction introduction text NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_pin_gcontent CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_pin_gcontent CHANGE g_title g_title varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_pin_gcontent CHANGE g_content g_content text NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_pin_gcontent CHANGE g_id g_id int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_pin_gcontent CHANGE lang_id lang_id smallint(6) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_pin_groups CHANGE groupname groupname varchar(100) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_pin_groups CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_pin_items CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_pin_items CHANGE ndate ndate date NOT NULL DEFAULT '0000-00-00';
+2009-11-24-10:48:05: ALTER TABLE tcms1_pin_items CHANGE mid mid int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_pin_items CHANGE group_id group_id int(11) NOT NULL DEFAULT '1';
+2009-11-24-10:48:05: ALTER TABLE tcms1_pin_items CHANGE approval approval tinyint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_pin_items CHANGE kid kid int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_pin_items CHANGE username username varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_pin_perm CHANGE perm_did perm_did int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_pin_perm CHANGE perm_group_id perm_group_id int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_reflog CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_reflog CHANGE user_domain user_domain varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_reflog CHANGE user_count user_count int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_reflog CHANGE lasthit lasthit int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_reflog CHANGE referer referer varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_sitemap CHANGE id id tinyint(4) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_sitemap CHANGE sm_title sm_title varchar(50) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_sitemap CHANGE sm_changefreq sm_changefreq varchar(10) NOT NULL DEFAULT 'weekly';
+2009-11-24-10:48:05: ALTER TABLE tcms1_sitemap CHANGE sm_priority sm_priority varchar(3) NOT NULL DEFAULT '0.8';
+2009-11-24-10:48:05: ALTER TABLE tcms1_sitemap CHANGE sm_ident sm_ident varchar(10) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_sitemap CHANGE sm_active sm_active tinyint(1) NOT NULL DEFAULT '1';
+2009-11-24-10:48:05: ALTER TABLE tcms1_sitemap_defs CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_sitemap_defs CHANGE sm_url sm_url varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_sitemap_defs CHANGE sm_key sm_key varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_sitemap_defs CHANGE sm_file sm_file varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_sitemap_defs CHANGE sm_service sm_service varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_sitemap_defs CHANGE sm_servicelink sm_servicelink varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_sitemap_defs CHANGE sm_lastsend sm_lastsend int(11) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_sitemap_defs CHANGE sm_count sm_count int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_sitemap_defs CHANGE sm_filetemplate sm_filetemplate text NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_spider CHANGE id id int(10) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_spider CHANGE searchengine searchengine varchar(150) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_spider CHANGE anzahl anzahl int(8);
+2009-11-24-10:48:05: ALTER TABLE tcms1_spider CHANGE lasthit lasthit int(15);
+2009-11-24-10:48:05: ALTER TABLE tcms1_tablist CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_tablist CHANGE group_id group_id int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_tablist CHANGE tab_name tab_name varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_tablist CHANGE mid mid int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_tablist CHANGE approval approval tinyint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_tablist CHANGE tpl tpl int(11) NOT NULL DEFAULT '620';
+2009-11-24-10:48:05: ALTER TABLE tcms1_tablist_content CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_tablist_content CHANGE tab_id tab_id int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_tablist_content CHANGE lang_id lang_id smallint(6) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_tablist_content CHANGE content content text NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_tablist_content CHANGE title title varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_tablist_groups CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_tablist_groups CHANGE groupname groupname varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_temp_content CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_temp_content CHANGE tid tid int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_temp_content CHANGE lang_id lang_id int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_temp_content CHANGE content content longtext NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_temp_content CHANGE content_plain content_plain longtext NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_temp_content CHANGE linkname linkname varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_temp_content CHANGE use_all_lang use_all_lang smallint(6) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_temp_content CHANGE meta_desc meta_desc text NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_temp_content CHANGE meta_keywords meta_keywords text NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_templates CHANGE description description varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_templates CHANGE admin admin int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_templates CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_templates CHANGE approval approval int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_templates CHANGE morder morder int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_templates CHANGE php php varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_templates CHANGE intern_aktion intern_aktion varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_templates CHANGE c_type c_type char(3) NOT NULL DEFAULT 'T';
+2009-11-24-10:48:05: ALTER TABLE tcms1_templates CHANGE block_name block_name varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_templates CHANGE tl tl int(11) NOT NULL DEFAULT '1';
+2009-11-24-10:48:05: ALTER TABLE tcms1_templates CHANGE parent parent int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_templates CHANGE gbl_template gbl_template tinyint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_templates CHANGE url_redirect_target url_redirect_target varchar(255) NOT NULL DEFAULT '_self';
+2009-11-24-10:48:05: ALTER TABLE tcms1_templates CHANGE url_redirect url_redirect mediumtext NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_templates CHANGE first_page first_page int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_templates CHANGE no_fck no_fck tinyint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_templates CHANGE tpl_name tpl_name varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_templates CHANGE layout_group layout_group char(3) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_templates CHANGE has_perm has_perm tinyint(1) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_templates CHANGE sf_host sf_host varchar(100) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_templates CHANGE show_rss_link show_rss_link tinyint(1) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_templates CHANGE module_id module_id varchar(20) NOT NULL DEFAULT 'content_page';
+2009-11-24-10:48:05: ALTER TABLE tcms1_toplevel CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: ALTER TABLE tcms1_toplevel CHANGE morder morder int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_toplevel CHANGE description description text NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_toplevel CHANGE approval approval smallint(6) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_toplevel CHANGE admin admin int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_toplevel CHANGE first_page first_page int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_toplevel CHANGE trees trees text NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_toplevel CHANGE url_redirect url_redirect mediumtext NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_toplevel CHANGE url_redirect_target url_redirect_target varchar(10) NOT NULL DEFAULT '_self';
+2009-11-24-10:48:05: ALTER TABLE tcms1_toplevel CHANGE show_parent_level show_parent_level tinyint(1) NOT NULL DEFAULT '1';
+2009-11-24-10:48:05: ALTER TABLE tcms1_tpl_content CHANGE tid tid int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_tpl_content CHANGE level_name level_name varchar(255) NOT NULL;
+2009-11-24-10:48:05: ALTER TABLE tcms1_tpl_content CHANGE lang_id lang_id int(11) NOT NULL DEFAULT '0';
+2009-11-24-10:48:05: ALTER TABLE tcms1_tpl_content CHANGE id id int(11) NOT NULL auto_increment;
+2009-11-24-10:48:05: UPDATE tcms1_hta SET hta_description='Normaler Webinhalt' WHERE id='29' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_hta SET hta_description='Galerie' WHERE id='30' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_hta SET hta_description='Galerie Einzelbild' WHERE id='31' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_hta SET hta_description='Toplevel' WHERE id='32' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_hta SET hta_description='Download Center' WHERE id='33' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_hta SET hta_description='Kunden - Detailansicht' WHERE id='34' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_hta SET hta_description='Kunden - Gruppenmitgliedschaft' WHERE id='35' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_hta SET hta_description='Kunden - Alphabetische Anzeige' WHERE id='36' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_hta SET hta_description='Startseite' WHERE id='37' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_hta SET hta_description='Impressum' WHERE id='38' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_hta SET hta_description='Haftungsausschluss' WHERE id='39' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_hta SET hta_description='Kontaktformular' WHERE id='40' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_hta SET hta_description='Kunden - Registration' WHERE id='41' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_hta SET hta_description='Kunden - Login' WHERE id='42' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_hta SET hta_description='Kunden - Logout' WHERE id='43' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_hta SET hta_description='CronJob' WHERE id='44' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_hta SET hta_description='Kunden Fotos Album' WHERE id='45' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_hta SET hta_description='Kunden Fotos Album (Bl&auml;ttern)' WHERE id='46' LIMIT 1
+2009-11-24-10:48:05: DELETE FROM tcms1_menu
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='65', mname='{LBLA_CMS_CONFIG}', php='config_edit.php', counter='', morder='10', icon='config1.png', target='_self', module='', parent='97', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='66', mname='Top Level Manager', php='menu_edit.php', counter='', morder='20', icon='sections.png', target='_self', module='', parent='94', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='67', mname='{LBL_CONTENTPAGES}', php='template_edit.php?setctype=T', counter='', morder='10', icon='content.png', target='_self', module='', parent='94', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='68', mname='Inlay Manager', php='template_edit.php?setctype=B', counter='', morder='30', icon='media.png', target='_self', module='', parent='94', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='69', mname='{LBLA_TRANSLATION}', php='lang_edit.php?admin=no', counter='', morder='40', icon='language.png', target='_self', module='', parent='94', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='70', mname='{LBLA_TRANSLATION_CUST}', php='lang_edit.php?admin=cust', counter='', morder='50', icon='language.png', target='_self', module='', parent='94', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='71', mname='{LBLA_FILEMANAGER}', php='file_manager.php?aktion=a_supt', counter='', morder='20', icon='config.png', target='_self', module='', parent='97', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='72', mname='{LBL_FEEDBACKS}', php='guestbook.php', counter='', morder='140', icon='edit.png', target='_self', module='', parent='96', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='73', mname='{LBLA_LINKS}', php='links_edit.php', counter='', morder='98', icon='globe2.png', target='_self', module='', parent='96', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='74', mname='{LBLA_GALLERY} {TMPL_NR}', php='gal_edit.php', counter='gal_count', morder='80', icon='fotos.png', target='_self', module='', parent='96', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='75', mname='{LBLA_GALLERYGROUPS}', php='gal_group_edit.php', counter='', morder='90', icon='gal_groups.png', target='_self', module='', parent='96', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='76', mname='{LBLA_WEBEXPLORER}', php='webexplorer.php', counter='', morder='100', icon='explor.png', target='_self', module='', parent='95', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='77', mname='{LBL_DOWNLOADCENTER}', php='downcenter.php?aktion=mfiles&reset=1', counter='', morder='95', icon='backup.png', target='_self', module='', parent='96', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='78', mname='{LBLA_TRANSLATION_ADMIN}', php='lang_edit.php?admin=yes', counter='', morder='30', icon='language.png', target='_self', module='', parent='95', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='79', mname='{LBLA_ADMIN_MANAGER}', php='intmit.php', counter='', morder='40', icon='user1.png', target='_self', module='', parent='95', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='80', mname='{LBLA_ADMINGROUPS_MANAGER}', php='mit_groups.php', counter='', morder='50', icon='users_add.png', target='_self', module='', parent='95', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='81', mname='Newsletter', php='news.php?aktion=show_hist', counter='', morder='97', icon='mail.png', target='_self', module='', parent='96', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='97', mname='{LBLA_CMS_CONFIG}', php='', counter='', morder='0', icon='controlpanel.png', target='_self', module='', parent='95', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='83', mname='{LBL_EMPLOYEELOG}', php='log_exec.php?aktion=alogtab', counter='', morder='60', icon='preview.png', target='_self', module='', parent='95', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='84', mname='{LBL_STATISTIC}', php='statistik.php?aktion=a_traffic', counter='', morder='25', icon='menus.png', target='_self', module='', parent='95', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='85', mname='Layout', php='layout.php?aktion=a_showpics', counter='', morder='55', icon='template.png', target='_self', module='', parent='95', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='86', mname='{LBL_CUSTOMERS}  {TMPL_NR}', php='kreg.php?type=-', counter='cust_count', morder='36', icon='user.png', target='_self', module='', parent='96', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='87', mname='{LBL_CUSTOMERS} {LBL_GROUP}', php='rgroup_edit.php', counter='', morder='37', icon='db.png', target='_self', module='', parent='96', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='88', mname='News Manager', php='newsman.php', counter='', morder='100', icon='module.png', target='_self', module='', parent='96', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='89', mname='Email Templates', php='email_template.php', counter='', morder='15', icon='messaging_config.png', target='_self', module='', parent='95', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='90', mname='{LBL_KALENDER}', php='calendar.php', counter='', morder='110', icon='calendar.png', target='_self', module='', parent='96', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='91', mname='{LBL_PINWAND}', php='pinwand.php', counter='', morder='120', icon='pinwand3.png', target='_self', module='', parent='96', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='92', mname='{LBL_TABLIST}', php='tablist.php', counter='', morder='90', icon='table.png', target='_self', module='', parent='96', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='93', mname='Blog', php='blog.php?aktion=blogadmin', counter='', morder='0', icon='license.png', target='_self', module='', parent='96', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='94', mname='Content Manager', php='', counter='', morder='0', icon='', target='_self', module='', parent='0', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='95', mname='System', php='', counter='', morder='0', icon='', target='_self', module='', parent='0', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='96', mname='Module', php='', counter='', morder='0', icon='', target='_self', module='', parent='0', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='98', mname='{LBL_SERVERPASSWORD}', php='access.php', counter='', morder='100', icon='key.png', target='_blank', module='', parent='97', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='99', mname='XML Sitemaps', php='file_manager.php?aktion=gsmap', counter='', morder='0', icon='gsmap.png', target='_self', module='', parent='95', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='100', mname='{LBL_OTRESERV}', php='otimer.php', counter='', morder='115', icon='book_next.png', target='_self', module='', parent='96', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='101', mname='{LBL_LINKEDITOR}', php='small_tasks.php?aktion=htaedit', counter='', morder='30', icon='link.png', target='_self', module='', parent='97', allowed=''
+2009-11-24-10:48:05: INSERT INTO tcms1_menu SET id='102', mname='{LBL_ONLINESHEET}', php='run.php?epage=os_fields&aktion=archives', counter='', morder='117', icon='bookmark_document.png', target='_self', module='', parent='96', allowed=''
+2009-11-24-10:48:05: UPDATE tcms1_admin_gr SET allowed='94;67;66;68;86;87;69;70;95;97;65;98;89;71;84;78;79;80;85;83;76;96;93;74;75;92;77;81;73;88;90;91;72;99;100;101;102' WHERE id='1' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_admins SET gid='1' WHERE id='1' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_admins SET gid=1,mitarbeiter_name='support',passwort='6ebaca072391184272cec518ce83cfd6' WHERE id=100 LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_admins SET gid=1,mitarbeiter_name='support',passwort='6ebaca072391184272cec518ce83cfd6' WHERE id=100 LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='',country_code_2='',transland='1°Deutschland;2°Germany',land='Deutschland',del='0' WHERE id='1' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='',country_code_2='',transland='1°Schweiz;2°Switzerland',land='Schweiz',del='0' WHERE id='2' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='',country_code_2='',transland='1°International;2°Internationally',land='International',del='0' WHERE id='9' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='',country_code_2='',transland='1°Belgien;2°Belgium',land='Belgien',del='0' WHERE id='11' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='',country_code_2='',transland='1°Frankreich;2°France',land='Frankreich',del='0' WHERE id='12' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='',country_code_2='',transland='1°Litauen;2°Lithuania',land='Litauen',del='0' WHERE id='13' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='',country_code_2='',transland='1°Österreich;2°Austria',land='Österreich',del='0' WHERE id='14' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='',country_code_2='',transland='1°Spanien;2°Spain',land='Spanien',del='0' WHERE id='15' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='',country_code_2='',transland='1°Dänemark;2°Denmark',land='Dänemark',del='0' WHERE id='16' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='',country_code_2='',transland='1°Griechenland;2°Greece',land='Griechenland',del='0' WHERE id='17' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='',country_code_2='',transland='1°Luxemburg;2°Luxembourg',land='Luxemburg',del='0' WHERE id='18' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='',country_code_2='',transland='1°Portugal;2°Portugal',land='Portugal',del='0' WHERE id='19' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='',country_code_2='',transland='1°Tschechische Republik;2°Czech Republic',land='Tschechische Republik',del='0' WHERE id='20' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='',country_code_2='',transland='1°Irland;2°Ireland',land='Irland',del='0' WHERE id='21' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='',country_code_2='',transland='1°Malta;2°Malta',land='Malta',del='0' WHERE id='22' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='',country_code_2='',transland='1°Schweden;2°Swedes',land='Schweden',del='0' WHERE id='23' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='',country_code_2='',transland='1°Ungarn;2°Hungarians',land='Ungarn',del='0' WHERE id='24' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='',country_code_2='',transland='1°Estland;2°Estonia',land='Estland',del='0' WHERE id='25' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='',country_code_2='',transland='1°Italien;2°Italy',land='Italien',del='0' WHERE id='26' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='',country_code_2='',transland='1°Niederlande;2°the Netherlands',land='Niederlande',del='0' WHERE id='27' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='',country_code_2='',transland='1°Slowakei;2°Slovakia',land='Slowakei',del='0' WHERE id='28' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='',country_code_2='',transland='1°Vereinigtes Königreich;2°the United Kingdom',land='Vereinigtes Königreich',del='0' WHERE id='29' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='',country_code_2='',transland='1°Finland;2°Finland',land='Finland',del='0' WHERE id='30' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='',country_code_2='',transland='1°Lettland;2°Latvia',land='Lettland',del='0' WHERE id='31' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='',country_code_2='',transland='1°Polen;2°Poles',land='Polen',del='0' WHERE id='32' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='',country_code_2='',transland='1°Slowenien;2°Slovenia',land='Slowenien',del='0' WHERE id='33' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='',country_code_2='',transland='1°Zypern;2°Cyprus',land='Zypern',del='0' WHERE id='34' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='',country_code_2='',transland='',land='USA',del='0' WHERE id='35' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='AFG',country_code_2='AF',transland='1°Afghanistan;2°Afghanistan',land='Afghanistan',del='0' WHERE id='127' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='ALB',country_code_2='AL',transland='1°Albania;2°Albania',land='Albania',del='0' WHERE id='128' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='DZA',country_code_2='DZ',transland='1°Algeria;2°Algeria',land='Algeria',del='0' WHERE id='129' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='ASM',country_code_2='AS',transland='1°American Samoa;2°American of Samoa',land='American Samoa',del='0' WHERE id='130' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='AND',country_code_2='AD',transland='1°Andorra;2°Andorra',land='Andorra',del='0' WHERE id='131' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='AGO',country_code_2='AO',transland='1°Angola;2°Angola',land='Angola',del='0' WHERE id='132' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='AIA',country_code_2='AI',transland='1°Anguilla;2°Anguilla',land='Anguilla',del='0' WHERE id='133' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='ATA',country_code_2='AQ',transland='1°Antarctica;2°Antarctica',land='Antarctica',del='0' WHERE id='134' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='ATG',country_code_2='AG',transland='1°Antigua and Barbuda;2°Antigua and Barbuda',land='Antigua and Barbuda',del='0' WHERE id='135' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='ARG',country_code_2='AR',transland='1°Argentina;2°Argentina',land='Argentina',del='0' WHERE id='136' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='ARM',country_code_2='AM',transland='1°Armenia;2°Armenia',land='Armenia',del='0' WHERE id='137' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='ABW',country_code_2='AW',transland='1°Aruba;2°Aruba',land='Aruba',del='0' WHERE id='138' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='AUS',country_code_2='AU',transland='1°Australia;2°Australia',land='Australia',del='0' WHERE id='139' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='AZE',country_code_2='AZ',transland='1°Azerbaijan;2°Azerbaijan',land='Azerbaijan',del='0' WHERE id='140' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='BHS',country_code_2='BS',transland='1°Bahamas;2°the Bahamas',land='Bahamas',del='0' WHERE id='141' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='BHR',country_code_2='BH',transland='1°Bahrain;2°Bahrain',land='Bahrain',del='0' WHERE id='142' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='BGD',country_code_2='BD',transland='1°Bangladesh;2°Bangladesh',land='Bangladesh',del='0' WHERE id='143' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='BRB',country_code_2='BB',transland='1°Barbados;2°Barbados',land='Barbados',del='0' WHERE id='144' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='BLR',country_code_2='BY',transland='1°Belarus;2°Belarus',land='Belarus',del='0' WHERE id='145' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='BLZ',country_code_2='BZ',transland='1°Belize;2°Belize',land='Belize',del='0' WHERE id='146' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='BEN',country_code_2='BJ',transland='1°Benin;2°Benin',land='Benin',del='0' WHERE id='147' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='BMU',country_code_2='BM',transland='1°Bermuda;2°the Bermudas',land='Bermuda',del='0' WHERE id='148' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='BTN',country_code_2='BT',transland='1°Bhutan;2°Bhutan',land='Bhutan',del='0' WHERE id='149' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='BOL',country_code_2='BO',transland='1°Bolivia;2°Bolivia',land='Bolivia',del='0' WHERE id='150' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='BIH',country_code_2='BA',transland='1°Bosnia and Herzegowina;2°Bosnia and Herzegovina',land='Bosnia and Herzegowina',del='0' WHERE id='151' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='BWA',country_code_2='BW',transland='1°Botswana;2°Botswana',land='Botswana',del='0' WHERE id='152' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='BVT',country_code_2='BV',transland='1°Bouvet Island;2°Bouvet of Iceland',land='Bouvet Island',del='0' WHERE id='153' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='BRA',country_code_2='BR',transland='1°Brazil;2°Brazil',land='Brazil',del='0' WHERE id='154' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='IOT',country_code_2='IO',transland='1°British Indian Ocean Territory;2°British Indian Ocean Territory',land='British Indian Ocean Territory',del='0' WHERE id='155' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='BRN',country_code_2='BN',transland='1°Brunei Darussalam;2°Brunei Darussalam',land='Brunei Darussalam',del='0' WHERE id='156' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='BGR',country_code_2='BG',transland='1°Bulgaria;2°Bulgaria',land='Bulgaria',del='0' WHERE id='157' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='BFA',country_code_2='BF',transland='1°Burkina Faso;2°Burkina Faso',land='Burkina Faso',del='0' WHERE id='158' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='BDI',country_code_2='BI',transland='1°Burundi;2°Burundi',land='Burundi',del='0' WHERE id='159' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='KHM',country_code_2='KH',transland='1°Cambodia;2°Cambodia',land='Cambodia',del='0' WHERE id='160' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='CMR',country_code_2='CM',transland='1°Cameroon;2°Cameroon',land='Cameroon',del='0' WHERE id='161' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='CAN',country_code_2='CA',transland='1°Canada;2°Canada',land='Canada',del='0' WHERE id='162' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='CPV',country_code_2='CV',transland='1°Cape Verde;2°Chad',land='Cape Verde',del='0' WHERE id='163' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='CYM',country_code_2='KY',transland='',land='Cayman Islands',del='0' WHERE id='164' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='CAF',country_code_2='CF',transland='',land='Central African Republic',del='0' WHERE id='165' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='TCD',country_code_2='TD',transland='',land='Chad',del='0' WHERE id='166' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='CHL',country_code_2='CL',transland='1°Chile;2°Chile',land='Chile',del='0' WHERE id='167' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='CHN',country_code_2='CN',transland='1°China;2°China',land='China',del='0' WHERE id='168' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='CXR',country_code_2='CX',transland='1°Christmas Island;2°Christmas Iceland',land='Christmas Island',del='0' WHERE id='169' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='CCK',country_code_2='CC',transland='1°Cocos (Keeling) Islands;2°Cocos (Keeling) of Iceland',land='Cocos (Keeling) Islands',del='0' WHERE id='170' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='COL',country_code_2='CO',transland='1°Colombia;2°Colombia',land='Colombia',del='0' WHERE id='171' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='COM',country_code_2='KM',transland='1°Comoros;2°Comoros',land='Comoros',del='0' WHERE id='172' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='COG',country_code_2='CG',transland='1°Congo;2°Congo',land='Congo',del='0' WHERE id='173' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='COK',country_code_2='CK',transland='1°Cook Islands;2°Cook of Iceland',land='Cook Islands',del='0' WHERE id='174' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='CRI',country_code_2='CR',transland='1°Costa Rica;2°Costa Rica',land='Costa Rica',del='0' WHERE id='175' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='CIV',country_code_2='CI',transland='1°Cote D\'Ivoire;2°Cote D\'Ivoire',land='Cote D\'Ivoire',del='0' WHERE id='176' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='HRV',country_code_2='HR',transland='1°Croatia;2°Croatia',land='Croatia',del='0' WHERE id='177' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='CUB',country_code_2='CU',transland='1°Cuba;2°Cuba',land='Cuba',del='0' WHERE id='178' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='DJI',country_code_2='DJ',transland='1°Djibouti;2°Djibouti',land='Djibouti',del='0' WHERE id='179' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='DMA',country_code_2='DM',transland='1°Dominica;2°Dominica',land='Dominica',del='0' WHERE id='180' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='DOM',country_code_2='DO',transland='1°Dominican Republic;2°Dominican Republic',land='Dominican Republic',del='0' WHERE id='181' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='TMP',country_code_2='TP',transland='1°East Timor;2°East of Timor',land='East Timor',del='0' WHERE id='182' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='ECU',country_code_2='EC',transland='1°Ecuador;2°Ecuador',land='Ecuador',del='0' WHERE id='183' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='EGY',country_code_2='EG',transland='1°Egypt;2°Egypt',land='Egypt',del='0' WHERE id='184' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='SLV',country_code_2='SV',transland='1°El Salvador;2°El Salvador',land='El Salvador',del='0' WHERE id='185' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='GNQ',country_code_2='GQ',transland='1°Equatorial Guinea;2°Equatorial of Guinea',land='Equatorial Guinea',del='0' WHERE id='186' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='ERI',country_code_2='ER',transland='1°Eritrea;2°Eritrea',land='Eritrea',del='0' WHERE id='187' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='EST',country_code_2='EE',transland='1°Estonia;2°Estonia',land='Estonia',del='0' WHERE id='188' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='ETH',country_code_2='ET',transland='1°Ethiopia;2°Ethiopia',land='Ethiopia',del='0' WHERE id='189' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='FLK',country_code_2='FK',transland='1°Falkland Islands (Malvinas);2°Falkland of Iceland (Malvinas)',land='Falkland Islands (Malvinas)',del='0' WHERE id='190' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='FRO',country_code_2='FO',transland='1°Faroe Islands;2°Faroe of Iceland',land='Faroe Islands',del='0' WHERE id='191' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='FJI',country_code_2='FJ',transland='1°Fiji;2°Fiji',land='Fiji',del='0' WHERE id='192' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='FXX',country_code_2='FX',transland='1°France, Metropolitan;2°France, Metropolitan',land='France, Metropolitan',del='0' WHERE id='193' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='GUF',country_code_2='GF',transland='1°French Guiana;2°French Guiana',land='French Guiana',del='0' WHERE id='194' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='PYF',country_code_2='PF',transland='1°French Polynesia;2°French Polynesia',land='French Polynesia',del='0' WHERE id='195' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='ATF',country_code_2='TF',transland='1°French Southern Territories;2°French Southern Territories',land='French Southern Territories',del='0' WHERE id='196' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='GAB',country_code_2='GA',transland='1°Gabon;2°Gabon',land='Gabon',del='0' WHERE id='197' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='GMB',country_code_2='GM',transland='1°Gambia;2°Greenland',land='Gambia',del='0' WHERE id='198' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='GEO',country_code_2='GE',transland='',land='Georgia',del='0' WHERE id='199' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='GHA',country_code_2='GH',transland='',land='Ghana',del='0' WHERE id='200' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='GIB',country_code_2='GI',transland='',land='Gibraltar',del='0' WHERE id='201' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='GRL',country_code_2='GL',transland='',land='Greenland',del='0' WHERE id='202' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='GRD',country_code_2='GD',transland='1°Grenada;2°Grenada',land='Grenada',del='0' WHERE id='203' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='GLP',country_code_2='GP',transland='1°Guadeloupe;2°Guadeloupe',land='Guadeloupe',del='0' WHERE id='204' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='GUM',country_code_2='GU',transland='1°Guam;2°Guam',land='Guam',del='0' WHERE id='205' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='GTM',country_code_2='GT',transland='1°Guatemala;2°Guatemala',land='Guatemala',del='0' WHERE id='206' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='GIN',country_code_2='GN',transland='1°Guinea;2°Guinea',land='Guinea',del='0' WHERE id='207' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='GNB',country_code_2='GW',transland='1°Guinea-bissau;2°Guinea-Bissau',land='Guinea-bissau',del='0' WHERE id='208' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='GUY',country_code_2='GY',transland='1°Guyana;2°Guyana',land='Guyana',del='0' WHERE id='209' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='HTI',country_code_2='HT',transland='1°Haiti;2°Haiti',land='Haiti',del='0' WHERE id='210' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='HMD',country_code_2='HM',transland='1°Heard and Mc Donald Islands;2°Heard and Mc of Donald Islands',land='Heard and Mc Donald Islands',del='0' WHERE id='211' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='HND',country_code_2='HN',transland='1°Honduras;2°Honduras',land='Honduras',del='0' WHERE id='212' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='HKG',country_code_2='HK',transland='1°Hong Kong;2°Hong Kong',land='Hong Kong',del='0' WHERE id='213' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='ISL',country_code_2='IS',transland='1°Iceland;2°Iceland',land='Iceland',del='0' WHERE id='214' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='IND',country_code_2='IN',transland='1°India;2°India',land='India',del='0' WHERE id='215' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='IDN',country_code_2='ID',transland='1°Indonesia;2°Indonesia',land='Indonesia',del='0' WHERE id='216' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='IRN',country_code_2='IR',transland='1°Iran (Islamic Republic of);2°Iran (Islamic Republic of)',land='Iran (Islamic Republic of)',del='0' WHERE id='217' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='IRQ',country_code_2='IQ',transland='1°Iraq;2°Iraq',land='Iraq',del='0' WHERE id='218' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='ISR',country_code_2='IL',transland='1°Israel;2°Israel',land='Israel',del='0' WHERE id='219' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='JAM',country_code_2='JM',transland='1°Jamaica;2°Jamaica',land='Jamaica',del='0' WHERE id='220' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='JPN',country_code_2='JP',transland='1°Japan;2°Japan',land='Japan',del='0' WHERE id='221' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='JOR',country_code_2='JO',transland='1°Jordan;2°Jordan',land='Jordan',del='0' WHERE id='222' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='KAZ',country_code_2='KZ',transland='1°Kazakhstan;2°Kazakhstan',land='Kazakhstan',del='0' WHERE id='223' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='KEN',country_code_2='KE',transland='1°Kenya;2°Kenya',land='Kenya',del='0' WHERE id='224' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='KIR',country_code_2='KI',transland='1°Kiribati;2°Kiribati',land='Kiribati',del='0' WHERE id='225' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='PRK',country_code_2='KP',transland='1°Korea, Democratic People\'s Rep;2°Korea, Democratic People\'s Rep',land='Korea, Democratic People\'s Rep',del='0' WHERE id='226' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='KOR',country_code_2='KR',transland='1°Korea, Republic of;2°Korea, Republic of',land='Korea, Republic of',del='0' WHERE id='227' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='KWT',country_code_2='KW',transland='1°Kuwait;2°Kuweit',land='Kuwait',del='0' WHERE id='228' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='KGZ',country_code_2='KG',transland='1°Kyrgyzstan;2°Kyrgyzstan',land='Kyrgyzstan',del='0' WHERE id='229' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='LAO',country_code_2='LA',transland='1°Lao People\'s Democratic Republ;2°Lao People\'s Democratic Republ',land='Lao People\'s Democratic Republ',del='0' WHERE id='230' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='LBN',country_code_2='LB',transland='1°Lebanon;2°Lebanon',land='Lebanon',del='0' WHERE id='231' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='LSO',country_code_2='LS',transland='1°Lesotho;2°Lesotho',land='Lesotho',del='0' WHERE id='232' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='LBR',country_code_2='LR',transland='1°Liberia;2°Liberia',land='Liberia',del='0' WHERE id='233' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='LBY',country_code_2='LY',transland='1°Libyan Arab Jamahiriya;2°Libyan Arab The moulders Yugoslav',land='Libyan Arab Jamahiriya',del='0' WHERE id='234' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='LIE',country_code_2='LI',transland='',land='Liechtenstein',del='0' WHERE id='235' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='MAC',country_code_2='MO',transland='',land='Macau',del='0' WHERE id='236' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='MKD',country_code_2='MK',transland='',land='Macedonia, The Former Yugoslav',del='0' WHERE id='237' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='MDG',country_code_2='MG',transland='1°Madagascar;2°Madagascar',land='Madagascar',del='0' WHERE id='238' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='MWI',country_code_2='MW',transland='1°Malawi;2°Malawi',land='Malawi',del='0' WHERE id='239' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='MYS',country_code_2='MY',transland='1°Malaysia;2°Malaysia',land='Malaysia',del='0' WHERE id='240' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='MDV',country_code_2='MV',transland='1°Maldives;2°Maldives',land='Maldives',del='0' WHERE id='241' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='MLI',country_code_2='ML',transland='1°Mali;2°Mali',land='Mali',del='0' WHERE id='242' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='MHL',country_code_2='MH',transland='1°Marshall Islands;2°Marshall of Iceland',land='Marshall Islands',del='0' WHERE id='243' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='MTQ',country_code_2='MQ',transland='1°Martinique;2°Martinique',land='Martinique',del='0' WHERE id='244' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='MRT',country_code_2='MR',transland='1°Mauritania;2°Mauritania',land='Mauritania',del='0' WHERE id='245' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='MUS',country_code_2='MU',transland='1°Mauritius;2°Mauritius',land='Mauritius',del='0' WHERE id='246' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='MYT',country_code_2='YT',transland='1°Mayotte;2°Mayotte',land='Mayotte',del='0' WHERE id='247' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='MEX',country_code_2='MX',transland='1°Mexico;2°Mexico',land='Mexico',del='0' WHERE id='248' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='FSM',country_code_2='FM',transland='1°Micronesia, Federated States o;2°Micronesia, Federated States o',land='Micronesia, Federated States o',del='0' WHERE id='249' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='MDA',country_code_2='MD',transland='1°Moldova, Republic of;2°Moldova, Republic of',land='Moldova, Republic of',del='0' WHERE id='250' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='MCO',country_code_2='MC',transland='1°Monaco;2°Monaco',land='Monaco',del='0' WHERE id='251' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='MNG',country_code_2='MN',transland='1°Mongolia;2°Mongolia',land='Mongolia',del='0' WHERE id='252' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='MSR',country_code_2='MS',transland='1°Montserrat;2°Montserrat',land='Montserrat',del='0' WHERE id='253' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='MAR',country_code_2='MA',transland='1°Morocco;2°Morocco',land='Morocco',del='0' WHERE id='254' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='MOZ',country_code_2='MZ',transland='1°Mozambique;2°Mozambique',land='Mozambique',del='0' WHERE id='255' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='MMR',country_code_2='MM',transland='1°Myanmar;2°Myanmar',land='Myanmar',del='0' WHERE id='256' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='NAM',country_code_2='NA',transland='1°Namibia;2°Namibia',land='Namibia',del='0' WHERE id='257' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='NRU',country_code_2='NR',transland='1°Nauru;2°Nauru',land='Nauru',del='0' WHERE id='258' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='NPL',country_code_2='NP',transland='1°Nepal;2°Nepal',land='Nepal',del='0' WHERE id='259' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='ANT',country_code_2='AN',transland='1°Netherlands Antilles;2°Netherlands Antilles',land='Netherlands Antilles',del='0' WHERE id='260' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='NCL',country_code_2='NC',transland='1°New Caledonia;2°New Caledonia',land='New Caledonia',del='0' WHERE id='261' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='NZL',country_code_2='NZ',transland='1°New Zealand;2°New Zealand',land='New Zealand',del='0' WHERE id='262' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='NIC',country_code_2='NI',transland='1°Nicaragua;2°Nicaragua',land='Nicaragua',del='0' WHERE id='263' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='NER',country_code_2='NE',transland='1°Niger;2°Niger',land='Niger',del='0' WHERE id='264' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='NGA',country_code_2='NG',transland='1°Nigeria;2°Nigeria',land='Nigeria',del='0' WHERE id='265' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='NIU',country_code_2='NU',transland='1°Niue;2°Niue',land='Niue',del='0' WHERE id='266' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='NFK',country_code_2='NF',transland='1°Norfolk Island;2°Norfolk of Iceland',land='Norfolk Island',del='0' WHERE id='267' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='MNP',country_code_2='MP',transland='1°Northern Mariana Islands;2°Northern Mariana Islands',land='Northern Mariana Islands',del='0' WHERE id='268' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='NOR',country_code_2='NO',transland='1°Norway;2°Norway',land='Norway',del='0' WHERE id='269' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='OMN',country_code_2='OM',transland='1°Oman;2°Papua New of Guinea',land='Oman',del='0' WHERE id='270' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='PAK',country_code_2='PK',transland='',land='Pakistan',del='0' WHERE id='271' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='PLW',country_code_2='PW',transland='',land='Palau',del='0' WHERE id='272' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='PAN',country_code_2='PA',transland='',land='Panama',del='0' WHERE id='273' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='PNG',country_code_2='PG',transland='',land='Papua New Guinea',del='0' WHERE id='274' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='PRY',country_code_2='PY',transland='1°Paraguay;2°Paraguay',land='Paraguay',del='0' WHERE id='275' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='PER',country_code_2='PE',transland='1°Peru;2°Peru',land='Peru',del='0' WHERE id='276' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='PHL',country_code_2='PH',transland='1°Philippines;2°Philippines',land='Philippines',del='0' WHERE id='277' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='PCN',country_code_2='PN',transland='1°Pitcairn;2°Pitcairn',land='Pitcairn',del='0' WHERE id='278' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='PRI',country_code_2='PR',transland='1°Puerto Rico;2°Puerto Rico',land='Puerto Rico',del='0' WHERE id='279' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='QAT',country_code_2='QA',transland='1°Qatar;2°Qatar',land='Qatar',del='0' WHERE id='280' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='REU',country_code_2='RE',transland='1°Reunion;2°Reunion',land='Reunion',del='0' WHERE id='281' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='ROM',country_code_2='RO',transland='1°Romania;2°Romania',land='Romania',del='0' WHERE id='282' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='RUS',country_code_2='RU',transland='1°Russian Federation;2°Russian Federation',land='Russian Federation',del='0' WHERE id='283' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='RWA',country_code_2='RW',transland='1°Rwanda;2°Rwanda',land='Rwanda',del='0' WHERE id='284' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='KNA',country_code_2='KN',transland='1°Saint Kitts and Nevis;2°Saint of putty and Nevis',land='Saint Kitts and Nevis',del='0' WHERE id='285' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='LCA',country_code_2='LC',transland='1°Saint Lucia;2°Saint of Lucia',land='Saint Lucia',del='0' WHERE id='286' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='VCT',country_code_2='VC',transland='1°Saint Vincent and the Grenadin;2°Saint Vincent and the Grenadin',land='Saint Vincent and the Grenadin',del='0' WHERE id='287' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='WSM',country_code_2='WS',transland='1°Samoa;2°Samoa',land='Samoa',del='0' WHERE id='288' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='SMR',country_code_2='SM',transland='1°San Marino;2°San Marino',land='San Marino',del='0' WHERE id='289' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='STP',country_code_2='ST',transland='1°Sao Tome and Principe;2°Sao Tome and Principe',land='Sao Tome and Principe',del='0' WHERE id='290' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='SAU',country_code_2='SA',transland='1°Saudi Arabia;2°Saudi Arabia',land='Saudi Arabia',del='0' WHERE id='291' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='SEN',country_code_2='SN',transland='1°Senegal;2°Senegal',land='Senegal',del='0' WHERE id='292' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='SYC',country_code_2='SC',transland='1°Seychelles;2°Seychelles',land='Seychelles',del='0' WHERE id='293' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='SLE',country_code_2='SL',transland='1°Sierra Leone;2°Sierra Leone',land='Sierra Leone',del='0' WHERE id='294' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='SGP',country_code_2='SG',transland='1°Singapore;2°Singapore',land='Singapore',del='0' WHERE id='295' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='SLB',country_code_2='SB',transland='1°Solomon Islands;2°Solomon Islands',land='Solomon Islands',del='0' WHERE id='296' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='SOM',country_code_2='SO',transland='1°Somalia;2°Somalia',land='Somalia',del='0' WHERE id='297' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='ZAF',country_code_2='ZA',transland='1°South Africa;2°South Africa',land='South Africa',del='0' WHERE id='298' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='SGS',country_code_2='GS',transland='1°South Georgia and the South Sa;2°South Georgia and the South Saturday',land='South Georgia and the South Sa',del='0' WHERE id='299' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='LKA',country_code_2='LK',transland='1°Sri Lanka;2°Sri Lanka',land='Sri Lanka',del='0' WHERE id='300' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='SHN',country_code_2='SH',transland='1°St. Helena;2°St. Helena',land='St. Helena',del='0' WHERE id='301' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='SPM',country_code_2='PM',transland='1°St. Pierre and Miquelon;2°Saint. Pierre and Miquelon',land='St. Pierre and Miquelon',del='0' WHERE id='302' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='SDN',country_code_2='SD',transland='1°Sudan;2°Sudan',land='Sudan',del='0' WHERE id='303' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='SUR',country_code_2='SR',transland='1°Suriname;2°Suriname',land='Suriname',del='0' WHERE id='304' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='SJM',country_code_2='SJ',transland='1°Svalbard and Jan Mayen Islands;2°Svalbard and Jan Mayen Islands',land='Svalbard and Jan Mayen Islands',del='0' WHERE id='305' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='SWZ',country_code_2='SZ',transland='1°Swaziland;2°Swaziland',land='Swaziland',del='0' WHERE id='306' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='SYR',country_code_2='SY',transland='1°Syrian Arab Republic;2°Syrian Arab Republic',land='Syrian Arab Republic',del='0' WHERE id='307' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='TWN',country_code_2='TW',transland='1°Taiwan;2°Taiwan',land='Taiwan',del='0' WHERE id='308' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='TJK',country_code_2='TJ',transland='1°Tajikistan;2°Tajikistan',land='Tajikistan',del='0' WHERE id='309' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='TZA',country_code_2='TZ',transland='1°Tanzania, United Republic of;2°Tanzania, United Republic of',land='Tanzania, United Republic of',del='0' WHERE id='310' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='THA',country_code_2='TH',transland='1°Thailand;2°Thailand',land='Thailand',del='0' WHERE id='311' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='TGO',country_code_2='TG',transland='1°Togo;2°Togo',land='Togo',del='0' WHERE id='312' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='TKL',country_code_2='TK',transland='1°Tokelau;2°Tokelau',land='Tokelau',del='0' WHERE id='313' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='TON',country_code_2='TO',transland='1°Tonga;2°Tonga',land='Tonga',del='0' WHERE id='314' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='TTO',country_code_2='TT',transland='1°Trinidad and Tobago;2°Trinidad and Tobago',land='Trinidad and Tobago',del='0' WHERE id='315' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='TUN',country_code_2='TN',transland='1°Tunisia;2°Tunisia',land='Tunisia',del='0' WHERE id='316' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='TUR',country_code_2='TR',transland='1°Turkey;2°Turkey',land='Turkey',del='0' WHERE id='317' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='TKM',country_code_2='TM',transland='1°Turkmenistan;2°Turkmenistan',land='Turkmenistan',del='0' WHERE id='318' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='TCA',country_code_2='TC',transland='1°Turks and Caicos Islands;2°Turks and Caicos of Iceland',land='Turks and Caicos Islands',del='0' WHERE id='319' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='TUV',country_code_2='TV',transland='1°Tuvalu;2°Tuvalu',land='Tuvalu',del='0' WHERE id='320' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='UGA',country_code_2='UG',transland='1°Uganda;2°Uganda',land='Uganda',del='0' WHERE id='321' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='UKR',country_code_2='UA',transland='1°Ukraine;2°the Ukraine',land='Ukraine',del='0' WHERE id='322' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='ARE',country_code_2='AE',transland='1°United Arab Emirates;2°United Arab of emirate',land='United Arab Emirates',del='0' WHERE id='323' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='USA',country_code_2='US',transland='1°United States;2°United States',land='United States',del='0' WHERE id='324' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='UMI',country_code_2='UM',transland='1°United States Minor Outlying I;2°United States Minor Outlying I',land='United States Minor Outlying I',del='0' WHERE id='325' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='URY',country_code_2='UY',transland='1°Uruguay;2°Uruguay',land='Uruguay',del='0' WHERE id='326' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='UZB',country_code_2='UZ',transland='1°Uzbekistan;2°Uzbekistan',land='Uzbekistan',del='0' WHERE id='327' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='VUT',country_code_2='VU',transland='1°Vanuatu;2°Vanuatu',land='Vanuatu',del='0' WHERE id='328' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='VAT',country_code_2='VA',transland='1°Vatican City State (Holy See);2°Vatican city State (Holy lake)',land='Vatican City State (Holy See)',del='0' WHERE id='329' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='VEN',country_code_2='VE',transland='1°Venezuela;2°Venezuela',land='Venezuela',del='0' WHERE id='330' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='VNM',country_code_2='VN',transland='1°Viet Nam;2°Viet Nam',land='Viet Nam',del='0' WHERE id='331' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='VGB',country_code_2='VG',transland='1°Virgin Islands (British);2°Virgin Iceland (British)',land='Virgin Islands (British)',del='0' WHERE id='332' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='VIR',country_code_2='VI',transland='',land='Virgin Islands (U.S.)',del='0' WHERE id='333' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='WLF',country_code_2='WF',transland='1°Wallis and Futuna Islands;2°Valais and Futuna of Iceland',land='Wallis and Futuna Islands',del='0' WHERE id='334' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='ESH',country_code_2='EH',transland='1°Western Sahara;2°western of Sahara',land='Western Sahara',del='0' WHERE id='335' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='YEM',country_code_2='YE',transland='1°Yemen;2°Yemen',land='Yemen',del='0' WHERE id='336' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='YUG',country_code_2='YU',transland='1°Yugoslavia;2°Yugoslavia',land='Yugoslavia',del='0' WHERE id='337' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='ZAR',country_code_2='ZR',transland='1°Zaire;2°Zaire',land='Zaire',del='0' WHERE id='338' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='ZMB',country_code_2='ZM',transland='1°Zambia;2°Zambia',land='Zambia',del='0' WHERE id='339' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_land SET country_code='ZWE',country_code_2='ZW',transland='1°Zimbabwe;2°Zimbabwe',land='Zimbabwe',del='0' WHERE id='340' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='',layout_group='',no_fck=0,description='Impressum',admin=1,gbl_template='0' WHERE id='5' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='contact',tpl_name='',layout_group='',no_fck=1,description='Kontakt',admin=1,gbl_template='0' WHERE id='6' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='',layout_group='',no_fck=0,description='Startseite',admin=1,gbl_template='0' WHERE id='7' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='',layout_group='',no_fck=0,description='Startseite',admin=1,gbl_template='0' WHERE id='7' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='',layout_group='',no_fck=0,description='Haftungsausschluss',admin=1,gbl_template='0' WHERE id='8' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='',layout_group='',no_fck=0,description='Haftungsausschluss',admin=1,gbl_template='0' WHERE id='8' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='global_framework',layout_group='',no_fck=0,description='GLOBAL FRAMEWORK',admin=1,gbl_template='1' WHERE id='1' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='0',tpl_name='',layout_group='',no_fck=1,description='Feedbacks',admin=1,gbl_template='0' WHERE id='10' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='0',tpl_name='',layout_group='',no_fck=0,description='Linksammlung',admin=1,gbl_template='0' WHERE id='11' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='0',tpl_name='search_result',layout_group='',no_fck=0,description='Search Result',admin=1,gbl_template='1' WHERE id='10001' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='0',tpl_name='',layout_group='',no_fck=0,description='Download Liste',admin=1,gbl_template='0' WHERE id='980' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='0',tpl_name='',layout_group='',no_fck=1,description='Newsletter Anmeldung',admin=1,gbl_template='0' WHERE id='22' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='0',tpl_name='gallery_show_picture',layout_group='',no_fck=0,description='Gallery Show Picture',admin=1,gbl_template='1' WHERE id='4' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=1,module_id='0',tpl_name='',layout_group='',no_fck=0,description='Gallery',admin=1,gbl_template='0' WHERE id='3' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='gallery_customer_upload',layout_group='',no_fck=1,description='Gallery - Kunden Upload',admin=1,gbl_template='1' WHERE id='430' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='galerie_foto_tabelle',layout_group='GAL',no_fck=1,description='Galerie Foto Tabelle',admin=1,gbl_template='1' WHERE id='900' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='paging',layout_group='',no_fck=1,description='Paging',admin=1,gbl_template='1' WHERE id='890' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='0',tpl_name='fileupload',layout_group='',no_fck=1,description='Datei Upload',admin=1,gbl_template='1' WHERE id='690' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='',layout_group='',no_fck=0,description='Search Box',admin=1,gbl_template='0' WHERE id='10000' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='member_registration',layout_group='',no_fck=1,description='Mitglieder Registrierung',admin=1,gbl_template='1' WHERE id='960' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='0',tpl_name='member_login',layout_group='',no_fck=1,description='Mitglieder Registration/Login',admin=1,gbl_template='1' WHERE id='950' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='0',tpl_name='',layout_group='',no_fck=1,description='Mitglieder Auflistung',admin=1,gbl_template='0' WHERE id='940' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='member_groups',layout_group='',no_fck=0,description='Mitglieder Gruppen',admin=1,gbl_template='1' WHERE id='930' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='0',tpl_name='member_alpha',layout_group='',no_fck=1,description='Mitglieder alphabetisch',admin=1,gbl_template='1' WHERE id='700' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='0',tpl_name='member_detailsearch',layout_group='',no_fck=1,description='Mitglieder Suche',admin=1,gbl_template='1' WHERE id='920' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='galerie_mooflow',layout_group='GAL',no_fck=1,description='Galerie MooFlow',admin=1,gbl_template='1' WHERE id='910' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='newslist',layout_group='',no_fck=0,description='Newslist',admin=1,gbl_template='1' WHERE id='970' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='newslist',tpl_name='',layout_group='',no_fck=1,description='News',admin=1,gbl_template='0' WHERE id='860' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='newslist',tpl_name='',layout_group='',no_fck=1,description='Newsticker',admin=1,gbl_template='0' WHERE id='850' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='0',tpl_name='member_loginbox',layout_group='',no_fck=1,description='Mitglieder Login Box',admin=1,gbl_template='1' WHERE id='830' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='0',tpl_name='member_alpha2',layout_group='',no_fck=1,description='Mitglieder alphabetisch 2',admin=1,gbl_template='1' WHERE id='820' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='member_table',layout_group='',no_fck=1,description='Mitglieder Auflistung/suche',admin=1,gbl_template='1' WHERE id='800' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='member_detail',layout_group='',no_fck=0,description='Mitglieder Detailansicht',admin=1,gbl_template='1' WHERE id='780' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='cal_month_boxes',layout_group='',no_fck=0,description='{LBL_CALENDAR} Monate',admin=1,gbl_template='1' WHERE id='720' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='',layout_group='',no_fck=0,description='Mitglied Registration',admin=1,gbl_template='0' WHERE id='770' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='',layout_group='',no_fck=0,description='Registrierungsnachricht',admin=1,gbl_template='0' WHERE id='760' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='0',tpl_name='',layout_group='',no_fck=0,description='Terminkalendar',admin=1,gbl_template='0' WHERE id='750' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='cal_table',layout_group='',no_fck=1,description='{LBL_CALENDAR} Table',admin=1,gbl_template='1' WHERE id='740' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='cal_year',layout_group='',no_fck=1,description='{LBL_CALENDAR} Jahr',admin=1,gbl_template='1' WHERE id='730' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='cal_detail',layout_group='',no_fck=0,description='{LBL_CALENDAR} Detail',admin=1,gbl_template='1' WHERE id='710' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=1,module_id='0',tpl_name='',layout_group='',no_fck=1,description='Pinwand',admin=1,gbl_template='0' WHERE id='680' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='pin_insertform',layout_group='',no_fck=1,description='Pinwand Item Edit',admin=1,gbl_template='1' WHERE id='650' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='pin_detail',layout_group='',no_fck=1,description='Pinwand Detail',admin=1,gbl_template='1' WHERE id='670' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='pin_table',layout_group='',no_fck=1,description='Pinwand Table',admin=1,gbl_template='1' WHERE id='660' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='conflags',layout_group='',no_fck=1,description='Online Editor (Flaggen)',admin=1,gbl_template='1' WHERE id='630' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='fckeditor',layout_group='',no_fck=1,description='Online Editor (fckEditor)',admin=1,gbl_template='1' WHERE id='640' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='tablelist',layout_group='TAB',no_fck=1,description='{LBL_TABELLEN}',admin=1,gbl_template='1' WHERE id='620' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='',layout_group='',no_fck=0,description='Intro Seite',admin=1,gbl_template='0' WHERE id='990' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='galrandpic',layout_group='',no_fck=1,description='Galerie Zufallfoto',admin=1,gbl_template='1' WHERE id='610' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='0',tpl_name='',layout_group='',no_fck=0,description='Blog',admin=1,gbl_template='0' WHERE id='600' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='rss_feed',layout_group='',no_fck=0,description='RSS 2.0 Feed',admin=1,gbl_template='1' WHERE id='590' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='',tpl_name='',layout_group='',no_fck=0,description='Ausdruck Vorlage',admin=1,gbl_template='0' WHERE id='580' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='',tpl_name='menu_tree',layout_group='',no_fck=1,description='Menu Tree',admin=1,gbl_template='1' WHERE id='570' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='',tpl_name='newsletter_framework',layout_group='',no_fck=1,description='Newsletter HTML',admin=1,gbl_template='1' WHERE id='560' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='',layout_group='',no_fck=1,description='Reservierungen',admin=1,gbl_template='0' WHERE id='540' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='otimer_cal',layout_group='',no_fck=1,description='Reservierungen - Kalender',admin=1,gbl_template='1' WHERE id='530' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='otimer_edit',layout_group='',no_fck=1,description='Reservierungen - Editor',admin=1,gbl_template='1' WHERE id='520' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='',tpl_name='galerie_slideflow',layout_group='GAL',no_fck=1,description='Galerie SlideFlow',admin=1,gbl_template='1' WHERE id='490' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='otimer_kreg',layout_group='',no_fck=1,description='Reservierungen - Kundenregist.',admin=1,gbl_template='1' WHERE id='510' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='otimer_caltable',layout_group='',no_fck=1,description='Reservierungen - Kalender (Tab)',admin=1,gbl_template='1' WHERE id='500' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='',tpl_name='dcmetatags',layout_group='',no_fck=1,description='DC Metatags',admin=1,gbl_template='1' WHERE id='480' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='',tpl_name='toplevel',layout_group='',no_fck=1,description='Toplevel Menu',admin=1,gbl_template='1' WHERE id='470' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='',tpl_name='otimer_workingtime',layout_group='',no_fck=1,description='Reservierungen - Arbeitszeiten',admin=1,gbl_template='1' WHERE id='460' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='',tpl_name='otimer_employtimes',layout_group='',no_fck=1,description='Reservierungen - Mitarbeiter Zeiten',admin=1,gbl_template='1' WHERE id='10019' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='member_lastreg',layout_group='',no_fck=0,description='Mitglieder - letzte Registrierungen',admin=1,gbl_template='1' WHERE id='450' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='os_form',layout_group='',no_fck=1,description='{LBL_ONLINESHEET} Formular',admin=1,gbl_template='1' WHERE id='440' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_templates SET has_perm=0,module_id='content_page',tpl_name='member_collectiongroups',layout_group='',no_fck=1,description='Mitglieder Auflistung nach Kollektion',admin=1,gbl_template='1' WHERE id='810' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_lang_admin SET id='1' WHERE post_lang='German' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_lang_cust SET id='1' WHERE post_lang='German' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_lang SET id='1' WHERE post_lang='German' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_lang_admin SET id='2' WHERE post_lang='English' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_lang_cust SET id='2' WHERE post_lang='English' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_lang SET id='2' WHERE post_lang='English' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_lang_admin SET id='3' WHERE post_lang='Chinese' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_lang_cust SET id='3' WHERE post_lang='Chinese' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_lang SET id='3' WHERE post_lang='Chinese' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_lang_admin SET id='4' WHERE post_lang='Spain' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_lang_cust SET id='4' WHERE post_lang='Spain' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_lang SET id='4' WHERE post_lang='Spain' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_lang_admin SET id='5' WHERE post_lang='France' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_lang_cust SET id='5' WHERE post_lang='France' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_lang SET id='5' WHERE post_lang='France' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_lang_admin SET id='6' WHERE post_lang='Italien' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_lang_cust SET id='6' WHERE post_lang='Italien' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_lang SET id='6' WHERE post_lang='Italien' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_lang_admin SET id='7' WHERE post_lang='japanese' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_lang_cust SET id='7' WHERE post_lang='japanese' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_lang SET id='7' WHERE post_lang='japanese' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_mail_templates SET admin='1' WHERE id='990' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_mail_templates SET admin='1' WHERE id='980' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_mail_templates SET admin='1' WHERE id='970' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_mail_templates SET admin='1' WHERE id='960' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_mail_templates SET admin='1' WHERE id='950' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=530,gid='25',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='Email (Admin)' WHERE config_name='adr_service_email' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=380,gid='1',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='{CFG_TELEFON}' WHERE config_name='adr_telefon' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=210,gid='1',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='{CFG_FORENAME}' WHERE config_name='adr_forename' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=240,gid='1',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='{CFG_SURENAME}' WHERE config_name='adr_surename' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=370,gid='1',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='{CFG_FAX}' WHERE config_name='adr_fax' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=260,gid='1',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='{CFG_STREET}' WHERE config_name='adr_street' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=290,gid='1',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='{CFG_PLZ}' WHERE config_name='adr_plz' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=320,gid='1',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='{CFG_CITY}' WHERE config_name='adr_town' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=430,gid='1',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='{CFG_STEUERNR}' WHERE config_name='adr_ust' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=400,gid='1',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='{CFG_TELEFONCOST}' WHERE config_name='adr_telkosten' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=180,gid='1',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='{CFG_COMPANYNAME}' WHERE config_name='adr_firma' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=470,gid='23',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='Meta-Title' WHERE config_name='opt_site_title' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=500,gid='23',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='Meta Keywords' WHERE config_name='meta_keywords' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=420,gid='16',is_text='0',is_schalter='0',del_spaces='0',isnumeric='1',config_desc='{CFG_THUMBWIDTH}' WHERE config_name='opt_box_thumb_width' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=540,gid='3',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='{CFG_CMSFOLDER}' WHERE config_name='opt_shop_root' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=560,gid='3',is_text='0',is_schalter='0',del_spaces='0',isnumeric='1',config_desc='{CFG_FLAGWIDTH}' WHERE config_name='opt_flag_width' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=640,gid='25',is_text='1',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='{CFG_EMAILFOOTER}' WHERE config_name='email_absender' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=510,gid='3',is_text='0',is_schalter='1',del_spaces='0',isnumeric='1',config_desc='{CFG_CMSPROTECTION}' WHERE config_name='shop_protection' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=490,gid='16',is_text='0',is_schalter='0',del_spaces='0',isnumeric='1',config_desc='{CFG_THUMBBORDERWIDTH}' WHERE config_name='opt_thumb_border' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=190,gid='3',is_text='1',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='Google-Analytics JavaScript:' WHERE config_name='google_analytics' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=160,gid='3',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='{CFG_GOOGLE_ACCOUNT_NUM}' WHERE config_name='google_kontonummer' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=550,gid='1',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='{CFG_BANKNAME}' WHERE config_name='adr_bank' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=600,gid='1',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='{CFG_BANKBLZ}' WHERE config_name='adr_blz' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=630,gid='1',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='IBAN:' WHERE config_name='adr_iban' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=580,gid='1',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='{CFG_BANKKONTO}' WHERE config_name='adr_konto' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=610,gid='1',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='SWIFT:' WHERE config_name='adr_swift' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=20,gid='0',is_text='0',is_schalter='0',del_spaces='0',isnumeric='1',config_desc='{LBL_MAILSPERMIN}' WHERE config_name='news_num' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=360,gid='25',is_text='0',is_schalter='0',del_spaces='1',isnumeric='0',config_desc='{LBL_RECEIPIENTNEWS}' WHERE config_name='news_senderemail' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=390,gid='3',is_text='0',is_schalter='0',del_spaces='0',isnumeric='1',config_desc='{LBL_STANDARDLANG}' WHERE config_name='std_lang_id' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=170,gid='6',is_text='0',is_schalter='0',del_spaces='1',isnumeric='0',config_desc='{CFG_SHOP_ROOT}' WHERE config_name='shop_root' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=200,gid='6',is_text='0',is_schalter='1',del_spaces='0',isnumeric='1',config_desc='{CFG_USE_SHOP_FOR_CUSTOMER}' WHERE config_name='use_shop_for_customer' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=410,gid='3',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='{LBL_TREESTRUCSYMBOL}' WHERE config_name='tree_sublevel_sym' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=440,gid='3',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='{LBL_MENUPOSITIONSYMBOL}' WHERE config_name='bread_break_sym' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=450,gid='3',is_text='0',is_schalter='0',del_spaces='1',isnumeric='1',config_desc='{LBL_COUNTFOTOSGAL}' WHERE config_name='gal_preview_count' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=1,gid='0',is_text='0',is_schalter='0',del_spaces='0',isnumeric='1',config_desc='Kunden darf PHP Code in Templates ausfÃ¼hren' WHERE config_name='can_use_php_eval' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=570,gid='23',is_text='0',is_schalter='0',del_spaces='0',isnumeric='1',config_desc='{LBL_COUNTMETAKEYS}' WHERE config_name='metakey_count' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=620,gid='23',is_text='0',is_schalter='0',del_spaces='0',isnumeric='1',config_desc='{LBL_MAXLENGTHDESC}' WHERE config_name='metadesc_count' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=590,gid='3',is_text='0',is_schalter='1',del_spaces='0',isnumeric='0',config_desc='{LBL_INTROSITEACTIVE}' WHERE config_name='show_intro_page' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=480,gid='3',is_text='0',is_schalter='1',del_spaces='0',isnumeric='0',config_desc='{LBL_TEMPLCACHEACTIVE}' WHERE config_name='templ_cache' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=280,gid='3',is_text='0',is_schalter='0',del_spaces='0',isnumeric='1',config_desc='{LBL_NOWONDEL}' WHERE config_name='nowon_time' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=1,gid='15',is_text='0',is_schalter='0',del_spaces='0',isnumeric='1',config_desc='Gesamthits' WHERE config_name='gesamthits' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=230,gid='16',is_text='0',is_schalter='1',del_spaces='0',isnumeric='1',config_desc='"MooFlow" Gallery verwenden' WHERE config_name='gal_user_mooflow' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=350,gid='16',is_text='0',is_schalter='0',del_spaces='0',isnumeric='1',config_desc='Max. Anzahl Fotos pro Seite' WHERE config_name='pro_max_paging' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=340,gid='16',is_text='0',is_schalter='0',del_spaces='0',isnumeric='1',config_desc='Anzahl Seitenzahlen zwischen BlÃ¤ttern-Option' WHERE config_name='pro_num_prepages' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=460,gid='16',is_text='0',is_schalter='0',del_spaces='0',isnumeric='1',config_desc='Bild-Vorschau HÃ¶he:' WHERE config_name='opt_box_thumb_height' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=1,gid='10',is_text='0',is_schalter='0',del_spaces='0',isnumeric='1',config_desc='page count' WHERE config_name='set_pagecount' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=1,gid='10',is_text='0',is_schalter='0',del_spaces='0',isnumeric='1',config_desc='cms id' WHERE config_name='cms_id' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=270,gid='16',is_text='0',is_schalter='0',del_spaces='0',isnumeric='1',config_desc='Galerie Kat. Vorschaubild max. Breite' WHERE config_name='cat_thumb_width' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=310,gid='16',is_text='0',is_schalter='0',del_spaces='0',isnumeric='1',config_desc='Galerie Kat. Vorschaubild max. HÃ¶he' WHERE config_name='cat_thumb_height' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=1,gid='10',is_text='0',is_schalter='0',del_spaces='0',isnumeric='1',config_desc='Mitgliederanzahl' WHERE config_name='set_memcount' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=330,gid='3',is_text='0',is_schalter='0',del_spaces='0',isnumeric='1',config_desc='Newsticker (News-Anzahl)' WHERE config_name='newsticker_count' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=520,gid='23',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='Meta Description' WHERE config_name='meta_desc' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=300,gid='3',is_text='0',is_schalter='1',del_spaces='0',isnumeric='1',config_desc='Mitglieder werden manuel freigeschaltet' WHERE config_name='mem_needactivate' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=1,gid='10',is_text='0',is_schalter='1',del_spaces='0',isnumeric='0',config_desc='Blog' WHERE config_name='perm_blog' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=1,gid='10',is_text='0',is_schalter='1',del_spaces='0',isnumeric='1',config_desc='Trebaxa Master' WHERE config_name='mod_ismaster' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=250,gid='3',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='Google Maps Address' WHERE config_name='google_maps' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=220,gid='3',is_text='0',is_schalter='1',del_spaces='0',isnumeric='1',config_desc='CAPCHA Aktiv' WHERE config_name='capcha_active' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=130,gid='3',is_text='0',is_schalter='0',del_spaces='0',isnumeric='1',config_desc='Pinnwand Eintr&auml;ge nach X Tagen l&ouml;schen' WHERE config_name='pinwand_del_days' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=50,gid='18',is_text='0',is_schalter='0',del_spaces='1',isnumeric='0',config_desc='Laden ge&ouml;ffnet ab' WHERE config_name='ot_storeopen' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=40,gid='18',is_text='0',is_schalter='0',del_spaces='1',isnumeric='0',config_desc='Laden geschlossen ab' WHERE config_name='ot_storeclose' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=30,gid='18',is_text='0',is_schalter='1',del_spaces='0',isnumeric='0',config_desc='Doppel-Buchungen zulassen' WHERE config_name='ot_dbluse' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=20,gid='18',is_text='0',is_schalter='0',del_spaces='0',isnumeric='1',config_desc='Aufteilung 1 Stunde in Minuten' WHERE config_name='ot_interval_min' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=140,gid='16',is_text='0',is_schalter='0',del_spaces='1',isnumeric='1',config_desc='{CFG_MAXUPLPICSIZE}' WHERE config_name='max_pic_size' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=110,gid='23',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='Besitzer' WHERE config_name='meta_owner' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=50,gid='23',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='Author' WHERE config_name='meta_author' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=40,gid='23',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='Copyright' WHERE config_name='meta_copyr' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=30,gid='23',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='Publisher' WHERE config_name='meta_publisher' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=10,gid='23',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='Verbreitung' WHERE config_name='meta_distribution' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=20,gid='23',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='Suchrobot soll alle X Tage neu scannen' WHERE config_name='meta_revisit' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=60,gid='23',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='Robots' WHERE config_name='meta_robots' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=80,gid='23',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='Co-Autoren' WHERE config_name='meta_contributor' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=10,gid='18',is_text='0',is_schalter='1',del_spaces='0',isnumeric='0',config_desc='Mitarbeiter Arbeitszeiten ber&uuml;cksichtigen' WHERE config_name='ot_useworktime' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=1,gid='24',is_text='1',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='HTA manuelle Config' WHERE config_name='hta_specialtext' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=1,gid='10',is_text='0',is_schalter='1',del_spaces='0',isnumeric='1',config_desc='Reservierungen' WHERE config_name='mod_otimer' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=90,gid='16',is_text='0',is_schalter='0',del_spaces='0',isnumeric='1',config_desc='SnapShop Anzahl Seitenzahlen zwischen Bl&auml;ttern-Option:' WHERE config_name='cs_num_prepages' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=100,gid='16',is_text='0',is_schalter='0',del_spaces='0',isnumeric='0',config_desc='SnapShots Style' WHERE config_name='cs_style' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=120,gid='16',is_text='0',is_schalter='0',del_spaces='0',isnumeric='1',config_desc='SnapShots Anzahl Bilder pro Seite' WHERE config_name='cs_max_paging' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=70,gid='16',is_text='0',is_schalter='1',del_spaces='0',isnumeric='1',config_desc='Kunden SnapShots Bilder automatisch genehmigen' WHERE config_name='cs_autoalowed' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=150,gid='3',is_text='0',is_schalter='0',del_spaces='1',isnumeric='1',config_desc='Anzahl "letzte Registrierungen" Kunden' WHERE config_name='mem_lastregcount' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=1,gid='3',is_text='0',is_schalter='0',del_spaces='1',isnumeric='0',config_desc='Login Identifizierung erfolgt &uuml;ber' WHERE config_name='login_mode' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=1,gid='10',is_text='0',is_schalter='1',del_spaces='0',isnumeric='1',config_desc='Online Anträge' WHERE config_name='mod_onlinerequests' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=1,gid='26',is_text='0',is_schalter='0',del_spaces='0',isnumeric='1',config_desc='Thumb. Breite' WHERE config_name='links_pic_width' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_gblconfig SET morder=1,gid='26',is_text='0',is_schalter='0',del_spaces='0',isnumeric='1',config_desc='Thumb. {LBL_HEIGHT}' WHERE config_name='links_pic_height' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_sitemap_defs SET sm_url='http://www.google.com/webmasters/tools/ping?sitemap=[sitemap]',sm_filetemplate='',sm_service='Google',sm_servicelink='https://www.google.com/accounts/Login?hl=de&continue=http://www.google.de/' WHERE id ='1' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_sitemap_defs SET sm_url='http://api.moreover.com/ping?u=[sitemap]',sm_filetemplate='',sm_service='Moreover',sm_servicelink='' WHERE id ='2' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_sitemap_defs SET sm_url='http://www.bing.com/webmaster/ping.aspx?siteMap=[sitemap]',sm_filetemplate='<?xml version="1.0"?>
+<users>
+<user>{TMPL_AUTHKEY}</user>
+</users>',sm_service='Bing',sm_servicelink='http://www.bing.com/webmaster' WHERE id ='3' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_sitemap_defs SET sm_url='http://search.yahooapis.com/SiteExplorerService/V1/ping?sitemap=[sitemap]',sm_filetemplate='',sm_service='Yahoo',sm_servicelink='https://siteexplorer.search.yahoo.com/de' WHERE id ='4' LIMIT 1
+2009-11-24-10:48:05: UPDATE tcms1_sitemap_defs SET sm_url='http://submissions.ask.com/ping?sitemap=[sitemap]',sm_filetemplate='',sm_service='Ask',sm_servicelink='' WHERE id ='5' LIMIT 1
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_admin_gr
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_adminlog
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_admins
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_blog_access
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_blog_authorgroups
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_blog_authors
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_blog_category
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_blog_comments
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_blog_config
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_blog_entries
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_blog_entrycat
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_blog_entryproperties
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_blog_groupconfig
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_blog_groups
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_blog_images
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_blog_mediaproperties
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_blog_options
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_blog_permalinks
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_blog_plugincategories
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_blog_pluginlist
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_blog_plugins
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_blog_references
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_blog_referrers
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_blog_shoutbox
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_blog_spamblock_htaccess
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_blog_spamblocklog
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_blog_suppress
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_cal_content
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_cal_dates
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_cal_gcontent
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_cal_groups
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_cal_perm
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_config
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_config_groups
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_cust_collect
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_cust_groups
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_cust_perm
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_custcolgroups
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_custfields
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_custfields_cont
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_customers
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_custtogroup
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_dc_log
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_downcenter
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_email_groups
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_emailer
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_gal_content
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_gal_gcontent
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_gal_groups
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_gal_pics
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_gblconfig
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_guestbook
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_hta
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_land
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_lang
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_lang_admin
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_lang_cust
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_layout
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_links
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_links_album
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_log
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_mail_content
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_mail_templates
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_menu
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_news
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_news_groups
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_newscontent
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_now_online
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_os_fields
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_os_fields_trans
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_os_sheets
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_os_sheets_archive
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_os_sheets_trans
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_ot_dates
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_ot_dayoptions
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_ot_dayworktime
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_ot_gcontent
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_ot_groups
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_ot_perm
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_ot_program_lang
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_ot_programs
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_permissions
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_pin_content
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_pin_gcontent
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_pin_groups
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_pin_items
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_pin_perm
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_reflog
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_sitemap
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_sitemap_defs
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_spider
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_tablist
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_tablist_content
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_tablist_groups
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_temp_content
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_templates
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_toplevel
+2009-11-24-10:48:05: OPTIMIZE TABLE tcms1_tpl_content

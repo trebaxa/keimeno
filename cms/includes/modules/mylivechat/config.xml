@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>mylivechat</module_name>
+      <id>mylivechat</id>
+      <active>false</active>
+      <version>1.0</version>
+      <php>mylivechat.inc</php>
+      <hasperm>false</hasperm>
+      <epage>mylivechat.inc</epage>
+      <onlyadmin>false</onlyadmin>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>false</is_content_page>
+      <stdclass>mylivechat_class</stdclass>
+      <description>mylivechat Plugin - DSGVO comform</description>
+      <developer_id/>
+      <change_date>2018-06-11</change_date>
+    </settings>
+    <events>
+      <event eventname="beforesmartycompile" method="class" classname="mylivechat_class" function="parse_mylivechat"/>
+    </events>
+    <includes>
+      <include type="class" classname="mylivechat_master_class">mylivechat.master</include>
+      <include type="class" classname="mylivechat_class">mylivechat</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="mylivechat_admin_class">mylivechat</include>
+    </admin_includes>
+    <contentplugins>
+      <plugin>
+        <name>MyLiveChat Plugin</name>
+        <id>mylivechat_inlay</id>
+        <tpl>mylivechat.plugin</tpl>
+        <lists>
+          <list name="templates" classname="mylivechat_admin_class" idname="id" label="description" function="load_homepage_integration"/>
+        </lists>
+        <save classname="mylivechat_admin_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+  </module>
+</config>

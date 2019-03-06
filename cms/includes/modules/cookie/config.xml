@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Cookie Datenschutz App</module_name>
+      <id>cookie</id>
+      <active>true</active>
+      <version>1.0</version>
+      <php>cookie.inc</php>
+      <hasperm>true</hasperm>
+      <epage>cookie.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>false</is_content_page>
+      <description>Pop Meldung bez. Cookie Datenschutzerkl&#xE4;rung</description>
+      <developer_id/>
+      <change_date>2014-01-01</change_date>
+    </settings>
+    <includes>
+      <include type="class" classname="cookie_master_class">cookie.master</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="cookie_admin_class">cookie</include>
+    </admin_includes>
+    <admin_menu parent="96" icon="cookie/admin/images/plugin.png" morder="1"/>
+  </module>
+</config>

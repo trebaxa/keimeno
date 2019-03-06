@@ -1,0 +1,5 @@
+{
+    "require": {
+        "golonka/bbcodeparser": "^2.2"
+    }
+}

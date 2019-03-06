@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Flickr</module_name>
+      <id>flickr</id>
+      <active>false</active>
+      <version>1.1</version>
+      <php>flickr.inc</php>
+      <hasperm>true</hasperm>
+      <epage>flickr.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>false</is_content_page>
+      <developer_id>1</developer_id>
+      <change_date>2014-06-30</change_date>
+      <description>Laden Sie Bilder aus Ihrem Flickr Account in Ihre Homepage oder laden Sie direkt aus der Keimeno Galerie Bilder nach Flickr hoch</description>
+    </settings>
+    <events>
+      <event eventname="cronjob" method="class" classname="flickr_class" function="cronjob"/>
+      <event eventname="beforesmartycompile" method="class" classname="flickr_class" function="parse_flickrstream"/>
+    </events>
+    <includes>
+      <include type="class" classname="flickr_master_class">flickr.master</include>
+      <include type="class" classname="flickr_class">flickr</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="flickr_admin_class">flickr</include>
+    </admin_includes>
+    <admin_menu parent="96" icon="flickr/admin/images/flickr.png" morder="1"/>
+    <contentplugins>
+      <plugin>
+        <name>Flickr Foto Stream</name>
+        <id>flickr_inlay</id>
+        <tpl>flickr.plugin</tpl>
+        <lists>
+          <list name="templates" classname="flickr_admin_class" idname="id" label="description" function="load_homepage_integration"/>
+        </lists>
+        <save classname="flickr_admin_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+  </module>
+</config>

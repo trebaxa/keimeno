@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Dokumenten Center</module_name>
+      <id>downloadcenter</id>
+      <active>false</active>
+      <version>1.4</version>
+      <php>downc.inc</php>
+      <hasperm>false</hasperm>
+      <parse>false</parse>
+      <epage>downloadcenter.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>true</is_content_page>
+      <developer_id>1</developer_id>
+      <description>Verwalten Sie bequem verschiedene Dateien (zum Beispiel Software-Programme), die Sie Ihren Besuchern zum Download abieten m&#xF6;chten. Das DownloadCenter protokolliert s&#xE4;mtliche Downloads und stellt diese in Diagrammen und Historien dar.</description>
+      <encode>false</encode>
+    </settings>
+    <events>
+      <event eventname="globalrequest" method="exec" classname="downc_class"/>
+      <event eventname="aftersmartycompile" method="class" classname="downc_class" function="aftersmartycompile"/>
+    </events>
+    <includes>
+      <include type="class" classname="downc_class">downc</include>
+      <include type="class" classname="doccenter_class">doccenter</include>
+    </includes>
+    <admin_menu parent="96" icon="backup.png" label="Dokumenten Center"/>
+  </module>
+</config>

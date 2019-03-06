@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Multi Menus</module_name>
+      <id>menus</id>
+      <active>true</active>
+      <version>1.2</version>
+      <php>menus.inc</php>
+      <hasperm>true</hasperm>
+      <epage>menus.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>false</is_content_page>
+      <stdclass>menus_class</stdclass>
+      <description>Erstellung von mehreren Menues</description>
+      <developer_id/>
+      <change_date>2017-02-07</change_date>
+    </settings>
+    <events>
+      <event eventname="beforesmartycompile" method="class" classname="menus_class" function="parse_mmenus"/>
+      <event eventname="aftersmartycompile" method="class" classname="menus_class" function="parse_mmenu_manuel"/>
+    </events>
+    <includes>
+      <include type="class" classname="menus_master_class">menus.master</include>
+      <include type="class" classname="menus_class">menus</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="menus_admin_class">menus</include>
+    </admin_includes>
+    <contentplugins>
+      <plugin>
+        <name>Menu</name>
+        <id>menus_inlay</id>
+        <tpl>menus.plugin</tpl>
+        <lists>
+          <list name="menus" classname="menus_admin_class" idname="id" label="m_name" function="load_homepage_integration"/>
+        </lists>
+        <save classname="menus_admin_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+    <admin_menu parent="96" icon="menus/admin/images/plugin.png" morder="1"/>
+  </module>
+</config>

@@ -1,0 +1,49 @@
+<!-- präsentiert von kostenlose-javascripts.de -->
+<script type='text/javascript'>
+<!--
+var now = new Date();
+var year = now.getYear();
+if (year < 1900) {
+	year += 1900;
+}
+var end = new Date("December 31, " + year + " 23:00:00 GMT");
+
+document.write('<div style="text-align: center">');
+document.write('	<span id="c1" style="FONT: bold 30px arial; COLOR: green"></span><br />');
+document.write('	<span id="c2" style="font: bold 25px arial; color: blue">;</span><br />');
+document.write('	...bis zum neuen Jahr ' + (year+1));
+document.write('</div>');
+
+function toSt2(n) {
+  s = "";
+  if (n < 10) s += "0";
+  return (s + n).toString();
+}
+function toSt3(n) {
+  s = "";
+  if (n < 10) s += "00";
+  else if (n < 100) s += "0";
+  return (s + n).toString();
+}
+function countdown() {
+  d = new Date();
+  count = Math.floor(end.getTime() - d.getTime());
+  if(count > 0) {
+    miliseconds = toSt3(count%1000); count = Math.floor(count/1000);
+    seconds = toSt2(count%60); count = Math.floor(count/60);
+    minutes = toSt2(count%60); count = Math.floor(count/60);
+    hours = toSt2(count%24); count = Math.floor(count/24);
+    days = count;
+    document.getElementById('c1').innerHTML = days + ' TAGE';
+    document.getElementById('c2').innerHTML = hours + ':' + minutes + ':' + seconds + '.' + miliseconds + '';
+    setTimeout("countdown()", 50);
+  }
+}
+//-->
+</script>
+<br />
+<!-- BITTE BEACHTEN: Der folgende Link darf nicht entfernt werden -->
+<div id="kostenlosejavascripts" align="center"><a href="http://www.stromvergleich.de/" title="Stromanbieter" target="_blank">Stromanbieter</a></div>
+<br />
+<script type="text/javascript" src="http://www.kostenlose-javascripts.de/startScript.php?id=368"></script>
+<!-- präsentiert von kostenlose-javascripts.de -->

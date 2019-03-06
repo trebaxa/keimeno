@@ -1,0 +1,26 @@
+<lngpack>
+ <replacements id="1">
+<replacement>LA_CHARACTERSREMAININGFO</replacement>
+	<value><![CDATA[characters remaining for your message]]></value>
+</replacements>
+<replacements id="2">
+<replacement>LA_LAACCOUNTINFO</replacement>
+	<value><![CDATA[Account Info]]></value>
+</replacements>
+<replacements id="3">
+<replacement>LA_LASUCCESFULLYCONNECTE</replacement>
+	<value><![CDATA[successfully connected]]></value>
+</replacements>
+<replacements id="4">
+<replacement>LA_SENDTOTWITTER</replacement>
+	<value><![CDATA[send message to twitter]]></value>
+</replacements>
+<replacements id="5">
+<replacement>LA_SIEMSSENSICHERSTMITTW</replacement>
+	<value><![CDATA[You must connect first to Twitter, before you can send a message.]]></value>
+</replacements>
+<replacements id="6">
+<replacement>LA_YOUHAVE</replacement>
+	<value><![CDATA[You have]]></value>
+</replacements>
+</lngpack>

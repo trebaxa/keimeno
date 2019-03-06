@@ -1,0 +1,9 @@
+.pic-info td {
+    font-size:90%;
+}
+
+#fototable .btn {
+    width:30px;
+    height:30px;
+    padding:0;
+}

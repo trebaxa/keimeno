@@ -1,0 +1,1 @@
+$('.cf-left').remove();

@@ -1,0 +1,82 @@
+#caldiv {
+
+}
+
+#caldiv td{
+ border:solid 1px #FFFFFF;
+ font-size:9pt;
+ color:#000000;
+ text-align:center;
+}
+
+#caldiv td a {
+ color:#000000;
+ font-size:10pt;
+}
+
+#caldiv .today {
+ background: #FFC0C0;
+}
+
+#caldiv .selday{
+ background-color: #78A957;
+}
+
+#caldiv .today a{
+ font-weight:bold;
+}
+
+#caldiv .full_day {
+ background: #CCFF00;
+}
+
+#caldiv .full_day a{
+ color:#000000;
+}
+
+
+#caldiv .empty_day {
+ background: #E0E0E0;
+}
+
+#caldiv .empty_day a {
+ color:#000000;
+}
+
+span.approved {
+ color: #0B9600;
+ font-weight:bold;
+}
+
+span.notapproved {
+ color: #7D7D7D;
+}
+
+span.calendar-prev {
+}
+span.calendar-next {
+}
+span.calendar-next {
+}
+td.calendar-month {
+ font-weight:bold;
+ font-size:11pt;
+ background: url(mbg.gif) top repeat-x; 
+ height:20px;
+ vertical-align:middle;
+ text-align:center;
+}
+
+#caldiv .calbox {
+ border: 1px solid #000000;
+}
+
+#trailimageid {
+    position: absolute;
+    visibility: hidden;
+    left: 0px;
+    top: 0px;
+    width: auto;
+    height: 1px;
+    z-index: 1000;
+}

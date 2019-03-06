@@ -1,0 +1,54 @@
+<lngpack>
+ <replacements id="1">
+<replacement>LA_BILDERVORSCHAUENNEUER</replacement>
+	<value><![CDATA[Recreate thumbnails]]></value>
+</replacements>
+<replacements id="2">
+<replacement>LA_ESWURDENOCHKEINWASSER</replacement>
+	<value><![CDATA[please upload first an watermark PNG file. Do this in the "Layout" section.]]></value>
+</replacements>
+<replacements id="3">
+<replacement>LA_INFOORGBILDER</replacement>
+	<value><![CDATA[Often too big images are uploaded. You can now reduce the orginal dimension.]]></value>
+</replacements>
+<replacements id="4">
+<replacement>LA_INFOTHUMBN</replacement>
+	<value><![CDATA[Create now all thumbnails again. This will speed up your homepage.]]></value>
+</replacements>
+<replacements id="5">
+<replacement>LA_INFOVALID</replacement>
+	<value><![CDATA[Validate the database and compare it with the real existing files.]]></value>
+</replacements>
+<replacements id="6">
+<replacement>LA_INFOWATERMAR</replacement>
+	<value><![CDATA[Here you can implent an watermark sign on all images.]]></value>
+</replacements>
+<replacements id="7">
+<replacement>LA_LBLAUTOR</replacement>
+	<value><![CDATA[Autor]]></value>
+</replacements>
+<replacements id="8">
+<replacement>LA_MAXBREITE</replacement>
+	<value><![CDATA[max. witdh]]></value>
+</replacements>
+<replacements id="9">
+<replacement>LA_MAXHHE</replacement>
+	<value><![CDATA[max. height]]></value>
+</replacements>
+<replacements id="10">
+<replacement>LA_ORIGINALBILDERVERKLEI</replacement>
+	<value><![CDATA[resize orginale images]]></value>
+</replacements>
+<replacements id="11">
+<replacement>LA_VALIDIERUNG</replacement>
+	<value><![CDATA[Validation]]></value>
+</replacements>
+<replacements id="12">
+<replacement>LA_WASSERZEICHEN</replacement>
+	<value><![CDATA[Watermarks]]></value>
+</replacements>
+<replacements id="13">
+<replacement>LA_NEUESALBUM</replacement>
+	<value><![CDATA[New album]]></value>
+</replacements>
+</lngpack>

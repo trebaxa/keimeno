@@ -1,0 +1,2 @@
+Konfiguration
+<%$WORKSHOP.CONFIG%>

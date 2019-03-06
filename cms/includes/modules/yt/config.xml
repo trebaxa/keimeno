@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>YouTube Libary</module_name>
+      <id>yt</id>
+      <active>false</active>
+      <version>1.0</version>
+      <developer_id>1</developer_id>
+      <description>YoutTube API Libary. Kann in verschieden Modulen verwendet werden.</description>
+    </settings>
+    <events>
+      <event eventname="autorun" method="class" classname="ytbibio_class" function="load_youtube_bibio"/>
+    </events>
+    <includes>
+      <include type="class" classname="ytbibio_class">ytbibio</include>
+    </includes>
+  </module>
+</config>

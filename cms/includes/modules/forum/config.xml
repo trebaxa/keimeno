@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Forum</module_name>
+      <id>forum</id>
+      <active>false</active>
+      <version>1.1</version>
+      <php>forum.inc</php>
+      <hasperm>true</hasperm>
+      <parse>false</parse>
+      <epage>forum.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <xmlsitemap>true</xmlsitemap>
+      <is_content_page>true</is_content_page>
+      <developer_id>1</developer_id>
+      <encode>false</encode>
+      <description>Sie ben&#xF6;tigen ein Forum? Kein Problem. Keimeno besitzt bereits ein Forum. Eine m&#xFC;hselige Integration von Fremdsystemen ist nicht n&#xF6;tig.</description>
+    </settings>
+    <events>
+      <event eventname="autorun" method="class" classname="forum_class" function="autorun"/>
+      <event eventname="beforesmartycompile" method="class" classname="forum_class" function="parse_forum"/>
+      <event eventname="psitemap" method="class" classname="forum_class" function="psitemap"/>
+      <event eventname="xmlsitemap" method="class" classname="forum_class" function="gen_xmlsitemap"/>
+    </events>
+    <includes>
+      <include type="class" classname="forum_master_class">forum.master</include>
+      <include type="class" classname="forum_search_class">forum.search</include>
+      <include type="class" classname="forum_class">forum</include>
+    </includes>
+    <contentplugins>
+      <plugin>
+        <name>Forum</name>
+        <id>forum_inlay</id>
+        <tpl>forum.plugin</tpl>
+        <lists>
+          <list name="templates" classname="forum_admin_class" idname="id" label="description" function="load_template_integration"/>
+        </lists>
+        <save classname="forum_admin_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+    <admin_includes>
+      <include type="class" classname="forum_admin_class">forum</include>
+    </admin_includes>
+    <admin_menu parent="96" icon="forum.png" label="Forum" query="aktion=fgroups"/>
+  </module>
+</config>

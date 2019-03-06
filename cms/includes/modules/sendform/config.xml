@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>CrossDomain Formular</module_name>
+      <id>sendform</id>
+      <active>false</active>
+      <version>1.0</version>
+      <php>sendform.inc</php>
+      <hasperm>false</hasperm>
+      <epage>sendform.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>true</is_content_page>
+      <developer_id>1</developer_id>
+      <description><![CDATA[Versenden Sie Domainübergreifend Formular Daten.]]></description>
+    </settings>
+    <includes>
+      <include type="class" classname="sendpost_class">sendform</include>
+    </includes>
+  </module>
+</config>

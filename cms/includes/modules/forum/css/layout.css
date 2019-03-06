@@ -1,0 +1,61 @@
+#forum {
+    margin-top:30px;
+}
+#forum label {
+    display:block;
+}
+
+#forum .small {
+ font-size:8pt;
+}
+
+#forum h2 {
+    padding:0;
+    margin:0;
+}
+
+#forum .btn-default {
+    border:1px solid #a2c617;
+}
+
+#forum tr.header {
+ background-color:#D3D3D3;
+ color:#5A5A5A;
+}
+
+#forum .forum-text p{
+    font-size:14px;
+}
+
+#forum .bread {
+ float:left;
+ width:100%;
+ marign-top:10px;
+ margin-bottom:10px;
+ border-bottom:1px solid #999;
+ font-size:90%;
+ font-weight:bold;
+}
+
+#forum .forumquote {
+        border:1px solid gray;
+        background-color: #DBDBDB;
+        padding:6px;
+        padding-right:30px;
+        width:auto;
+        float:left;
+        font-style:italic;
+        color:#6B6B6B;
+        font-size:90%;
+        margin-left:30px;
+}
+
+#forum .foruminfo {
+ width:100%;
+ border: 1px solid #FF9600;
+ background-color:#EEEEEE;
+ float:left;
+ font-size:80%;
+ color:#000000;
+ padding:3px;
+}

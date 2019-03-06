@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>DocSend - Dokumente versenden</module_name>
+      <id>docsend</id>
+      <active>false</active>
+      <version>1.0</version>
+      <php>docsend.inc</php>
+      <hasperm>true</hasperm>
+      <epage>docsend.inc</epage>
+      <onlyadmin>false</onlyadmin>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>false</is_content_page>
+      <stdclass>docsend_class</stdclass>
+      <description>Dokumente verwalten und an Kunden per E-Mail senden</description>
+      <developer_id/>
+      <change_date>2017-08-24</change_date>
+    </settings>
+    <events>
+      <event eventname="cronjob" method="class" classname="docsend_class" function="cronjob"/>
+    </events>
+    <includes>
+      <include type="class" classname="docsend_master_class">docsend.master</include>
+      <include type="class" classname="docsend_class">docsend</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="docsend_admin_class">docsend</include>
+    </admin_includes>
+    <admin_menu parent="96" icon="docsend/admin/images/plugin.png" morder="1"/>
+  </module>
+</config>

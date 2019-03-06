@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Text Absatz</module_name>
+      <id>structure</id>
+      <active>false</active>
+      <version>1.0</version>
+      <php>structure.inc</php>
+      <hasperm>false</hasperm>
+      <epage>structure.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>false</is_content_page>
+      <is_core>true</is_core>
+      <developer_id>1</developer_id>
+      <description>Einfaches Modul f&#xFC;r ein Mehrspalten Text Layout.</description>
+    </settings>
+    <admin_includes>
+      <include type="class" classname="structure_admin_class">structure</include>
+    </admin_includes>
+    <contentplugins>
+      <plugin>
+        <name>Text Absatz</name>
+        <id>structure</id>
+        <tpl>structure.plugin</tpl>
+        <lists>
+          <list name="templates" classname="structure_admin_class" idname="id" label="structuretype" function="load_homepage_integration"/>
+        </lists>
+        <save classname="structure_admin_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+  </module>
+</config>

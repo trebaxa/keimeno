@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Facebook Pages</module_name>
+      <id>fbwp</id>
+      <active>false</active>
+      <version>1.9</version>
+      <php>fbwp.inc</php>
+      <hasperm>false</hasperm>
+      <parse>false</parse>
+      <epage>fbwp.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>true</is_content_page>
+      <developer_id>1</developer_id>
+      <description>Verbinden Sie Ihre Homepage mit Facebook. Verwalten Sie mehrere Landingpages oder integrieren Sie den Facebook Stream in Ihre Homepage.</description>
+    </settings>
+    <events>
+      <event eventname="autorun" method="class" classname="fbwp_class" function="autorun"/>
+      <event eventname="cronjob" method="class" classname="fbwp_class" function="cronjob"/>
+      <event eventname="OnCustomerIndexPage" method="class" classname="fbwp_class" function="login"/>
+      <event eventname="beforesmartycompile" method="class" classname="fbwp_class" function="parse_facebook"/>
+    </events>
+    <includes>
+      <include type="class" classname="fbwp_master_class">fbwp.master</include>
+      <include type="class" classname="fbwp_class">fbwp</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="fbwpadmin_class">fbwp</include>
+    </admin_includes>
+    <admin_menu parent="96" icon="fbwp.png" label="Facebook Pages"/>
+    <contentplugins>
+      <plugin>
+        <name>Facebook Group Stream</name>
+        <id>facebookgroup_inlay</id>
+        <tpl>fbwpgrup.plugin</tpl>
+        <lists>
+          <list name="templates" classname="fbwpadmin_class" idname="id" label="description" function="load_template_integration"/>
+          <list name="groups" classname="fbwpadmin_class" idname="id" label="fb_title" function="load_plugin_page_list"/>
+        </lists>
+        <save classname="fbwpadmin_class" function="save_homepage_integration"/>
+      </plugin>
+      <plugin>
+        <name>Facebook Ratings</name>
+        <id>facebookrating_inlay</id>
+        <tpl>fbwprating.plugin</tpl>
+        <lists>
+          <list name="templates" classname="fbwpadmin_class" idname="id" label="description" function="load_template_integration"/>
+        </lists>
+        <save classname="fbwpadmin_class" function="save_homepage_integration_fbrating"/>
+      </plugin>
+    </contentplugins>
+  </module>
+</config>

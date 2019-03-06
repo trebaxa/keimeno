@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Statistic</module_name>
+      <id>statistic</id>
+      <active>true</active>
+      <version>1.2</version>
+      <php>statistic.inc</php>
+      <onlyadmin>true</onlyadmin>
+      <hasperm>false</hasperm>
+      <epage>statistic.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>false</is_content_page>
+      <developer_id>1</developer_id>
+      <description>Erfassung von Bots und Besuchern. Auswertung mit Diagrammen.</description>
+    </settings>
+    <events>
+      <event eventname="autorun" method="class" classname="stat_class" function="autorun"/>
+    </events>
+    <includes>
+      <include type="class" classname="stat_class">statisticfe</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="statistic_class">statistic</include>
+    </admin_includes>
+    <admin_menu parent="96" icon="statistic/admin/images/statistic.png" morder="1"/>
+  </module>
+</config>

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>FAQ</module_name>
+      <id>faq</id>
+      <active>false</active>
+      <version>1.4</version>
+      <create_date>2014-06-11</create_date>
+      <php>faq.inc</php>
+      <hasperm>true</hasperm>
+      <epage>faq.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>false</is_content_page>
+      <stdclass>faq_class</stdclass>
+      <developer_id>1</developer_id>
+      <description>Standard FAQ Modul. Richten Sie f&#xFC;r Ihre Kunden eine FAQ Modul ein. Die Fragen und Antworten lassen sich nach Thema gruppieren.</description>
+    </settings>
+    <events>
+      <event eventname="beforesmartycompile" method="class" classname="faq_class" function="parse_faq"/>
+    </events>
+    <includes>
+      <include type="class" classname="faq_class">faq</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="faq_admin_class">faq</include>
+    </admin_includes>
+    <admin_menu parent="96" icon="faq/admin/images/faq.png" morder="1"/>
+    <contentplugins>
+      <plugin>
+        <name>FAQ</name>
+        <id>faq_inlay</id>
+        <tpl>faq.plugin</tpl>
+        <lists>
+          <list name="templates" classname="faq_admin_class" idname="id" label="description" function="load_template_integration"/>
+          <list name="groups" classname="faq_admin_class" idname="id" label="g_name" function="load_groups_integration"/>
+        </lists>
+        <save classname="faq_admin_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+  </module>
+</config>

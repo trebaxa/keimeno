@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>FlexTemplates</module_name>
+      <id>flextemp</id>
+      <active>true</active>
+      <version>1.2</version>
+      <php>flextemp.inc</php>
+      <hasperm>true</hasperm>
+      <epage>flextemp.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>false</is_content_page>
+      <stdclass>flextemp_class</stdclass>
+      <description>Flexible Templates for Multi-Datasets</description>
+      <developer_id/>
+      <change_date>2016-11-16</change_date>
+      <iscore>true</iscore>
+    </settings>
+    <events>
+      <event eventname="beforesmartycompile" method="class" classname="flextemp_class" function="parse_flxt"/>
+      <event eventname="OnReplicateContent" method="class" classname="flextemp_admin_class" function="on_replicate_content"/>
+      <event eventname="OnJavaCompile" method="class" classname="flextemp_class" function="on_java_compile"/>
+    </events>
+    <includes>
+      <include type="class" classname="flextemp_master_class">flextemp.master</include>
+      <include type="class" classname="flextemp_class">flextemp</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="flextemp_admin_class">flextemp</include>
+    </admin_includes>
+    <contentplugins>
+      <plugin>
+        <name>Flex-Template</name>
+        <id>flxt_inlay</id>
+        <tpl>flxtpl.plugin</tpl>
+        <lists>
+          <list name="templates" classname="flextemp_admin_class" idname="id" label="f_name" function="load_template_integration"/>
+        </lists>
+        <save classname="flextemp_admin_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+  </module>
+</config>

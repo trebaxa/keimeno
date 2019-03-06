@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Content</module_name>
+      <id>content</id>
+      <active>true</active>
+      <version>1.0</version>
+      <php>content.inc</php>
+      <hasperm>false</hasperm>
+      <xmlsitemap>true</xmlsitemap>
+      <parse>false</parse>
+      <epage>websitemanager.inc</epage>
+      <iscore>true</iscore>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>true</is_content_page>
+      <class_name>content_class</class_name>
+      <developer_id>1</developer_id>
+    </settings>
+    <events>
+      <event eventname="autorun" method="class" classname="content_class" function="parse_to_smarty"/>
+      <event eventname="xmlsitemap" method="class" classname="content_class" function="gen_xmlsitemap"/>
+      <event eventname="OnDeleteLanguage" method="class" classname="content_class" function="delete_lang_content"/>
+    </events>
+    <includes>
+      <include type="class" classname="content_class">content</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="websites_class">websites</include>
+    </admin_includes>
+  </module>
+</config>

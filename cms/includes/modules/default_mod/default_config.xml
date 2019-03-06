@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>{MODNAME}</module_name>
+      <id>{IDENT}</id>
+      <active>true</active>
+      <version>{MODVERSION}</version>
+      <php>{IDENT}.inc</php>
+      <hasperm>true</hasperm>
+      <epage>{IDENT}.inc</epage>
+      <onlyadmin>false</onlyadmin>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>false</is_content_page>
+      <stdclass>{IDENT}_class</stdclass>
+      <description>App Beschreibung</description>
+      <developer_id></developer_id>
+      <change_date>{CREATEDATE}</change_date>
+    </settings>
+    <events>
+       <event eventname="cronjob" method="class" classname="{IDENT}_class" function="cronjob"/>
+       <event eventname="beforesmartycompile" method="class" classname="{IDENT}_class" function="parse_{IDENT}"/>
+    </events>
+    <includes>
+      <include type="class" classname="{IDENT}_master_class">{IDENT}.master</include>
+      <include type="class" classname="{IDENT}_class">{IDENT}</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="{IDENT}_admin_class">{IDENT}</include>
+    </admin_includes>
+     <admin_menu parent="96" icon="{IDENT}/admin/images/plugin.png" morder="1"/>
+     <contentplugins>
+      <plugin>
+        <name>{IDENTUPPER}</name>
+        <id>{IDENT}_inlay</id>
+        <tpl>{IDENT}.plugin</tpl>
+        <lists>
+          <list name="templates" classname="{IDENT}_admin_class" idname="id" label="description" function="load_homepage_integration"/>
+        </lists>
+        <save classname="{IDENT}_admin_class" function="save_homepage_integration"/>
+      </plugin>     
+    </contentplugins>     
+  </module>
+</config>

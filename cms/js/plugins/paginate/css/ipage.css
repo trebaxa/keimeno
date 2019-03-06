@@ -1,0 +1,40 @@
+/********* This is important class --- PLEASE DO NOT CHANGE IT ----- ****/
+.hide,.notmatch, .zero{
+	display:none!important;
+}
+/********* Custom style for iPage navigation --- You can EDIT :) ********/
+.pager ul.pages{
+	position:relative;
+	margin-bottom:15px;
+	float:left;
+	width:100%;
+	margin:0 10px  6px 5px ;
+	text-align:center;
+}
+
+.pager ul.pages li {
+  float: left;
+  margin-right: 3px;
+  display: block;
+  min-height: 10px;
+  min-width: 13px;
+  border-top: 1px solid #e2e2e2;
+  border-left: 1px solid #e2e2e2;
+  border-bottom: 1px solid #aaaaaa;
+  border-right: 1px solid #aaaaaa;
+  -moz-border-radius: 3px;  /* firefox */
+  -webkit-border-radius: 3px;  /* chrome/safari */
+  -khtml-border-radius: 3px;  /* konquerer */  
+  border-radius: 2px;
+  text-align: center;
+  padding: 2px 3px 0 3px;
+  color:#000000;  
+  background: url("../img/bg.png") repeat-x 0 0 transparent;
+}
+.pager ul.pages li.pgCurrent {
+	color:#FC3D3F;
+	font-weight:bold;
+}
+.pages li:hover{
+	cursor:pointer;
+}

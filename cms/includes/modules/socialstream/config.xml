@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Social Stream</module_name>
+      <id>socialstream</id>
+      <active>false</active>
+      <version>1.1</version>
+      <php>socialstream.inc</php>
+      <hasperm>false</hasperm>
+      <epage>socialstream.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>false</is_content_page>
+      <developer_id>1</developer_id>
+      <description>Das SocialStream Modul verbindet Ihren Facebook, Twitter und Flicker Stream zu einem. Dieser kann dann innerhalb Ihrer Seite pr&#xE4;sentiert werden.</description>
+    </settings>
+    <events>
+      <event eventname="beforesmartycompile" method="class" classname="socialstream_class" function="parse_socialstream"/>
+    </events>
+    <includes>
+      <include type="class" classname="socialstream_class">socialstream</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="socialstream_admin_class">socialstream</include>
+    </admin_includes>
+    <admin_menu parent="96" icon="socialstream/admin/images/socialstream.png" morder="1"/>
+    <contentplugins>
+      <plugin>
+        <name>Social Media Stream</name>
+        <id>smstream_inlay</id>
+        <tpl>socialstream.plugin</tpl>
+        <lists>
+          <list name="templates" classname="socialstream_admin_class" idname="id" label="description" function="load_homepage_integration"/>
+        </lists>
+        <save classname="socialstream_admin_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+  </module>
+</config>

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Tables</module_name>
+      <id>tablist</id>
+      <active>false</active>
+      <version>1.1</version>
+      <php>tablist.inc</php>
+      <xmlsitemap>false</xmlsitemap>
+      <hasperm>false</hasperm>
+      <parse>true</parse>
+      <epage>tablist.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>false</is_content_page>
+      <class_name>tablist_class</class_name>
+      <developer_id>1</developer_id>
+      <description>Sie m&#xF6;chten im CMS einfach Tabellen Strukturen verwalten und publizieren? Kein Problem. Mit diesem Tabellen Modul k&#xF6;nnen einfach und leicht Tabellen im Backend pflegen.</description>
+    </settings>
+    <includes>
+      <include type="class" classname="tablist_class">tablist</include>
+    </includes>
+    <events>
+      <event eventname="beforesmartycompile" method="class" classname="tablist_class" function="parse_table_inlay"/>
+    </events>
+    <contentplugins>
+      <plugin>
+        <name>Tables</name>
+        <id>tablist</id>
+        <tpl>tablist.plugin</tpl>
+        <lists>
+          <list name="templates" classname="tablist_class" idname="id" label="tab_name" function="load_homepage_integration"/>
+        </lists>
+        <save classname="tablist_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+    <admin_includes>
+      <include type="class" classname="tablistadmin_class">tablist</include>
+    </admin_includes>
+    <admin_menu parent="96" icon="table.png" label="Tables"/>
+  </module>
+</config>

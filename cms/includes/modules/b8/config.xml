@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>B8 - AntiSpam</module_name>
+      <id>b8</id>
+      <active>false</active>
+      <version>1.1</version>
+      <php>b8.inc</php>
+      <hasperm>true</hasperm>
+      <epage>b8.inc</epage>
+      <developer_id>1</developer_id>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>false</is_content_page>
+      <stdclass>b8_class</stdclass>
+      <description>b8 SPAM Schutz. Automatische SPAM Erkennung mit Lernmodus.</description>
+      <change_date>2014-01-01</change_date>
+    </settings>
+    <events>
+      <event eventname="autorun" method="class" classname="b8_class" function="autorun"/>
+    </events>
+    <includes>
+      <include type="class" classname="b8_master_class">b8.master</include>
+      <include type="class" classname="b8_class">b8</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="b8_admin_class">b8</include>
+    </admin_includes>
+    <admin_menu parent="96" icon="b8/admin/images/plugin.png" morder="1"/>
+  </module>
+</config>

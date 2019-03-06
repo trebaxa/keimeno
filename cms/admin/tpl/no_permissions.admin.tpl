@@ -1,0 +1,1 @@
+<div class="bg-info text-info">{NO_PERMISSIONS}</div>

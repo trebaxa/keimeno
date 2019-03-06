@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Testimonials</module_name>
+      <id>feedbacks</id>
+      <active>false</active>
+      <version>1.4</version>
+      <php>feedbacks.inc</php>
+      <hasperm>false</hasperm>
+      <epage>feedbacks.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>true</is_content_page>
+      <developer_id>1</developer_id>
+      <change_date>2014-06-26</change_date>
+      <description>Hier haben Besucher die M&#xF6;glichkeit Ihnen ein Feedback zu hinterlegen. Der Admin kann Feedbacks freigeben, editieren und l&#xF6;schen.</description>
+    </settings>
+    <events>
+      <event eventname="startpage" method="class" classname="feedbacks_class" function="load_latest"/>
+      <event eventname="beforesmartycompile" method="class" classname="feedbacks_class" function="parse_feedbacks"/>
+    </events>
+    <includes>
+      <include type="class" classname="feedbacks_class">feedbacks</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="feedbacks_admin_class">feedbacks</include>
+    </admin_includes>
+    <admin_menu parent="96" icon="edit.png" label="Feedbacks"/>
+    <contentplugins>
+      <plugin>
+        <name>Testimonials</name>
+        <id>feedback_inlay</id>
+        <tpl>feedbacks.plugin</tpl>
+        <lists>
+          <list name="templates" classname="feedbacks_admin_class" idname="id" label="description" function="load_template_integration"/>
+        </lists>
+        <save classname="feedbacks_admin_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+  </module>
+</config>

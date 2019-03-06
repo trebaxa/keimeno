@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<config>
+  <module>
+    <settings>
+      <module_name>Callback</module_name>
+      <id>callback</id>
+      <active>false</active>
+      <version>1.0</version>
+      <php>callback.inc</php>
+      <hasperm>true</hasperm>
+      <epage>callback.inc</epage>
+      <epage_dir>MODULE_ROOT</epage_dir>
+      <is_content_page>false</is_content_page>
+      <stdclass>callback_class</stdclass>
+      <description><![CDATA[R&uuml;ckruf Aktion innerhalb der Homepage. Bieten Sie Ihren Kunden die M&#xF6;glichkeit an einen telefonischen R&uuml;ckruf anzufordern.]]></description>
+      <change_date>2014-01-01</change_date>
+      <developer_id>1</developer_id>
+    </settings>
+    <events>
+       
+    </events>
+    <includes>
+      <include type="class" classname="callback_master_class">callback.master</include>
+      <include type="class" classname="callback_class">callback</include>
+    </includes>
+    <admin_includes>
+      <include type="class" classname="callback_admin_class">callback</include>
+    </admin_includes>
+    <admin_menu parent="96" icon="callback/admin/images/plugin.png" morder="1"/>
+    <contentplugins>
+      <plugin>
+        <name>Callback</name>
+        <id>callback_inlay</id>
+        <tpl>callback.plugin</tpl>
+        <lists>
+          <list name="templates" classname="callback_class" idname="id" label="description" function="load_homepage_integration"/>
+        </lists>
+        <save classname="callback_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
+  </module>
+</config>
