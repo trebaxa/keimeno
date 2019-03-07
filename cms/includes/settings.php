@@ -91,7 +91,7 @@ $allowed_ext = $_SESSION['allowed_ext'] = array(
     ".docx",
     ".ppt",
     ".json",
-    ".pptx",    
+    ".pptx",
     ".odt",
     ".fla",
     ".flv",
@@ -120,7 +120,7 @@ $allowed_ext = $_SESSION['allowed_ext'] = array(
     '.tar.gz',
     '.gz',
     '.swf',
-    '.vsd',        
+    '.vsd',
     '.xml');
 $viewable_ext = $_SESSION['viewable_ext'] = array(
     ".jpg",

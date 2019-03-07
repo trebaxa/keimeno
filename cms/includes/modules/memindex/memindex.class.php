@@ -630,7 +630,7 @@ class memindex_class extends memindex_master_class {
     function on_delete_customer($params) {
         $kid = (int)$params['kid'];
         self::delete_dir_with_subdirs(memindex_master_class::get_path($kid));
-        if (defined(SHOP_CUST_USE) && SHOP_CUST_USE === true && get_data_count(TBL_ABO, 'kid', "kid=" . $kid) > 0) {
+        if (defined('SHOP_CUST_USE') && SHOP_CUST_USE === true && get_data_count(TBL_ABO, 'kid', "kid=" . $kid) > 0) {
             include_once (SHOP_ROOT . 'admin/inc/abo.class.php');
             $ABO = new abo_class();
             $result = $this->db->query("SELECT * FROM " . TBL_ABO . " WHERE kid=" . $kid);

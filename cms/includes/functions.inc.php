@@ -509,75 +509,17 @@ function get_email_template($id, $langid = -1) {
     return $result;
 }
 
-
 /**
  * send_mail_to()
- * Sends mail to customer. $email_array represents the return of get_email_template()
+ * 
  * @param mixed $email_array
- * @param string $att_files
+ * @param mixed $att_files
  * @param bool $textonly
  * @param string $from_email
  * @param string $from_name
  * @return
  */
-/*
-function send_mail_to($email_array, $att_files = "", $textonly = TRUE, $from_email = '', $from_name = '') {
-global $kdb, $TCMASTER, $gbl_config;
-$att_files = (array )$att_files;
-if ($email_array['content'] == '' || $email_array['cu_email'] == '' || $email_array['subject'] == '') {
-return 0;
-}
-
-if ($email_array['absender_email'] == "")
-$email_array['absender_email'] = FM_EMAIL;
-$from_email = $email_array['absender_email'];
-if ($textonly == FALSE)
-$email_array['content'] = format_tpl_charset_to_ascii($email_array['content']); // wenn html dann mach XHTML
-else {
-$email_array['content'] = utf8_decode($email_array['content']);
-$email_array['subject'] = utf8_decode($email_array['subject']);
-}
-unset($msg);
-if ($from_name == "" && $gbl_config['adr_general_firmname'] != "") {
-$from_name = $TCMASTER->only_alphanums($gbl_config['adr_general_firmname']);
-}
-if ($from_name == "" && $gbl_config['adr_firma'] != "" && $gbl_config['adr_general_firmname'] == "") {
-$from_name = $TCMASTER->only_alphanums($gbl_config['adr_firma']);
-}
-$from_name = utf8_decode($from_name);
-$msg = new Email($email_array['cu_email'], $from_email, $email_array['subject'], null, $from_name);
-$msg->Cc = "";
-$msg->Bcc = "";
-$msg->TextOnly = $textonly;
-$msg->Content = $email_array['content'];
-if ($att_files != "" && count($att_files) > 0) {
-foreach ((array )$att_files as $key => $afile)
-$msg->Attach($afile);
-}
-
-$SendSuccess = $msg->Send();
-
-if ($email_array['mit_in_copy'] == 1) {
-$result = $kdb->query("SELECT A.* FROM " . TBL_CMS_ADMINS . " A, " . TBL_CMS_MAIL_RECIP_MATRIX . " M
-WHERE  M.rm_emid=" . $email_array['email_id'] . " AND M.rm_mid=A.id AND 
-A.email<>'' AND A.approval=1 AND A.id<>100");
-while ($row = $kdb->fetch_array_names($result)) {
-unset($msg);
-$msg = new Email($row['email'], FM_EMAIL, "[KOPIE]" . $email_array['subject'], null, $from_name);
-$msg->Cc = "";
-$msg->Bcc = "";
-$msg->TextOnly = $textonly;
-$msg->Content = $email_array['content'];
-if ($att_files != "" && count($att_files) > 0) {
-foreach ($att_files as $key => $afile)
-$msg->Attach($afile);
-}
-$SendSuccess = $msg->Send();
-}
-}
-}*/
-
-function send_mail_to($email_array, $att_files = "", $textonly = TRUE, $from_email = '', $from_name = '') {
+function send_mail_to($email_array, $att_files = array(), $textonly = TRUE, $from_email = '', $from_name = '') {
     global $kdb, $TCMASTER, $gbl_config;
     $att_files = (array )$att_files;
     $status = array('status' => 'ok', 'msg' => '');
@@ -604,90 +546,90 @@ function send_mail_to($email_array, $att_files = "", $textonly = TRUE, $from_ema
     }
     $from_name = utf8_decode($from_name);
 
-
-    if (!class_exists('PHPMailer')) {
-        require CMS_ROOT . 'includes/lib/phpmailer-607/src/Exception.php';
-        require CMS_ROOT . 'includes/lib/phpmailer-607/src/PHPMailer.php';
-        require CMS_ROOT . 'includes/lib/phpmailer-607/src/SMTP.php';
-    }
+    #error_reporting(E_ALL);
 
     //Create a new PHPMailer instance
-    $mail = new PHPMailer(true);
-    if ($gbl_config['smtp_use'] == 1) {
-        $mail->isSMTP();
-        //Enable SMTP debugging
-        // 0 = off (for production use)
-        // 1 = client messages
-        // 2 = client and server messages
-        $mail->SMTPDebug = $gbl_config['smtp_debug_level'];
-        $mail->Debugoutput = 'html';
-        $mail->Host = $gbl_config['smtp_server'];
-        //Set the SMTP port number - likely to be 25, 465 or 587
-        $mail->Port = (int)$gbl_config['smtp_port'];
-        $mail->SMTPAuth = true;
-        $mail->Username = $gbl_config['smtp_user'];
-        $mail->Password = $gbl_config['smtp_pass'];
-        switch ($gbl_config['smtp_encrypt']) {
-            case 'SSL':
-                $mail->SMTPSecure = 'ssl';
-                break;
-            case 'TLS':
-                $mail->SMTPSecure = 'tls';
-                break;
+    try {
+        $mail = new PHPMailer(true);
+        if ($gbl_config['smtp_use'] == 1) {
+            $mail->isSMTP();
+            //Enable SMTP debugging
+            // 0 = off (for production use)
+            // 1 = client messages
+            // 2 = client and server messages
+            $mail->SMTPDebug = $gbl_config['smtp_debug_level'];
+            $mail->Debugoutput = 'html';
+            $mail->Host = $gbl_config['smtp_server'];
+            //Set the SMTP port number - likely to be 25, 465 or 587
+            $mail->Port = (int)$gbl_config['smtp_port'];
+            $mail->SMTPAuth = true;
+            $mail->Username = $gbl_config['smtp_user'];
+            $mail->Password = $gbl_config['smtp_pass'];
+            switch ($gbl_config['smtp_encrypt']) {
+                case 'SSL':
+                    $mail->SMTPSecure = 'ssl';
+                    break;
+                case 'TLS':
+                    $mail->SMTPSecure = 'tls';
+                    break;
+            }
         }
-    }
-    else {
-        $mail->isSendmail();
-    }
+        else {
+            $mail->isSendmail();
+        }
 
-    $mail->setFrom($from_email, $from_name);
-    $mail->addReplyTo($from_email, $from_name);
-    //Set who the message is to be sent to
-    $mail->addAddress($email_array['cu_email'], $email_array['cu_email']);
-    # set CC
-    if ($cc_email != "")
-        $mail->addCC($cc_email);
-    //Set the subject line
-    $mail->Subject = $email_array['subject'];
+        $mail->setFrom($from_email, $from_name);
+        $mail->addReplyTo($from_email, $from_name);
+        //Set who the message is to be sent to
+        $mail->addAddress($email_array['cu_email'], $email_array['cu_email']);
+        # set CC
+        if ($cc_email != "")
+            $mail->addCC($cc_email);
+        //Set the subject line
+        $mail->Subject = $email_array['subject'];
 
-    //Read an HTML message body from an external file, convert referenced images to embedded,
-    //convert HTML into a basic plain-text alternative body
-    #$mail->msgHTML(file_get_contents('contents.html'), dirname(__FILE__));
+        //Read an HTML message body from an external file, convert referenced images to embedded,
+        //convert HTML into a basic plain-text alternative body
+        #$mail->msgHTML(file_get_contents('contents.html'), dirname(__FILE__));
 
-    //Replace the plain text body with one created manually
-    # $mail->AltBody = 'This is a plain-text message body';
-    if ($textonly == true) {
-        $mail->isHTML(false);
-        $mail->Body = $email_array['content'];
-    }
-    else {
-        $mail->isHTML(true);
-        $mail->msgHTML($email_array['content']);
-        $mail->AltBody = strip_tags($email_array['content']);
-    }
-    //Attach an image file
-    if ($att_files != "" && count($att_files) > 0) {
-        foreach ($att_files as $key => $afile)
-            $mail->addAttachment($afile);
-    }
+        //Replace the plain text body with one created manually
+        # $mail->AltBody = 'This is a plain-text message body';
+        if ($textonly == true) {
+            $mail->isHTML(false);
+            $mail->Body = $email_array['content'];
+        }
+        else {
+            $mail->isHTML(true);
+            $mail->msgHTML($email_array['content']);
+            $mail->AltBody = strip_tags($email_array['content']);
+        }
+        //Attach an image file
+        if ($att_files != "" && count($att_files) > 0) {
+            foreach ($att_files as $key => $afile)
+                $mail->addAttachment($afile);
+        }
 
-    //send the message, check for errors
-    if (!$mail->send()) {
-        #echo "Mailer Error: " . $mail->ErrorInfo;        die('X');
-        $status = array('status' => 'failed', 'msg' => $mail->ErrorInfo);
-    }
+        //send the message, check for errors
+        if (!$mail->send()) {
+            #echo "Mailer Error: " . $mail->ErrorInfo;        die('X');
+            $status = array('status' => 'failed', 'msg' => $mail->ErrorInfo);
+        }
 
 
-    if ($email_array['mit_in_copy'] == 1) {
-        $result = $kdb->query("SELECT A.* FROM " . TBL_CMS_ADMINS . " A, " . TBL_CMS_MAIL_RECIP_MATRIX . " M
+        if ($email_array['mit_in_copy'] == 1) {
+            $result = $kdb->query("SELECT A.* FROM " . TBL_CMS_ADMINS . " A, " . TBL_CMS_MAIL_RECIP_MATRIX . " M
             WHERE  M.rm_emid=" . $email_array['email_id'] . " AND M.rm_mid=A.id AND 
             A.email<>'' AND A.approval=1 AND A.id<>100");
-        while ($row = $kdb->fetch_array_names($result)) {
-            $mail->ClearAddresses();
-            $mail->addAddress($row['email'], $row['email']);
-            $mail->Subject = "[KOPIE] " . $email_array['subject'];
-            $mail->send();
+            while ($row = $kdb->fetch_array_names($result)) {
+                $mail->ClearAddresses();
+                $mail->addAddress($row['email'], $row['email']);
+                $mail->Subject = "[KOPIE] " . $email_array['subject'];
+                $mail->send();
+            }
         }
+    }
+    catch (Exception $e) {
+        echo 'Exception abgefangen: ', $e->getMessage(), "\n";
     }
     keimeno_class::allocate_memory($mail);
     return $status;

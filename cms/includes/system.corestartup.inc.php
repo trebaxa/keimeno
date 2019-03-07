@@ -13,6 +13,9 @@ if (defined('CMS_ROOT') == false) {
 }
 define('SYSTEM_ROOT', CMS_ROOT);
 
+require (CMS_ROOT . 'includes/lib/phpmailer-607/src/Exception.php');
+require (CMS_ROOT . 'includes/lib/phpmailer-607/src/PHPMailer.php');
+require (CMS_ROOT . 'includes/lib/phpmailer-607/src/SMTP.php');
 require (CMS_ROOT . 'includes/error.handler.class.php');
 require (CMS_ROOT . 'includes/session.class.php');
 require (CMS_ROOT . 'includes/defaults.inc.php');
