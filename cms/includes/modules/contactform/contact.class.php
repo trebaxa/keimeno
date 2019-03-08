@@ -3,7 +3,7 @@
 /**
  * @package    contractform
  *
- * @copyright  Copyright (C) 2006 - 2018 Trebaxa GmbH&Co.KG. All rights reserved.
+ * @copyright  Copyright (C) Trebaxa GmbH&Co.KG. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  * @version    1.2
  */
@@ -72,6 +72,7 @@ class contactform_class extends modules_class {
         $FORM = self::arr_trim_striptags($FORM);
         $FORM_NOTEMPTY = self::arr_trim_striptags($FORM_NOTEMPTY);
         $recipient_email = ($PLUGIN_OPT['email'] != "") ? $PLUGIN_OPT['email'] : FM_EMAIL;
+        $FORM_ALL = array_merge($FORM, $FORM_NOTEMPTY);
 
         // check not emtpy fields , required fields
         if (is_array($FORM_NOTEMPTY)) {
@@ -144,6 +145,13 @@ class contactform_class extends modules_class {
             firewall_class::report_hack('invalid browser type');
         }
 
+        #detect HTML
+        foreach ($FORM_ALL as $key => $value) {
+            if (strip_tags($value) != $value) {
+                self::msge('HTML gefunden. Kein HTML erlaubt');
+            }
+        }
+
         # Forbidden Words
         if ($PLUGIN_OPT['cf_forbiddenwords'] != "") {
             $wormprotector = explode(',', trim($PLUGIN_OPT['cf_forbiddenwords']));
@@ -190,8 +198,8 @@ class contactform_class extends modules_class {
                 }
             }
 
-               $this->smarty_arr = array('mail' => array('subject' => pure_translation('{LBL_EMAIL_KONTAKT} ' . $FORM['nachname'], 1), 'content' => date("d.m.Y H:i:s") . PHP_EOL. PHP_EOL .
-                        $email_msg));
+            $this->smarty_arr = array('mail' => array('subject' => pure_translation('{LBL_EMAIL_KONTAKT} ' . $FORM['nachname'], 1), 'content' => date("d.m.Y H:i:s") .
+                        PHP_EOL . PHP_EOL . $email_msg));
 
 
             send_easy_mail_to($recipient_email, $this->smarty_arr['mail']['content'], $this->smarty_arr['mail']['subject'], $att_files, true, $tschapura, $tschapura);

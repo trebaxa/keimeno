@@ -4,7 +4,7 @@
     <settings>
       <module_name>Facebook Pages</module_name>
       <id>fbwp</id>
-      <active>false</active>
+      <active>true</active>
       <version>1.9</version>
       <php>fbwp.inc</php>
       <hasperm>false</hasperm>
@@ -48,6 +48,15 @@
           <list name="templates" classname="fbwpadmin_class" idname="id" label="description" function="load_template_integration"/>
         </lists>
         <save classname="fbwpadmin_class" function="save_homepage_integration_fbrating"/>
+      </plugin>
+      <plugin>
+        <name>Facebook Events</name>
+        <id>facebookevents_inlay</id>
+        <tpl>fbwpevents.plugin</tpl>
+        <lists>
+          <list name="templates" classname="fbwpadmin_class" idname="id" label="description" function="load_template_integration"/>
+        </lists>
+        <save classname="fbwpadmin_class" function="save_homepage_integration_fbevents"/>
       </plugin>
     </contentplugins>
   </module>

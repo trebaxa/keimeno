@@ -1,6 +1,7 @@
 <?PHP
 /**
- * @package    Keimeno::formsend
+ * @package    Keimeno
+ * @author Harald Petrich::formsend
  *
  * @copyright  Copyright (C) Trebaxa GmbH&Co.KG. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE

@@ -2,8 +2,9 @@
 
 /**
  * @package    Keimeno
+ * @author Harald Petrich
  *
- * @copyright  Copyright (C) 2006 - 2016 Trebaxa GmbH&Co.KG. All rights reserved.
+ * @copyright  Copyright (C) Trebaxa GmbH&Co.KG. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -54,6 +55,7 @@ class fbwpadmin_class extends fbwp_master_class {
                 'default_graph_version' => DEFAULT_GRAPH_VERSION));
 
             $helper = $this->facebook->getRedirectLoginHelper();
+            
             $permissions = ['email', 'public_profile']; // optional
             $redirect_url = self::get_redirect_url($id);
             #&sid_id=' . session_id()
@@ -62,7 +64,6 @@ class fbwpadmin_class extends fbwp_master_class {
 
         }
     }
-
 
 
     /**
@@ -233,8 +234,18 @@ class fbwpadmin_class extends fbwp_master_class {
      * @return void
      */
     function save_homepage_integration_fbrating($params) {
-
         $this->set_ident_to_cm($params['FORM']['tplid'], $params['id'], 'FACEBOOKRATING');
+        return $params;
+    }
+
+    /**
+     * fbwpadmin_class::save_homepage_integration_fbevents()
+     * 
+     * @param mixed $params
+     * @return
+     */
+    function save_homepage_integration_fbevents($params) {
+        $this->set_ident_to_cm($params['FORM']['tplid'], $params['id'], 'FACEBOOKEVENTS');
         return $params;
     }
 

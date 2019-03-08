@@ -2,8 +2,9 @@
 
 /**
  * @package    Keimeno
+ * @author Harald Petrich
  *
- * @copyright  Copyright (C) 2006 - 2016 Trebaxa GmbH&Co.KG. All rights reserved.
+ * @copyright  Copyright (C) Trebaxa GmbH&Co.KG. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -629,7 +630,7 @@ function send_mail_to($email_array, $att_files = array(), $textonly = TRUE, $fro
         }
     }
     catch (Exception $e) {
-        echo 'Exception abgefangen: ', $e->getMessage(), "\n";
+       # echo 'Exception abgefangen: ', $e->getMessage(), "\n";
     }
     keimeno_class::allocate_memory($mail);
     return $status;

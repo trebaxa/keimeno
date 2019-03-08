@@ -1,6 +1,7 @@
 <?php
 /**
- * @package    Keimeno::mylivechat
+ * @package    Keimeno
+ * @author Harald Petrich::mylivechat
  *
  * @copyright  Copyright (C) Trebaxa GmbH&Co.KG. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE

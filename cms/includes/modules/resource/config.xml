@@ -18,7 +18,7 @@
       <iscore>true</iscore>
     </settings>
     <events>
-      <event eventname="OnAutorunAdmin" method="class" classname="resource_admin_class" function="on_autorun_admin"/>
+      <event eventname="OnAutorunAdmin" method="class" classname="resource_admin_class" function="on_autorun_admin"/>      
     </events>
     <includes>
       <include type="class" classname="resource_master_class">resource.master</include>
@@ -27,5 +27,6 @@
     <admin_includes>
       <include type="class" classname="resource_admin_class">resource</include>
     </admin_includes>
+
   </module>
 </config>

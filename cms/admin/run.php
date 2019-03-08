@@ -2,13 +2,11 @@
 
 /**
  * @package    Keimeno
+ * @author Harald Petrich
  *
- * @copyright  Copyright (C) 2006 - 2019 Trebaxa GmbH&Co.KG. All rights reserved.
+ * @copyright  Copyright (C) Trebaxa GmbH&Co.KG. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
-
-#require ('../includes/hlock.class.php');
-#hlock::run();
 
 if (isset($_POST['epage'])) {
     $_GET['epage'] = ($_POST['epage'] != "") ? $_POST['epage'] : $_GET['epage'];

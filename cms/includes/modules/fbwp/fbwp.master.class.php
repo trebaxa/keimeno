@@ -2,8 +2,9 @@
 
 /**
  * @package    Keimeno
+ * @author Harald Petrich
  *
- * @copyright  Copyright (C) 2006 - 2016 Trebaxa GmbH&Co.KG. All rights reserved.
+ * @copyright  Copyright (C) Trebaxa GmbH&Co.KG. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -18,6 +19,7 @@ use Facebook\FacebookRequestException;
 DEFINE('TBL_CMS_FBWPCONTENT', TBL_CMS_PREFIX . 'fbwp');
 DEFINE('TBL_CMS_FBGROUPS', TBL_CMS_PREFIX . 'fbgroups');
 DEFINE('DEFAULT_GRAPH_VERSION', 'v2.10');
+#DEFINE('DEFAULT_GRAPH_VERSION', 'v3.2');
 
 
 class fbwp_master_class extends modules_class {
@@ -77,7 +79,7 @@ class fbwp_master_class extends modules_class {
      * @return
      */
     function get_redirect_url($id) {
-        $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://';
+        $protocol = 'https://';#isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://';
         return $protocol . $_SERVER['HTTP_HOST'] . '/admin/run.php?fbwpid=' . $id . '&epage=fbwp.inc&section=start&cmd=set_token_fb';
     }
 
@@ -155,19 +157,20 @@ class fbwp_master_class extends modules_class {
     }
 
     /**
-     * fbwp_master_class::load_stream_from_cache()
+     * fbwp_master_class::load_from_cache()
      * 
      * @param mixed $cache_file
      * @return
      */
-    public static function load_stream_from_cache($cache_file) {
+    public static function load_from_cache($cache_file) {
         $feed = array();
         if (is_file($cache_file)) {
             $feed = unserialize(file_get_contents($cache_file));
         }
         return $feed;
     }
-
+    
+ 
     /**
      * fbwp_master_class::get_ratings()
      * 
@@ -214,12 +217,12 @@ class fbwp_master_class extends modules_class {
             }
             catch (Exception $e) {
                 $this->LOGCLASS->addLog('FACEBOOK', $e->getMessage());
-                $feed = self::load_stream_from_cache($cache_file);
+                $feed = self::load_from_cache($cache_file);
                 return $feed;
             }
         }
         else {
-            $feed = self::load_stream_from_cache($cache_file);
+            $feed = self::load_from_cache($cache_file);
         }
 
         return $feed;

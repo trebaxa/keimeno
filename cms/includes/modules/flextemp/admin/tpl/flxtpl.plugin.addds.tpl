@@ -31,6 +31,7 @@
             <% if ($row.v_type=='link') %>
                 <div class="input-group">
                 <select class="form-control" name="FORM[<%$row.v_col%>]">
+                <option value="">- kein Link -</option>
                        <% foreach from=$FLEXTEMP.menu_selectox item=rvol key=rkey %>                            
                             <%assign var="urltpl" value="{URL_TPL_`$rkey`}"%>
                             <option <% if ($urltpl==$row.value) %>selected<%/if%> value="<%$urltpl%>"><%$rvol%></option>

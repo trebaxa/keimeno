@@ -129,7 +129,10 @@
         <p>Die Zugangsdaten der ersten Seiten (ID=1) werden im Socialstream verwendet, um die Fanpage zu laden. Die Fanpage ID wird in der "Konfiguration" festgelegt.</p>
         <p>Access Token Validator: <a href="https://developers.facebook.com/tools/debug/accesstoken?q=<%$FBWP.WP.fb_token%>&version=v2.10" target="_blank">https://developers.facebook.com/tools/debug/accesstoken</a></p>
         <p><a href="https://www.facebook.com/<% $gbl_config.fb_fanpagename %>/insights/?section=navAPI" target="_blank">check you current rate</a></p>
-        <p><a href="https://developers.facebook.com/apps/<%$FBWP.WP.fb_appid%>/dashboard/" target="_blank">App dashboard</a></p>    
+        <p><a href="https://developers.facebook.com/apps/<%$FBWP.WP.fb_appid%>/dashboard/" target="_blank">App dashboard</a></p>
+        <p><a href="https://developers.facebook.com/docs/apps/review/server-to-server-apps/" target="_blank">Server-to-Server App Review</a></p>
+        <p><a href="https://developers.facebook.com/tools/accesstoken/" target="_blank">Deine Access Token</a></p>
+            
     </div>
     
     <div id="js-fbgroup"></div>
