@@ -24,7 +24,6 @@ class fbwpadmin_class extends fbwp_master_class {
     function __construct() {
         parent::__construct();
         $this->TCR = new kcontrol_class($this);
-
     }
 
     /**

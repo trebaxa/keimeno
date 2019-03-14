@@ -152,6 +152,7 @@ class dao_class extends keimeno_class {
         if (count($fields) == 0) {
             $fields = array('*');
         }
+        $where_str="";
         foreach ((array )$where as $key => $value) {
             if (!is_array($value)) {
                 $where_str .= (($where_str != "") ? " AND " : "") . ((trim($key) == "") ? " 1" : $key . "='" . $value . "'");
@@ -160,6 +161,7 @@ class dao_class extends keimeno_class {
                 $where_str .= (($where_str != "") ? " AND " : "") . $key . $value[0] . $value[1];
             }
         }
+        $fields_str="";
         foreach ((array )$fields as $key => $value) {
             $fields_str .= (($fields_str != "") ? ", " : "") . $value;
         }

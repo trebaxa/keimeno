@@ -278,6 +278,7 @@ class resource_admin_class extends resource_master_class {
         }
         $this->db->query("DELETE FROM " . TBL_RESRCVARS . " WHERE v_cid=" . (int)$_GET['ident']);
         $this->db->query("DELETE FROM " . TBL_RESRC_CONTENT . " WHERE id=" . (int)$_GET['ident']);
+        $this->db->query("DELETE FROM " . TBL_CMS_PAGEINDEX . " WHERE pi_modident ='resource' AND pi_relatedid='" . (int)$_GET['ident'] . "'");
         $this->ej();
     }
 
@@ -328,6 +329,12 @@ class resource_admin_class extends resource_master_class {
         $this->RESOURCE['flextpl']['datasetvars'] = $this->load_dataset_vars($id);
         $this->RESOURCE['content_table'] = $this->load_content_table($id);
         $this->RESOURCE['content'] = $this->load_content($content_matrix_id);
+
+        # HTML Vorlagen
+        $this->RESOURCE['flextpl']['tpls'] = $this->load_tpl_table($id);
+        foreach ($this->RESOURCE['flextpl']['tpls'] as $key => $row) {
+            $this->RESOURCE['flextpl']['tpls'][$key]['icons'][] = kf::gen_del_icon($row['id'], true, 'deltpl');
+        }
 
 
         # load links
@@ -482,6 +489,12 @@ class resource_admin_class extends resource_master_class {
 
     }
 
+    /**
+     * resource_admin_class::load_resrc_structure()
+     * 
+     * @param mixed $resrc_id
+     * @return
+     */
     function load_resrc_structure($resrc_id) {
         $vars_structure = $this->load_flexvars_table($resrc_id, 0);
         $dataset_structure = $this->load_dataset_vars_table($resrc_id);
@@ -943,6 +956,9 @@ class resource_admin_class extends resource_master_class {
             $this->db->query("UPDATE " . TBL_RESRCVARS . " SET v_settings='" . serialize($row) . "'  WHERE v_cid=" . $content_matrix_id . " AND v_vid=" . $id);
         }
 
+        # rebuild page_inde
+        $this->rebuild_page_index($content_matrix_id);
+
         #  if (isset($_FILES['datei']) && is_array($_FILES['datei']['name'])) {
         $this->ej('reload_resource', (int)$_POST['flxid']);
         # }
@@ -958,14 +974,14 @@ class resource_admin_class extends resource_master_class {
      * @param mixed $params
      * @return
      */
-    function save_homepage_integration($params) {
-        $cont_matrix_id = (int)$params['id'];
-        if ($params['FORM']['flxtid'] > 0) {
-            $FLEX = $this->load_resrc($params['FORM']['flxtid']);
-            $upt = array('tm_content' => '{TMPL_FLXTPL_' . $cont_matrix_id . '}', 'tm_pluginfo' => $FLEX['f_name']);
-            update_table(TBL_CMS_TEMPMATRIX, 'id', $cont_matrix_id, $this->real_escape($upt));
-        }
+    /* function save_homepage_integration($params) {
+    $cont_matrix_id = (int)$params['id'];
+    if ($params['FORM']['flxtid'] > 0) {
+    $FLEX = $this->load_resrc($params['FORM']['flxtid']);
+    $upt = array('tm_content' => '{TMPL_FLXTPL_' . $cont_matrix_id . '}', 'tm_pluginfo' => $FLEX['f_name']);
+    update_table(TBL_CMS_TEMPMATRIX, 'id', $cont_matrix_id, $this->real_escape($upt));
     }
+    }*/
 
     /**
      * resource_admin_class::cmd_plugin_load_tpls()
@@ -1243,10 +1259,26 @@ class resource_admin_class extends resource_master_class {
      * @return
      */
     function cmd_reload_html_help() {
-        $this->RESOURCE['flxedit'] = $this->db->query_first("SELECT * FROM " . TBL_RESRCPL . " WHERE id=" . $_GET['id']);
-        $this->load_resrc_for_edit($_GET['flxid'], 0, $_GET['gid']);
+        $this->RESOURCE['flxedit'] = $this->db->query_first("SELECT * FROM " . TBL_RESRCPL . " WHERE id=" . (int)$_GET['id']);
+        $this->load_resrc_for_edit($_GET['flxid'], 0);
         $this->parse_to_smarty();
         kf::echo_template('resource.htmltpl.help');
+    }
+
+    /**
+     * resource_admin_class::cmd_save_html_table()
+     * 
+     * @return void
+     */
+    function cmd_save_html_table() {
+        $FORM = (array )$_POST['FORM'];
+        $FORMSET = (array )$_POST['FORMSET'];
+        dao_class::update_table(TBL_RESRCPL, array('t_use' => 0), array('t_ftid' => $_POST['t_ftid']));
+        dao_class::update_table(TBL_RESRCPL, array('t_use' => 1), array('id' => $FORM['t_use'], 't_ftid' => $_POST['t_ftid']));
+        foreach ($FORMSET as $id => $row) {
+            update_table(TBL_RESRCPL, 'id', $id, $row);
+        }
+        $this->ej();
     }
 
 
@@ -1305,5 +1337,35 @@ class resource_admin_class extends resource_master_class {
         $this->cmd_show_add_datasets();
     }
 
+    /**
+     * resource_admin_class::save_homepage_integration()
+     * 
+     * @param mixed $params
+     * @return void
+     */
+    function save_homepage_integration($params) {
+        $cont_matrix_id = (int)$params['id'];
+        $id = $params['FORM']['resrcid'];
+        $R = dao_class::get_data_first(TBL_RESRC, array('id' => $id));
+        $upt = array('tm_content' => '{TMPL_RESRCDETAIL_' . $cont_matrix_id . '}', 'tm_pluginfo' => $R['f_name']);
+        update_table(TBL_CMS_TEMPMATRIX, 'id', $cont_matrix_id, $this->real_escape($upt));
+        update_table(TBL_CMS_TEMPLATES, 'id', $cont_matrix_id, array('xml_sitemap' => 0));
+    }
+
+    /**
+     * resource_admin_class::load_homepage_integration()
+     * 
+     * @param mixed $params
+     * @return
+     */
+    function load_homepage_integration($params) {
+        $result = $this->db->query("SELECT * FROM " . TBL_RESRC . " WHERE 1 ORDER BY f_name");
+        while ($row = $this->db->fetch_array($result)) {
+            $row['LABEL'] = $row[$params['label']];
+            $row['ID'] = $row[$params['idname']];
+            $list[] = $row;
+        }
+        return (array )$list;
+    }
 
 }

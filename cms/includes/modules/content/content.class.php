@@ -371,9 +371,16 @@ class content_class extends keimeno_class {
                 while ($row = $this->db->fetch_array_names($result)) {
                     $url_label = ($row['t_htalinklabel'] == "") ? $row['linkname'] : $row['t_htalinklabel'];
                     $tid = ($row['t_htalinklabel'] != "") ? 0 : $row['tid'];
-                    $url['url'] = self::get_http_protocol() . '://www.' . FM_DOMAIN . gen_page_link($tid, $url_label);
-                    $url['frecvent'] = $params['sm_changefreq'];
-                    $url['priority'] = $params['sm_priority'];
+
+                    $url = array(
+                        'url' => self::get_http_protocol() . '://www.' . FM_DOMAIN . gen_page_link($tid, $url_label),
+                        'frecvent' => $params['sm_changefreq'],
+                        'priority' => $params['sm_priority'],
+                        );
+
+                    if ($row['theme_image'] != "") {
+                        $url['images'][] = array('loc' => self::get_domain_url() . 'file_data/themeimg/' . $row['theme_image'], 'title' => $row['linkname']);
+                    }
                     $params['urls'][] = $url;
                 }
             }

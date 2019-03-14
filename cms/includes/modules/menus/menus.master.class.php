@@ -56,8 +56,8 @@ class menus_master_class extends modules_class {
         WHERE mm_mid=" . $id . " ORDER BY mm_parent,mm_order");
         while ($row = $this->db->fetch_array_names($result)) {
             $row['description'] = ($row['description'] != "") ? $row['description'] : $row['mm_title'];
-            $row['catlink'] = ($row['catlink'] != "") ? $row['catlink'] : $row['mm_url'];
-            $arr[] = $row;
+            $row['catlink'] = (isset($row['catlink']) && $row['catlink'] != "") ? $row['catlink'] : $row['mm_url'];
+            $arr[$row['id']] = $row;
         }
         return $arr;
     }
@@ -90,7 +90,7 @@ class menus_master_class extends modules_class {
                     $row['url_redirect'] = $row['catlink'] = ($row['catlink'] != "") ? $row['catlink'] : $row['mm_url'];
                     $row['mm_id'] = $row['id'];
                 }
-                $arr[] = $row;
+                $arr[$row['id']] = $row;
             }
         }
         return $arr;

@@ -15,6 +15,7 @@
             <tr id="<%$row.id%>" class="ui-state-default ui-sortable-handle">
                 <td class="sort-col"><i class="fa fa-sort" aria-hidden="true"></i></td>
                 <td><a href="#" onclick="add_show_box_tpl('<%$eurl%>cmd=show_add_content&flxid=<%$row.c_ftid%>&content_matrix_id=<%$row.id%>','Inhalt bearbeiten')"><%$row.c_label%></a></td>
+                <td><a href="<%$row.link_resrc.pi_link%>" title="<%$row.link_resrc.pi_link%>" target="_blank"><%$row.link_resrc.pi_link%></a></td>
                 <td class="col-md-2 text-right">
                    <div class="btn-group">
                     <a class="btn btn-default" href="#" onclick="add_show_box_tpl('<%$eurl%>cmd=show_add_content&flxid=<%$row.c_ftid%>&content_matrix_id=<%$row.id%>','Inhalt bearbeiten')"><i class="fa fa-pencil"></i></a>

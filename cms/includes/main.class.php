@@ -264,8 +264,9 @@ class main_class extends keimeno_class {
             if ($lng_code_is_set == true) {
                 $request_query = str_replace('/' . $_GET['lngcode'] . '/', '/', $request_query);
             }
+
             $PAGE_INDEX = $this->db->query_first("SELECT * FROM " . TBL_CMS_PAGEINDEX . " WHERE pi_dynamic=0 AND MD5(pi_link)='" . md5($request_query) . "'");
-            if ($PAGE_INDEX['pi_ident'] == "") {
+            if (!isset($PAGE_INDEX['pi_ident']) || $PAGE_INDEX['pi_ident'] == "") {
                 # get content by dynamic page index
                 $arr = explode('/', $request_query);
                 array_pop($arr);
@@ -278,6 +279,7 @@ class main_class extends keimeno_class {
                 foreach ($query as $key => $value) {
                     $_REQUEST[$key] = $_POST[$key] = $_GET[$key] = $value;
                 }
+
             }
         }
         # if nothing could be loaded set 404 page
@@ -819,6 +821,7 @@ class main_class extends keimeno_class {
         $this->allocate_memory($LAY);
         $this->add_object($HTA_CLASS_CMS);
         $this->force_ssl(PAGEID);
+
         $this->set_globalframework($this->templatecon, PAGEID, $this->pageobj);
         $this->global_requests();
         if ($this->pageobj['tl'] > 1)
@@ -827,6 +830,7 @@ class main_class extends keimeno_class {
         $TOPLEVELCMS->load_toplevel($TOPLEVEL_OBJ, $page);
 
         # exec interpreter dynamic
+        $CONTENT_OBJ->exec_interpreter = array();
         if (is_array($CONTENT_OBJ->exec_interpreter) && count($CONTENT_OBJ->exec_interpreter) > 0) {
             $xml_modules = simplexml_load_file(MODULE_ROOT . 'config_all_modules.xml');
             foreach ($CONTENT_OBJ->exec_interpreter as $key => $modident) {
@@ -842,22 +846,6 @@ class main_class extends keimeno_class {
                 }
             }
         }
-        else {
-            /*  if ($this->pageobj['modident'] != "") {
-            $xml_modules = simplexml_load_file(MODULE_ROOT . 'config_all_modules.xml');
-            foreach ($xml_modules->modules->children() as $module) {
-            if (strval($module->settings->id) == $this->pageobj['modident'] && isset($module->settings->stdclass)) {
-            $class_name = strval($module->settings->stdclass);
-            $C = new $class_name();
-            if (is_object($C->TCR)) {
-            $C->TCR->interpreterfe();
-            }
-            keimeno_class::allocate_memory($C);
-            }
-            }
-            }*/
-        }
-
         keimeno_class::allocate_memory($CONTENT_OBJ);
     }
 
@@ -1048,7 +1036,8 @@ class main_class extends keimeno_class {
         $this->smarty->assign('GBL_LANGID', $this->GBL_LANGID);
         $this->smarty->assign('lastPage', $_SESSION['lastPage']);
         $this->smarty->assign('GBL_LOCAL_ID', $_SESSION['GBL_LOCAL_ID']);
-        $this->smarty->assign('HTTP_REFERER', $_SERVER['HTTP_REFERER']);
+        $referer = (isset($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : "";
+        $this->smarty->assign('HTTP_REFERER', $referer);
         $this->smarty->assign('CU_LOGGEDIN', CU_LOGGEDIN);
         $this->smarty->assign('SSLSERVER', SSLSERVER);
         $this->smarty->assign('SERVERVARS', $_SERVER);
@@ -1074,7 +1063,7 @@ class main_class extends keimeno_class {
             $this->smarty->assign('cms_url', 'http://www.' . $this->gbl_config['opt_domain'] . rtrim(PATH_CMS, '/'));
         }
         $this->smarty->assign('PHPSELF', SSL_PATH_SYSTEM . rtrim($PATH_CMS_LOCAL, '/') . $_SERVER['PHP_SELF']);
-        $this->smarty->assign('eurl', SSL_PATH_SYSTEM . rtrim($PATH_CMS_LOCAL, '/') . $_SERVER['PHP_SELF'] . '?page=' . $_REQUEST['page'] . '&');
+        $this->smarty->assign('eurl', SSL_PATH_SYSTEM . rtrim($PATH_CMS_LOCAL, '/') . $_SERVER['PHP_SELF'] . '?page=' . ((isset($_REQUEST['page'])) ? $_REQUEST['page'] :"")  . '&');
         if (be_in_ssl_area() === true) {
             $this->smarty->assign('baseurl', SSLSERVER . ((!preg_match("/.*\/$/", SSLSERVER)) ? "/" : ""));
         }

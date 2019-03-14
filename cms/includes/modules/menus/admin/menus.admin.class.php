@@ -130,7 +130,7 @@ class menus_admin_class extends menus_master_class {
      * @param mixed $arr
      * @return
      */
-    function menu_opt(&$arr) {
+    function menu_opt(&$arr) {      
         foreach ($arr as $key => $row) {
             if (count($row['children']) > 0) {
                 $this->menu_opt($row['children']);
@@ -143,12 +143,14 @@ class menus_admin_class extends menus_master_class {
 
     function load_standards($id, $select_node_id = 0) {
         $this->MENUS['menu'] = $this->load_menu($id);
+        
         # Load nested Menu
-        $nested_menu = $this->nested->create_result_and_array_by_array($this->load_mmenu_matrix($id), 0, 0, -1);
+        $nested_menu = $this->nested->create_result_and_array_by_array($this->load_mmenu_matrix($id), 0, 0, -1);        
+        
         $this->menu_opt($nested_menu);
         $this->MENUS['nested_menu'] = $nested_menu;
+ 
         $this->MENUS['menu_selectox'] = $this->nested->output_as_selectbox($select_node_id);
-
         # Load original menu
         $this->nested->label_column = 'description';
         $this->nested->label_id = 'id';

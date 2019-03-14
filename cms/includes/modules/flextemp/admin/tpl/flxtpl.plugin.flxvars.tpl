@@ -53,10 +53,15 @@
                 <div class="form-group col-md-3">
                     <label>Sortierung:</label>
                     <select class="form-control" name="SETTINGS[<%$row.id%>][resrc][sort]">
+                     <optgroup label="Standard">
                         <option <% if ($row.v_settings.resrc.sort==0) %>selected<%/if%> value="0">- manuelle Sortierung -</option>
+                        <option <% if ($row.v_settings.resrc.sort==1) %>selected<%/if%> value="-1">- zufällig -</option>
+                     </optgroup>   
+                     <optgroup label="Felder">
                        <% foreach from=$FLEXTEMP.resources.columns item=rvol key=rkey %>
                             <option <% if ($row.v_settings.resrc.sort==$rvol.id) %>selected<%/if%> value="<%$rvol.id%>"><%$rvol.v_name%></option>
-                       <%/foreach%>              
+                       <%/foreach%>
+                     </optgroup>                   
                 </select>
                 </div>   
                 <div class="form-group col-md-3">

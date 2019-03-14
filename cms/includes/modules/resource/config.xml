@@ -18,7 +18,8 @@
       <iscore>true</iscore>
     </settings>
     <events>
-      <event eventname="OnAutorunAdmin" method="class" classname="resource_admin_class" function="on_autorun_admin"/>      
+      <event eventname="OnAutorunAdmin" method="class" classname="resource_admin_class" function="on_autorun_admin"/>
+      <event eventname="beforesmartycompile" method="class" classname="resource_class" function="parse_detail_page"/>
     </events>
     <includes>
       <include type="class" classname="resource_master_class">resource.master</include>
@@ -27,6 +28,16 @@
     <admin_includes>
       <include type="class" classname="resource_admin_class">resource</include>
     </admin_includes>
-
+    <contentplugins>
+      <plugin>
+        <name>Resource Detail Page</name>
+        <id>resrcdetail_inlay</id>
+        <tpl>resource.detail.plugin</tpl>
+        <lists>
+          <list name="resources" classname="resource_admin_class" idname="id" label="f_name" function="load_homepage_integration"/>
+        </lists>       
+        <save classname="resource_admin_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
   </module>
 </config>

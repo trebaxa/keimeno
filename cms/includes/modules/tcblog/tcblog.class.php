@@ -752,14 +752,14 @@ class tcblog_class extends tcblog_master_class {
                         foreach ($row['fotos'] as $foto) {
                             $url['images'][] = array(
                                 'loc' => self::get_domain_url() . 'file_data/tcblog/fotos/' . $foto['foto'],
-                                'caption' => $foto['foto'],
+                                'title' => $foto['foto'],
                                 );
                         }
                     }
                     if ($row['image_exists'] == true) {
                         $url['images'][] = array(
                             'loc' => self::get_domain_url() . $row['image'],
-                            'caption' => $row['title'],
+                            'title' => $row['title'],
                             );
                     }
                     $params['urls'][] = $url;

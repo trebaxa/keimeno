@@ -312,7 +312,7 @@ class SiteMap extends keimeno_class {
             foreach ($images as $image) {
                 $c .= '
                         <image:loc>' . $image['loc'] . '</image:loc>
-                        <image:caption>' . $image['caption'] . '</image:caption>
+                        <image:title>' . $image['title'] . '</image:title>
                    ';
             }
             $c .= '</image:image>';
@@ -327,19 +327,20 @@ class SiteMap extends keimeno_class {
      */
     public static function getPages($pages) {
         # for ($i = 0; $i < count($this->pages['url']); $i++) {
-        foreach ($pages as $urlobj) {
+        foreach ($pages as $urlobj) {            
             $str .= '
 			<url>
 				<loc>' . $urlobj['url'] . '</loc>
                 ' . ((is_array($urlobj['images']) && count($urlobj['images']) > 0) ? self::add_images($urlobj['images']) : "") . '
 				<lastmod>' . date('Y-m-d') . 'T' . date('H:i:s') . '+00:00</lastmod>
 				<changefreq>' . $urlobj['frecvent'] . '</changefreq>
-				<priority>' . $urlobj['priority'] . '</priority>
+				<priority>' . $urlobj['priority'] . '</priority>                
 			</url>
 			';
         }
         return $str;
     }
+    
     /**
      * SiteMap::convert_pages()
      * 

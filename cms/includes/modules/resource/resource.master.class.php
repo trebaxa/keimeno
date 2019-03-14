@@ -14,6 +14,7 @@ DEFINE('TBL_RESRC', TBL_CMS_PREFIX . 'resrc');
 DEFINE('TBL_RESRCDV', TBL_CMS_PREFIX . 'resrc_dv');
 DEFINE('TBL_RESRC_CONTENT', TBL_CMS_PREFIX . 'resrc_content');
 DEFINE('TBL_RESRCVARS', TBL_CMS_PREFIX . 'resrc_vars');
+DEFINE('TBL_RESRCPL', TBL_CMS_PREFIX . 'resrc_tpl');
 
 
 class resource_master_class extends modules_class {
@@ -65,6 +66,11 @@ class resource_master_class extends modules_class {
         while ($row = $this->db->fetch_array_names($result)) {
             $k += 10;
             $row['c_sort'] = $k;
+            $row['link'] = self::gen_resr_link($row['CID']);
+            $row['link_resrc'] = dao_class::get_data_first(TBL_CMS_PAGEINDEX, array(
+                'pi_local' => 'de',
+                'pi_modident' => 'resource',
+                'pi_relatedid' => $row['id']));
             $row['icons'][] = kf::gen_del_icon($row['CID'], true, 'del_content');
             $arr[] = $row;
         }
@@ -87,14 +93,14 @@ class resource_master_class extends modules_class {
             }
         }
         $direc = (isset($v_settings['resrc']['direc']) && $v_settings['resrc']['direc'] == 'DESC') ? 'DESC' : 'ASC';
-
+        $rand_sort = (isset($v_settings['resrc']['sort']) && (int)$v_settings['resrc']['sort'] == -1) ? " RAND()" : " F.c_sort";
         $result = $this->db->query("SELECT F.*,F.id AS CID FROM " . TBL_RESRC_CONTENT . " F, " . TBL_RESRCVARS . " V WHERE c_ftid=" . (int)$ftid . " 
         AND F.id=V.v_cid 
         " . ((isset($v_settings['resrc']['sort']) && (int)$v_settings['resrc']['sort'] > 0) ? " AND V.v_vid=" . (int)$v_settings['resrc']['sort'] : "") . "
         " . ((count($cid) > 0) ? " AND F.id IN (" . $cid . ")" : "") . "
         GROUP BY F.id
         ORDER BY 
-        " . ((isset($v_settings['resrc']['sort']) && (int)$v_settings['resrc']['sort'] > 0) ? " v_value " . $direc : " F.c_sort") . "
+        " . ((isset($v_settings['resrc']['sort']) && (int)$v_settings['resrc']['sort'] > 0) ? " v_value " . $direc : $rand_sort) . "
         " . ((isset($v_settings['resrc']['quantity']) && (int)$v_settings['resrc']['quantity'] > 0) ? " LIMIT 0," . (int)$v_settings['resrc']['quantity'] : ""));
         while ($row = $this->db->fetch_array_names($result)) {
             $arr[] = $row;
@@ -415,5 +421,56 @@ class resource_master_class extends modules_class {
         return $value;
     }
 
+    /**
+     * resource_master_class::gen_resr_link()
+     * 
+     * @param mixed $id
+     * @return
+     */
+    public static function gen_resr_link($id) {
+        return '{URL_RESRC_' . (int)$id . '}';
+    }
+
+    /**
+     * resource_master_class::gen_link_label()
+     * 
+     * @param mixed $row
+     * @return
+     */
+    public static function gen_link_label($row) {
+        #$row['nachname'] = (isset($row['nachname']) ? $row['nachname'] : "");
+        #$label = (isset($row['vorname']) && $row['vorname'] != "") ? $row['vorname'] . ' ' . $row['nachname'] : $row['nachname'];
+        #$label = (isset($row['firma']) && $row['firma'] != "") ? $row['firma'] . ' ' . $label : $label;
+        return $row['c_label'];
+    }
+
+    /**
+     * resource_master_class::rebuild_page_index()
+     * 
+     * @param integer $kid
+     * @return
+     */
+    function rebuild_page_index($content_id = 0) {
+        $k = 0;
+        $this->db->query("DELETE FROM " . TBL_CMS_PAGEINDEX . " WHERE pi_modident ='resource' " . (($content_id > 0) ? " AND pi_relatedid='" . $content_id . "'" : ""));
+        $result = $this->db->query("SELECT C.*,R.f_name,R.id AS FID FROM " . TBL_RESRC_CONTENT . " C, " . TBL_RESRC . " R WHERE R.id=C.c_ftid " . (($content_id > 0) ?
+            " AND C.id='" . $content_id . "'" : ""));
+        while ($row = $this->db->fetch_array($result)) {
+            $k++;
+            $label = self::gen_link_label($row);
+            $link = '/' . self::format_file_name($row['f_name']) . '/' . self::format_file_name($label) . '.html';
+            $query = array('cmd' => 'show_resource', 'id' => $row['id']);
+
+
+            $TPL = dao_class::get_data_first(TBL_RESRCPL, array('t_ftid' => $row['FID'], 't_use' => '1'));
+
+            $resultlang = $this->db->query("SELECT * FROM " . TBL_CMS_LANG . " WHERE 1");
+            while ($lang = $this->db->fetch_array_names($resultlang)) {
+                if ($label != "")
+                    $this->connect_to_pageindex($link, $query, $row['id'], 'resource', $lang['id'], 0, $TPL['t_pageid']);
+            }
+        }
+        return $k;
+    }
 
 }

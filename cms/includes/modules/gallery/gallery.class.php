@@ -904,7 +904,7 @@ class gal_class extends modules_class {
                     if ((int)$row['picid'] > 0) {
                         $url['images'][] = array(
                             'loc' => self::get_http_protocol() . '://www.' . FM_DOMAIN . PATH_CMS . 'images/gallery/' . $galgroup_image['pic_name'],
-                            'caption' => ($galgroup_image['pic_title'] == "") ? $galgroup_image['pic_name'] : $galgroup_image['pic_title'],
+                            'title' => ($galgroup_image['pic_title'] == "") ? $galgroup_image['pic_name'] : $galgroup_image['pic_title'],
                             );
                     }
                     $params['urls'][] = $url;
