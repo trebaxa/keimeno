@@ -1,18 +1,20 @@
-<%include file="cb.panel.header.tpl" title="Datensatz Variablen" class="panel-featured-primary"%>
-    <div class="btn-group">
-        <a class="btn btn-default" href="#" onclick="reload_dataset_vars();"><i class="fa fa-table"></i> Alle anzeigen</a>
-        <button class="btn btn-default" type="button" onclick="add_show_box_tpl('<%$eurl%>cmd=show_flxvar_editor&v_con=0&varid=0&flxid=<%$GET.id%>','Variable Editor')"><i class="fa fa-plus"></i> Neue Datensatz Variable</button>
+<div class="form-group">
+    <label>Datenbank</label>
+    <div class="input-group">
+        <select name="FORM[table]" class="form-control js-db-change">
+                <% foreach from=$RESOURCE.tables item=row%>
+                    <option <% if ($row.selected==true) %>selected<%/if%> value="<%$row.f_table%>"><%$row.f_name%></option>
+                <%/foreach%>    
+        </select>
+        <div class="input-group-btn"><button class="btn btn-primary" onclick="new_table()" type="button"><i class="fa fa-plus"></i></button></div>
     </div>
+</div>
+
+
+<%include file="cb.panel.header.tpl" title="Datensatz Variablen" class="panel-featured-primary"%>
+
     
-<div class="row">    
-   <%* <div class="col-md-2">
-        <ul class="nav nav-pills nav-stacked">
-          <li><a href="javascript:void(0)" onclick="simple_load('js-datasetvars','<%$eurl%>cmd=reload_dataset_vars&id=<%$GET.id%>&gid=0')">- alle -</a></li>
-          <% foreach from=$RESOURCE.flextpl.groups item=group %>
-           <li><a href="javascript:void(0)" onclick="simple_load('js-datasetvars','<%$eurl%>cmd=reload_dataset_vars&id=<%$GET.id%>&gid=<%$group.id%>')"><%$group.g_name%></a></li>
-          <%/foreach%> 
-        </ul>    
-    </div>*%>
+<div class="row"> 
     <div class="col-md-12">
         <div id="js-datasetvars">
             <%include file="resource.datasetvars.table.tpl"%>
@@ -26,12 +28,35 @@
 
 
 <script>
-    function reload_dataset_vars() {
-        simple_load('js-datasetvars','<%$eurl%>cmd=reload_dataset_vars&id=<%$GET.id%>');
-    }
+    $( ".js-db-change" ).change(function() {
+      reload_dataset_vars($(this).val());
+    });
 
-    function reload_dataset_vars_by_gid(gid) {
-        simple_load('js-datasetvars','<%$eurl%>cmd=reload_dataset_vars&id=<%$GET.id%>&gid='+gid);
-    }    
-   
+    function reload_dataset_vars(table) {
+        simple_load('js-datasetvars','<%$eurl%>cmd=reload_dataset_vars&id=<%$GET.id%>&table='+table);
+    }
+    
+    function set_resrc_table(table,label) {
+        $(".js-db-change").append(new Option(label, table));
+        $( ".js-db-change" ).val(table);
+        $( ".js-db-change" ).trigger('change');
+    }
+    
+    function new_table() {
+        var table = prompt("Datenbank Name", "DB Name");
+        if (table != null) {
+            var url = '<%$eurl%>cmd=add_new_table&table='+table+'&id=<%$GET.id%>';
+            jsonexec(url,true);
+        }    
+    }
+    
+    function del_table(table) {
+        var r = confirm("Sicher?");
+        if (r == true) {
+            var url = '<%$eurl%>cmd=del_table&table='+table+'&id=<%$GET.id%>';
+            jsonexec(url,true);
+            $(".js-db-change option[value='"+table+"']").remove();
+            $( ".js-db-change" ).val('<%$RESOURCE.flextpl.f_table%>');            
+         }   
+    }
 </script>

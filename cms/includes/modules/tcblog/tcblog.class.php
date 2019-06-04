@@ -739,9 +739,12 @@ class tcblog_class extends tcblog_master_class {
     function gen_xmlsitemap($params) {
         $SM = $this->db->query_first("SELECT * FROM " . TBL_CMS_SITEMAP . " WHERE sm_ident='tcblog' AND sm_active=1");
         if ($SM['sm_active'] == 1) {
-            $result_lang = $this->db->query("SELECT id,post_lang,language FROM " . TBL_CMS_LANG . " WHERE " . (($params['alllang'] === true) ? '' : " id=" . (int)$params['langid'] .
-                " AND ") . " approval=1 ORDER BY post_lang");
-            while ($rowl = $this->db->fetch_array($result_lang)) {
+            $sql_filter = array('approval' => 1);
+            if ((int)$params['langid'] > 0) {
+                $sql_filter['id'] = (int)$params['langid'];
+            }
+            $lang_arr = dao_class::get_data(TBL_CMS_LANG, $sql_filter);
+            foreach ($lang_arr as $rowl) {
                 $items = $this->load_all_for_sitemap($rowl['id'], $row['local']);
                 foreach ($items as $row) {
                     $url = array('images' => array());

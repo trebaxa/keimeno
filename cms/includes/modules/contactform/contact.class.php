@@ -57,6 +57,7 @@ class contactform_class extends modules_class {
      */
     function cmd_sendmsg() {
         global $FIREWALL;
+
         $_SESSION['err_msgs'] = array();
         $FIREWALL->do_log('contact');
 
@@ -179,19 +180,39 @@ class contactform_class extends modules_class {
 
             // File
             $att_files = array();
-            if (isset($_FILES)) {
+
+            if (isset($_FILES["datei"])) {
                 if (!is_array($_FILES["datei"]["name"])) {
-                    if (move_uploaded_file($_FILES["datei"]["tmp_name"], CMS_ROOT . CACHE . $_FILES["datei"]["name"])) {
-                        $att_files[] = CMS_ROOT . CACHE . $_FILES["datei"]["name"];
+                    if ((int)$_FILES["datei"]['error'] > 0) {
+                        self::msge(self::file_upload_err_to_txt($_FILES["files"]['error'][$key]));
+                        #  echo self::file_upload_err_to_txt($_FILES["files"]['error'][$key]);
+                    }
+                    else {
+                        if (move_uploaded_file($_FILES["datei"]["tmp_name"], CMS_ROOT . CACHE . $_FILES["datei"]["name"])) {
+                            $att_files[] = CMS_ROOT . CACHE . $_FILES["datei"]["name"];
+                        }
+                        else {
+                            self::msge('File upload fehlgeschlagen');
+                        }
                     }
                 }
 
                 // Multi Files
-                if (is_array($_FILES["files"]['name'])) {
-                    foreach ($_FILES["files"]['tmp_name'] as $key => $datei) {
-                        if ($datei != "") {
-                            if (move_uploaded_file($datei, CMS_ROOT . CACHE . $_FILES["files"]['name'][$key])) {
-                                $att_files[] = CMS_ROOT . CACHE . $_FILES["files"]['name'][$key];
+                if (is_array($_FILES["datei"]['name'])) {
+                    foreach ($_FILES["datei"]['tmp_name'] as $key => $datei) {
+                        if ((int)$_FILES["datei"]['error'][$key] > 0) {
+                            self::msge(self::file_upload_err_to_txt($_FILES["datei"]['error'][$key]));
+                            #  echo self::file_upload_err_to_txt($_FILES["datei"]['error'][$key]);
+                        }
+                        else {
+                            if ($datei != "") {
+                                if (move_uploaded_file($datei, CMS_ROOT . CACHE . $_FILES["datei"]['name'][$key])) {
+                                    $att_files[] = CMS_ROOT . CACHE . $_FILES["datei"]['name'][$key];
+                                    # self::msg($_FILES["datei"]['name'][$key] . ' upload erfolgreich');
+                                }
+                                else {
+                                    self::msge('File upload fehlgeschlagen');
+                                }
                             }
                         }
                     }
@@ -201,7 +222,11 @@ class contactform_class extends modules_class {
             $this->smarty_arr = array('mail' => array('subject' => pure_translation('{LBL_EMAIL_KONTAKT} ' . $FORM['nachname'], 1), 'content' => date("d.m.Y H:i:s") .
                         PHP_EOL . PHP_EOL . $email_msg));
 
-
+            # SPF Mail Server SPAM Schutz; Versand von Fremdemail durch SPF nicht möglich
+            if ($this->gbl_config['smtp_use'] == 1) {
+                $tschapura = $recipient_email;
+            }
+            
             send_easy_mail_to($recipient_email, $this->smarty_arr['mail']['content'], $this->smarty_arr['mail']['subject'], $att_files, true, $tschapura, $tschapura);
             #general mail template
             send_admin_mail(900, $this->smarty_arr, $att_files, $tschapura);

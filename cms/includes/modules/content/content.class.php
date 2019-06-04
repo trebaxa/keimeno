@@ -320,7 +320,15 @@ class content_class extends keimeno_class {
             $template['basis'] = $templ;
 
             # THEME IMAGE SET
+            $template['theme_image_width'] = 0;
+            $template['theme_image_height'] = 0;
             if (!empty($template['theme_image'])) {
+                if (is_file(CMS_ROOT . 'file_data/themeimg/' . $template['theme_image'])) {
+                    list($width, $height, $type, $attr) = getimagesize(CMS_ROOT . 'file_data/themeimg/' . $template['theme_image']);
+                    $template['theme_image_width'] = $width;
+                    $template['theme_image_height'] = $height;
+                }
+
                 $template['theme_image_url'] = self::get_domain_url() . 'file_data/themeimg/' . $template['theme_image'];
                 if ($template['t_tiwidth'] > 0 && $template['t_tiheight'] > 0) {
                     $template['theme_image'] = thumbit_fe('./file_data/themeimg/' . $template['theme_image'], $template['t_tiwidth'], $template['t_tiheight'], 'crop', $template['t_ticroppos']);
@@ -332,6 +340,9 @@ class content_class extends keimeno_class {
 
             # THEME IMAGE SET BY TOPLEVEL
             if ($template['theme_image'] == "" && $TOPLEVEL_OBJ['theme_image'] != "") {
+                list($width, $height, $type, $attr) = getimagesize(CMS_ROOT . 'file_data/themeimg/' . $TOPLEVEL_OBJ['theme_image']);
+                $template['theme_image_width'] = $width;
+                $template['theme_image_height'] = $height;
                 $template['theme_image_url'] = self::get_domain_url() . 'file_data/themeimg/' . $TOPLEVEL_OBJ['theme_image'];
                 $template['theme_image'] = SSL_PATH_SYSTEM . PATH_CMS . 'file_data/themeimg/' . $TOPLEVEL_OBJ['theme_image'];
             }
@@ -361,11 +372,14 @@ class content_class extends keimeno_class {
             $url['url'] = rtrim(self::get_http_protocol() . '://www.' . FM_DOMAIN . PATH_CMS, '/');
             $url['frecvent'] = $params['sm_changefreq'];
             $url['priority'] = $params['sm_priority'];
-            $params['urls'][] = $url;
-            $result_lang = $this->db->query("SELECT id,post_lang,language FROM " . TBL_CMS_LANG . " WHERE " . (($params['alllang'] === true) ? '' : " id=" . (int)$params['langid'] .
-                " AND ") . " approval=1 
-                ORDER BY post_lang");
-            while ($rowl = $this->db->fetch_array($result_lang)) {
+            $params['urls'][] = $url;           
+            $sql_filter = array('approval' => 1);
+            if ((int)$params['langid'] > 0) {
+                $sql_filter['id'] = (int)$params['langid'];
+            }
+            $lang_arr = dao_class::get_data(TBL_CMS_LANG, $sql_filter);
+            foreach ($lang_arr as $rowl) {
+
                 $result = $this->db->query("SELECT C.* FROM " . TBL_CMS_TEMPLATES . " T, " . TBL_CMS_TEMPCONTENT . " C 
                 WHERE C.lang_id=" . $rowl['id'] . " AND c_type='T' AND C.linkname<>'' AND C.tid=T.id AND T.xml_sitemap=1");
                 while ($row = $this->db->fetch_array_names($result)) {
@@ -373,7 +387,7 @@ class content_class extends keimeno_class {
                     $tid = ($row['t_htalinklabel'] != "") ? 0 : $row['tid'];
 
                     $url = array(
-                        'url' => self::get_http_protocol() . '://www.' . FM_DOMAIN . gen_page_link($tid, $url_label),
+                        'url' => self::get_http_protocol() . '://www.' . FM_DOMAIN . gen_page_link($tid, $url_label, $rowl['id'], $rowl['local']),
                         'frecvent' => $params['sm_changefreq'],
                         'priority' => $params['sm_priority'],
                         );

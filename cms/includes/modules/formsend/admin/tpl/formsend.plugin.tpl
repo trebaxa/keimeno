@@ -45,9 +45,15 @@
 
 
 <div class="form-group">
-    <label>Absender E-Mail:</label>
-    <input type="email" class="form-control" name="PLUGFORM[email]" value="<%$WEBSITE.node.tm_plugform.email|hsc%>"/>        
+    <label>Absender E-Mail (Mail an Besucher):</label>
+    <input type="email" class="form-control" name="PLUGFORM[email]" required="" value="<%$WEBSITE.node.tm_plugform.email|hsc%>"/>        
 </div>
+
+<div class="form-group">
+    <label>Kopie der E-Mail an:</label>
+    <input type="email" class="form-control" name="PLUGFORM[copy_email]" required="" value="<%$WEBSITE.node.tm_plugform.copy_email|hsc%>"/>        
+</div>
+
 
 <div class="form-group">
     <label>Mail-Subject:</label>

@@ -20,6 +20,7 @@
     <events>
       <event eventname="OnAutorunAdmin" method="class" classname="resource_admin_class" function="on_autorun_admin"/>
       <event eventname="beforesmartycompile" method="class" classname="resource_class" function="parse_detail_page"/>
+      <event eventname="xmlsitemap" method="class" classname="resource_class" function="gen_xmlsitemap"/>
     </events>
     <includes>
       <include type="class" classname="resource_master_class">resource.master</include>
@@ -27,6 +28,7 @@
     </includes>
     <admin_includes>
       <include type="class" classname="resource_admin_class">resource</include>
+      <include type="class" classname="resource_content_class">resource.content</include>
     </admin_includes>
     <contentplugins>
       <plugin>
@@ -35,7 +37,7 @@
         <tpl>resource.detail.plugin</tpl>
         <lists>
           <list name="resources" classname="resource_admin_class" idname="id" label="f_name" function="load_homepage_integration"/>
-        </lists>       
+        </lists>
         <save classname="resource_admin_class" function="save_homepage_integration"/>
       </plugin>
     </contentplugins>

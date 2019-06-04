@@ -43,7 +43,7 @@ function reload_dataset(showtab,gid) {
     if (parseInt(gid)==0){
         var gid = parseInt($('#js-flx-groupid').val());
     }    
-    var url ='<%$PATH_CMS%>admin/run.php?epage=flextemp.inc&gid='+gid+'&content_matrix_id=<% $WEBSITE.node.id %>&cmd=reload_dataset&flxid='+$('#js-flxchange').val()+'&showtab='+showtab;
+    var url ='<%$PATH_CMS%>admin/run.php?epage=flextemp.inc&gid='+gid+'&content_matrix_id=<% $WEBSITE.node.id %>&cmd=reload_dataset&langid=1&flxid='+$('#js-flxchange').val()+'&showtab='+showtab;
     simple_load('js-after-plugin-editor', url);    
 }
 

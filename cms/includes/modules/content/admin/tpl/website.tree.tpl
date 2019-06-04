@@ -28,7 +28,7 @@
             loadMainFrame: { 
                 label: "Mainframe",
                 action: function () {
-                   window.location.href="/admin/run.php?epage=websitemanager.inc&toplevel=1&cmd=edit&id=1";							
+                    simple_load('admincontent','<%$PATH_CMS%>admin/run.php?epage=websitemanager.inc&toplevel=1&cmd=page_axedit&id=1'); 							
                 }
             },            
             createItem: { // The "create" menu item
@@ -211,7 +211,6 @@
             var fnode = ref.get_node('#pagenode-'+moveitemID);
             var next_node_id = parseInt($(ref.get_next_dom(fnode).context).data('tid'));
             var prev_node_id = parseInt($(ref.get_prev_dom(fnode).context).data('tid'));
-            //  console.log(moveitemID+' '+newParentID+' '+oldParentID + ' ' +next_node_id +' '+prev_node_id);            
             var url = '<%$PATH_CMS%>admin/run.php?epage=websitemanager.inc&cmd=ax_sort_tree&next_node_id='+next_node_id+'&prev_node_id='+prev_node_id+'&tid='+moveitemID+'&parent='+$('#'+newParentID).data('tid');            
             execrequest(url);
         })

@@ -520,3 +520,21 @@ ul.bar_tabs > li.active {
 .sort-col .fa-sort:hover {
     cursor:move;
 }
+ .rndbtn {
+display: inline-block;
+color: #fff;
+position: relative;
+overflow: hidden;
+z-index: 1;
+width: 40px;
+height: 40px;
+line-height: 40px;
+padding: 0;
+border-radius: 50%;
+-webkit-transition: .3s;
+-o-transition: .3s;
+transition: .3s;
+cursor: pointer;
+vertical-align: middle;
+border:none;
+}

@@ -3,9 +3,9 @@
         </div><!-- /.page-header -->
 
 <div class="btn-group">
-    <a class="btn btn-default" href="javascript:void(0);" data-toggle="modal" data-target="#addpage" title="{LBL_NEW}">{LBLA_NEW_SETUP}</a>
-    <a class="btn btn-default" href="javascript:void(0);" data-toggle="modal" data-target="#dfsearchre">{LBLA_SEARCHREPLACE}</a>
-    <a class="btn btn-default" href="javascript:void(0);" data-toggle="modal" data-target="#csearch">{LBLA_SEARCH}</a>
+    <a class="btn btn-default" href="javascript:void(0);" data-toggle="modal" data-target="#addpage" title="{LBL_NEW}"><i class="fa fa-plus"></i> {LBLA_NEW_SETUP}</a>
+    <a class="btn btn-default" href="javascript:void(0);" data-toggle="modal" data-target="#dfsearchre"><i class="fa fa-refresh"></i> {LBLA_SEARCHREPLACE}</a>
+    <a class="btn btn-default" href="javascript:void(0);" data-toggle="modal" data-target="#csearch"><i class="fa fa-search"></i> {LBLA_SEARCH}</a>
 </div><!-- /.btn-group -->
 
         <%if (count($WLIST.toplevel_links)>0) %>

@@ -53,7 +53,7 @@
                             <a href="javascript:void(0);" onclick="delete_theme_image()"><i class="fa fa-trash"></i></a>
                             <a target="_timg" href="../file_data/themeimg/<% $TPLOBJ.formcontent.theme_image %>">
                             <img id="js-theme-img" class="img-thumbnail img-rounded img-fullwidth" src="../file_data/themeimg/<% $TPLOBJ.formcontent.theme_image %>"></a>
-                            <span class="help-block">&lt;% $PAGEOBJ.theme_image%&gt;</span>
+                            <span class="help-block">&lt;% $PAGEOBJ.theme_image%&gt; | <a target="_blank" href="https://cloud.google.com/vision/?hl=de">Check on Google KI</a></span>
                         </div>
                        
                         <div class="row">

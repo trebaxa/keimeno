@@ -1,7 +1,7 @@
 
 <div class="btn-group">
-        <button class="btn btn-default" type="button" onclick="reload_dataset(<%$GET.content_matrix_id%>)"><i class="fa fa-refresh"></i>&nbsp;alle anzeigen</button>
-        <button class="btn btn-default" type="button" onclick="simple_load('js-after-plugin-editor','<%$eurl%>cmd=show_addds&gid=<%$RESOURCE.flextpl.group.id%>&content_matrix_id=<% $GET.content_matrix_id %>&flxid=<%$GET.flxid%>')"><i class="fa fa-plus"></i>&nbsp;Neuer Datensatz</button>    
+        <button class="btn btn-default" type="button" onclick="reload_dataset(<%$GET.content_matrix_id%>,<%$GET.langid%>,'<%$GET.table%>')"><i class="fa fa-refresh"></i>&nbsp;alle anzeigen</button>
+        <button class="btn btn-default" type="button" onclick="simple_load('js-after-plugin-editor','<%$eurl%>cmd=show_addds&table=<%$GET.table%>&gid=<%$RESOURCE.flextpl.group.id%>&content_matrix_id=<% $GET.content_matrix_id %>&flxid=<%$GET.flxid%>&langid=<%$GET.langid%>')"><i class="fa fa-plus"></i>&nbsp;Neuer Datensatz</button>    
     </div>
 
 <div id="js-after-plugin-editor">
@@ -14,6 +14,8 @@
               <input type="hidden" value="<%$GET.flxid%>" name="flxid" />
               <input type="hidden" value="<%$RESOURCE.flextpl.group.id%>" name="gid" />
               <input type="hidden" value="<%$GET.content_matrix_id%>" name="content_matrix_id" />
+              <input type="hidden" value="<%$GET.langid%>" name="langid" />
+              <input type="hidden" value="<%$GET.table%>" name="table" />
       <div class="table-responsive">   
       <%*$RESOURCE.flextpl.dataset|echoarr*%>
           <table class="table table-striped table-hover">
@@ -52,7 +54,7 @@
                         <%/foreach%>
                        <td class="col-md-2 text-right">
                          <div class="btn-group">
-                            <button type="button" class="btn btn-default" onclick="simple_load('js-after-plugin-editor','<%$eurl%>rowid=<%$row.row.id%>&cmd=show_edit_dataset&content_matrix_id=<% $GET.content_matrix_id %>&flxid=<%$GET.flxid%>&gid=<%$RESOURCE.flextpl.group.id%>')"><i class="fa fa-pencil-square-o"></i></button>
+                            <button type="button" class="btn btn-default" onclick="simple_load('js-after-plugin-editor','<%$eurl%>rowid=<%$row.row.id%>&cmd=show_edit_dataset&content_matrix_id=<% $GET.content_matrix_id %>&flxid=<%$GET.flxid%>&table=<%$GET.table%>&langid=<%$GET.langid%>')"><i class="fa fa-pencil-square-o"></i></button>
                             <% foreach from=$row.icons item=picon %><% $picon %><%/foreach%>
                          </div>   
                         </td>       
@@ -63,6 +65,30 @@
        </div>     
        
        <%$subbtn%>
-       <button type="button" onclick="reload_dataset(<%$GET.content_matrix_id%>);" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+       <button type="button" onclick="reload_dataset(<%$GET.content_matrix_id%>,<%$GET.langid%>,'<%$GET.table%>');" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
        </form>
-       <%/if%>
+       
+      <%/if%>
+      
+        <% if ($RESOURCE.active_lang>1 && count($RESOURCE.languages)>0) %>     
+        <hr />
+           <div class="form-group">
+                <label>Sprache importieren</label>
+                <div class="input-group">
+                    <select id="js-lang-import" class="form-control" id="js-lang-resrc-change">
+                        <% foreach from=$RESOURCE.languages item=row %>
+                            <% if ($row.approval==1 && $GET.langid!=$row.id) %>
+                                <option value="<%$row.id%>"><%$row.post_lang%></option>
+                            <%/if%>
+                        <%/foreach%> 
+                    </select>
+                    <div class="input-group-btn"><button onclick="import_lang(<%$GET.content_matrix_id%>,<%$GET.langid%>,'<%$GET.table%>');" class="btn btn-primary" type="button" >GO</button></div>
+                </div>
+            </div>
+        <%/if%>
+        <script>
+            function import_lang(content_matrix_id, langid, table) {                   
+                var url ='<%$eurl%>content_matrix_id='+content_matrix_id+'&cmd=import_datasets_by_lang&flxid=<%$GET.flxid%>&langid='+langid+'&table='+table+'&importlang='+$('#js-lang-import').val();
+                simple_load('js-resrc-content', url);                        
+            }
+        </script>

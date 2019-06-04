@@ -1,5 +1,5 @@
 <% if ($type=="") %>
-<div class="x_panel mt-lg <%$class%>">
+<div class="x_panel  <%$class%>">
       <div class="x_title">
          <h2 class=""><% if ($icon!="") %><i class="fa <%$icon%>"></i> <%/if%><%$title%> <small><%$title_addon%></small></h2>
             <div class="clearfix"></div>

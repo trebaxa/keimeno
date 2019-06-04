@@ -83,14 +83,15 @@ function set_ajax_links() {
         // ajax links
        $('.ajax-link').unbind('click');
        $('.ajax-link').css('cursor','pointer');
-       $('.ajax-link').click(function(event) {
+       $('.ajax-link').click(function(event) {           
             event.preventDefault();
             var target_container = 'admincontent';
-            if ($(this).data('target')!="") {
-                target_container = $(this).data('target');                                
+            if ($(this).data('target')!=undefined) {
+                target_container = $(this).data('target');
             }
             if (target_container==undefined) target_container = 'admincontent';                 
             $('.tooltip').tooltip('destroy');
+            
             simple_load(target_container, $(this).attr('href'),true);
         });
 }
@@ -99,15 +100,14 @@ function simple_load(id,url_link,spinner) {
   if (spinner==true || (spinner != "" && spinner != null && typeof spinner !== 'undefined') && $("#" + id).length > 0) {      
      $("#"+id).html('<i class="fa fa-spinner fa-spin"></i>');
   }	 
-
+  
+    showPageLoadInfo();
     $.ajax({
       url: url_link+'&axcall=1',
       cache: true,
-      success: function(html){
+      success: function(html){      
         if (id!="") $("#" + id).html(html);
-        /*set_ajaxdel_icon();
-        init_autojson_submit();
-        */
+        hidePageLoadInfo();        
         fwstart();
       }
     });
@@ -256,15 +256,6 @@ function doRequestFromValue(svalue,svalue2,svalue3,id_target,aktion,php,to_add,g
 }
 
 
-function showPageLoadInfo() {
-        var conid = 'statusinfo';
-        $('#' + conid).css("position", "absolute");
-        $('#' + conid).css("z-index", "100000");
-        $('#' + conid).css("top", (($(window).height() - $('#' + conid).outerHeight()) / 2) + $(window).scrollTop() + "px");
-        $('#' + conid).css("left", (($(window).width() - $('#' + conid).outerWidth()) / 2) + $(window).scrollLeft() + "px");
-        $('#' + conid).css("height", 'auto');
-        $('#' + conid).fadeIn();
-}
 
 function markAllRows(FormName, container_id, setchk) {
         var checkbox;
@@ -333,9 +324,6 @@ function rollover() {
 }
 window.onload = rollover;
 
-function hidePageLoadInfo() {
-        $('#statusinfo').fadeOut();
-}
 
 function moveup(it_id) {
         var it = document.getElementById('it' + it_id);
@@ -397,37 +385,30 @@ function showRequest(formData, jqForm, options) {
 }
 
 function showResponse(responseText, statusText, xhr, $form) {
-        show_saved_msg();
+        show_msg('saved',3000);
         $("input:file").val('');
+        hidePageLoadInfo();
 }
 
 function isUndefined(what) {
         return (typeof what == 'undefined');
 }
 
-function show_saved_msg(duration) {
-        $('#savedresult').removeClass('faultboxajax').addClass('bg-success');        
-        if (duration == "" || duration == 0 || duration == null) duration = 1000;
+function show_saved_msg(duration) { 
+        if (duration == "" || duration == 0 || duration == null) duration = 3000;
         $("#statusinfo").hide();
-        $('#savedresult').css("position", "absolute");
-        $('#savedresult').css("top", (100 + $(window).scrollTop()) + 'px');
-        $('#savedresult').css("z-index", 100000);
-        $('#savedresult').css("height", 'auto');
-        $('#savedresult').css("width", 300);
-        $('#savedresult').css("left", (($(window).width() - $('#savedresult').outerWidth()) / 2) + $(window).scrollLeft() + "px");
+        $('#savedresult').css("position","fixed");
+        $('#savedresult').css("z-index","1066");
+        $('#savedresult').css("top", '50%');
+        $('#savedresult').css("left",'50%');
+        $('#savedresult').css("transform", 'translate(-50%, -50%)');
         $('#savedresult').fadeIn();
         setTimeout('$("#savedresult").fadeOut();', duration);
-        $("#feedbackmsg").hide();
+        //$("#feedbackmsg").hide();
 }
 
 function msg(msg,duration) {
-        if (duration == "" || duration == 0 || duration == null) duration = 3000;
-        $('#simplemsg').remove();
-        $('body').prepend('<div id="simplemsg" class="okbox rounded bg-success text-center">'+msg+'</div>');        
-        $('#simplemsg').css("top", (($(window).height()/2) + $(window).scrollTop()) + 'px');        
-        $('#simplemsg').css("left", (($(window).width() - $('#simplemsg').outerWidth()) / 2) + $(window).scrollLeft() + "px");
-        $('#simplemsg').fadeIn();
-        setTimeout('$("#simplemsg").fadeOut();', duration);
+    show_msg(msg,duration);        
 }
 
 function tab_visi(tabcon,id) {
@@ -512,31 +493,22 @@ function print_show_box() {
 }
 
 function add_show_box(srclink, width, height, noprinter) {
-        $('.global_black').remove();
-        $('#show_box').remove();
-        var docheight = $(document).height() + 1000;
-        $('#ah_content_table').hide();
-        $('#adminheader').css('z-index', '-2');
-        $('body').prepend('<div class="global_black"></div><div id="show_box" style="display:none"><a href="javascript:void(0);" style="align:right" title="print" onclick="print_show_box()"><img id="showboxprintericon" src="./images/icon_printer.png" /> </a><a href="#" style="float:right;"  onclick="close_show_box()"><img src="./images/close.png" id="closeicon" border="0"></a><iframe style="width:100%;border:0px;height:96%;" id="show_box_iframe"></iframe></div>');
-        $('.global_black').css('z-index', '-1');
-        $('.global_black').css('height', docheight + 'px');
-        $('#show_box').css('width', width);
-        $('#show_box').css('height', height);
+        $('#modal_frame').remove();
+        $('body').prepend('<div class="modal fade" id="modal_frame" tabindex="-1" role="dialog" aria-labelledby="modal_frameLabel" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" onclick="print_show_box()"><span aria-hidden="true"><i class="fa fa-print fa-sm"></i></span><span class="sr-only">print</span></button><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><i class="fa fa-times fa-sm"></i></span><span class="sr-only">Close</span></button><h4 class="modal-title" id="modal_frameLabel"></h4></div><div class="modal-body" id="showboxcontent"><iframe style="width:100%;border:0px;height:96%;" id="show_box_iframe"></iframe></div></div></div></div>');
+        $('#modal_frame').modal('show');
         $('#show_box_iframe').attr('src', srclink);
-        $('#show_box').css('opacity', 1);
-        $('.global_black').show();
-        $('.maincontent').hide();
-        $('#show_box').fadeIn();
-        $('.global_black').click(function() {
-                close_show_box();
-        });
-        if (noprinter == 1) $('#showboxprintericon').hide();
+        $('#showboxcontent').css('min-height',height+'px');
+        $('#showboxcontent').css('min-width',width+'px');
+        $('#show_box_iframe').css('min-width',(width-30)+'px');
+        $('#show_box_iframe').css('min-height',height+'px');
+        $('#showboxcontent').css('overflow-y','auto');
+        if (noprinter == 1) $('#showboxprintericon').hide();        
         return false;
 }
 
 function add_show_box_tpl(srclink, title) {
         $('#modal_frame').remove();
-        $('body').prepend('<div class="modal fade" id="modal_frame" tabindex="-1" role="dialog" aria-labelledby="modal_frameLabel" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><h4 class="modal-title" id="modal_frameLabel">'+title+'</h4></div><div class="modal-body" id="showboxcontent"></div></div></div></div>');
+        $('body').prepend('<div style="position:absolute;overflow:auto!important;" class="modal fade" id="modal_frame" tabindex="-1" role="dialog" aria-labelledby="modal_frameLabel" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><h4 class="modal-title" id="modal_frameLabel">'+title+'</h4></div><div class="modal-body" id="showboxcontent"></div></div></div></div>');
         $('#modal_frame').modal('show');
         simple_load("showboxcontent", srclink);
         return false;
@@ -598,7 +570,7 @@ function set_script_editor() {
                 editor.getSession().setValue(textarea.val());
                 
                 var heightUpdateFunction = function() {
-                        var lineheight = (editor.renderer.lineHeight == 1) ? 14 : editor.renderer.lineHeight;
+                        var lineheight = (editor.renderer.lineHeight == 1) ? 14 : editor.renderer.lineHeight+3;
                         var newHeight =
                         editor.getSession().getScreenLength() * lineheight + editor.renderer.scrollBar.getWidth();
                         newHeight = (newHeight < 100) ? 300 : newHeight;
@@ -659,18 +631,26 @@ function remove_all_tinymce() {
 function before_json_submit(formData, jqForm, options) {
         toggle_off();
         showPageLoadInfo();
+        jqForm.find(':submit').each(function() {
+            $(this).prop('disabled',true);        
+            $(this).html($(this).html()+ '<span class="show-spinner"><i class="fa fa-spinner fa-spin fa-1x fa-fw"></i></span>');
+        });
         var queryString = $.param(formData);
         return true;
 }
 
 function show_msge(msg,duration) {
-    $('#savedresult').removeClass('bg-success').addClass('faultboxajax');
+    $('#savedresult').remove();
+    $('body').prepend('<div id="savedresult" class="alert"></div>');
+    $('#savedresult').removeClass('alert-success').addClass('alert-danger');
     $('#savedresult').html(msg);                
     show_saved_msg(duration); 
 }
 
 function show_msg(msg,duration) {
-    $('#savedresult').removeClass('faultboxajax').addClass('bg-success');
+    $('#savedresult').remove();
+    $('body').prepend('<div id="savedresult" class="alert"></div>');
+    $('#savedresult').removeClass('alert-danger').addClass('alert-success');
     $('#savedresult').html(msg);                
     show_saved_msg(duration); 
 }
@@ -680,31 +660,88 @@ function show_json_answer(responseText, statusText, xhr, $form) {
         if (obj.msge != "") {
                 show_msge(obj.msge,3000);                
         } else {
-                show_msg(obj.msg,3000);                
+                show_msg(obj.msg,3000); 
                 if (obj.jsfunction != "") {
                         eval(obj.jsfunction + '(' + obj.jsparams + ')');
                 }
                 $('input[type=file]').val('');
         }
+        hidePageLoadInfo();
+        $form.find(':submit').prop('disabled',false);
+        $('.show-spinner').remove();
+}
+
+
+function showPageLoadInfo() {
+    // NProgress from gentelella theme
+    if (typeof NProgress != 'undefined') {
+        NProgress.start();        
+    }
+}
+
+function hidePageLoadInfo() {
+    // NProgress from gentelella theme
+    if (typeof NProgress != 'undefined') {
+         NProgress.done();        
+    } 
 }
 
 function init_autojson_submit() {
-        $('.jsonform').unbind('submit');
-        var options = {
-                type: 'POST',
-                forceSync: true,
-                beforeSubmit: before_json_submit,
-                success: show_json_answer
-        };
+        $('.jsonform').unbind('submit');        
         $('.jsonform').submit(function() {
-                $(this).ajaxSubmit(options);
-                return false;
+            var options = {
+                    type: 'POST',
+                    forceSync: true,
+                    beforeSubmit: before_json_submit,
+                    success: show_json_answer,
+            };
+            $(this).ajaxSubmit(options);
+            return false;
+        });
+}
+
+var ajaxform_success = function ax_form_response(responseText, statusText, xhr, $form) {
+    hidePageLoadInfo();
+    fwstart();    
+}
+
+function init_auto_axjaxform_submit() {    
+        $('.ajaxform').unbind('submit');
+        $('.ajaxform').submit(function() {
+            var axform_options = {
+                    type: 'POST',
+                    forceSync: true,
+                    target:'#'+$(this).data('target'),
+                    showspinner:$(this).data('showspinner'),
+                    beforeSubmit: before_json_submit,
+                    success: ajaxform_success
+            };            
+                        
+            $(this).ajaxSubmit(axform_options);
+            if ($(this).parent().hasClass('modal-content')) {
+               var modalid = $(this).parent().parent().parent().attr('id');
+                $('#'+modalid).modal('hide');
+            }            
+            return false;
+        });     
+}
+
+function set_json_links() {   
+       $('.json-link').unbind('click');
+       $('.json-link').css('cursor','pointer');
+       $('.json-link').click(function(event) {
+            event.preventDefault();
+            if ($(this).data('spinner')=='1') {
+                $('body').prepend('<div id="js-spinner" style="color:#FC5658;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);-webkit-transform:translate(-50%,-50%);-moz-transform:translate(-50%,-50%);-ms-transform:translate(-50%,-50%);-o-transform:translate(-50%,-50%)"><i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw" aria-hidden="true"></i></div>');
+            }
+            jsonexec($(this).attr('href'), true);
         });
 }
 
 function jsonexec(url, showok) {
         if (showok!=false) showok=true;
         $.getJSON(url, function(data) {
+                $('#js-spinner').remove();
                 if (data.msge != "") {
                         show_msge(data.msge,3000);                        
                         
@@ -712,7 +749,8 @@ function jsonexec(url, showok) {
                         if (showok == true) {
                                 show_msg(data.msg,3000);                                
                                 if (data.jsfunction != "") {
-                                        eval(data.jsfunction + '()');
+                                        /*eval(data.jsfunction + '()');*/
+                                        eval(data.jsfunction + '(' + data.jsparams + ')');
                                         set_ajaxdel_icon();
                                         init_autojson_submit();
                                 }
@@ -810,10 +848,14 @@ var chartError = function(req, status, err) {
 function labelFormatter(label, series) {
 		return "<div class='flot-pie-label'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
 }    
-    
-function load_flot_pie(url, id, width, height, show_legend, show_labels) {
- $("#"+id).css('width',width);
- $("#"+id).css('height',height);
+
+   
+function load_flot_pie(url, id, width, height, show_legend, show_labels,innerRadius) {
+  $("#"+id).css('width',width);
+  $("#"+id).css('height',height);
+  if (innerRadius==undefined && innerRadius=="") {
+        innerRadius=0;
+  }
   $.ajax({
         type:'GET',
         dataType:"json",
@@ -825,6 +867,7 @@ function load_flot_pie(url, id, width, height, show_legend, show_labels) {
                 series: {
                     pie: {
                         show: true,
+                        innerRadius: innerRadius,
                         radius: 1,
                         label: {
                             show: show_labels,
@@ -979,32 +1022,54 @@ function set_stdform() {
     });
 }
 
-function cancelbnt() {
-    $('.cancelbtn').unbind('click');
-    $('.cancelbtn').click(function(e) {
-            e.preventDefault();
-            show_black_bg();
-            window.location.href='/admin/welcome.html';
-    }); 
-    $(".cancelbtn").closest('form').bind("keypress", function(e) {              
-              if (e.keyCode == 13) {                
-                 e.preventDefault();
-                 $(".cancelbtn").closest('form').find( ':submit').click();
-                 return false;
-              }
-    });     
+function init_editclick() {
+    $('.js-clickedit').css('cursor','pointer');
+    $('.js-clickedit').css('text-decoration','none');
+    $('.js-clickedit').css('border-bottom','dashed 1px #0088cc');
+    $('.js-clickedit').unbind('click');
+    $('.js-clickedit').click(function(event) {
+        event.preventDefault();
+        $('#editinputfield').remove();
+        $('.js-clickedit').show();
+        if ($(this).html().length>31) {
+            $(this).after('<textarea data-id="'+$(this).data('id')+'" class="form-control" id="editinputfield" name="'+$(this).data('formname')+'">'+$(this).html()+'</textarea>');
+        } else {
+            $(this).after('<input data-id="'+$(this).data('id')+'" class="form-control" autocomplete="off" id="editinputfield" type="text" value="'+$(this).html()+'" name="'+$(this).data('formname')+'">');
+        }    
+        $(this).hide();
+        $('#editinputfield').focus();
+        $('#editinputfield').select();
+        var spanfield =$(this);
+        $('#editinputfield').blur(function() {        
+            spanfield.after('<i class="fa fa-spinner fa-spin js-bullet-spin"></i>');
+            spanfield.html(escapeHtml($(this).val()));
+            var url = spanfield.data('url')+ '&ident='+$(this).data('id')+'&'+$(this).attr('name')+'='+$(this).val();
+            execrequest(url);
+            $('#editinputfield').remove();
+            $('.js-bullet-spin').remove();
+            
+            $('.js-clickedit').show();
+            window.setTimeout("$('#editfieldloader').remove()",500);
+        });
+        $('#editinputfield').keypress(function(e) {
+            if(e.which == 13) {
+                $( "#editinputfield" ).trigger( "blur" );
+            }
+        });    
+    });
 }
 
 function fwstart() {
     init_autojson_submit();
     init_live_search();
     set_ajaxdel_icon();
+    init_auto_axjaxform_submit();
     set_vertical_menu();
     set_script_editor();
     set_stdform();
-    cancelbnt();
     set_ajax_links();
     set_ajaxapprove_icons();
+    set_json_links();
     $('.autosubmit').unbind('change');
     $('.autosubmit').change(function() {
           var btn = $(this).closest('form').find('.btn-primary:first');
@@ -1020,8 +1085,7 @@ function fwstart() {
             e.preventDefault(); 
             $(this).closest('.tc-tabs-box').children().find('li').removeClass('active');           
             $(this).parent().addClass('active');          
-            //$(this).closest('.tc-tabs-box').parent().parent().find('.tabs:first').find('.tabvisi').hide();  
-            $(this).closest('.tc-tabs-box').next('.tabs:first').find('.tabvisi').hide();
+            $(this).closest('.tc-tabs-box').next('.tabs:first').children('.tabvisi').hide();            
             if ( $($(this).data('ident')).is(':hidden')) {                                
                 $($(this).data('ident')).fadeIn('fast');
                 
@@ -1031,22 +1095,42 @@ function fwstart() {
             }    
     });   
     set_mark_all_checkboxes();  
+    init_editclick();
 }
+
+var recalc_content_height = function () {
+    // reset height
+    $('.right_col').css('min-height', $(window).height());
+
+    var bodyHeight = $('body').outerHeight(),
+        footerHeight = $('body').hasClass('footer_fixed') ? -10 : $('footer').height(),
+        leftColHeight = $('.left_col').eq(1).height() + $('.sidebar-footer').height(),
+        contentHeight = bodyHeight < leftColHeight ? leftColHeight : bodyHeight;
+
+    // normalize content
+    contentHeight -= $('.nav_menu').height() + footerHeight;
+
+    $('.right_col').css('min-height', contentHeight);
+};
 
 function std_load_gbltpl(tid,langid,reload) {
     load_orga_tree(reload);
     if (langid=="") langid=1;    
     $('#websearchresult').fadeOut();
-    tab_visi_by_ident('webtreetabs','orgatab');    
-    simple_load('admincontent','/admin/run.php?epage=gbltemplates.inc&id='+tid+'&uselang='+langid+'&cmd=load_gbltpl_ax');
+    $('#sidebar-menu li').removeClass('active');
+    $('#sidebar-menu ul.child_menu').hide();
+    $('#js-open-orga-tree').parent().addClass('active');
+    $('#js-open-orga-tree').parent().find('ul:first').slideDown(function() {
+                recalc_content_height();
+    });    
+    simple_load('admincontent','run.php?epage=gbltemplates.inc&id='+tid+'&uselang='+langid+'&cmd=load_gbltpl_ax');
     
     var ref = $('#gbltpltreeul').jstree(true),sel = ref.get_selected();
     sel = sel[0];
     if (sel!='gbltreenode-'+tid){
         $("#gbltpltreeul").jstree("close_all");
         $('#gbltpltreeul').jstree('select_node', 'gbltreenode-'+tid);
-    }
-    hide_black_bg();     
+    }      
 }
 
 function expand_node_webtree(nodeID,tree) {
@@ -1060,29 +1144,60 @@ function expand_node_webtree(nodeID,tree) {
 }
 }
 
+function page_allowed(data, epage) {
+    var found=false;
+    $.each( data.allowed_php, function( key, val ) {
+        if (epage==val) {
+            found=true;
+        }    
+    });
+    return found;
+}
 
 
 function load_orga_tree(reload) {
-    var doreload=0;
-    if (reload!=undefined && reload!="") {
-        doreload=1;
-    }
-    if ($('#orga-gbltpl').html()=="" || doreload==1) {    
-        simple_load('orga-gbltpl','/admin/run.php?epage=websitemanager.inc&cmd=load_gbltpl_tree');
-        simple_load('orga-toplevel','/admin/run.php?epage=tplmgr.inc&cmd=load_toplevel_tree');        
-        simple_load('orga-inlays','/admin/run.php?epage=inlayadmin.inc&cmd=load_inlay_tree');
-        reload_usertpl_tree();
-        reload_flextpl_tree();
-        reload_gblvar_tree(0);
-    }
+   $.getJSON( "run.php?epage=&cmd=get_rules", function( data ) {
+        var doreload=0;
+        if (reload!=undefined && reload!="") {
+            doreload=1;
+        }
+        if ($('#orga-gbltpl').html()=="" || doreload==1) {
+            if (page_allowed(data,'websitemanager.inc')) {
+                simple_load('orga-gbltpl','run.php?epage=websitemanager.inc&cmd=load_gbltpl_tree');            
+            }        
+            if (page_allowed(data,'tplmgr.inc')) {
+                simple_load('orga-toplevel','run.php?epage=tplmgr.inc&cmd=load_toplevel_tree');
+            }   
+            if (page_allowed(data,'inlayadmin.inc')) {     
+                simple_load('orga-inlays','run.php?epage=inlayadmin.inc&cmd=load_inlay_tree');
+            }
+            if (page_allowed(data,'tplvars.inc')) {
+                reload_usertpl_tree();
+            }
+            if (page_allowed(data,'flextemp.inc')) {
+                reload_flextpl_tree();
+            }
+            if (page_allowed(data,'gblvars.inc')) { 
+                reload_gblvar_tree(0);
+            }
+        
+            if (page_allowed(data,'resource.inc')) {
+                reload_resource_tree();
+            }
+        }
+    });
 }
 
 function reload_flextpl_tree() {
-    simple_load('orga-flextemplates','/admin/run.php?epage=flextemp.inc&cmd=load_tpl_tree');
+    simple_load('orga-flextemplates','run.php?epage=flextemp.inc&cmd=load_tpl_tree');
+}
+
+function reload_resource_tree() {    
+    simple_load('orga-resource','run.php?epage=resource.inc&cmd=load_tpl_tree');
 }
 
 function reload_usertpl_tree() {
-    simple_load('orga-usertemplates','/admin/run.php?epage=tplvars.inc&cmd=load_tpl_tree');
+    simple_load('orga-usertemplates','run.php?epage=tplvars.inc&cmd=load_tpl_tree');
 }
 
 function reload_gblvar_tree(opentree) {
@@ -1090,7 +1205,7 @@ var doopentree=0;
     if (opentree!=undefined && opentree!="") {
         doopentree=1;
     }    
-    simple_load('orga-gblvars','/admin/run.php?epage=gblvars.inc&cmd=load_var_tree&doopentree='+doopentree);    
+    simple_load('orga-gblvars','run.php?epage=gblvars.inc&cmd=load_var_tree&doopentree='+doopentree);    
 }
 
 function escapeHtml(raw) {
@@ -1108,17 +1223,6 @@ function scroll_content_table(prop){
 
 
 $(document).ready(function() {
-
-        var textareasave_options = {
-                type: 'POST',
-                forceSync: true,
-                success: show_saved_msg // post-submit callback 
-        };
-
-        $('.textareasave').submit(function() {
-                $(this).ajaxSubmit(textareasave_options);
-                return false;
-        });
         fwstart();
         tab_visi(1);
         // Image Preview Hover
@@ -1165,6 +1269,10 @@ $(document).ready(function() {
         $('#websearchresult').mouseleave(function() {
             $(this).fadeOut('fast');
         }); 
+        
+        $('#js-open-orga-tree').click(function(event) {
+            load_orga_tree();
+        });
 
     
 });
@@ -1180,150 +1288,7 @@ $(document).ready(function() {
                 e.stopImmediatePropagation();
             }
         }); 
-        
-/*
- * ContextMenu - jQuery plugin for right-click context menus
- *
- * Author: Chris Domigan
- * Contributors: Dan G. Switzer, II
- * Parts of this plugin are inspired by Joern Zaefferer's Tooltip plugin
- *
- * Dual licensed under the MIT and GPL licenses:
- *   http://www.opensource.org/licenses/mit-license.php
- *   http://www.gnu.org/licenses/gpl.html
- *
- * Version: r2
- * Date: 16 July 2007
- *
- * For documentation visit http://www.trendskitchens.co.nz/jquery/contextmenu/
- *
- */
-(function($) {
-        var menu, shadow, trigger, content, hash, currentTarget;
-        var defaults = {
-                menuStyle: {
-                        listStyle: 'none',
-                        padding: '1px',
-                        margin: '0px',
-                        backgroundColor: '#fff',
-                        border: '1px solid #999',
-                        width: '100px'
-                },
-                itemStyle: {
-                        margin: '0px',
-                        color: '#000',
-                        display: 'block',
-                        cursor: 'default',
-                        padding: '3px',
-                        border: '1px solid #fff',
-                        backgroundColor: 'transparent'
-                },
-                itemHoverStyle: {
-                        border: '1px solid #0a246a',
-                        backgroundColor: '#b6bdd2'
-                },
-                eventPosX: 'pageX',
-                eventPosY: 'pageY',
-                shadow: true,
-                onContextMenu: null,
-                onShowMenu: null
-        };
-        $.fn.contextMenu = function(id, options) {
-                if (!menu) { // Create singleton menu
-                        menu = $('<div id="jqContextMenu"></div>').hide().css({
-                                position: 'absolute',
-                                zIndex: '500'
-                        }).appendTo('body').bind('click', function(e) {
-                                e.stopPropagation();
-                        });
-                }
-                if (!shadow) {
-                        shadow = $('<div></div>').css({
-                                backgroundColor: '#000',
-                                position: 'absolute',
-                                opacity: 0.2,
-                                zIndex: 499
-                        }).appendTo('body').hide();
-                }
-                hash = hash || [];
-                hash.push({
-                        id: id,
-                        menuStyle: $.extend({}, defaults.menuStyle, options.menuStyle || {}),
-                        itemStyle: $.extend({}, defaults.itemStyle, options.itemStyle || {}),
-                        itemHoverStyle: $.extend({}, defaults.itemHoverStyle, options.itemHoverStyle || {}),
-                        bindings: options.bindings || {},
-                        shadow: options.shadow || options.shadow === false ? options.shadow : defaults.shadow,
-                        onContextMenu: options.onContextMenu || defaults.onContextMenu,
-                        onShowMenu: options.onShowMenu || defaults.onShowMenu,
-                        eventPosX: options.eventPosX || defaults.eventPosX,
-                        eventPosY: options.eventPosY || defaults.eventPosY
-                });
-                var index = hash.length - 1;
-                $(this).bind('contextmenu', function(e) {
-                        // Check if onContextMenu() defined
-                        var bShowContext = ( !! hash[index].onContextMenu) ? hash[index].onContextMenu(e) : true;
-                        if (bShowContext) display(index, this, e, options);
-                        return false;
-                });
-                return this;
-        };
-
-        function display(index, trigger, e, options) {
-                var cur = hash[index];
-                content = $('#' + cur.id).find('ul:first').clone(true);
-                content.css(cur.menuStyle).find('li').css(cur.itemStyle).hover(
-
-                function() {
-                        $(this).css(cur.itemHoverStyle);
-                }, function() {
-                        $(this).css(cur.itemStyle);
-                }).find('img').css({
-                        verticalAlign: 'middle',
-                        paddingRight: '2px'
-                });
-                // Send the content to the menu
-                menu.html(content);
-                // if there's an onShowMenu, run it now -- must run after content has been added
-                // if you try to alter the content variable before the menu.html(), IE6 has issues
-                // updating the content
-                if ( !! cur.onShowMenu) menu = cur.onShowMenu(e, menu);
-                $.each(cur.bindings, function(id, func) {
-                        $('#' + id, menu).bind('click', function(e) {
-                                hide();
-                                func(trigger, currentTarget);
-                        });
-                });
-                menu.css({
-                        'left': e[cur.eventPosX],
-                        'top': e[cur.eventPosY]
-                }).show();
-                if (cur.shadow) shadow.css({
-                        width: menu.width(),
-                        height: menu.height(),
-                        left: e.pageX + 2,
-                        top: e.pageY + 2
-                }).show();
-                $(document).one('click', hide);
-        }
-
-        function hide() {
-                menu.hide();
-                shadow.hide();
-        }
-        // Apply defaults
-        $.contextMenu = {
-                defaults: function(userDefaults) {
-                        $.each(userDefaults, function(i, val) {
-                                if (typeof val == 'object' && defaults[i]) {
-                                        $.extend(defaults[i], val);
-                                } else defaults[i] = val;
-                        });
-                }
-        };
-})(jQuery);
-$(function() {
-        $('div.contextMenu').hide();
-});
+  
 jQuery.fn.reset = function() {
         $(this).each(function() {
                 this.reset();
@@ -1338,11 +1303,13 @@ $(document).ready(function () {
     
     
     $('#js-fixed-sidebar').css('width',$('#js-fixed-sidebar').parent().width()-10+'px');
-    $("#js-sidebar-scroller").mCustomScrollbar({
-    	setHeight:$(window).height()-100,
-        setWidth: $('#js-fixed-sidebar').width(),        
-    	theme:"minimal-dark"
-    });
+    if ($("#js-sidebar-scroller").length>0){
+        $("#js-sidebar-scroller").mCustomScrollbar({
+        	setHeight:$(window).height()-100,
+            setWidth: $('#js-fixed-sidebar').width(),        
+        	theme:"minimal-dark"
+        });
+    }
   
     $( window ).resize(function() {
         $('#js-fixed-sidebar').css('width',$('#js-fixed-sidebar').parent().width()-10+'px');       

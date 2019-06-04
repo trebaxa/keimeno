@@ -148,7 +148,7 @@ class log_class {
         $this->LOG['log_time'] = time();
         $this->LOG['log_msg'] = $msg;
         $this->LOG['log_browser'] = $_SERVER['HTTP_USER_AGENT'];
-        if (!defined(ISADMIN) && $hackattack === false) {
+        if (!defined('ISADMIN') && $hackattack === false) {
             $this->LOG['log_ip'] = (($this->gbl_config['log_use_ip'] == 1) ? $this->getIpAddress() : keimeno_class::anonymizing_ip($this->getIpAddress()));
         }
         else

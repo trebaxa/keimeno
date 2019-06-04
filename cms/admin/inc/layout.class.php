@@ -485,7 +485,12 @@ class layout_class extends keimeno_class {
         $resrc_arr = $RESRC->load_flx_tpls();
         $arr = array_merge($flex_arr, $resrc_arr);
         foreach ($arr as $row) {
-            $column_types = $this->get_all_columns_of_table($row['f_table']);
+            $ftable = $row['f_table'];
+            if (strstr($ftable, 'resrc_')) {
+                $ftable = TBL_CMS_PREFIX . $ftable;
+            }
+
+            $column_types = $this->get_all_columns_of_table($ftable);
             $fields = "";
             foreach ($column_types as $column_name => $column_TYPE) {
                 if ($fields != "")
@@ -515,14 +520,18 @@ class layout_class extends keimeno_class {
             }
             if ($pri != "")
                 $fields .= ', PRIMARY KEY (' . $pri . ')';
-            $filecontent .= "CREATE TABLE IF NOT EXISTS " . $row['f_table'] . " (" . $fields . ") ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci" . PHP_EOL;
+            $filecontent .= "CREATE TABLE IF NOT EXISTS " . $ftable . " (" . $fields . ") ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci" . PHP_EOL;
             $pri = "";
         }
         foreach ($arr as $table_row) {
-            $filecontent .= "DELETE FROM " . $table . $this->line_break;
-            $result = $this->db->query("SELECT * FROM " . $table_row['f_table'] . " WHERE 1");
+            $ftable = $table_row['f_table'];
+            if (strstr($ftable, 'resrc_')) {
+                $ftable = TBL_CMS_PREFIX . $ftable;
+            }
+            $filecontent .= "DELETE FROM " . $ftable . $this->line_break;
+            $result = $this->db->query("SELECT * FROM " . $ftable . " WHERE 1");
             while ($row = $this->db->fetch_array_names($result)) {
-                $filecontent .= $this->make_insert_table($table_row['f_table'], $row) . $this->line_break;
+                $filecontent .= $this->make_insert_table($ftable, $row) . $this->line_break;
             }
         }
 

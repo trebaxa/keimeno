@@ -4,7 +4,7 @@
     <settings>
       <module_name>Facebook Pages</module_name>
       <id>fbwp</id>
-      <active>true</active>
+      <active>false</active>
       <version>1.9</version>
       <php>fbwp.inc</php>
       <hasperm>false</hasperm>

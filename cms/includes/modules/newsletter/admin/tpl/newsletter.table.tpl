@@ -14,6 +14,7 @@
         <td><%$row.e_date%> um <% $row.e_time %></td>
         <td class="text-right">
             <div class="btn-group">
+                <a class="btn btn-default" href="<%$eurl%>cmd=preview&id=<%$row.id%>" title="Versenden"><i class="fa fa-envelope"></i></a>
                 <% foreach from=$row.icons item=icon %><%$icon%><%/foreach%>
                 <a class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&id=<% $row.id %>&cmd=a_tracking" title="Tracking anzeigen"><i class="fa fa-bar-chart-o"><!----></i></a>  	     
                 <a class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=clone&id=<% $row.id %>" title="Klonen"><i class="fa fa-files-o"><!----></i></a>

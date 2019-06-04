@@ -605,9 +605,11 @@ function send_mail_to($email_array, $att_files = array(), $textonly = TRUE, $fro
             $mail->AltBody = strip_tags($email_array['content']);
         }
         //Attach an image file
-        if ($att_files != "" && count($att_files) > 0) {
+        if (is_array($att_files) && count($att_files) > 0) {
             foreach ($att_files as $key => $afile)
-                $mail->addAttachment($afile);
+                if (is_file($afile)) {
+                    $mail->addAttachment($afile);
+                }
         }
 
         //send the message, check for errors
@@ -630,7 +632,7 @@ function send_mail_to($email_array, $att_files = array(), $textonly = TRUE, $fro
         }
     }
     catch (Exception $e) {
-       # echo 'Exception abgefangen: ', $e->getMessage(), "\n";
+        # echo 'Exception abgefangen: ', $e->getMessage(), "\n";
     }
     keimeno_class::allocate_memory($mail);
     return $status;
@@ -743,6 +745,7 @@ function build_html_selectbox($select_name, $table, $id, $column, $where = '', $
  */
 function update_table($table, $id_name, $id_value, $FORM, $admin = 0) {
     global $kdb;
+    $sqlquery = "";
     if (is_array($FORM)) {
         $objekt = $kdb->query_first("SELECT * FROM $table WHERE $id_name='$id_value'");
         foreach ($FORM as $key => $wert) {
@@ -873,14 +876,15 @@ function thumbit_fe($src, $width, $height, $th_type = 'resize', $crop_pos = "cen
 
 /**
  * gen_thumb_image()
- * Generates thumbail with "no image" image
+ * 
  * @param mixed $src
  * @param mixed $width
  * @param mixed $height
  * @param string $th_type
+ * @param string $crop_pos
  * @return
  */
-function gen_thumb_image($src, $width, $height, $th_type = 'resize') {
+function gen_thumb_image($src, $width, $height, $th_type = 'resize', $crop_pos = "center") {
     if ($src == "")
         $src = "./images/opt_no_pic.jpg";
     if (substr($src, 0, 1) != '.' && substr($src, 1, 1) != '/')
@@ -892,7 +896,7 @@ function gen_thumb_image($src, $width, $height, $th_type = 'resize') {
     $src = str_replace('.//', './', $src);
     if (!file_exists(format_root_to_path(CMS_ROOT . $src)) || is_dir(format_root_to_path(CMS_ROOT . $src)))
         $src = "./pro_bilder/no_pic.jpg";
-    return thumbit_fe($src, $width, $height, $th_type);
+    return thumbit_fe($src, $width, $height, $th_type, $crop_pos);
 }
 
 /**

@@ -3,7 +3,7 @@
 <div class="tc-tabs-box" id="tplvartabs">
     <ul class="nav nav-tabs" role="tablist">
         <li class="active"><a data-ident="#tab-flexvar" class="tc-link" href="javascript:void(0);" onclick="reload_flexvars_vars();">Inhalt Felder</a></li>
-        <li><a data-ident="#tab-dataset" class="tc-link" href="javascript:void(0);" onclick="reload_dataset_vars();">Datensatz Felder</a></li>
+        <li><a data-ident="#tab-dataset" class="tc-link" href="javascript:void(0);" onclick="reload_dataset_vars('<%$RESOURCE.flextpl.f_table%>');">Datenbanken</a></li>
         <li><a data-ident="#tab-htmltpl" class="tc-link" onclick="reload_htmltpl();" href="javascript:void(0);">HTML Vorlage</a></li>
     </ul>
 </div>

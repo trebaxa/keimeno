@@ -7,7 +7,7 @@
             <thead>
                 <tr>
                     <th>Bezeichnung</th>
-                    <th>Datensätze</th>
+                    <th>Sitemap</th>
                     <th></th>
                 </tr>
             </thead>
@@ -20,7 +20,13 @@
                         <input class="form-control" type="text" required="" name="FORM[<%$row.id%>][f_name]" value="<%$row.f_name|sthsc%>" />
                     </div>
                     </td>
-                    <td><span class="badge"><% $row.row_count%></span></td>
+                    <td>
+                        <div class="checkbox">
+                            <label>
+                                <input <% if ($row.f_sitemap==1) %>checked<%/if%> type="checkbox" name="FORM[<%$row.id%>][f_sitemap]" value="1" />                                
+                            </label>
+                        </div>
+                    </td>
                     <td class="text-right">
                      <div class="btn-group">
                         <% foreach from=$row.icons item=picon %><% $picon %><%/foreach%>

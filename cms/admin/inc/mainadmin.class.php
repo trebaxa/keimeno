@@ -30,6 +30,8 @@ class mainadmin_class extends keimeno_class {
     function parse_to_smarty() {
         $this->ADMIN['rules'] = $_SESSION['RULE'];
         $this->ADMIN['rules_json'] = json_encode($_SESSION['RULE']);
+        $this->ADMIN['phpversion'] = phpversion();
+        $this->ADMIN['max_file_upload_size'] = self::human_filesize(self::get_maximum_file_uploadsize());        
         $this->smarty->assign('ADMIN', $this->ADMIN);
     }
 
@@ -103,7 +105,6 @@ class mainadmin_class extends keimeno_class {
                 exit;
             }
         }
-
     }
 
     /**
@@ -112,31 +113,12 @@ class mainadmin_class extends keimeno_class {
      * @return
      */
     function set_admin_defaults() {
-        $this->session_protect();
         $this->check_ssl();
         $this->check_setlogin();
         $this->check_redirect();
         $this->set_post_get_cmd();
         $this->set_smarty_defaults();
     }
-
-    /**
-     * mainadmin_class::session_protect()
-     *     
-     */
-    public static function session_protect() {
-        $fingerprint = md5($_SERVER['HTTP_USER_AGENT'] . self::get_config_value('cms_hash_password') . $_SERVER['REMOTE_ADDR']);
-        if (isset($_SESSION['SESSION_PROTECTTION']) && $_SESSION['SESSION_PROTECTTION'] != $fingerprint && session_class::is_crawler() === false) {
-            session_regenerate_id(true);
-            @session_start();
-            header('X-Session-Reinit: true');
-            $_SESSION['SESSION_PROTECTTION'] = $fingerprint;
-        }
-        else {
-            $_SESSION['SESSION_PROTECTTION'] = $fingerprint;
-        }
-    }
-
 
     /**
      * mainadmin_class::set_post_get_cmd()
@@ -161,6 +143,7 @@ class mainadmin_class extends keimeno_class {
      * @return
      */
     function set_smarty_defaults() {
+        $this->smarty->assign('randid', sha1(rand(0, 100000) . time()));
         $this->smarty->addTemplateDir(CMS_ROOT . 'admin/tpl');
         define('SMARTY_TEMPDIR', CMS_ROOT . 'smarty/templates/');
     }
@@ -555,7 +538,7 @@ class mainadmin_class extends keimeno_class {
         $this->smarty->assign('app_menu', $NARR->menu_array[0]['children']);
         $this->smarty->assign('adminmenu_col_class', $col_class);
         unset($NARR->menu_array[0]);
-        $this->smarty->assign('adminmenu', (array)$NARR->menu_array);
+        $this->smarty->assign('adminmenu', (array )$NARR->menu_array);
         $this->smarty->assign('system_menu', $system_menu);
         $this->smarty->assign('allowed_menu_items', $_SESSION['mids']);
         keimeno_class::allocate_memory($NARR);

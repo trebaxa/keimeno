@@ -5,7 +5,7 @@
  * PHP Version 7
  *
  * @see       https://github.com/Trebaxa/hlock
- * @version   1.2  
+ * @version   1.3  
  * @author    Harald Petrich <service@trebaxa.com>
  * @copyright 2018 - 2019 Harald Petrich
  * @license   GNU LESSER GENERAL PUBLIC LICENSE Version 2.1, February 1999
@@ -106,6 +106,15 @@ class hlock {
     }
 
     /**
+     * hlock::get_the_ip()
+     * 
+     * @return
+     */
+    public static function get_the_ip() {
+        return isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
+    }
+
+    /**
      * hlock::_p()
      * 
      * @param mixed $arr
@@ -137,18 +146,27 @@ class hlock {
     }
 
     /**
-     * hlock::run()
+     * hlock::set_root()
      * 
+     * @param mixed $path
      * @return void
      */
-    public static function run($path = "") {
+    protected static function set_root($path) {
         if (empty($path)) {
             static::$hlock_root = $_SERVER['DOCUMENT_ROOT'] . (substr($_SERVER['DOCUMENT_ROOT'], -1) == DIRECTORY_SEPARATOR ? '' : DIRECTORY_SEPARATOR) . SUB_PATH_OF_SYSTEM;
         }
         else {
             static::$hlock_root = $path . (substr($path, -1) == DIRECTORY_SEPARATOR ? '' : DIRECTORY_SEPARATOR);
         }
+    }
 
+    /**
+     * hlock::run()
+     * 
+     * @return void
+     */
+    public static function run($path = "") {
+        self::set_root($path);
         self::auto_detect_system();
 
         if ($handle = opendir(static::$config['hpath'])) {
@@ -159,7 +177,7 @@ class hlock {
             }
         }
 
-        $fname = (strstr($_SERVER['HTTP_USER_AGENT'], 'bot')) ? $_SERVER['HTTP_USER_AGENT'] : $_SERVER['HTTP_USER_AGENT'] . $_SERVER['REMOTE_ADDR'];
+        $fname = (strstr($_SERVER['HTTP_USER_AGENT'], 'bot')) ? $_SERVER['HTTP_USER_AGENT'] : $_SERVER['HTTP_USER_AGENT'] . self::get_the_ip();
         $hfile = static::$config['hpath'] . md5($fname);
         $hcount = 0;
         if (is_file($hfile)) {
@@ -170,7 +188,7 @@ class hlock {
         file_put_contents($hfile, implode(PHP_EOL, array(
             $hcount,
             $_SERVER['HTTP_USER_AGENT'],
-            $_SERVER['REMOTE_ADDR'],
+            self::get_the_ip(),
             date('Y-m-d H:i:s'),
             )));
 
@@ -198,14 +216,14 @@ class hlock {
      */
     private static function block_ips_and_bots_from_blacklist() {
         $user_agent = self::get_user_agent();
-        $json = json_decode(self::get_black_list(), true);
-        # checkj IPs
-        foreach ((array )$json['ips'] as $row) {
-            $hash = md5($_SERVER['REMOTE_ADDR'] . $user_agent);
-            if ($row['b_iphash'] == $hash) {
-                self::exit_env('BLACK_LIST_IP' . $hash);
-            }
+        $json = json_decode(self::get_black_list(), true);        
+
+        # check bad IPs
+        $json['badips'] = (array )$json['badips'];
+        if (isset($json['badips'][self::get_the_ip()])) {
+            self::exit_env('BLACK_LIST_IP' . $row['i_ip']);
         }
+        
         #check bots
         foreach ((array )$json['bots'] as $row) {
             $bot_key = trim(strtolower($row['b_bot']));
@@ -323,7 +341,7 @@ class hlock {
                 date('Y-m-d H:i:s'),
                 $_SERVER['HTTP_USER_AGENT'],
                 'AGENT',
-                $_SERVER['REMOTE_ADDR'])) . PHP_EOL);
+                self::get_the_ip())) . PHP_EOL);
             fclose($fp);
             self::exit_env('BOT');
         }
@@ -346,15 +364,13 @@ class hlock {
      */
     protected static function block_bad_ips() {
         $badips = self::get_bad_ips();
-        # print_r($badips);die;
-
-        if (in_array($_SERVER['REMOTE_ADDR'], $badips)) {
+        if (in_array(self::get_the_ip(), $badips)) {
             $fp = fopen(static::$config['hlock_blocked_file'], 'a+');
             fwrite($fp, implode("\t", array(
                 date('Y-m-d H:i:s'),
                 $_SERVER['HTTP_USER_AGENT'],
                 'IP',
-                $_SERVER['REMOTE_ADDR'])) . PHP_EOL);
+                self::get_the_ip())) . PHP_EOL);
             fclose($fp);
             self::exit_env('IP');
         }
@@ -411,6 +427,8 @@ class hlock {
      * @return
      */
     public function get_backend() {
+        self::set_root($path);
+        self::auto_detect_system();
         return array(
             'bad_ips' => (implode(PHP_EOL, self::get_bad_ips())),
             'bad_bots' => (implode(PHP_EOL, self::get_bad_bots())),
@@ -501,14 +519,14 @@ class hlock {
 
         $checkworm = str_ireplace($wormprotector, '*', $cracktrack);
         if ($cracktrack != $checkworm) {
-            self::add_ip($_SERVER['REMOTE_ADDR']);
+            self::add_ip(self::get_the_ip());
             self::report_hack('SQL Injection blocked');
             if (filter_var(static::$email, FILTER_VALIDATE_EMAIL)) {
                 $mail_msg = 'Hacking blocked [SQLINJECTION]: ' . PHP_EOL;
                 $arr = array(
-                    'IP' => $_SERVER['REMOTE_ADDR'],
+                    'IP' => self::get_the_ip(),
                     'Host' => $_SERVER['HTTP_HOST'],
-                    'Trace' => 'https://www.ip-tracker.org/locator/ip-lookup.php?ip=' . $_SERVER['REMOTE_ADDR'],
+                    'Trace' => 'https://www.ip-tracker.org/locator/ip-lookup.php?ip=' . self::get_the_ip(),
                     'HTTP_USER_AGENT' => $_SERVER['HTTP_USER_AGENT'],
                     'cracktrack' => $cracktrack,
                     "Hacked" => $checkworm);
@@ -533,12 +551,12 @@ class hlock {
         $arr = array(
             'FORM[h_type]' => $type_info,
             'FORM[h_domain]' => $_SERVER['HTTP_HOST'],
-            'FORM[h_ip]' => self::anonymizing_ip($_SERVER['REMOTE_ADDR']),
+            'FORM[h_ip]' => self::get_the_ip(),
             'FORM[h_url]' => base64_encode($_SERVER['PHP_SELF'] . '###' . $_SERVER['QUERY_STRING'] . '###' . http_build_query($_REQUEST)),
             'cmd' => 'log_hacking',
-            'FORM_IP[b_iphash]' => md5($_SERVER['REMOTE_ADDR'] . $user_agent),
+            'FORM_IP[b_iphash]' => md5(self::get_the_ip()),
             'FORM_IP[b_ua]' => $user_agent,
-            'FORM_IP[b_ip]' => self::anonymizing_ip($_SERVER['REMOTE_ADDR']),
+            'FORM_IP[b_ip]' => self::get_the_ip(),
             );
         self::curl_get_data('https://www.keimeno.de/report-hack.html', $arr);
     }

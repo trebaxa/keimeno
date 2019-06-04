@@ -336,6 +336,7 @@ class firewall_class extends keimeno_class {
         $arr = array(
             'FORM[h_type]' => $type_info,
             'FORM[h_domain]' => $_SERVER['HTTP_HOST'],
+            'FORM[h_referer]' => $_SERVER['HTTP_REFERER'],
             'FORM[h_ip]' => self::anonymizing_ip(REAL_IP),
             'FORM[h_url]' => base64_encode($_SERVER['PHP_SELF'] . '###' . $_SERVER['QUERY_STRING'] . '###' . http_build_query($_REQUEST)),
             'cmd' => 'log_hacking',

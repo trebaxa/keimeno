@@ -1,3 +1,11 @@
+<div class="varopt notshown" id="<%$ident%>-tplvar-opt-resid">
+    <select <% if ($GET.varid>0) %>disabled=""<%/if%> class="form-control" name="FORMOPT[resrc][id]">                  
+       <% foreach from=$RESOURCE.all_resrc item=rvol %>
+            <option <% if ($rvol.id==$RESOURCE.flxvaredit.v_opt.resrc.id) %>selected<%/if%> value="<%$rvol.id%>"><%$rvol.f_name%></option>
+       <%/foreach%>                
+    </select>
+</div>
+
 <div class="varopt notshown" id="<%$ident%>-tplvar-opt-seli">
     <label>Selectbox Values:</label>
     <input type="text" class="form-control" placeholder="1;blau|2;grau|3;rot" id="<%$ident%>-tvaropt-seli-values" name="FORMOPT[seli][values]" value="<%$RESOURCE.flxvaredit.v_opt.seli.values|sthsc%>">

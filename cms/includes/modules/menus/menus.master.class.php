@@ -84,9 +84,10 @@ class menus_master_class extends modules_class {
              ");
 
         while ($row = $this->db->fetch_array_names($result)) {
-            if ($row['perm_tid'] > 0 || ((int)$row['perm_tid'] == 0 && (int)$row['TID'] == 0)) {
+            $row['catlink'] = (!isset($row['catlink'])) ? "" : $row['catlink'];
+            if ($row['perm_tid'] > 0 || ((int)$row['perm_tid'] == 0 && (int)$row['TID'] == 0)) {                
                 if ((int)$row['perm_tid'] == 0 && (int)$row['TID'] == 0) {
-                    $row['linkname'] = $row['description'] = ($row['description'] != "") ? $row['description'] : $row['mm_title'];
+                    $row['linkname'] = $row['description'] = ($row['description'] != "") ? $row['description'] : $row['mm_title'];                    
                     $row['url_redirect'] = $row['catlink'] = ($row['catlink'] != "") ? $row['catlink'] : $row['mm_url'];
                     $row['mm_id'] = $row['id'];
                 }

@@ -288,7 +288,7 @@ class main_class extends keimeno_class {
             # add to 404 redirect table
             $url = (!isset($_SERVER['SCRIPT_URI']) || (isset($_SERVER['SCRIPT_URI']) && $_SERVER['SCRIPT_URI'] == "")) ? self::get_http_protocol() . '://' . $_SERVER['HTTP_HOST'] .
                 $_SERVER['REQUEST_URI'] : $_SERVER['SCRIPT_URI'];
-            $pnf_hash = md5($url . $_SERVER['QUERY_STRING']);
+            $pnf_hash = md5($url);
             $PNF = $this->db->query_first("SELECT * FROM " . TBL_CMS_PAGENF . " WHERE pnf_hash='" . $pnf_hash . "'");
             if ($PNF['pnf_uri'] == '' || !isset($PNF['pnf_uri'])) {
                 $arr = array(
@@ -830,7 +830,6 @@ class main_class extends keimeno_class {
         $TOPLEVELCMS->load_toplevel($TOPLEVEL_OBJ, $page);
 
         # exec interpreter dynamic
-        $CONTENT_OBJ->exec_interpreter = array();
         if (is_array($CONTENT_OBJ->exec_interpreter) && count($CONTENT_OBJ->exec_interpreter) > 0) {
             $xml_modules = simplexml_load_file(MODULE_ROOT . 'config_all_modules.xml');
             foreach ($CONTENT_OBJ->exec_interpreter as $key => $modident) {
@@ -941,7 +940,6 @@ class main_class extends keimeno_class {
         $this->force_www();
         $this->GBL_LANGID = (int)$GBL_LANGID;
         $this->core_var_protection();
-        $this->session_protect();
         $this->set_user_obj($user_object);
         $this->referer_log();
         $this->protection_double_user();
@@ -968,24 +966,6 @@ class main_class extends keimeno_class {
         self::ob_end_flush_all();
     }
 
-    /**
-     * main_class::session_protect()
-     *     
-     */
-    public static function session_protect() {
-        $ident = $_SERVER['REMOTE_ADDR'];
-        $fingerprint = md5($_SERVER['HTTP_USER_AGENT'] . self::get_config_value('cms_hash_password') . $ident);
-        if (isset($_SESSION['SESSION_PROTECTTION']) && $_SESSION['SESSION_PROTECTTION'] != $fingerprint && session_class::is_crawler() == false) {
-            firewall_class::report_hacking('Hacking session protection');
-            session_regenerate_id(true);
-            @session_start();
-            header('X-Session-Reinit: true');
-            $_SESSION['SESSION_PROTECTTION'] = $fingerprint;
-        }
-        else {
-            $_SESSION['SESSION_PROTECTTION'] = $fingerprint;
-        }
-    }
 
     /**
      * main_class::compile_frontend()
@@ -1030,7 +1010,7 @@ class main_class extends keimeno_class {
             $this->smarty->assign('id', $_GET['id']);
         }
 
-
+        $this->smarty->assign('randid', rand(0, 100000) . time());
         $this->smarty->assign('SCRIPT_URI', $_SERVER['SCRIPT_URI']);
         $this->smarty->assign('REQUEST_URI', $_SERVER['REQUEST_URI']);
         $this->smarty->assign('GBL_LANGID', $this->GBL_LANGID);
@@ -1063,7 +1043,8 @@ class main_class extends keimeno_class {
             $this->smarty->assign('cms_url', 'http://www.' . $this->gbl_config['opt_domain'] . rtrim(PATH_CMS, '/'));
         }
         $this->smarty->assign('PHPSELF', SSL_PATH_SYSTEM . rtrim($PATH_CMS_LOCAL, '/') . $_SERVER['PHP_SELF']);
-        $this->smarty->assign('eurl', SSL_PATH_SYSTEM . rtrim($PATH_CMS_LOCAL, '/') . $_SERVER['PHP_SELF'] . '?page=' . ((isset($_REQUEST['page'])) ? $_REQUEST['page'] :"")  . '&');
+        $this->smarty->assign('eurl', SSL_PATH_SYSTEM . rtrim($PATH_CMS_LOCAL, '/') . $_SERVER['PHP_SELF'] . '?page=' . ((isset($_REQUEST['page'])) ? $_REQUEST['page'] :
+            "") . '&');
         if (be_in_ssl_area() === true) {
             $this->smarty->assign('baseurl', SSLSERVER . ((!preg_match("/.*\/$/", SSLSERVER)) ? "/" : ""));
         }

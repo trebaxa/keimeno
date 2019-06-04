@@ -26,7 +26,5 @@
     function reload_flexvars_vars() {
         simple_load('js-flexvars','<%$eurl%>cmd=reload_flexvars_vars&id=<%$GET.id%>');
     }
-    function reload_flexvars_vars_by_gid(gid) {
-        simple_load('js-flexvars','<%$eurl%>cmd=reload_flexvars_vars&id=<%$GET.id%>&gid='+gid);
-    }    
+   
 </script>

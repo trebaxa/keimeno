@@ -16,8 +16,12 @@
       <description>Besucher k&#xF6;nnen sich an Ihrem Newsletter Programm einschreiben. Versenden Sie im Backend an Ihre Kunden Newsletter. Das Modul hat Auswertungen und eine Historie.</description>
     </settings>
     <includes>
+      <include type="class" classname="newsletter_master_class">newsletter.master</include>
       <include type="class" classname="newsletter_class">newsletter</include>
     </includes>
+    <admin_includes>
+      <include type="class" classname="newsletter_admin_class">newsletter</include>
+    </admin_includes>
     <admin_menu parent="96" icon="mail.png" label="Newsletter" query="cmd=show_hist"/>
   </module>
 </config>

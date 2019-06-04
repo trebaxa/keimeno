@@ -1,16 +1,4 @@
-<% if ($GET.id>0) %>
-    <%include file="cb.panel.header.tpl" title="Schritt 1/4"%>
-        <div class="text-right">
-            <form method="post" action="<%$PHPSELF%>" enctype="multipart/form-data">
-    	       <input type="hidden" name="epage" value="<%$epage%>">
-               <input type="hidden" name="cmd" value="preview">
-               <input type="hidden" name="id" value="<%$GET.id%>">
-    	       <input type="submit" class="btn btn-primary" value="{LBL_PREVIEW} 2/4">
-           </form>
-        </div>
-     
-<%include file="cb.panel.footer.tpl"%>
-<%/if%>
+
      
      <form method="post"  <% if ($GET.id>0) %>class="jsonform"<%/if%> action="<%$PHPSELF%>" enctype="multipart/form-data">
      <% if ($GET.id>0) %>

@@ -169,7 +169,7 @@ class SiteMap extends keimeno_class {
 		<td>' . $row['sm_title'] . '</td>
 		<td><select class="form-control" name="FORM[' . $row['id'] . '][sm_changefreq]">' . $this->genFreq($row['sm_changefreq']) . '</select></td>
 		<td><select class="form-control" name="FORM[' . $row['id'] . '][sm_priority]">' . $this->genPrio($row['sm_priority']) . '</select></td>
-		<td>' . kf::gen_approve_icon($row['id'], $row['sm_active'], 'a_smapprove') . '</td>
+		<td class="text-right">' . kf::gen_approve_icon($row['id'], $row['sm_active'], 'a_smapprove') . '</td>
 		</tr>';
         }
         $t .= '<option ' . (($_POST['sm_lang'] == -1) ? 'selected' : '') . ' value="-1">alle/all</option>';
@@ -182,10 +182,12 @@ class SiteMap extends keimeno_class {
 	<input type="hidden" name="cmd" value="a_googlemaps">
     <input type="hidden" name="epage" value="' . $_REQUEST['epage'] . '">
 	<table class="table table-striped table-hover">' . $tr . '
-	<tr>
+	<!--<tr>
 	<td>{LBL_LANGUAGE}:</td>
 	<td colspan="3"><select class="form-control" name="sm_lang">' . $t . '</select></td>
-	</tr></table>
+	</tr>
+    -->
+    </table>
 	' . kf::gen_admin_sub_btn('Generate') . '
 	</form>';
 
@@ -195,8 +197,8 @@ class SiteMap extends keimeno_class {
             if ($filename != '.' && $filename != '..' && strstr($filename, ".xml") && strstr($filename, $this->sitemap_name)) {
                 $tab .= '<tr>
 					<td><a title="download [' . $filename . ']" target="_blank" href="../' . $filename . '">SiteMap ' . $this->host . basename($filename) . '</a></td>
-					<td><a title="{LBL_DELETE} [' . $filename . ']"  href="' . $_SERVER['PHP_SELF'] . '?epage=' . $_REQUEST['epage'] . '&aktion=delsitemap&file=' .
-                    base64_encode($filename) . '"><i class="fa fa-trash"></i></a></td>
+					<td class="text-right"><a class="btn btn-default" title="{LBL_DELETE} [' . $filename . ']"  href="' . $_SERVER['PHP_SELF'] . '?epage=' . $_REQUEST['epage'] .
+                    '&aktion=delsitemap&file=' . base64_encode($filename) . '"><i class="fa fa-trash"></i></a></td>
 					</tr>';
             }
         }
@@ -240,7 +242,11 @@ class SiteMap extends keimeno_class {
             $content .= '</table><input type="hidden" name="epage" value="' . $_REQUEST['epage'] . '">
             <input type="hidden" name="cmd" value="a_savesmconf">' . kf::gen_admin_sub_btn('{LA_SAVE}') . '
             </form>
-            <h3>Preview</h3>' . ((file_exists(CMS_ROOT . $this->file) ? '<iframe width="900" height="900" src="../' . $this->file . '"></iframe>' : '')) . '
+            <h3>Preview</h3>
+            
+            ' . ((file_exists(CMS_ROOT . $this->file) ? '<iframe style="border:1px solid #cecece;width:100%;height:900px;" src="../' . $this->file .
+                '"></iframe>' : '')) . '
+            
 		';
         }
         return $content;
@@ -327,7 +333,7 @@ class SiteMap extends keimeno_class {
      */
     public static function getPages($pages) {
         # for ($i = 0; $i < count($this->pages['url']); $i++) {
-        foreach ($pages as $urlobj) {            
+        foreach ($pages as $urlobj) {
             $str .= '
 			<url>
 				<loc>' . $urlobj['url'] . '</loc>
@@ -340,7 +346,7 @@ class SiteMap extends keimeno_class {
         }
         return $str;
     }
-    
+
     /**
      * SiteMap::convert_pages()
      * 

@@ -285,16 +285,16 @@ class graphic_class extends keimeno_class {
      */
     function LoadJpeg($imgname) {
         $im_pic = ImageCreateFromJPEG($imgname);
-        /* Versuch, Datei zu öffnen */
+        /* Versuch, Datei zu Ã¶ffnen */
         if (!$im_pic) {
-            /* Prüfen, ob fehlgeschlagen */
+            /* PrÃ¼fen, ob fehlgeschlagen */
             $im_pic = ImageCreate(150, 30);
             /* Erzeugen eines leeren Bildes */
             $bgc = ImageColorAllocate($im_pic, 255, 255, 255);
             $tc = ImageColorAllocate($im_pic, 0, 0, 0);
             ImageFilledRectangle($im_pic, 0, 0, 150, 30, $bgc);
             /* Ausgabe einer Fehlermeldung */
-            ImageString($im_pic, 1, 5, 5, "Fehler beim Öffnen von: $imgname", $tc);
+            ImageString($im_pic, 1, 5, 5, "Fehler beim Ã–ffnen von: $imgname", $tc);
         }
         return $im_pic;
     }

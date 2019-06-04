@@ -837,6 +837,9 @@ class flextemp_admin_class extends flextemp_master_class {
         $flxvars = (array )$_POST['FORMFLEXVAR'];
         $v_settings = (array )$_POST['SETTINGS'];
         $content_matrix_id = (int)$_POST['content_matrix_id'];
+        $CM = dao_class::get_data_first(TBL_CMS_TEMPMATRIX, array('id' => $content_matrix_id));
+
+
         try {
             #save images
             if (!is_dir(CMS_ROOT . 'file_data/flextemp/'))
@@ -854,7 +857,7 @@ class flextemp_admin_class extends flextemp_master_class {
                         if ($fname != "" && self::is_image($_FILES['datei']['tmp_name'][$id])) {
                             # remove existing one
                             $this->delflexvarimg($content_matrix_id, $id);
-                            $fname = $this->unique_filename($this->froot, $fname);
+                            $fname = $this->unique_filename($this->froot, $CM['tm_hint'] . '.' . self::get_ext($fname));
                             $target = $this->froot . $fname;
 
                             if (!move_uploaded_file($_FILES['datei']['tmp_name'][$id], $target)) {
@@ -862,7 +865,7 @@ class flextemp_admin_class extends flextemp_master_class {
                             }
                             else {
                                 chmod($target, 0755);
-                                if (self::get_ext($file) != 'svg') {
+                                if (self::get_ext($fname) != 'svg') {
                                     graphic_class::resize_picture_imageick('../file_data/flextemp/images/' . $fname, '../file_data/flextemp/images/' . $fname, 2100, 2000);
                                 }
                                 $this->delete_flexvar_value($content_matrix_id, $id);
@@ -1068,7 +1071,7 @@ class flextemp_admin_class extends flextemp_master_class {
      */
     function cmd_deldatasetfile() {
         $this->deldatasetfile($_GET['flxid'], $_GET['rowid'], $_GET['column']);
-        $this->hard_exit();
+        $this->ej();
     }
 
     /**
@@ -1079,6 +1082,16 @@ class flextemp_admin_class extends flextemp_master_class {
     function cmd_delflexvarimg() {
         $this->delflexvarimg($_GET['content_matrix_id'], $_GET['rowid']);
         $this->hard_exit();
+    }
+
+    /**
+     * flextemp_admin_class::cmd_delflexvarfile()
+     * 
+     * @return void
+     */
+    function cmd_delflexvarfile() {
+        $this->delflexvarfile($_GET['content_matrix_id'], $_GET['rowid']);
+        $this->ej();
     }
 
     /**
@@ -1100,20 +1113,25 @@ class flextemp_admin_class extends flextemp_master_class {
                 # $this->load_flex_tpl_for_edit($_GET['flxid']);
                 # $seldataset = $this->FLEXTEMP['flextpl']['dataset'][$rowid];
             }
-            if (!is_dir(CMS_ROOT . 'file_data/flextemp/'))
+            if (!is_dir(CMS_ROOT . 'file_data/flextemp/')) {
                 mkdir(CMS_ROOT . 'file_data/flextemp/', 0775);
+            }
 
-            if (!is_dir($this->froot))
+            if (!is_dir($this->froot)) {
                 mkdir($this->froot, 0775);
+            }
 
-            if (!is_dir($this->file_root))
+            if (!is_dir($this->file_root)) {
                 mkdir($this->file_root, 0775);
+            }
 
             if (isset($_FILES['datei']) && is_array($_FILES['datei']['name'])) {
 
                 foreach ($_FILES['datei']['name'] as $column => $fname) {
                     $error = $_FILES['datei']['error'][$column];
                     if ($error == UPLOAD_ERR_OK) {
+
+
                         if ($fname != "" && (self::is_image($_FILES['datei']['tmp_name'][$column]) || self::is_image($fname))) {
 
                             # remove existing one
@@ -1121,13 +1139,15 @@ class flextemp_admin_class extends flextemp_master_class {
                                 $this->deldatasetimg($flxid, $rowid, $column);
                             }
 
-                            $fname = $this->unique_filename($this->froot, $fname);
+                            $gen_img_name = self::gen_seo_name($FORM, $fname);
+                            $fname = $this->unique_filename($this->froot, $gen_img_name);
                             $target = $this->froot . $fname;
+
                             if (!move_uploaded_file($_FILES['datei']['tmp_name'][$column], $target)) {
-                                $this->msge('Image file error');
+                                $this->msge('Could not save image on server. [' . str_replace($this->froot, '', $target) . ']');
                             }
                             chmod($target, 0755);
-                            if (self::get_ext($file) != 'svg') {
+                            if (self::get_ext($fname) != 'svg') {
                                 graphic_class::resize_picture_imageick('../file_data/flextemp/images/' . $fname, '../file_data/flextemp/images/' . $fname, 2000, 2000);
                             }
                             $FORM[$column] = $fname;

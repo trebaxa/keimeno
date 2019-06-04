@@ -115,7 +115,7 @@ class event_class extends event_master_class {
         $item['thumb_big_is_landscape'] = $item['thumb_big_size'][0] > $item['thumb_big_size'][1];
         $item['thumb_size'] = getimagesize(CMS_ROOT . 'cache/' . basename($item['thumb']));
         $item['thumb_is_landscape'] = $item['thumb_size'][0] > $item['thumb_size'][1];
-        
+
         $item['inlay'] = $this->genCalGroupImplement($item['EID']);
         list($item['date_year'], $item['date_month'], $item['date_day']) = explode('-', $item['ndate']);
         $item['date_month'] = my_date('M', $item['ndate']);
@@ -545,9 +545,12 @@ class event_class extends event_master_class {
         $SM = $this->db->query_first("SELECT * FROM " . TBL_CMS_SITEMAP . " WHERE sm_ident='calendar' AND sm_active=1");
         if ($SM['sm_active'] == 1) {
             $params = array_merge($params, $SM);
-            $result_lang = $this->db->query("SELECT id,post_lang,language FROM " . TBL_CMS_LANG . " WHERE " . (($params['alllang'] === true) ? '' : " id=" . $params['langid'] .
-                " AND ") . " approval=1 ORDER BY post_lang");
-            while ($rowl = $this->db->fetch_array($result_lang)) {
+            $sql_filter = array('approval' => 1);
+            if ((int)$params['langid'] > 0) {
+                $sql_filter['id'] = (int)$params['langid'];
+            }
+            $lang_arr = dao_class::get_data(TBL_CMS_LANG, $sql_filter);
+            foreach ($lang_arr as $rowl) {
                 list($Y, $m, $d) = explode('-', date('Y-m-d'));
                 $result = $this->db->query("SELECT *,T.id AS CALGID FROM
 			" . TBL_CMS_CALENDAR_GROUPS . " T

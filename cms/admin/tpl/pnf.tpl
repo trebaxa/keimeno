@@ -1,7 +1,8 @@
 <%include file="cb.panel.header.tpl" icon="fa-database" title="404 Weiterleitungen"%>
 
 <% if (count($PNF.ptable)>0) %> 
-Einträge: <span class="badge"><%$PNF.ptable_count%></span>          	
+Einträge: <span class="badge"><%$PNF.ptable_count%></span>   
+<a href="<%$eurl%>cmd=clear" class="btn btn-default json-link">Tabelle leeren</a>       	
 <form action="<%$PHPSELF%>" method="POST" class="jsonform form-inline">
 <table class="table table-striped table-hover" >
 			<thead>
@@ -35,3 +36,9 @@ Einträge: <span class="badge"><%$PNF.ptable_count%></span>
 <%else%>
 <div class="bg-success">Prima! Es wurden bisher noch alle Seiten gefunden.</div>
 <%/if%>
+
+<script>
+function relaod_pnf() {
+    simple_load('admincontent','<%$eurl%>');
+}
+</script>

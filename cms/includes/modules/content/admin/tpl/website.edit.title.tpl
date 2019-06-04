@@ -4,6 +4,7 @@
 <%/if%>
 <div class="row">
     <div class="col-md-6">
+       <% if ($TPLOBJ.is_framework==0) %>
         <div class="form-group">
             <label for="wf-desc">admin. {LBL_DESCRIPTION}</label>
             <input id="wf-desc" required="" type="text" class="form-control" name="FORM_TEMPLATE[description]"  value="<% $TPLOBJ.description|hsc %>">
@@ -18,14 +19,16 @@
             <input id="wf-link" type="text" class="form-control" name="FORM[t_alt_title]" value="<% $TPLOBJ.formcontent.t_alt_title|hsc %>">
             <span class="help-block">Template Integration: &lt;%$PAGEOBJ.t_alt_title%&gt;</span>
         </div><!-- /.form-group -->        
-        
+       <%/if%> 
     </div><!-- /.col-md-6 -->
     <div class="col-md-6">
-        <div class="form-group">
-            <label for="wf-htalink">Bezeichnung in URL</label>
-            <input id="wf-htalink" type="text" class="form-control" name="FORM[t_htalinklabel]" value="<% $TPLOBJ.formcontent.t_htalinklabel|onlyalpha|sthsc %>">
-            <span class="help-block">z.B.: <% if ($TPLOBJ.formcontent.t_htalinklabel=="") %>/<% $TPLOBJ.formcontent.linkname|onlyalpha %>-<% $TPLOBJ.formcontent.tid %>.html<%else%>/<% $TPLOBJ.formcontent.t_htalinklabel|onlyalpha %>.html<%/if%> | <% $TPLOBJ.urltpl %></span>
-        </div><!-- /.form-group -->
+        <% if ($TPLOBJ.is_framework==0) %>
+            <div class="form-group">
+                <label for="wf-htalink">Bezeichnung in URL</label>
+                <input id="wf-htalink" type="text" class="form-control" name="FORM[t_htalinklabel]" value="<% $TPLOBJ.formcontent.t_htalinklabel|onlyalpha|sthsc %>">
+                <span class="help-block">z.B.: <% if ($TPLOBJ.formcontent.t_htalinklabel=="") %>/<% $TPLOBJ.formcontent.linkname|onlyalpha %>-<% $TPLOBJ.formcontent.tid %>.html<%else%>/<% $TPLOBJ.formcontent.t_htalinklabel|onlyalpha %>.html<%/if%> | <% $TPLOBJ.urltpl %></span>
+            </div><!-- /.form-group -->
+        <%/if%>
         
         <div class="form-group">
             <label>{LBL_LANGUAGE}:</label>

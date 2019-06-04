@@ -513,8 +513,6 @@ class memindex_class extends memindex_master_class {
      * @return
      */
     function cmd_showcustomer() {
-        #http://www.neu.marburgeranwaltverein.de/anwalt/ludwig-ludwig,-dr.-schm-lz-koll.-sebastian-adler.html
-        #                                       /anwalt/ludwig-ludwig,-dr.-schm-lz-koll.-sebastian-adler.html
         $kid = intval($_GET['id']);
         if ($kid == 0) {
             return;
@@ -760,14 +758,14 @@ class memindex_class extends memindex_master_class {
                 $this->LOGCLASS->addLog('UPDATE', 'profil activation ' . $k_obj['nachname'] . ', ' . $k_obj['kid'] . ', ' . $k_obj['email']);
                 #HEADER('location:' . SSL_PATH_SYSTEM . $_SERVER['PHP_SELF'] . '?page=' . $_REQUEST['page'] . '&section=accactivate');
                 $this->msg('Account activated');
-                HEADER('location:http://www.' . FM_DOMAIN . PATH_CMS);
+                HEADER('location:' . self::get_domain_url());
                 exit;
             }
             else {
                 $this->LOGCLASS->addLog('FAILURE', 'profil activation fails: ' . $k_obj['nachname'] . ', ' . $k_obj['kid'] . ', ' . $k_obj['email']);
                 firewall_class::report_hacking('Activating account by mail hacking');
                 $this->msge('Account not activated');
-                HEADER('location:http://www.' . FM_DOMAIN . PATH_CMS);
+                HEADER('location:' . self::get_domain_url());
                 exit;
             }
         }
@@ -1407,7 +1405,6 @@ class memindex_class extends memindex_master_class {
      */
     function cmd_show_setnewpass() {
         if (!isset($_GET['set'])) {
-            $_SESSION = array();
             $kid = (int)$_GET['kid'];
             $_SESSION['newpasskid'] = (int)$kid;
             $customer = dao_class::get_data_first(TBL_CMS_CUST, array('kid' => $kid));
@@ -1420,6 +1417,7 @@ class memindex_class extends memindex_master_class {
                 HEADER("location: " . self::get_domain_url());
                 $this->hard_exit();
             }
+
             HEADER("location: " . self::get_domain_url() . 'index.php?page=' . $_GET['page'] . '&cmd=show_setnewpass&set=1');
             $this->hard_exit();
         }
@@ -1433,6 +1431,7 @@ class memindex_class extends memindex_master_class {
     function cmd_set_password() {
         $password = $_POST['pass'];
         $passwordwdh = $_POST['passwdh'];
+
         $kid = (int)$_SESSION['newpasskid'];
         $customer = dao_class::get_data_first(TBL_CMS_CUST, array('kid' => $kid));
         if ($kid == 0) {

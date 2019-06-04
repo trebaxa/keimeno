@@ -93,12 +93,12 @@ class xmlsm_class extends modules_class {
         foreach ($_POST['FORM'] as $key => $row) {
             update_table(TBL_CMS_SITEMAP, 'id', $key, $row);
         }
-        $result_lang = $this->db->query_first("SELECT * FROM " . TBL_CMS_LANG . " WHERE id=" . $this->TCR->POST['sm_lang'] . " AND approval=1 ORDER BY post_lang");
+        #$result_lang = $this->db->query_first("SELECT * FROM " . TBL_CMS_LANG . " WHERE id=" . $this->TCR->POST['sm_lang'] . " AND approval=1 ORDER BY post_lang");
         # if ($this->TCR->POST['sm_lang'] > 0)
         #     $MAP_INI = new site_mapini_class('../sitemap_' . $result_lang['local'] . '.xml', TBL_CMS_SITEMAP, TBL_CMS_LANG);
         #  else
         #      $MAP_INI = new site_mapini_class('../sitemap.xml', TBL_CMS_SITEMAP, TBL_CMS_LANG);
-        $this->MAP_INI->buildUrlTable($this->TCR->POST['sm_lang']);
+        $this->MAP_INI->buildUrlTable();
         $this->ej();
     }
 

@@ -90,6 +90,7 @@ class formsend_class extends formsend_master_class {
             $recipient_email = ($PLUGIN_OPT['email'] != "") ? $PLUGIN_OPT['email'] : FM_EMAIL;
             #          echo $pdf_tpl;
             send_easy_mail_to($FORM['email'], $smarty_arr['mail']['content'], $smarty_arr['mail']['subject'], $att_files, true, $recipient_email);
+            send_easy_mail_to($PLUGIN_OPT['copy_email'], $smarty_arr['mail']['content'], $smarty_arr['mail']['subject'], $att_files, true, $recipient_email);
             # send_admin_mail(900, $smarty_arr, $att_files, FM_EMAIL); #general mail template
         }
         self::msg('Ihren Daten wurden gesendet.');

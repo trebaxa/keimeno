@@ -27,6 +27,12 @@ class keimeno_class {
     protected $MODIDENT = "";
     protected static $exclude_filter = array();
     protected static $include_filter = array();
+    protected static $umlaute = array(
+        "ä" => 'ae',
+        'ö' => 'oe',
+        'ü' => 'ue',
+        'ß' => 'ss',
+        ',' => '-');
 
     /**
      * keimeno_class::keimeno_class()
@@ -614,22 +620,45 @@ class keimeno_class {
      * @return
      */
     public static function format_file_name($str) {
-        $str = strtolower($str);
-        $rep = array(
-            'ä' => 'ae',
-            'ö' => 'oe',
-            'ü' => 'ue',
-            'ß' => 'ss',
-            ',' => '-');
-        $str = strtr($str, $rep);
+        $str = mb_strtolower($str, 'UTF-8');
+        $str = trim(strtr($str, static::$umlaute));
         $str = preg_replace('#[\/]+#', ' ', $str); // entfernt alle slashes /
         #$str = preg_replace('/[^0-9a-z?-????\`\~\!\$\%\^\*\; \,\.\_\-]/i', ' ',$str);
         $str = preg_replace('/[^0-9a-z\`\~\!\$\%\^\*\; \,\.\_\-]/i', ' ', $str);
+        $str = trim($str);
         $str = preg_replace('/\s+/', '-', $str); //entfernt zeilenumbrueche, whitespace
         $str = preg_replace('/--/', '-', $str);
         while (strstr($str, '--'))
             $str = str_replace('--', '-', $str);
+        if (substr($str, -1) == '-') {
+            $str = rtrim($str, '-');
+        }
         return $str;
+    }
+
+
+    /**
+     * keimeno_class::gen_seo_name()
+     * 
+     * @param mixed $FORM
+     * @param mixed $fname
+     * @return
+     */
+    public static function gen_seo_name($arr, $fname) {
+        $str = "";
+        $arr = (array )$arr;
+        foreach ($arr as $key => $value) {
+            if (!is_array($value)) {
+                $str .= $value . ' ';
+            }
+        }
+        if ($str == "") {
+            $str = $fname;
+        }
+        $str = strtr($str, static::$umlaute);
+        $str = substr($str, 0, 30);
+        $str = preg_replace("/[^a-zA-Z0-9\-]/", "", $str);
+        return $str . '.' . self::get_ext($fname);
     }
 
     /**
@@ -639,13 +668,8 @@ class keimeno_class {
      * @return
      */
     public function format_tpl_name($str) {
-        $str = strtolower($str);
-        $rep = array(
-            'Ã¤' => 'ae',
-            'Ã¶' => 'oe',
-            'Ã¼' => 'ue',
-            'ÃŸ' => 'ss');
-        $str = strtr($str, $rep);
+        $str = mb_strtolower($str, 'UTF-8');
+        $str = strtr($str, static::$umlaute);
         $str = preg_replace('#[\/]+#', ' ', $str); // entfernt alle slashes /
         #$str = preg_replace('/[^0-9a-z?-????\`\~\!\$\%\^\*\; \,\.\_\-]/i', ' ',$str);
         $str = preg_replace('/[^0-9a-z\`\~\!\$\%\^\*\; \,\.\_\-]/i', ' ', $str);
@@ -2024,11 +2048,11 @@ class keimeno_class {
     /**
      * keimeno_class::is_image_svg()
      * 
-     * @param mixed $filePath
+     * @param mixed $file
      * @return
      */
-    public static function is_image_svg($filePath) {
-        return 'image/svg+xml' === mime_content_type($filePath);
+    public static function is_image_svg($file) {
+        return self::get_ext($file) == 'svg' || 'image/svg+xml' === mime_content_type($file) || 'image/svg' === mime_content_type($file);
     }
 
     /**
@@ -2235,20 +2259,34 @@ class keimeno_class {
         $val = trim($val);
         $last = strtolower($val[strlen($val) - 1]);
         switch ($last) {
-                // The 'G' modifier is available since PHP 5.1.0
+            case 'p':
+                $val *= (1024 * 1024 * 1024 * 1024 * 1024);
+                break;
+            case 't':
+                $val *= (1024 * 1024 * 1024 * 1024);
+                break;
             case 'g':
-                $val *= (1024 * 1024 * 1024); //1073741824
+                $val *= (1024 * 1024 * 1024);
                 break;
             case 'm':
-                $val *= (1024 * 1024); //1048576
+                $val *= (1024 * 1024);
                 break;
             case 'k':
                 $val *= 1024;
                 break;
         }
-
         return $val;
     }
+
+    /**
+     * keimeno_class::get_maximum_file_uploadsize()
+     * 
+     * @return
+     */
+    public static function get_maximum_file_uploadsize() {
+        return min(self::ini_get_return_bytes(ini_get('post_max_size')), self::ini_get_return_bytes(ini_get('upload_max_filesize')));
+    }
+
 
     /**
      * keimeno_class::get_value_from_table()
@@ -2372,6 +2410,43 @@ class keimeno_class {
      */
     public static function xls_num($number, $decimals = 2) {
         return number_format((float)$number, $decimals, ",", "");
+    }
+
+    /**
+     * keimeno_class::file_upload_err_to_txt()
+     * 
+     * @param mixed $code
+     * @return
+     */
+    public static function file_upload_err_to_txt($code) {
+        switch ($code) {
+            case UPLOAD_ERR_INI_SIZE:
+                $message = "The uploaded file exceeds the upload_max_filesize directive in php.ini";
+                break;
+            case UPLOAD_ERR_FORM_SIZE:
+                $message = "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form";
+                break;
+            case UPLOAD_ERR_PARTIAL:
+                $message = "The uploaded file was only partially uploaded";
+                break;
+            case UPLOAD_ERR_NO_FILE:
+                $message = "No file was uploaded";
+                break;
+            case UPLOAD_ERR_NO_TMP_DIR:
+                $message = "Missing a temporary folder";
+                break;
+            case UPLOAD_ERR_CANT_WRITE:
+                $message = "Failed to write file to disk";
+                break;
+            case UPLOAD_ERR_EXTENSION:
+                $message = "File upload stopped by extension";
+                break;
+
+            default:
+                $message = "Unknown upload error";
+                break;
+        }
+        return $message;
     }
 }
 

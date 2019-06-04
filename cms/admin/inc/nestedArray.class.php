@@ -293,8 +293,8 @@ class nestedArrClass extends keimeno_class {
      * @param mixed $back_path
      * @return
      */
-    function getBackNew($parent, &$back_path) {        
-        $node = $this->data[$parent];        
+    function getBackNew($parent, &$back_path) {
+        $node = $this->data[$parent];
         if (trim($node[$this->label_column]) != "")
             $back_path[] = trim($node[$this->label_column]);
         if ($node[$this->label_parent] > 0)
@@ -308,7 +308,7 @@ class nestedArrClass extends keimeno_class {
      */
     function outputtree_select() {
         $categs = array();
-      #  echoarr($this->menu_flat_array);
+        #  echoarr($this->menu_flat_array);
         if (count($this->menu_flat_array) > 0) {
             foreach ($this->menu_flat_array as $key => $child) {
                 if ($child[$this->label_parent] > 0) {
@@ -327,11 +327,10 @@ class nestedArrClass extends keimeno_class {
             }
         }
         #        asort($categs);
-        
+
         return $categs;
     }
-    
- 
+
 
     /**
      * nestedArrClass::outputtree_select_leafsonly()
@@ -398,6 +397,7 @@ class nestedArrClass extends keimeno_class {
      * @return
      */
     function output_as_selectbox($id_select = 0, $block_id = '', $null_obj = array()) {
+        $ret="";
         $tree = $this->outputtree_select();
         $childs = ARRAY();
         if ($block_id > 0) {

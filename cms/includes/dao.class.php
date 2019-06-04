@@ -324,6 +324,7 @@ class dao_class extends keimeno_class {
      */
     public static function update_table($table, $set, $where_arr, $admin = 0) {
         global $kdb;
+        $where="";
         if (is_array($set)) {
             foreach ((array )$where_arr as $key => $value) {
                 $where .= (($where != "") ? " AND " : "") . $key . "='" . $value . "'";
@@ -336,7 +337,7 @@ class dao_class extends keimeno_class {
                 $sqlquery .= $key . "='" . $wert . "'";
                 #  }
             }
-            $sql = "UPDATE `" . $table . "` SET " . $sqlquery . " WHERE " . $where;
+            $sql = "UPDATE `" . $table . "` SET " . $sqlquery . " WHERE " . (($where=="") ? "1" : $where);
             if ($admin == 1)
                 echo $sql;
             if ($sqlquery != "")

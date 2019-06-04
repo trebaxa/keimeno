@@ -13,6 +13,7 @@ defined('IN_SIDE') or die('Access denied.');
 class resource_admin_class extends resource_master_class {
 
     protected $RESOURCE = array();
+    var $languages = array();
 
     protected $varmap = array(
         'edt' => 'VARCHAR(255)',
@@ -25,6 +26,8 @@ class resource_admin_class extends resource_master_class {
         'faw' => 'VARCHAR(255)',
         'file' => 'VARCHAR(255)',
         'rdate' => 'DATE',
+        'resid' => 'INT(11)',
+        'radio' => 'INT(1)',
         );
 
     protected $tplvars = array(
@@ -37,6 +40,8 @@ class resource_admin_class extends resource_master_class {
         "link" => "Link",
         "faw" => "Font Awesome Icon",
         "file" => "File",
+        "resid" => "Resource Verbindung",
+        "radio" => "Schalter",
         "rdate" => "Datum");
 
     /**
@@ -47,6 +52,25 @@ class resource_admin_class extends resource_master_class {
     function __construct() {
         parent::__construct();
         $this->TCR = new kcontrol_class($this);
+        $this->RESOURCE = array();
+        $this->lang = new language_class();
+        $this->lang->options['sql_table'] = TBL_CMS_LANG;
+        $this->languages = $this->lang->load_langs();
+        foreach ($this->languages as $lang) {
+            if ($lang['approval'] == 1) {
+                $this->RESOURCE['active_lang']++;
+                $this->RESOURCE['languages'][] = $lang;
+            }
+        }
+    }
+
+    /**
+     * resource_admin_class::get_resrc()
+     * 
+     * @return
+     */
+    function get_resrc() {
+        return $this->RESOURCE;
     }
 
     /**
@@ -56,6 +80,8 @@ class resource_admin_class extends resource_master_class {
      */
     function parse_to_smarty() {
         $this->RESOURCE['tplvars'] = $this->tplvars;
+        $this->RESOURCE['max_file_upload_size'] = self::human_filesize(self::get_maximum_file_uploadsize());
+
         $this->smarty->assign('RESOURCE', $this->RESOURCE);
     }
 
@@ -75,13 +101,47 @@ class resource_admin_class extends resource_master_class {
      * @return
      */
     public static function gen_table_name($f_name) {
-        $f_name = $org_name = self::kill_white_spaces(strtolower(TBL_CMS_PREFIX . 'resrc_ds_' . substr(self::only_alphanums($f_name), 0, 10)));
+        $f_name = $org_name = self::kill_white_spaces(strtolower('resrc_ds_' . substr(self::only_alphanums($f_name), 0, 10)));
         $k = 0;
-        while (get_data_count(TBL_RESRC, '*', "f_table='" . $f_name . "'") > 0) {
+        while (get_data_count(TBL_RESRC_TABLES, '*', "f_table='" . $f_name . "'") > 0) {
             $k++;
             $f_name = $org_name . '_' . $k;
         }
         return $f_name;
+    }
+
+    /**
+     * resource_admin_class::fix()
+     * 
+     * @return void
+     */
+    function fix() {
+        $arr = $this->load_flx_tpls();
+        foreach ($arr as $row) {
+            $row = self::real_escape($row);
+            if (get_data_count(TBL_RESRC_TABLES, '*', "f_table='" . str_replace(TBL_CMS_PREFIX, '', $row['f_table']) . "'") == 0) {
+                insert_table(TBL_RESRC_TABLES, array(
+                    'f_table' => str_replace(TBL_CMS_PREFIX, '', $row['f_table']),
+                    'f_name' => $row['f_name'],
+                    'f_rid' => $row['id']));
+                $this->db->query("UPDATE " . TBL_RESRCDV . " SET v_table='" . str_replace(TBL_CMS_PREFIX, '', $row['f_table']) . "' WHERE v_varname NOT LIKE 'fv_%' AND v_ftid=" .
+                    $row['id']);
+                $this->db->query("UPDATE " . TBL_RESRC . " SET f_table='" . str_replace(TBL_CMS_PREFIX, '', $row['f_table']) . "' WHERE id=" . $row['id']);
+            }
+            $result = $this->db->query("SELECT id,t_tpl FROM  " . TBL_FLXTPL . "        WHERE t_tpl LIKE '%row.dataset %'");
+            while ($flxtpl = $this->db->fetch_array_names($result)) {
+                $t_tpl = self::real_escape($flxtpl['t_tpl']);
+                $t_tpl = str_replace('row.dataset', 'row.dataset.' . $row['f_table'], $t_tpl);
+                $this->db->query("UPDATE " . TBL_FLXTPL . " SET t_tpl='" . $t_tpl . "' WHERE id=" . $flxtpl['id']);
+            }
+
+            $result = $this->db->query("SELECT id,t_tpl FROM  " . TBL_RESRCPL . "        WHERE t_tpl LIKE '%resrc.dataset %'");
+            while ($flxtpl = $this->db->fetch_array_names($result)) {
+                $t_tpl = self::real_escape($flxtpl['t_tpl']);
+                $t_tpl = str_replace('resrc.dataset', 'resrc.dataset.' . $row['f_table'], $t_tpl);
+                $this->db->query("UPDATE " . TBL_RESRCPL . " SET t_tpl='" . $t_tpl . "' WHERE id=" . $flxtpl['id']);
+            }
+        }
     }
 
     /**
@@ -90,6 +150,7 @@ class resource_admin_class extends resource_master_class {
      * @return
      */
     function cmd_save_flx_table() {
+        dao_class::update_table(TBL_RESRC, array('f_sitemap' => 0), array());
         foreach ($_POST['FORM'] as $id => $row) {
             update_table(TBL_RESRC, 'id', $id, $row);
         }
@@ -101,20 +162,63 @@ class resource_admin_class extends resource_master_class {
      * 
      * @return id
      */
-    function create_flextpl($FORM) {
+    function create_flextpl($FORM, $db_name = "") {
         $FORM = self::trim_array($FORM);
         $FORM['f_table'] = $this->gen_table_name($FORM['f_name']);
         $id = insert_table(TBL_RESRC, $FORM);
+        insert_table(TBL_RESRC_TABLES, array(
+            'f_table' => $this->gen_table_name($FORM['f_name']),
+            'f_name' => ($db_name != "") ? $db_name : $FORM['f_name'],
+            'f_rid' => $id));
         if ($id > 0) {
-            $this->db->query("CREATE TABLE `" . $FORM['f_table'] . "` (`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            $this->db->query("CREATE TABLE `" . TBL_CMS_PREFIX . $FORM['f_table'] . "` (`id` int(11) NOT NULL,
                 `ds_order` INT NOT NULL DEFAULT '0',
                 `ds_group` INT NOT NULL DEFAULT '0',
+                `ds_langid` INT NOT NULL DEFAULT '1',
                 `ds_cid` INT NOT NULL DEFAULT '0',
-                `ds_settings` BLOB NOT NULL) 
+                `ds_settings` BLOB NOT NULL,
+                PRIMARY KEY (`id`,`ds_langid`)) 
                 ENGINE = MYISAM ");
         }
         return $id;
     }
+
+    /**
+     * resource_admin_class::db_create_table()
+     * 
+     * @param mixed $table
+     * @param mixed $id
+     * @return void
+     */
+    function db_create_table($table, $id) {
+        $db_name = $table;
+        $table = $this->gen_table_name($table);
+        insert_table(TBL_RESRC_TABLES, array(
+            'f_table' => $table,
+            'f_name' => ($db_name != "") ? $db_name : $table,
+            'f_rid' => $id));
+        $this->db->query("CREATE TABLE `" . TBL_CMS_PREFIX . $table . "` (`id` int(11) NOT NULL,
+                `ds_order` INT NOT NULL DEFAULT '0',
+                `ds_group` INT NOT NULL DEFAULT '0',
+                `ds_langid` INT NOT NULL DEFAULT '1',
+                `ds_cid` INT NOT NULL DEFAULT '0',
+                `ds_settings` BLOB NOT NULL,
+                PRIMARY KEY (`id`,`ds_langid`)) 
+                ENGINE = MYISAM ");
+        return $table;
+    }
+
+    /**
+     * resource_admin_class::cmd_add_new_table()
+     * 
+     * @return void
+     */
+    function cmd_add_new_table() {
+        $table = $this->db_create_table($_GET['table'], $_GET['id']);
+        self::msg('angelegt');
+        $this->ej('set_resrc_table', "'" . $table . "','" . $_GET['table'] . "'");
+    }
+
 
     /**
      * resource_admin_class::cmd_add_rsrc()
@@ -146,7 +250,7 @@ class resource_admin_class extends resource_master_class {
     function set_opt(&$row) {
         $row['icons'][] = kf::gen_edit_icon($row['id'], '&section=edit');
         $row['icons'][] = kf::gen_del_icon($row['FID'], true, 'del_resrc');
-        $row['row_count'] = ($row['f_table'] != "") ? get_data_count($row['f_table'], '*', "1") : 0;
+        #   $row['row_count'] = ($row['f_table'] != "") ? get_data_count(TBL_CMS_PREFIX . $row['f_table'], '*', "1") : 0;
         return $row;
     }
 
@@ -159,39 +263,69 @@ class resource_admin_class extends resource_master_class {
      */
     function delete_complete_resrc($id) {
         $FLEX = $this->load_resrc($id);
-        $arr = $this->load_dataset($FLEX['f_table']);
-        foreach ($arr as $key => $row) {
-            foreach ($row as $column => $value) {
-                if (substr($column, -4) == '_img' && $value != "") {
-                    $this->deldatasetimg($id, $row['id'], $column);
-                }
-                if (substr($column, -4) == '_file' && $value != "") {
-                    $this->deldatasetfile($id, $row['id'], $column);
+        $tables = $this->load_tables_of_resrc($id);
+        foreach ($tables as $table) {
+            $arr = $this->load_dataset($table['f_table']);
+            foreach ($arr as $key => $row) {
+                foreach ($row as $column => $value) {
+                    foreach ($this->languages as $lang) {
+                        if (substr($column, -4) == '_img' && $value != "") {
+                            $this->deldatasetimg($id, $row['id'], $column, $table, $lang['id']);
+                        }
+                        if (substr($column, -4) == '_file' && $value != "") {
+                            $this->deldatasetfile($id, $row['id'], $column, $table, $lang['id']);
+                        }
+                    }
                 }
             }
         }
-        $arr = $this->load_flexvars_table($id);
+        # $arr = $this->load_flexvars_table($id);
 
         $this->delflexvarimg_by_flxtid($id);
-        $this->delflexvarfile_by_flxtid($id);
+        $this->del_resrc_var_file_by_flxtid($id);
 
-        /*foreach ($arr as $key => $row) {
-        if ($row['v_type'] == 'img') {
-        $this->delflexvarimg_by_flxtid($row['id']);
-        }
-        if ($row['v_type'] == 'file') {
-        $this->delflexvarfile_by_flxtid($row['id']);
-        }
-        }*/
 
-        if ($FLEX['f_table'] != "")
-            $this->db->query("DROP TABLE IF EXISTS `" . $FLEX['f_table'] . "`");
+        $tables = $this->load_tables_of_resrc($id);
+        foreach ($tables as $row) {
+            $this->db->query("DROP TABLE IF EXISTS `" . TBL_CMS_PREFIX . $row['f_table'] . "`");
+            $this->db->query("DELETE FROM " . TBL_RESRC_TABLES . " WHERE f_table='" . $row['f_table'] . "'");
+        }
+
         $this->db->query("DELETE FROM " . TBL_RESRC . " WHERE id=" . $id);
         $this->db->query("DELETE FROM " . TBL_RESRCDV . " WHERE v_ftid=" . $id);
         $this->db->query("DELETE FROM " . TBL_RESRCVARS . " WHERE v_ftid=" . $id);
         $this->db->query("DELETE FROM " . TBL_RESRC_CONTENT . " WHERE c_ftid=" . $id);
+
         # $this->db->query("DELETE FROM " . TBL_RESRCPL . " WHERE t_ftid=" . $id);
         # $this->db->query("DELETE FROM " . TBL_FLXGROUPS . " WHERE g_ftid=" . $id);
+    }
+
+    /**
+     * resource_admin_class::cmd_del_table()
+     * 
+     * @return void
+     */
+    function cmd_del_table() {
+        $resrc = $this->load_resrc($_GET['id']);
+        $tables = $this->load_tables_of_resrc($id, $_GET['table']);
+        foreach ($tables as $table) {
+            $arr = $this->load_dataset($table['f_table']);
+            foreach ($arr as $key => $row) {
+                foreach ($row as $column => $value) {
+                    foreach ($this->languages as $lang) {
+                        if (substr($column, -4) == '_img' && $value != "") {
+                            $this->deldatasetimg($id, $row['id'], $column, $table, $lang['id']);
+                        }
+                        if (substr($column, -4) == '_file' && $value != "") {
+                            $this->deldatasetfile($id, $row['id'], $column, $table, $lang['id']);
+                        }
+                    }
+                }
+            }
+        }
+        $this->db->query("DROP TABLE IF EXISTS `" . TBL_CMS_PREFIX . $_GET['table'] . "`");
+        $this->db->query("DELETE FROM " . TBL_RESRC_TABLES . " WHERE f_table='" . $_GET['table'] . "'");
+        $this->ej('reload_dataset_vars', "'" . $resrc['f_table'] . "'");
     }
 
     /**
@@ -233,37 +367,37 @@ class resource_admin_class extends resource_master_class {
      * 
      * @return
      */
-    function cmd_delflxgroup() {
-        $this->db->query("DELETE FROM " . TBL_FLXGROUPS . " WHERE id=" . $_GET['ident']);
-        $this->db->query("UPDATE " . TBL_RESRCDV . " SET v_gid=0 WHERE v_gid=" . $_GET['ident']);
-        $this->ej();
+    /* function cmd_delflxgroup() {
+    $this->db->query("DELETE FROM " . TBL_FLXGROUPS . " WHERE id=" . $_GET['ident']);
+    $this->db->query("UPDATE " . TBL_RESRCDV . " SET v_gid=0 WHERE v_gid=" . $_GET['ident']);
+    $this->ej();
     }
-
+    */
     /**
      * resource_admin_class::load_flex_groups()
      * 
      * @param mixed $ftid
      * @return
      */
-    function load_flex_groups($ftid) {
-        $arr = $this->load_groups($ftid);
-        foreach ($arr as $key => $row) {
-            $arr[$key]['icons'][] = kf::gen_del_icon($row['id'], true, 'delflxgroup');
-        }
-        $this->RESOURCE['flextpl']['groups'] = $arr;
-        return $this->RESOURCE['flextpl']['groups'];
+    /*  function load_flex_groups($ftid) {
+    $arr = $this->load_groups($ftid);
+    foreach ($arr as $key => $row) {
+    $arr[$key]['icons'][] = kf::gen_del_icon($row['id'], true, 'delflxgroup');
     }
+    $this->RESOURCE['flextpl']['groups'] = $arr;
+    return $this->RESOURCE['flextpl']['groups'];
+    }*/
 
     /**
      * resource_admin_class::cmd_reload_groups()
      * 
      * @return
      */
-    function cmd_reload_groups() {
-        $this->load_flex_groups($_GET['ftid']);
-        $this->parse_to_smarty();
-        kf::echo_template('resource.group.table');
-    }
+    /* function cmd_reload_groups() {
+    $this->load_flex_groups($_GET['ftid']);
+    $this->parse_to_smarty();
+    kf::echo_template('resource.group.table');
+    }*/
 
     /**
      * resource_admin_class::cmd_del_content()
@@ -273,8 +407,10 @@ class resource_admin_class extends resource_master_class {
     function cmd_del_content() {
         $result = $this->db->query("SELECT * FROM " . TBL_RESRCVARS . " WHERE v_cid=" . (int)$_GET['ident']);
         while ($row = $this->db->fetch_array_names($result)) {
-            $this->delflexvarimg($row['v_cid'], $row['v_vid']);
-            $this->delflexvarfile($row['v_cid'], $row['v_vid']);
+            foreach ($this->languages as $lang) {
+                $this->delflexvarimg($row['v_cid'], $row['v_vid'], $lang['id']);
+                $this->del_resrc_var_file($row['v_cid'], $row['v_vid'], $lang['id']);
+            }
         }
         $this->db->query("DELETE FROM " . TBL_RESRCVARS . " WHERE v_cid=" . (int)$_GET['ident']);
         $this->db->query("DELETE FROM " . TBL_RESRC_CONTENT . " WHERE id=" . (int)$_GET['ident']);
@@ -316,6 +452,16 @@ class resource_admin_class extends resource_master_class {
     }
 
     /**
+     * resource_admin_class::cmd_save_table_name()
+     * 
+     * @return void
+     */
+    function cmd_save_table_name() {
+        dao_class::update_table(TBL_RESRC_TABLES, array('f_name' => $_GET['f_table']), array('f_table' => $_GET['ident']));
+        $this->ej();
+    }
+
+    /**
      * resource_admin_class::load_resrc_for_edit()
      * 
      * @param mixed $id
@@ -323,12 +469,29 @@ class resource_admin_class extends resource_master_class {
      * @param integer $gid
      * @return
      */
-    function load_resrc_for_edit($id, $content_matrix_id = 0, $gid = 0) {
+    function load_resrc_for_edit($id, $content_matrix_id = 0, $table = "", $langid = 1) {
+        # load language
+        $langid = ((int)$langid <= 0) ? 1 : $langid;
         $this->RESOURCE['flextpl'] = $this->set_opt($this->load_resrc($id));
-        $this->RESOURCE['flextpl']['smarty_table'] = self::get_smarty_flexvar($this->RESOURCE['flextpl']['f_table']);
-        $this->RESOURCE['flextpl']['datasetvars'] = $this->load_dataset_vars($id);
+        $table = ($table == "") ? $this->RESOURCE['flextpl']['f_table'] : $table;
+        $this->RESOURCE['flextpl']['smarty_table'] = self::get_smarty_flexvar($table);
+        $this->RESOURCE['flextpl']['datasetvars'] = $this->load_dataset_vars($id, $table);
         $this->RESOURCE['content_table'] = $this->load_content_table($id);
         $this->RESOURCE['content'] = $this->load_content($content_matrix_id);
+        $this->RESOURCE['tables'] = $this->load_tables_of_resrc($id);
+        $this->RESOURCE['all_resrc'] = $this->load_flx_tpls();
+
+        foreach ($this->RESOURCE['tables'] as $key => $row) {
+            if ($row['f_table'] == $table) {
+                $this->RESOURCE['tables'][$key]['selected'] = true;
+                $this->RESOURCE['table'] = $this->RESOURCE['tables'][$key];
+            }
+            else {
+                $this->RESOURCE['tables'][$key]['selected'] = false;
+            }
+        }
+
+        $dataset = array();
 
         # HTML Vorlagen
         $this->RESOURCE['flextpl']['tpls'] = $this->load_tpl_table($id);
@@ -345,44 +508,43 @@ class resource_admin_class extends resource_master_class {
         $this->RESOURCE['menu_selectox'] = $this->nested->outputtree_select();
 
         # Data Set Vars
-        $arr = $this->load_dataset_vars_table($id, $gid);
-        foreach ($arr as $key => $row) {
-            $arr[$key]['icons'][] = kf::gen_del_icon($row['id'], true, 'deldatasetvar');
-            $arr[$key]['varname'] = htmlspecialchars('<%$row.' . $row['v_varname'] . '%>');
-            if ($arr[$row['v_col']]['v_type'] == 'hedt') {
+        $tables = $this->load_tables_of_resrc($id);
+        foreach ($tables as $db_table) {
+            $arr = $this->load_dataset_vars_table($id, $db_table['f_table']);
+            foreach ($arr as $key => $row) {
+                $arr[$key]['icons'][] = kf::gen_del_icon($row['id'], true, 'deldatasetvar', '', '&langid=' . $langid . '&table=' . $db_table['f_table']);
+                $arr[$key]['varname'] = htmlspecialchars('<%$row.' . $row['v_varname'] . '%>');
+                if ($arr[$row['v_col']]['v_type'] == 'hedt') {
 
-                $arr[$key]['htmleditor'] = create_html_editor('FORM[' . $row['v_col'] . ']', '', 200, 'Full');
-            }
-            if ($arr[$row['v_col']]['v_type'] == 'sel') {
-                $arr[$key]['select'] = explode('|', $row['v_opt']['sel']['values']);
-            }
-            if ($arr[$row['v_col']]['v_type'] == 'seli') {
-                $option_pairs = explode('|', $row['v_opt']['seli']['values']);
-                foreach ($option_pairs as $ok => $opt) {
-                    list($optkey, $optval) = explode(';', $opt);
-                    $arr[$key]['select'][$optkey] = $optval;
+                    $arr[$key]['htmleditor'] = create_html_editor('FORM[' . $row['v_col'] . ']', '', 200, 'Full');
                 }
+                elseif ($arr[$row['v_col']]['v_type'] == 'sel') {
+                    $arr[$key]['select'] = explode('|', $row['v_opt']['sel']['values']);
+                }
+                elseif ($arr[$row['v_col']]['v_type'] == 'seli') {
+                    $option_pairs = explode('|', $row['v_opt']['seli']['values']);
+                    foreach ($option_pairs as $ok => $opt) {
+                        list($optkey, $optval) = explode(';', $opt);
+                        $arr[$key]['select'][$optkey] = $optval;
+                    }
+                }
+                elseif ($arr[$row['v_col']]['v_type'] == 'resid') {
+                    $resid = (int)$row['v_opt']['resrc']['id'];
+                    $arr[$key]['resrc_table'] = $this->load_content_table($resid);
+                }
+
+            }
+            $this->RESOURCE['flextpl']['tables'][$db_table['f_table']] = $arr;
+            if ($table == $db_table['f_table']) {
+                $this->RESOURCE['flextpl']['datasetvarsdb'] = $arr;
             }
         }
-        $this->RESOURCE['flextpl']['datasetvarsdb'] = $arr;
+
 
         # load dataset values / content
         $arr_header = $arr = array();
-        $arr = $this->load_dataset_for_plugin($this->RESOURCE['flextpl']['f_table'], $content_matrix_id, $gid);
+        $arr = $this->load_dataset_for_plugin($table, $content_matrix_id, $gid, $langid);
 
-        # remove columns which does not belongs to that group
-        /* if ($gid > 0) {
-        foreach ($arr as $key => $row) {
-        foreach ($row as $column => $value) {
-        if ($column == 'id' || $column == 'ds_order' || $column == 'ds_settings' || $column == 'ds_cid' || $this->RESOURCE['flextpl']['datasetvarsdb'][$column]['v_gid'] ==
-        $gid) {
-        $arr_clean[$key][$column] = $value;
-        }
-        }
-        }
-        $arr = $arr_clean;
-        unset($arr_clean);
-        }*/
 
         # build header
         if (is_array($arr)) {
@@ -391,26 +553,17 @@ class resource_admin_class extends resource_master_class {
                 $row_id = $row['id'];
                 foreach ($row as $column => $value) {
                     if (!isset($arr_header[$column]) && !in_array($column, $this->forbidden_column_arr)) {
-                        if ($gid == 0 || $this->RESOURCE['flextpl']['datasetvarsdb'][$column]['v_gid'] == $gid) {
-                            $arr_header[$column] = $this->RESOURCE['flextpl']['datasetvarsdb'][$column]['v_name'];
-                        }
+                        #  if ($gid == 0 || $this->RESOURCE['flextpl']['datasetvarsdb'][$column]['v_gid'] == $gid) {
+                        $arr_header[$column] = $this->RESOURCE['flextpl']['datasetvarsdb'][$column]['v_name'];
+                        #}
                     }
                 }
             }
 
             foreach ($arr as $key => $row) {
-
                 $row_id = $row['id'];
                 foreach ($row as $column => $value) {
                     if (!in_array($column, $this->forbidden_column_arr)) {
-
-                        # if ($gid == 0 || $this->RESOURCE['flextpl']['datasetvarsdb'][$column]['v_gid'] == $gid) {
-                        #
-                        #  if (!is_array($row['ds_settings'])) {
-                        #     $value['ds_settings'] = (!empty($row['ds_settings'])) ? unserialize($row['ds_settings']) : array();
-                        #  } else {
-                        #      $value['ds_settings'] = $row['ds_settings'];
-                        #  }
 
                         $dataset[$row_id]['row'][$column] = $value;
                         $dataset[$row_id]['ds_order'] = $row['ds_order'];
@@ -429,6 +582,10 @@ class resource_admin_class extends resource_master_class {
                                 $dataset[$row_id]['column'][$column]['select'][$optkey] = $optval;
                             }
                         }
+                        if ($dataset[$row_id]['column'][$column]['v_type'] == 'resid') {
+                            $resid = (int)$this->RESOURCE['flextpl']['datasetvarsdb'][$column]['v_opt']['resrc']['id'];
+                            $dataset[$row_id]['column'][$column]['resrc_table'] = $this->load_content_table($resid);
+                        }
                         if ($dataset[$row_id]['column'][$column]['v_type'] == 'img') {
                             $img = ($value != "") ? $this->froot . $value : CMS_ROOT . 'images/opt_no_pic.jpg';
 
@@ -443,24 +600,21 @@ class resource_admin_class extends resource_master_class {
                     }
                 }
                 $dataset[$row_id]['ds_settings'] = (array )$row['ds_settings'];
-                $dataset[$row_id]['icons'][] = kf::gen_del_icon($row_id, true, 'deldataset', '', '&flxtid=' . $id);
+                $dataset[$row_id]['icons'][] = kf::gen_del_icon($row_id, true, 'deldataset', '', '&flxtid=' . $id . '&langid=' . $langid . '&table=' . $table);
             }
         }
         $this->RESOURCE['flextpl']['dataset'] = $dataset;
         $this->RESOURCE['flextpl']['dataset_header'] = $arr_header;
-
-
         unset($arr);
 
         # Flex Vars
-        $this->RESOURCE['flextpl']['flexvars'] = $this->load_flexvars_table($id, $gid);
-        $flexvarsdata = $this->load_flexvars_for_plugin($content_matrix_id);
+        $this->RESOURCE['flextpl']['flexvars'] = $this->load_flexvars_table($id, "", true);
+        $flexvarsdata = $this->load_flexvars_for_plugin($content_matrix_id, $langid);
 
         foreach ($this->RESOURCE['flextpl']['flexvars'] as $v_vid => $row) {
             $value = $flexvarsdata[$row['id']]['v_value'];
-
             $this->RESOURCE['flextpl']['flexvars'][$v_vid]['value'] = (string )$value;
-            $this->RESOURCE['flextpl']['flexvars'][$v_vid]['icons'][] = kf::gen_del_icon($row['id'], true, 'delflexvar');
+            $this->RESOURCE['flextpl']['flexvars'][$v_vid]['icons'][] = kf::gen_del_icon($row['id'], true, 'delflexvar', '', '&langid=' . $langid);
             $this->RESOURCE['flextpl']['flexvars'][$v_vid]['varname'] = htmlspecialchars('<%$resrc.var.' . $row['v_varname'] . '%>');
             $this->RESOURCE['flextpl']['flexvars'][$v_vid]['v_settings'] = $flexvarsdata[$row['id']]['v_settings'];
             if ($row['v_type'] == 'hedt') {
@@ -476,6 +630,9 @@ class resource_admin_class extends resource_master_class {
                     $this->RESOURCE['flextpl']['flexvars'][$v_vid]['select'][$optkey] = $optval;
                 }
             }
+            elseif ($row['v_type'] == 'resid') {
+                $this->RESOURCE['flextpl']['resrc_table'] = $this->load_content_table($row['v_opt']['resrc']['id']);
+            }
             elseif ($row['v_type'] == 'img') {
                 $img = ($value != "") ? $this->froot . $value : CMS_ROOT . 'images/opt_no_pic.jpg';
                 $this->RESOURCE['flextpl']['flexvars'][$v_vid]['thumb'] = (self::get_ext($img) == 'svg') ? PATH_CMS . 'file_data/resource/images/' . basename($img) : './' .
@@ -483,6 +640,9 @@ class resource_admin_class extends resource_master_class {
             }
             elseif ($row['v_type'] == 'file') {
                 $this->RESOURCE['flextpl']['flexvars'][$v_vid]['file_root'] = $this->file_root . $value;
+            }
+            elseif ($row['v_type'] == 'rdate') {
+                $this->RESOURCE['flextpl']['flexvars'][$v_vid]['value'] = my_date('d.m.Y', $value);
             }
 
         }
@@ -496,10 +656,15 @@ class resource_admin_class extends resource_master_class {
      * @return
      */
     function load_resrc_structure($resrc_id) {
-        $vars_structure = $this->load_flexvars_table($resrc_id, 0);
-        $dataset_structure = $this->load_dataset_vars_table($resrc_id);
-        return array('vars_structure' => $vars_structure, 'dataset_structure' => $dataset_structure);
-
+        $resrc = $this->load_resrc($resrc_id);
+        $vars_structure = $this->load_flexvars_table($resrc_id, "");
+        $tables = $this->load_tables_of_resrc($resrc_id);
+        $dataset_structure = $this->load_dataset_vars_table($resrc_id, "");
+        return array(
+            'resrc' => $resrc,
+            'vars_structure' => $vars_structure,
+            'dataset_structure' => $dataset_structure,
+            'tables' => $tables);
     }
 
 
@@ -509,7 +674,7 @@ class resource_admin_class extends resource_master_class {
      * @return
      */
     function cmd_edit() {
-        $this->load_resrc_for_edit($_GET['id'], 0, $_GET['gid']);
+        $this->load_resrc_for_edit($_GET['id'], 0, $_GET['table']);
     }
 
     /**
@@ -518,7 +683,7 @@ class resource_admin_class extends resource_master_class {
      * @return
      */
     function cmd_ax_editflextpl() {
-        $this->load_resrc_for_edit($_GET['id'], 0, $_GET['gid']);
+        $this->load_resrc_for_edit($_GET['id'], 0, $_GET['table']);
         $this->parse_to_smarty();
         kf::echo_template('resource');
     }
@@ -574,15 +739,15 @@ class resource_admin_class extends resource_master_class {
      */
     function delete_datasetvar($id) {
         $datasetvar = $this->db->query_first("SELECT * FROM " . TBL_RESRCDV . " WHERE id=" . $id);
-        $flex = $this->load_resrc($datasetvar['v_ftid']);
-        $result = $this->db->query("SELECT * FROM " . $flex['f_table'] . " WHERE 1");
+        # $flex = $this->load_resrc($datasetvar['v_ftid']);
+        $result = $this->db->query("SELECT * FROM " . TBL_CMS_PREFIX . $datasetvar['v_table'] . " WHERE 1");
         while ($row = $this->db->fetch_array_names($result)) {
             if (is_file($this->froot . $row[$datasetvar['v_col']]))
                 @unlink($this->froot . $row[$datasetvar['v_col']]);
             if (is_file($this->file_root . $row[$datasetvar['v_col']]))
                 @unlink($this->file_root . $row[$datasetvar['v_col']]);
         }
-        $this->db->query("ALTER TABLE `" . $flex['f_table'] . "` DROP `" . $datasetvar['v_col'] . "` ");
+        $this->db->query("ALTER TABLE `" . TBL_CMS_PREFIX . $datasetvar['v_table'] . "` DROP `" . $datasetvar['v_col'] . "` ");
         $this->db->query("DELETE FROM " . TBL_RESRCDV . " WHERE id=" . $id);
     }
 
@@ -612,8 +777,7 @@ class resource_admin_class extends resource_master_class {
      * @return
      */
     function cmd_reload_dataset_vars() {
-        $gid = (int)$_GET['gid'];
-        $this->load_resrc_for_edit($_GET['id'], $_GET['content_matrix_id'], $gid);
+        $this->load_resrc_for_edit($_GET['id'], $_GET['content_matrix_id'], $_GET['table']);
         $this->parse_to_smarty();
         kf::echo_template('resource.datasetvars.table');
     }
@@ -640,7 +804,7 @@ class resource_admin_class extends resource_master_class {
             $FORM['v_opt'] = serialize($_POST['FORMOPT']);
         }
         $FLEX = $this->set_opt($this->load_resrc($FORM['v_ftid']));
-        $datasetvars = $this->load_dataset_vars($FORM['v_ftid']);
+        $datasetvars = $this->load_dataset_vars($FORM['v_ftid'], $FORM['v_table']);
         $cols = array();
         foreach ($datasetvars as $key => $row) {
             $cols[$row['Field']] = $row['Field'];
@@ -659,13 +823,13 @@ class resource_admin_class extends resource_master_class {
                 $k++;
                 $columnname = $k . $org_name;
             }
-            $this->db->query("ALTER TABLE `" . $FLEX['f_table'] . "` ADD `" . $columnname . "` " . $this->varmap[$FORM['v_type']] . " NOT NULL");
+            $this->db->query("ALTER TABLE `" . TBL_CMS_PREFIX . $FORM['v_table'] . "` ADD `" . $columnname . "` " . $this->varmap[$FORM['v_type']] . " NOT NULL");
             $FORM['v_col'] = $columnname;
             $FORM['v_varname'] = $this->gen_dsvar_name($FORM['v_name']);
             insert_table(TBL_RESRCDV, $FORM);
         }
 
-        $this->ej('reload_dataset_vars');
+        $this->ej('reload_dataset_vars', "'" . $FORM['v_table'] . "'");
     }
 
     /**
@@ -674,7 +838,7 @@ class resource_admin_class extends resource_master_class {
      * @return
      */
     function cmd_reload_flexvars_vars() {
-        $this->load_resrc_for_edit($_GET['id'], 0, $_GET['gid']);
+        $this->load_resrc_for_edit($_GET['id'], 0);
         $this->parse_to_smarty();
         kf::echo_template('resource.flexvars.table');
     }
@@ -689,7 +853,7 @@ class resource_admin_class extends resource_master_class {
         $FORM = $this->trim_array($_POST['FORM']);
         if (isset($_POST['FORMOPT']))
             $FORM['v_opt'] = serialize($_POST['FORMOPT']);
-        if (isset($_POST['varid']) && $_POST['varid'] > 0) {
+        if (isset($_POST['varid']) && (int)$_POST['varid'] > 0) {
             update_table(TBL_RESRCDV, 'id', $_POST['varid'], $FORM);
         }
         else {
@@ -750,16 +914,16 @@ class resource_admin_class extends resource_master_class {
      * 
      * @return
      */
-    function cmd_save_group_table() {
-        $FORM = (array )$_POST['FORM'];
-        foreach ($FORM as $key => $row) {
-            if ($row['g_ident'] == "") {
-                $row['g_ident'] = $this->gen_group_name($row['g_name']);
-            }
-            update_table(TBL_FLXGROUPS, 'id', $key, $row);
-        }
-        $this->ej();
+    /*  function cmd_save_group_table() {
+    $FORM = (array )$_POST['FORM'];
+    foreach ($FORM as $key => $row) {
+    if ($row['g_ident'] == "") {
+    $row['g_ident'] = $this->gen_group_name($row['g_name']);
     }
+    update_table(TBL_FLXGROUPS, 'id', $key, $row);
+    }
+    $this->ej();
+    }*/
 
     /**
      * resource_admin_class::cmd_save_flexvar_table()
@@ -780,10 +944,10 @@ class resource_admin_class extends resource_master_class {
             update_table(TBL_RESRCDV, 'id', $id, $row);
         }
         if (isset($_POST['dataset'])) {
-            $this->ej('reload_dataset_vars_by_gid', $_POST['gid']);
+            $this->ej('reload_dataset_vars', "'" . $_POST['table'] . "'");
         }
         else {
-            $this->ej('reload_flexvars_vars_by_gid', $_POST['gid']);
+            $this->ej('reload_flexvars_vars');
         }
     }
 
@@ -813,37 +977,41 @@ class resource_admin_class extends resource_master_class {
     function delflexvarimg_by_flxtid($v_ftid) {
         $result = $this->db->query("SELECT * FROM " . TBL_RESRCVARS . " WHERE v_ftid=" . $v_ftid);
         while ($row = $this->db->fetch_array_names($result)) {
-            $this->delflexvarimg($row['v_cid'], $row['v_vid']);
+            foreach ($this->languages as $lang) {
+                $this->delflexvarimg($row['v_cid'], $row['v_vid'], $lang['id']);
+            }
         }
     }
 
     /**
-     * resource_admin_class::delflexvarfile_by_flxtid()
+     * resource_admin_class::del_resrc_var_file_by_flxtid()
      * 
      * @param mixed $v_ftid
      * @return
      */
-    function delflexvarfile_by_flxtid($v_ftid) {
+    function del_resrc_var_file_by_flxtid($v_ftid) {
         $result = $this->db->query("SELECT * FROM " . TBL_RESRCVARS . " WHERE v_ftid=" . $v_ftid);
         while ($row = $this->db->fetch_array_names($result)) {
-            $this->delflexvarfile($row['v_cid'], $row['v_vid']);
+            foreach ($this->languages as $lang) {
+                $this->del_resrc_var_file($row['v_cid'], $row['v_vid'], $lang['id']);
+            }
         }
     }
 
     /**
-     * resource_admin_class::delflexvarfile()
+     * resource_admin_class::del_resrc_var_file()
      * 
      * @param mixed $content_matrix_id
      * @param mixed $rowid
      * @return
      */
-    function delflexvarfile($content_matrix_id, $rowid) {
+    function del_resrc_var_file($content_matrix_id, $rowid, $langid = 1) {
         $rowid = (int)$rowid;
         if ($rowid > 0) {
-            $ROW = $this->db->query_first("SELECT * FROM " . TBL_RESRCVARS . " WHERE v_cid=" . $content_matrix_id . " AND v_vid=" . $rowid);
+            $ROW = $this->db->query_first("SELECT * FROM " . TBL_RESRCVARS . " WHERE v_langid=" . (int)$langid . " AND v_cid=" . $content_matrix_id . " AND v_vid=" . $rowid);
             if (is_file($this->file_root . $ROW['v_value']))
                 @unlink($this->file_root . $ROW['v_value']);
-            $this->delete_flexvar_value($content_matrix_id, $rowid);
+            $this->delete_flexvar_value($content_matrix_id, $rowid, $langid);
         }
     }
 
@@ -854,13 +1022,13 @@ class resource_admin_class extends resource_master_class {
      * @param mixed $rowid
      * @return
      */
-    function delflexvarimg($v_cid, $rowid) {
+    function delflexvarimg($v_cid, $rowid, $langid) {
         $rowid = (int)$rowid;
         if ($rowid > 0) {
-            $ROW = $this->db->query_first("SELECT * FROM " . TBL_RESRCVARS . " WHERE v_cid=" . $v_cid . " AND v_vid=" . $rowid);
+            $ROW = $this->db->query_first("SELECT * FROM " . TBL_RESRCVARS . " WHERE v_langid=" . (int)$langid . " AND v_cid=" . $v_cid . " AND v_vid=" . $rowid);
             if (is_file($this->froot . $ROW['v_value']))
                 delete_file($this->froot . $ROW['v_value']);
-            $this->delete_flexvar_value($v_cid, $rowid);
+            $this->delete_flexvar_value($v_cid, $rowid, $langid);
         }
     }
 
@@ -876,6 +1044,8 @@ class resource_admin_class extends resource_master_class {
         $CM = (array )$_POST['CM'];
 
         $content_matrix_id = (int)$_POST['content_matrix_id'];
+        $langid = (int)$_POST['langid'];
+        $langid = ($langid <= 0) ? 1 : $langid;
 
         if ($content_matrix_id == 0) {
             $CM['c_itime'] = time();
@@ -898,23 +1068,26 @@ class resource_admin_class extends resource_master_class {
             foreach ($_FILES['datei']['name'] as $id => $fname) {
                 if ($fname != "" && self::is_image($_FILES['datei']['tmp_name'][$id])) {
                     # remove existing one
-                    $this->delflexvarimg($content_matrix_id, $id);
-                    $fname = $this->unique_filename($this->froot, $fname);
+                    $this->delflexvarimg($content_matrix_id, $id, $langid);
+                    $fname = $this->unique_filename($this->froot, $CM['c_label'] . '.' . self::get_ext($fname));
                     $target = $this->froot . $fname;
 
                     if (!move_uploaded_file($_FILES['datei']['tmp_name'][$id], $target)) {
-                        die('ERROR');
+                        $this->msge('Image file error: ' . self::file_upload_err_to_txt($_FILES['datei']['tmp_name'][$id]));
                     }
-                    chmod($target, 0755);
-                    if (self::get_ext($file) != 'svg') {
-                        graphic_class::resize_picture_imageick('../file_data/resource/images/' . $fname, '../file_data/resource/images/' . $fname, 2100, 2000);
+                    else {
+                        chmod($target, 0755);
+                        if (self::get_ext($fname) != 'svg') {
+                            graphic_class::resize_picture_imageick('../file_data/resource/images/' . $fname, '../file_data/resource/images/' . $fname, 2100, 2000);
+                        }
+                        $this->delete_flexvar_value($content_matrix_id, $id, $langid);
+                        insert_table(TBL_RESRCVARS, array(
+                            'v_cid' => $content_matrix_id,
+                            'v_vid' => $id,
+                            'v_langid' => $langid,
+                            'v_ftid' => $_POST['flxid'],
+                            'v_value' => $fname));
                     }
-                    $this->delete_flexvar_value($content_matrix_id, $id);
-                    insert_table(TBL_RESRCVARS, array(
-                        'v_cid' => $content_matrix_id,
-                        'v_vid' => $id,
-                        'v_ftid' => $_POST['flxid'],
-                        'v_value' => $fname));
                 }
             }
         }
@@ -923,48 +1096,52 @@ class resource_admin_class extends resource_master_class {
             foreach ($_FILES['fdatei']['name'] as $id => $fname) {
                 if ($fname != "") {
                     # remove existing one
-                    $this->delflexvarfile($content_matrix_id, $id);
+                    $this->del_resrc_var_file($content_matrix_id, $id, $langid);
                     $fname = $this->unique_filename($this->file_root, $fname);
                     $target = $this->file_root . $fname;
                     if (!move_uploaded_file($_FILES['fdatei']['tmp_name'][$id], $target)) {
-                        die('ERROR');
+                        $this->msge('Image file error: ' . self::file_upload_err_to_txt($_FILES['fdatei']['tmp_name'][$id]));
                     }
-                    chmod($target, 0755);
-                    $this->delete_flexvar_value($content_matrix_id, $id);
-                    insert_table(TBL_RESRCVARS, array(
-                        'v_cid' => $content_matrix_id,
-                        'v_vid' => $id,
-                        'v_ftid' => $_POST['flxid'],
-                        'v_value' => $fname));
+                    else {
+                        chmod($target, 0755);
+                        $this->delete_flexvar_value($content_matrix_id, $id, $langid);
+                        insert_table(TBL_RESRCVARS, array(
+                            'v_cid' => $content_matrix_id,
+                            'v_vid' => $id,
+                            'v_langid' => $langid,
+                            'v_ftid' => $_POST['flxid'],
+                            'v_value' => $fname));
+                    }
                 }
             }
         }
 
         # save
         foreach ($flxvars as $id => $value) {
-            $this->delete_flexvar_value($content_matrix_id, $id);
+            $this->delete_flexvar_value($content_matrix_id, $id, $langid);
             $value = self::html_editor_transform_content($value);
+            $value_def = dao_class::get_data_first(TBL_RESRCDV, array('id' => $id));
+            if ($value_def['v_type'] == 'rdate') {
+                $value = self::date_to_sqldate($value);
+            }
             insert_table(TBL_RESRCVARS, array(
                 'v_cid' => $content_matrix_id,
                 'v_vid' => $id,
+                'v_langid' => $langid,
                 'v_ftid' => $_POST['flxid'],
                 'v_value' => $value));
         }
 
         #save settings
         foreach ($v_settings as $id => $row) {
-            $this->db->query("UPDATE " . TBL_RESRCVARS . " SET v_settings='" . serialize($row) . "'  WHERE v_cid=" . $content_matrix_id . " AND v_vid=" . $id);
+            $this->db->query("UPDATE " . TBL_RESRCVARS . " SET v_settings='" . serialize($row) . "'  WHERE v_langid=" . $langid . " AND v_cid=" . $content_matrix_id .
+                " AND v_vid=" . $id);
         }
 
         # rebuild page_inde
-        $this->rebuild_page_index($content_matrix_id);
-
-        #  if (isset($_FILES['datei']) && is_array($_FILES['datei']['name'])) {
+        $this->rebuild_page_index();
         $this->ej('reload_resource', (int)$_POST['flxid']);
-        # }
-        #else {
-        #   $this->ej();
-        #}
+
     }
 
 
@@ -997,31 +1174,6 @@ class resource_admin_class extends resource_master_class {
         kf::echo_template('resource.addcontent.sel');
     }
 
-    /**
-     * resource_admin_class::cmd_show_addds()
-     * 
-     * @return
-     */
-    function cmd_show_addds() {
-        $gid = (isset($_GET['gid']) ? (int)$_GET['gid'] : 0);
-        $this->load_resrc_for_edit($_GET['flxid'], $_GET['content_matrix_id'], $gid);
-        $this->RESOURCE['plugopt'] = $this->load_plug_opt($_GET['content_matrix_id']);
-        $this->parse_to_smarty();
-        kf::echo_template('resource.addcontent.addds');
-    }
-
-    /**
-     * resource_admin_class::cmd_show_edit_dataset()
-     * 
-     * @return
-     */
-    function cmd_show_edit_dataset() {
-        $this->load_resrc_for_edit($_GET['flxid'], $_GET['content_matrix_id'], $_GET['gid']);
-        # $this->RESOURCE['plugopt'] = $this->load_plug_opt($_GET['content_matrix_id']);
-        $this->RESOURCE['seldataset'] = $this->RESOURCE['flextpl']['dataset'][$_GET['rowid']];
-        $this->parse_to_smarty();
-        kf::echo_template('resource.addcontent.addds');
-    }
 
     /**
      * resource_admin_class::cmd_deldataset()
@@ -1030,7 +1182,8 @@ class resource_admin_class extends resource_master_class {
      */
     function cmd_deldataset() {
         $this->load_resrc_for_edit($_GET['flxtid']);
-        $FDS = $this->db->query_first("SELECT * FROM " . $this->RESOURCE['flextpl']['f_table'] . " WHERE id=" . $_GET['ident']);
+        $table = TBL_CMS_PREFIX . $_GET['table'];
+        $FDS = $this->db->query_first("SELECT * FROM " . $table . " WHERE id=" . $_GET['ident']);
         foreach ($FDS as $column => $value) {
             if (substr($column, -4) == '_img') {
                 @unlink($this->froot . $value);
@@ -1039,7 +1192,7 @@ class resource_admin_class extends resource_master_class {
                 @unlink($this->file_root . $value);
             }
         }
-        $this->db->query("DELETE FROM " . $this->RESOURCE['flextpl']['f_table'] . " WHERE id=" . $_GET['ident']);
+        $this->db->query("DELETE FROM " . $table . " WHERE id=" . $_GET['ident']);
         $this->ej();
     }
 
@@ -1051,11 +1204,11 @@ class resource_admin_class extends resource_master_class {
      * @param mixed $column
      * @return
      */
-    function deldatasetimg($flxid, $rowid, $column) {
+    function deldatasetimg($flxid, $rowid, $column, $table, $langid = 1) {
         $FLEX = $this->load_resrc($flxid);
-        $ROW = $this->db->query_first("SELECT * FROM " . $FLEX['f_table'] . " WHERE id=" . $rowid);
+        $ROW = $this->db->query_first("SELECT * FROM " . TBL_CMS_PREFIX . $table . " WHERE id=" . $rowid . " AND ds_langid=" . (int)$langid);
         @unlink($this->froot . $ROW[$column]);
-        update_table($FLEX['f_table'], 'id', $rowid, array($column => ''));
+        dao_class::update_table(TBL_CMS_PREFIX . $table, array($column => ''), array('id' => $rowid, 'ds_langid' => $langid));
     }
 
     /**
@@ -1066,11 +1219,11 @@ class resource_admin_class extends resource_master_class {
      * @param mixed $column
      * @return
      */
-    function deldatasetfile($flxid, $rowid, $column) {
+    function deldatasetfile($flxid, $rowid, $column, $table, $langid = 1) {
         $FLEX = $this->load_resrc($flxid);
-        $ROW = $this->db->query_first("SELECT * FROM " . $FLEX['f_table'] . " WHERE id=" . $rowid);
+        $ROW = $this->db->query_first("SELECT * FROM " . TBL_CMS_PREFIX . $table . " WHERE id=" . $rowid . " AND ds_langid=" . (int)$langid);
         @unlink($this->file_root . $ROW[$column]);
-        update_table($FLEX['f_table'], 'id', $rowid, array($column => ''));
+        dao_class::update_table(TBL_CMS_PREFIX . $table, array($column => ''), array('id' => $rowid, 'ds_langid' => $langid));
     }
 
     /**
@@ -1079,7 +1232,7 @@ class resource_admin_class extends resource_master_class {
      * @return
      */
     function cmd_deldatasetimg() {
-        $this->deldatasetimg($_GET['flxid'], $_GET['rowid'], $_GET['column']);
+        $this->deldatasetimg($_GET['flxid'], $_GET['rowid'], $_GET['column'], $_GET['table'], $_GET['langid']);
         $this->hard_exit();
     }
 
@@ -1089,7 +1242,7 @@ class resource_admin_class extends resource_master_class {
      * @return
      */
     function cmd_deldatasetfile() {
-        $this->deldatasetfile($_GET['flxid'], $_GET['rowid'], $_GET['column']);
+        $this->deldatasetfile($_GET['flxid'], $_GET['rowid'], $_GET['column'], $_GET['table'], $_GET['langid']);
         $this->hard_exit();
     }
 
@@ -1099,106 +1252,18 @@ class resource_admin_class extends resource_master_class {
      * @return
      */
     function cmd_delflexvarimg() {
-        $this->delflexvarimg($_GET['content_matrix_id'], $_GET['rowid']);
+        $this->delflexvarimg($_GET['content_matrix_id'], $_GET['rowid'], $_GET['langid']);
         $this->hard_exit();
     }
 
     /**
-     * resource_admin_class::cmd_add_ds_to_db()
+     * resource_admin_class::cmd_del_resrc_var_file()
      * 
-     * @return
+     * @return void
      */
-    function cmd_add_ds_to_db() {
-        $FORM = self::trim_array($_POST['FORM']);
-        $rowid = (int)$_POST['rowid'];
-        $flxid = (int)$_POST['flxid'];
-        $FORM['ds_cid'] = $content_matrix_id = (int)$_POST['content_matrix_id'];
-        $arr = $this->load_dataset_vars_table($flxid);
-
-        foreach ($FORM as $key => $value) {
-            $FORM[$key] = self::html_editor_transform_content($value);
-
-            if ($arr[$key]['v_type'] == 'rdate') {
-                $FORM[$key] = self::date_to_sqldate($FORM[$key]);
-            }
-        }
-
-        if ($rowid > 0) {
-            # $this->load_resrc_for_edit($_GET['flxid']);
-            # $seldataset = $this->RESOURCE['flextpl']['dataset'][$rowid];
-        }
-        if (!is_dir(CMS_ROOT . 'file_data/resource/'))
-            mkdir(CMS_ROOT . 'file_data/resource/', 0775);
-
-        if (!is_dir($this->froot))
-            mkdir($this->froot, 0775);
-
-        if (!is_dir($this->file_root))
-            mkdir($this->file_root, 0775);
-
-        if (isset($_FILES['datei']) && is_array($_FILES['datei']['name'])) {
-            foreach ($_FILES['datei']['name'] as $column => $fname) {
-                if ($fname != "" && (self::is_image($_FILES['datei']['tmp_name'][$column]) || self::is_image($fname))) {
-
-                    # remove existing one
-                    if ($rowid > 0) {
-                        $this->deldatasetimg($flxid, $rowid, $column);
-                    }
-
-                    $fname = $this->unique_filename($this->froot, $fname);
-                    $target = $this->froot . $fname;
-                    if (!move_uploaded_file($_FILES['datei']['tmp_name'][$column], $target)) {
-                        $this->msge('Image file error');
-                    }
-                    chmod($target, 0755);
-                    if (self::get_ext($file) != 'svg') {
-                        graphic_class::resize_picture_imageick('../file_data/resource/images/' . $fname, '../file_data/resource/images/' . $fname, 2000, 2000);
-                    }
-                    $FORM[$column] = $fname;
-                }
-                else {
-                    unset($FORM[$column]);
-                }
-            }
-        }
-
-        if (isset($_FILES['fdatei']) && is_array($_FILES['fdatei']['name'])) {
-            foreach ($_FILES['fdatei']['name'] as $column => $fname) {
-                if ($fname != "") {
-                    # remove existing one
-                    if ($rowid > 0) {
-                        $this->deldatasetfile($flxid, $rowid, $column);
-                    }
-
-                    $fname = $this->unique_filename($this->file_root, $fname);
-                    $target = $this->file_root . $fname;
-                    if (!move_uploaded_file($_FILES['fdatei']['tmp_name'][$column], $target)) {
-                        $this->msge('File error');
-                    }
-                    chmod($target, 0755);
-                    $FORM[$column] = $fname;
-                }
-                else {
-                    unset($FORM[$column]);
-                }
-            }
-        }
-
-
-        $this->load_resrc_for_edit($flxid);
-        $FORM['ds_settings'] = serialize((array )$FORM['ds_settings']);
-        if ($rowid == 0) {
-            $LAST = $this->db->query_first("SELECT * FROM " . $this->RESOURCE['flextpl']['f_table'] . " WHERE ds_group=" . (int)$FORM['ds_group'] . " AND ds_cid=" . $FORM['ds_cid'] .
-                " ORDER BY ds_order DESC LIMIT 1");
-            $FORM['ds_order'] = $LAST['ds_order'] + 10;
-            $rowid = insert_table($this->RESOURCE['flextpl']['f_table'], $FORM);
-        }
-        else {
-            update_table($this->RESOURCE['flextpl']['f_table'], 'id', $rowid, $FORM);
-        }
-
-
-        $this->ej('reload_dataset', $content_matrix_id);
+    function cmd_del_resrc_var_file() {
+        $this->del_resrc_var_file($_GET['content_matrix_id'], $_GET['rowid'], $_GET['langid']);
+        $this->hard_exit();
     }
 
 
@@ -1208,7 +1273,7 @@ class resource_admin_class extends resource_master_class {
      * @return
      */
     function cmd_save_dataset_table() {
-        $this->load_resrc_for_edit($_POST['flxid']);
+        $this->load_resrc_for_edit($_POST['flxid'], $_POST['content_matrix_id'], $_POST['table']);
         $FORM = (array )$_POST['FORM'];
         foreach ($FORM as $key => $row) {
             $FORM[$key]['id'] = $key;
@@ -1219,9 +1284,9 @@ class resource_admin_class extends resource_master_class {
             $row['ds_order'] = $k;
             $id = $row['id'];
             unset($row['id']);
-            update_table($this->RESOURCE['flextpl']['f_table'], 'id', $id, $row);
+            update_table(TBL_CMS_PREFIX . $_POST['table'], 'id', $id, $row);
         }
-        $this->ej('reload_dataset', $_POST['content_matrix_id']);
+        $this->ej('reload_dataset', $_POST['content_matrix_id'] . ',' . $_POST['langid'] . ",'" . $_POST['table'] . "'");
     }
 
     /**
@@ -1294,16 +1359,6 @@ class resource_admin_class extends resource_master_class {
         return $params;
     }
 
-    /**
-     * resource_admin_class::cmd_show_add_content()
-     * 
-     * @return void
-     */
-    function cmd_load_resource() {
-        $this->load_resrc_for_edit($_GET['flxid'], $_GET['content_matrix_id']);
-        $this->parse_to_smarty();
-        kf::echo_template('resource.addcontent');
-    }
 
     /**
      * resource_admin_class::cmd_add_con()
@@ -1311,22 +1366,34 @@ class resource_admin_class extends resource_master_class {
      * @return void
      */
     function cmd_show_add_content() {
-        $this->load_resrc_for_edit($_GET['flxid'], $_GET['content_matrix_id']);
+        $this->load_resrc_for_edit($_GET['flxid'], $_GET['content_matrix_id'], $_GET['table'], 1);
         $this->parse_to_smarty();
         kf::echo_template('resource.addcontent.flxvars');
     }
 
     /**
-     * resource_admin_class::cmd_show_add_datasets()
+     * resource_admin_class::cmd_show_add_content_by_lang()
      * 
      * @return void
      */
-    function cmd_show_add_datasets() {
-        $this->load_resrc_for_edit($_GET['flxid'], $_GET['content_matrix_id']);
+    function cmd_show_add_content_by_lang() {
+        $this->load_resrc_for_edit($_GET['flxid'], $_GET['content_matrix_id'], $_GET['table'], $_GET['langid']);
+        $this->parse_to_smarty();
+        kf::echo_template('resource.addcontent.form');
+    }
+
+
+    /**
+     * resource_admin_class::cmd_show_add_datasets_by_lang()
+     * 
+     * @return void
+     */
+    function cmd_show_add_datasets_by_lang() {
+        $this->load_resrc_for_edit($_GET['flxid'], $_GET['content_matrix_id'], $_GET['table'], $_GET['langid']);
         $this->parse_to_smarty();
         kf::echo_template('resource.addcontent.dataset.form');
-
     }
+
 
     /**
      * resource_admin_class::cmd_reload_dataset()

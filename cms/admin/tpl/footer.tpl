@@ -8,7 +8,7 @@
                             </div>
                             <div class="col-md-4 text-center">
                                 <img src="./images/small_icon_11x11.jpg" style="margin-right:3px;border:0px;width:11px">keimeno CMS Administrator 
-                                <br>Version Build : <%$ADMIN.vars.CMSVERSION%>|<%$ADMIN.vars.DB_DATABASE%>|<%$ADMIN.vars.PREFIX%>|<%$ADMIN.server.bitversion%> Server
+                                <br>Version Build : <%$ADMIN.vars.CMSVERSION%>|<%$ADMIN.vars.DB_DATABASE%>|<%$ADMIN.vars.PREFIX%>|<%$ADMIN.server.bitversion%> Server|Max.File Upload-Size:<%$ADMIN.max_file_upload_size%>|PHP:<%$ADMIN.phpversion%>
                                 <br>&copy; <a href="https://www.trebaxa.com" target="_blank">Trebaxa GmbH & Co. KG</a>
                                 <br />
                                 <p>This work is licensed under <a href="http://www.gnu.org/licenses/old-licenses/gpl-2.0" target="_blank">GNU GENERAL PUBLIC LICENSE Version 2 or higher</a>.</p>

@@ -3,9 +3,10 @@
     <div class="well" >
     
         <ul style="list-style:none">
+        
             <% foreach from=$RESOURCE.flextpl.flexvars item=row %>
                 <% if ($row.v_type=='resrc') %>
-                    <li><code> &lt;% foreach from=<%$row.varname_blank%> item=row %&gt;</code>
+                    <li><code> &lt;% foreach from=<%$row.varname_blank%> item=row %&gt;</code>                        
                         <ul style="list-style:none">
                            <% foreach from=$row.resrcvars.vars_structure item=resrc_var %>
                                 <li>
@@ -40,7 +41,13 @@
                         <code>&lt;%/foreach%&gt;</code>
                     </li>
                 <% else%>
-                    <li><code><%$row.varname%></code></li>
+                    <li><code>
+                    <% if ($row.v_type=='img')%>
+                        &lt;img alt="<%$row.varname%>" class="img-responsive" src="<%$row.varname%>"&gt;
+                   <%else%>
+                        <%$row.varname%>
+                   <%/if%>
+                    </code></li>
                 <%/if%>
             <%/foreach%>
         </ul>
@@ -49,22 +56,23 @@
     </div>    
     
    <% if (count($RESOURCE.flextpl.datasetvarsdb)>0)%> 
-   <h6>Beispiel Datensatzverarbeitung</h6>
-   <div class="well" >
-        <code>
-        <%*$RESOURCE.flextpl.datasetvarsdb|echoarr*%>
-            &lt;% foreach from=$resrc.dataset item=row %&gt;<br>
-            <% foreach from=$RESOURCE.flextpl.datasetvarsdb item=row %>
-               <% if ($row.v_type=='seli') %>
-                &nbsp;&nbsp;&nbsp;&lt;div data-ident="&lt;%$row.<%$row.v_varname%>.vident%&gt;"&gt;&lt;%$row.<%$row.v_varname%>.value%&gt;&lt;/div&gt;<br>
-               <%elseif ($row.v_type=='img') %>
-                &nbsp;&nbsp;&nbsp;&lt;img alt="&lt;%$row.<%$row.v_varname%>.value|sthsc%&gt;" class="img-responsive" src="&lt;%$row.<%$row.v_varname%>.thumb%&gt;"&gt;<br>
-               <%else%>
-                &nbsp;&nbsp;&nbsp;&lt;%$row.<%$row.v_varname%>.value%&gt;<br>
-               <%/if%> 
-            <%/foreach%>
-            &lt;%/foreach%&gt;
-        </code> 
-    </div>
-
+       <h6>Beispiel Datensatzverarbeitung</h6>
+       <div class="well" >
+            <code>
+            <%*$RESOURCE.flextpl.datasetvarsdb|echoarr*%>
+              <% foreach from=$RESOURCE.flextpl.tables key=table item=arr %> 
+                &lt;% foreach from=$resrc.dataset.<%$table%> item=row %&gt;<br>
+                <% foreach from=$arr item=row %>
+                   <% if ($row.v_type=='seli') %>
+                    &nbsp;&nbsp;&nbsp;&lt;div data-ident="&lt;%$row.<%$row.v_varname%>.vident%&gt;"&gt;&lt;%$row.<%$row.v_varname%>.value%&gt;&lt;/div&gt;<br>
+                   <%elseif ($row.v_type=='img') %>
+                    &nbsp;&nbsp;&nbsp;&lt;img alt="&lt;%$row.<%$row.v_varname%>.value|sthsc%&gt;" class="img-responsive" src="&lt;%$row.<%$row.v_varname%>.thumb%&gt;"&gt;<br>
+                   <%else%>
+                    &nbsp;&nbsp;&nbsp;&lt;%$row.<%$row.v_varname%>.value%&gt;<br>
+                   <%/if%> 
+                <%/foreach%>
+                &lt;%/foreach%&gt;<hr>
+              <%/foreach%>  
+            </code> 
+        </div>
      <%/if%>

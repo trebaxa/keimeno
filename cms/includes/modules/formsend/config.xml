@@ -11,7 +11,7 @@
       <epage>formsend.inc</epage>
       <onlyadmin>false</onlyadmin>
       <epage_dir>MODULE_ROOT</epage_dir>
-      <is_content_page>false</is_content_page>
+      <is_content_page>true</is_content_page>
       <stdclass>formsend_class</stdclass>
       <description>App Beschreibung</description>
       <developer_id/>

@@ -209,7 +209,9 @@ class flextemp_class extends flextemp_master_class {
                             'file_data/flextemp/files/' . $flexvarsdata[$row['id']]['v_value'] : '';
                     }
                     elseif ($row['v_type'] == 'resrc') {
-                        $flxtpl['var'][$row['v_varname']] = $RM->load_resrc_for_compile($row['v_resrc_id'], $flexvarsdata[$row['id']]['v_settings']);
+                        $arr_resrc = $RM->load_resrc_for_compile($row['v_resrc_id'], $flexvarsdata[$row['id']]['v_settings']);
+                        $flxtpl['var'][$row['v_varname']] = $arr_resrc['dataset'];
+                        $flxtpl['paging'] = $arr_resrc['paging'];
                     }
                     else {
                         $flxtpl['var'][$row['v_varname']] = $flexvarsdata[$row['id']]['v_value'];

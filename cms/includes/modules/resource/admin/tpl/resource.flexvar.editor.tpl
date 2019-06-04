@@ -9,6 +9,7 @@
           <input type="hidden" value="<%$RESOURCE.flextpl.FID%>" name="FORM[v_ftid]" />
           <input type="hidden" value="<%$GET.varid%>" name="varid" />
           <input type="hidden" value="<%$GET.v_con%>" name="FORM[v_con]" />
+          <input type="hidden" value="<%$GET.table%>" name="FORM[v_table]" />
           <% if ($GET.varid>0) %>
           <input type="hidden" value="<%$RESOURCE.flxvaredit.v_type%>" name="FORM[v_type]" />
           <%/if%>
@@ -37,18 +38,7 @@
                                 <option <% if ($vkey==$RESOURCE.flxvaredit.v_type) %>selected<%/if%> value="<%$vkey%>"><%$value%></option>
                             <%/foreach%>
                         </select>
-                    </div> 
-                    <% if (count($RESOURCE.flextpl.groups)>0) %>
-                    <div class="form-group col-md-6">
-                        <label>Gruppe:</label>
-                            <select name="FORM[v_gid]" class="form-control">
-                               <%* <option <% if ($RESOURCE.flxvaredit.v_gid==0) %>selected<%/if%> value="0">- keine -</option>*%>
-                               <% foreach from=$RESOURCE.flextpl.groups item=group %>
-                                <option <% if ($RESOURCE.flxvaredit.v_gid==$group.id) %>selected<%/if%> value="<%$group.id%>"><%$group.g_name%></option>
-                               <%/foreach%> 
-                            </select>                
-                     </div>           
-                    <%/if%>
+                    </div>         
                 </div>                    
              
             <%include file="resource.varopt.tpl" ident="js-flxvar-type"%>

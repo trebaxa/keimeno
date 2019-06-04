@@ -11,5 +11,8 @@
 
 $RESOURCE = new resource_admin_class();
 $RESOURCE->TCR->interpreter();
+$RESOURCEC = new resource_content_class();
+$RESOURCEC->TCR->interpreter();
+
 $RESOURCE->parse_to_smarty();
 $RESOURCE->add_tpl($content, 'resource');

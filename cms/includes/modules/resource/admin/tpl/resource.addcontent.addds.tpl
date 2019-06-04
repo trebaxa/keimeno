@@ -6,25 +6,38 @@
     <input type="hidden" value="<%$GET.flxid%>" name="flxid" />    
     <input type="hidden" value="<%$GET.rowid%>" name="rowid" />
     <input type="hidden" value="<%$GET.content_matrix_id%>" name="content_matrix_id" />
-    <% if ($GET.gid>0)%><input type="hidden" value="<%$GET.gid%>" name="FORM[ds_group]" /><%/if%>
+    <input type="hidden" value="<%$GET.langid%>" name="langid" />
+    <input type="hidden" value="<%$GET.table%>" name="table" />
+   
+   
+    <%*$RESOURCE.seldataset|echoarr*%>
+    
      <% foreach from=$RESOURCE.flextpl.datasetvarsdb item=row %>
       
       <%assign var="column" value=$row.v_col%>
         <div class="form-group">
-            <label><%$row.v_name%></label>
+            <label><%$row.v_descr%></label>
             
             <% if ($row.v_type=='seli') %>
-                <select class="form-control" name="FORM[<%$row.v_col%>]">
-                   <% if ($GET.rowid==0) %>
+            <div class="input-group">
+                <select class="form-control" name="FORM[<%$row.v_col%>]">                  
                        <% foreach from=$row.select item=rvol key=rkey %>
-                            <option value="<%$rkey%>|<%$rvol%>"><%$rvol%></option>
-                       <%/foreach%>
-                <%else%>                    
-                    <% foreach from=$RESOURCE.seldataset.column.$column.select item=rvol key=rkey %>
-                            <option <% if ($rvol==$RESOURCE.seldataset.row.$column) %>selected<%/if%> value="<%$rkey%>|<%$rvol%>"><%$rvol%></option>
-                    <%/foreach%>
-                <%/if%>    
-                </select>
+                            <%assign var="selisel" value="`$rkey`|`$rvol`"%>
+                            <option <% if ($RESOURCE.seldataset.row.$column==$selisel) %>selected<%/if%> value="<%$rkey%>|<%$rvol%>"><%$rvol%></option>
+                       <%/foreach%>                 
+                </select> <div class="input-group-btn"><button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button></div>
+                </div>
+            <%/if%>
+            
+            <% if ($row.v_type=='resid') %>        
+                <%*$row|echoarr*%>    
+                <div class="input-group">
+                <select class="form-control" name="FORM[<%$row.v_col%>]">                  
+                   <% foreach from=$row.resrc_table item=rvol %>
+                        <option <% if ($rvol.id==$RESOURCE.seldataset.row.$column) %>selected<%/if%> value="<%$rvol.id%>"><%$rvol.c_label%></option>
+                   <%/foreach%>                
+                </select> <div class="input-group-btn"><button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button></div>
+                </div>
             <%/if%>
             
             <% if ($row.v_type=='link') %>
@@ -40,6 +53,7 @@
             <%/if%>
             
             <% if ($row.v_type=='sel') %>
+            <div class="input-group">
                 <select class="form-control" name="FORM[<%$row.v_col%>]">
                    <% if ($GET.rowid==0) %>
                        <% foreach from=$row.select item=rvol key=rkey %>
@@ -50,8 +64,14 @@
                             <option <% if ($rvol==$RESOURCE.seldataset.row.$column) %>selected<%/if%> value="<%$rvol%>"><%$rvol%></option>
                     <%/foreach%>
                 <%/if%>    
-                </select>
+                </select><div class="input-group-btn"><button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button></div>
+                </div>
             <%/if%>            
+            
+            <% if ($row.v_type=='radio') %>
+                <input <% if ($RESOURCE.seldataset.row.$column==1) %>checked<%/if%> type="radio" value="1" name="FORM[<%$row.v_col%>]" /> Ja&nbsp;&nbsp;&nbsp;
+                <input <% if ($RESOURCE.seldataset.row.$column==0) %>checked<%/if%> type="radio" value="0" name="FORM[<%$row.v_col%>]" /> Nein
+            <%/if%>
             
             <% if ($row.v_type=='edt') %>
                 <input type="text" class="form-control" value="<%$RESOURCE.seldataset.row.$column|hsc%>" name="FORM[<%$row.v_col%>]" />
@@ -90,13 +110,15 @@
                         <span class="input-group-btn"><button class="btn btn-default" type="button">Durchsuchen...</button></span>
                      </div>
                 </div>   
-                
+                <div class="row">
+                    <div class="col-md-12 help-block">Server-Einstellung "File Max Uploadsize": <%$RESOURCE.max_file_upload_size%></div>
+                </div>
                 <div class="row" id="js-dataset-img-<%$column%>" <% if ($RESOURCE.seldataset.row.$column=="") %>style="display:none"<%/if%>>
                     <div class="col-md-3" > 
                         <img src="../file_data/resource/images/<%$RESOURCE.seldataset.row.$column|hsc%>" class="img-responsive img-thumbnail" />
                     </div>
                     <div class="col-md-1">
-                        <button class="btn btn-default" onclick="execrequest('<%$eurl%>cmd=deldatasetimg&rowid=<%$GET.rowid%>&flxid=<%$GET.flxid%>&column=<%$column%>');$('#js-dataset-img-<%$column%>').fadeOut();" type="button"><i class="fa fa-trash"></i></button>               
+                        <button class="btn btn-default" onclick="execrequest('<%$eurl%>cmd=deldatasetimg&rowid=<%$GET.rowid%>&flxid=<%$GET.flxid%>&column=<%$column%>&langid=<%$GET.langid%>&table=<%$GET.table%>');$('#js-dataset-img-<%$column%>').fadeOut();" type="button"><i class="fa fa-trash"></i></button>               
                     </div>
                     <div class="col-md-8">    
                      <div class="form-group">
@@ -127,11 +149,14 @@
                         <input id="datei-<%$row.v_col%>" name="fdatei[<%$row.v_col%>]" onchange="this.previousElementSibling.value = this.value" class="xform-control" type="file" value="" /></input>
                         <span class="input-group-btn"><button class="btn btn-default" type="button">Durchsuchen...</button></span>
                      </div>
-                </div>   
+                </div>  
+                <div class="row">
+                    <div class="col-md-12 help-block">Server-Einstellung "File Max Uploadsize": <%$RESOURCE.max_file_upload_size%></div>
+                </div>
                 
                 <div class="row" id="js-dataset-img-<%$column%>" <% if ($RESOURCE.seldataset.row.$column=="") %>style="display:none"<%/if%>>
                     <div class="col-md-3" > 
-                        <a href="../file_data/flextemp/files/<%$RESOURCE.seldataset.row.$column|hsc%>"><%$RESOURCE.seldataset.row.$column%></a>
+                        <a href="../file_data/resource/files/<%$RESOURCE.seldataset.row.$column|hsc%>"><%$RESOURCE.seldataset.row.$column%></a>
                     </div>
                     <div class="col-md-9">
                         <button class="btn btn-default" onclick="execrequest('<%$eurl%>cmd=deldatasetfile&rowid=<%$GET.rowid%>&flxid=<%$GET.flxid%>&column=<%$column%>');$('#js-dataset-img-<%$column%>').fadeOut();" type="button"><i class="fa fa-trash"></i></button>
@@ -140,7 +165,7 @@
                  
             <%/if%> 
                         
-            <p class="help-block"><%$row.v_descr%></p>
+            <p class="help-block"><%$row.v_name%></p>
         </div>
      <%/foreach%>
   <div class="btn-group">

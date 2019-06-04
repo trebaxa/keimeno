@@ -11,8 +11,7 @@
                     <th>Beschreibung</th>
                     <th>Type</th>
                     <th>Sort</th>
-                    <th>Code</th>
-                   <%* <th>Gruppe</th> *%>
+                    <th>Code</th>                  
                     <th></th>
                 </tr>
             </thead>
@@ -23,19 +22,7 @@
                     <td><input required="" type="text" class="form-control" value="<% $row.v_descr|sthsc%>" name="FORM[<%$row.id%>][v_descr]" /></td>
                     <td><% $row.v_type%></td>
                     <td><input required="" type="text" class="form-control" value="<% $row.v_order|sthsc%>" name="FORM[<%$row.id%>][v_order]" /></td>
-                    <td><code><%$row.varname%></code></td>
-                   <%* <td>
-                    <% if (count($RESOURCE.flextpl.groups)>0) %>
-                        <select name="FORM[<%$row.id%>][v_gid]" class="form-control">
-                            <option <% if ($row.v_gid==0) %>selected<%/if%> value="0">- keine -</option>
-                           <% foreach from=$RESOURCE.flextpl.groups item=group %>
-                            <option <% if ($row.v_gid==$group.id) %>selected<%/if%> value="<%$group.id%>"><%$group.g_name%></option>
-                           <%/foreach%> 
-                        </select>
-                    <%else%>
-                        -
-                    <%/if%>
-                    </td>*%>                    
+                    <td><code><%$row.varname%></code></td>                                 
                     <td class="text-right">
                      <div class="btn-group">
                         <button class="btn btn-default" type="button" onclick="add_show_box_tpl('<%$eurl%>cmd=show_flxvar_editor&v_con=1&varid=<%$row.id%>&flxid=<%$GET.id%>','Variable Editor')"><i class="fa fa-pencil-square-o"></i></button>

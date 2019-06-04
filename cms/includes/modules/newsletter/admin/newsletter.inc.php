@@ -8,6 +8,8 @@
  * @version    1.0
  */
 
+$NEWSADMIN = new newsletter_admin_class();
+$NEWSADMIN->TCR->interpreter();
 
 $NEWSLETTER_OBJ = new newsletter_class();
 $NEWSLETTER_OBJ->TCR->interpreter();
@@ -138,10 +140,11 @@ if (($_GET['aktion'] == "START_SEND" || $_POST['aktion'] == "START_SEND") && $_G
 else {
     $menu = array(
         "{LBLA_SHOWALL}" => "cmd=show_hist",
-        "{LBLA_SHOWCUSTOMERS}" => "cmd=members",
+        "Empfänger" => "cmd=members",
         "Email-Listen" => "cmd=load_lists");
     $ADMINOBJ->set_top_menu($menu);
 }
 
 $ADMINOBJ->inc_tpl('newsletter');
 $NEWSLETTER_OBJ->parse_to_smarty();
+$NEWSADMIN->parse_to_smarty();

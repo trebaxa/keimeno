@@ -11,6 +11,7 @@
 defined('IN_SIDE') or die('Access denied.');
 
 DEFINE('TBL_RESRC', TBL_CMS_PREFIX . 'resrc');
+DEFINE('TBL_RESRC_TABLES', TBL_CMS_PREFIX . 'resrc_tables');
 DEFINE('TBL_RESRCDV', TBL_CMS_PREFIX . 'resrc_dv');
 DEFINE('TBL_RESRC_CONTENT', TBL_CMS_PREFIX . 'resrc_content');
 DEFINE('TBL_RESRCVARS', TBL_CMS_PREFIX . 'resrc_vars');
@@ -23,6 +24,7 @@ class resource_master_class extends modules_class {
     var $file_root = "";
     var $forbidden_column_arr = array();
     var $nested = null;
+    protected static $mobile_detect = null;
 
     /**
      * resource_master_class::__construct()
@@ -33,11 +35,47 @@ class resource_master_class extends modules_class {
         parent::__construct();
         $this->froot = CMS_ROOT . 'file_data/resource/images/';
         $this->file_root = CMS_ROOT . 'file_data/resource/files/';
-        $this->forbidden_column_arr = array('ds_cid', 'ds_settings');
+        $this->forbidden_column_arr = array(
+            'ds_cid',
+            'ds_settings',
+            'ds_langid');
         $this->nested = new nestedArrClass();
         $this->nested->label_column = 'description';
         $this->nested->label_id = 'id';
         $this->nested->label_parent = 'parent';
+        static::$mobile_detect = new Mobile_Detect();
+    }
+
+    /**
+     * resource_master_class::get_optimal_size()
+     * 
+     * @param mixed $img_opt
+     * @return
+     */
+    protected static function get_optimal_size($img_opt) {
+        if (self::get_config_value('gra_mobile_detect') == 1) {
+            $mobile_width = 375;
+            $mobile_height = 667;
+            $tablet_width = 768;
+            $tablet_height = 667;
+            if (static::$mobile_detect->isMobile()) {
+                if ($img_opt['foto_width'] > $mobile_width) {
+                    $img_opt['foto_width'] = $mobile_width;
+                }
+                if ($img_opt['foto_height'] > $mobile_height) {
+                    $img_opt['foto_height'] = $mobile_height;
+                }
+            }
+            elseif (static::$mobile_detect->isTablet()) {
+                if ($img_opt['foto_width'] > $tablet_width) {
+                    $img_opt['foto_width'] = $tablet_width;
+                }
+                if ($img_opt['foto_height'] > $tablet_height) {
+                    $img_opt['foto_height'] = $tablet_height;
+                }
+            }
+        }
+        return $img_opt;
     }
 
     /**
@@ -50,6 +88,23 @@ class resource_master_class extends modules_class {
         $result = $this->db->query("SELECT *,F.id AS FID FROM " . TBL_RESRC . " F WHERE 1 ORDER BY f_name");
         while ($row = $this->db->fetch_array_names($result)) {
             $arr[] = $row;
+        }
+        return $arr;
+    }
+
+
+    /**
+     * resource_master_class::load_tables_of_resrc()
+     * 
+     * @param mixed $id
+     * @return
+     */
+    function load_tables_of_resrc($id, $table = "") {
+        $arr = array();
+        $result = $this->db->query("SELECT * FROM " . TBL_RESRC_TABLES . " F WHERE f_rid=" . (int)$id . " " . (($table != "") ? " AND f_table='" . $table . "'" : "") .
+            " ORDER BY f_table");
+        while ($row = $this->db->fetch_array_names($result)) {
+            $arr[$row['f_table']] = $row;
         }
         return $arr;
     }
@@ -78,34 +133,148 @@ class resource_master_class extends modules_class {
     }
 
     /**
-     * resource_master_class::load_content_table_fe()
+     * resource_master_class::gen_paging_link()
      * 
-     * @param mixed $ftid
+     * @param mixed $start
+     * @param string $toadd
      * @return
      */
-    function load_content_table_fe($ftid, $v_settings = array()) {
-        $arr = array();
-        $cid = array();
+    private static function gen_paging_link($start, $toadd = '') {
+        return $_SERVER['SCRIPT_URL'] . '?start=' . $start . $toadd;
+    }
+
+    /**
+     * resource_master_class::microtime_float()
+     * 
+     * @return
+     */
+    public static function microtime_float() {
+        list($usec, $sec) = explode(" ", microtime());
+        return ((float)$usec + (float)$sec);
+    }
+
+    /**
+     * resource_master_class::gen_paging()
+     * 
+     * @param mixed $ovStart
+     * @param mixed $max_paging
+     * @param mixed $total
+     * @param string $toadd
+     * @return
+     */
+    private static function gen_paging($ovStart, $max_paging, $total, $toadd = '') {
+        $NUM_PREPAGES = 6;
+        $newStartBack = $newStart = 0;
+        $max_paging = ($max_paging <= 0) ? 10 : $max_paging;
+        $start = (isset($ovStart)) ? abs((int)$ovStart) : 0;
+        $total_pages = ceil($total / $max_paging);
+        $akt_page = round($start / $max_paging) + 1;
+        if ($total_pages > 0)
+            $akt_pages = $akt_page . '/' . $total_pages;
+        $start = ($start > $total) ? $total - $max_paging : $start;
+        $next_pages_arr = $back_pages_arr = array();
+        if ($start > 0)
+            $newStartBack = ($start - $max_paging < 0) ? 0 : ($start - $max_paging);
+        if ($start > 0) {
+            for ($i = $NUM_PREPAGES - 1; $i >= 0; $i--) {
+                if ($newStartBack - ($i * $max_paging) >= 0) {
+                    $back_pages_arr[] = array('link' => self::gen_paging_link(($newStartBack - ($i * $max_paging)), $toadd), 'index' => ($akt_page - $i - 1));
+                }
+            }
+        }
+        if ($start + $max_paging < $total) {
+            $newStart = $start + $max_paging;
+            for ($i = 0; $i < $NUM_PREPAGES; $i++) {
+                if ($newStart + ($i * $max_paging) < $total) {
+                    $next_pages_arr[] = array('link' => self::gen_paging_link(($newStart + ($i * $max_paging)), $toadd), 'index' => ($akt_page + $i + 1));
+                }
+            }
+        }
+        #	die;
+        $_paging['start'] = $start;
+        $_paging['total_pages'] = $total_pages;
+        $_paging['item_per_page'] = $max_paging;
+        $_paging['startback'] = $newStartBack;
+        $_paging['last_page'] = $total - $max_paging;
+        $_paging['newstart'] = $newStart;
+        $_paging['base_link'] = $_SERVER['SCRIPT_URL'] . '?' . $toadd;
+        $_paging['back_pages'] = $back_pages_arr;
+        $_paging['akt_page'] = $akt_page;
+        $_paging['next_pages'] = $next_pages_arr;
+        $_paging['backlink'] = self::gen_paging_link($newStartBack, $toadd);
+        $_paging['nextlink'] = self::gen_paging_link($newStart, $toadd);
+        $_paging['count_total'] = $total;
+        return $_paging;
+    }
+
+    /**
+     * resource_master_class::load_content_table_fe()
+     * 
+     * @param mixed $resrc_id
+     * @return
+     */
+    function load_content_table_fe($resrc_id, $v_settings = array(), $filter = array()) {
+        $arr = $cid = array();
+        $paging_active = (int)$v_settings['resrc']['paging'];
+        $start = (isset($_GET['start']) ? (int)$_GET['start'] : 0);
+        if ($paging_active == 1) {
+            $items_per_page = (int)$v_settings['resrc']['items_per_page'];
+        }
+        else {
+            $items_per_page = (int)$v_settings['resrc']['quantity'];
+        }
+
         if (isset($v_settings['resrc']['cid']) && count($v_settings['resrc']['cid']) > 0) {
-            $cid = implode(',', $v_settings['resrc']['cid']);
-            if ((int)$cid[0] == 0) {
+            $cid = $v_settings['resrc']['cid'];
+            if ((int)$cid[0] == 0 && count($cid) == 1) {
                 $cid = array();
             }
         }
         $direc = (isset($v_settings['resrc']['direc']) && $v_settings['resrc']['direc'] == 'DESC') ? 'DESC' : 'ASC';
         $rand_sort = (isset($v_settings['resrc']['sort']) && (int)$v_settings['resrc']['sort'] == -1) ? " RAND()" : " F.c_sort";
-        $result = $this->db->query("SELECT F.*,F.id AS CID FROM " . TBL_RESRC_CONTENT . " F, " . TBL_RESRCVARS . " V WHERE c_ftid=" . (int)$ftid . " 
-        AND F.id=V.v_cid 
-        " . ((isset($v_settings['resrc']['sort']) && (int)$v_settings['resrc']['sort'] > 0) ? " AND V.v_vid=" . (int)$v_settings['resrc']['sort'] : "") . "
-        " . ((count($cid) > 0) ? " AND F.id IN (" . $cid . ")" : "") . "
-        GROUP BY F.id
-        ORDER BY 
-        " . ((isset($v_settings['resrc']['sort']) && (int)$v_settings['resrc']['sort'] > 0) ? " v_value " . $direc : $rand_sort) . "
-        " . ((isset($v_settings['resrc']['quantity']) && (int)$v_settings['resrc']['quantity'] > 0) ? " LIMIT 0," . (int)$v_settings['resrc']['quantity'] : ""));
+
+
+        # set filter
+        $sql_rfilter = "";
+        if (isset($filter) && count($filter) > 0 && isset($filter['resrcid']) && $resrc_id == (int)$filter['resrcid']) {
+            $RFILTER = (array )$_GET['RFILTER'];
+            $sql_rfilter = "AND F.id IN (SELECT F.id FROM tcms1_resrc_content F, tcms1_resrc_vars V WHERE c_ftid=" . (int)$resrc_id . " 
+            AND F.id=V.v_cid AND v_vid=" . (int)$RFILTER['v_vid'] . " AND v_value=" . (int)$RFILTER['v_value'] . ")";
+        }
+
+        $result = $this->db->query("SELECT F.*,F.id AS CID FROM " . TBL_RESRC_CONTENT . " F, " . TBL_RESRCVARS . " V WHERE 
+            c_ftid=" . (int)$resrc_id . " 
+            AND F.id=V.v_cid       
+            " . ((isset($v_settings['resrc']['sort']) && (int)$v_settings['resrc']['sort'] > 0) ? " AND V.v_vid=" . (int)$v_settings['resrc']['sort'] : "") . "
+            " . ((count($cid) > 0) ? " AND F.id IN (" . implode(',', $v_settings['resrc']['cid']) . ")" : "") . "
+            " . (($sql_rfilter != "") ? $sql_rfilter : "") . "
+            GROUP BY F.id
+            ORDER BY 
+            " . ((isset($v_settings['resrc']['sort']) && (int)$v_settings['resrc']['sort'] > 0) ? " v_value " . $direc : $rand_sort) . "
+            " . (($paging_active == 0 && isset($v_settings['resrc']['quantity']) && (int)$v_settings['resrc']['quantity'] > 0) ? " LIMIT " . $start . "," . $items_per_page :
+            "") . (($paging_active == 1) ? " LIMIT " . $start . "," . $items_per_page : ""));
         while ($row = $this->db->fetch_array_names($result)) {
             $arr[] = $row;
         }
-        return $arr;
+
+        # Count
+        $total = 0;
+        $result = $this->db->query("SELECT F.id AS CID FROM " . TBL_RESRC_CONTENT . " F, " . TBL_RESRCVARS . " V WHERE c_ftid=" . (int)$resrc_id . " 
+        AND F.id=V.v_cid
+        
+        " . ((isset($v_settings['resrc']['sort']) && (int)$v_settings['resrc']['sort'] > 0) ? " AND V.v_vid=" . (int)$v_settings['resrc']['sort'] : "") . "
+        " . ((count($cid) > 0) ? " AND F.id IN (" . implode(',', $v_settings['resrc']['cid']) . ")" : "") . "
+        " . (($sql_rfilter != "") ? $sql_rfilter : "") . "
+        GROUP BY F.id");
+        while ($row = $this->db->fetch_array_names($result)) {
+            $total++;
+        }
+
+        # paging
+        $paging = self::gen_paging($start, $items_per_page, $total);
+        $paging['paging_active'] = $paging_active;
+
+        return array('dataset' => $arr, 'paging' => $paging);
     }
 
     /**
@@ -137,8 +306,8 @@ class resource_master_class extends modules_class {
      * @param mixed $vid
      * @return
      */
-    function delete_flexvar_value($v_cid, $vid) {
-        $this->db->query("DELETE FROM " . TBL_RESRCVARS . " WHERE v_cid=" . (int)$v_cid . " AND v_vid='" . $vid . "'");
+    function delete_flexvar_value($v_cid, $vid, $langid = 1) {
+        $this->db->query("DELETE FROM " . TBL_RESRCVARS . " WHERE v_langid=" . (int)$langid . " AND v_cid=" . (int)$v_cid . " AND v_vid='" . $vid . "'");
     }
 
     /**
@@ -147,11 +316,11 @@ class resource_master_class extends modules_class {
      * @param mixed $id
      * @return
      */
-    function load_dataset_vars($id) {
+    function load_dataset_vars($id, $table) {
         $arr = array();
-        $FLEX = $this->load_resrc($id);
-        if ($FLEX['f_table'] != "") {
-            $result = $this->db->query("SHOW COLUMNS FROM " . $FLEX['f_table']);
+        #  $FLEX = $this->load_resrc($id);
+        if ($table != "") {
+            $result = $this->db->query("SHOW COLUMNS FROM " . TBL_CMS_PREFIX . $table);
             while ($row = $this->db->fetch_array_names($result)) {
                 $arr[] = $row;
             }
@@ -166,15 +335,20 @@ class resource_master_class extends modules_class {
      * @param integer $gid
      * @return
      */
-    function load_dataset_vars_table($id, $gid = 0) {
+    public static function load_dataset_vars_table($id, $table) {
         $id = (int)$id;
         $arr = array();
         if ($id > 0) {
-            $result = $this->db->query("SELECT * FROM " . TBL_RESRCDV . " WHERE v_ftid=" . $id . " AND v_con=0 " . (($gid > 0) ? " AND v_gid=" . $gid : "") .
+            $result = dao_class::$cdb->query("SELECT * FROM " . TBL_RESRCDV . " WHERE v_ftid=" . $id . " AND v_con=0 " . (($table != "") ? " AND v_table='" . $table . "'" : "") .
                 " ORDER BY v_order");
-            while ($row = $this->db->fetch_array_names($result)) {
+            while ($row = dao_class::$cdb->fetch_array_names($result)) {
                 $row['v_opt'] = unserialize($row['v_opt']);
-                $arr[$row['v_col']] = $row;
+                if ($table != "") {
+                    $arr[$row['v_col']] = $row;
+                }
+                else {
+                    $arr[$row['v_table']][$row['v_col']] = $row;
+                }
             }
         }
         return $arr;
@@ -187,17 +361,27 @@ class resource_master_class extends modules_class {
      * @param integer $cont_matrix_id
      * @return
      */
-    function load_dataset($table, $cont_matrix_id = 0) {
+    function load_dataset($table, $cont_matrix_id = 0, $langid = 1, $db_filter = array()) {
         $arr = array();
         if ($table != "") {
-            $result = $this->db->query("SELECT D.* FROM " . $table . " D WHERE 1 " . (($cont_matrix_id > 0) ? " AND ds_cid=" . (int)$cont_matrix_id : "") .
-                " ORDER BY ds_order");
+            $sql_drfilter = "";
+            if (isset($db_filter['columns'][$table]) && is_array($db_filter['columns'][$table])) {
+             #   echoarr($db_filter['columns'][$table]);
+                foreach ($db_filter['columns'][$table] as $key => $row) {
+                    $sql_drfilter .= (($sql_drfilter != "") ? " OR " : "") . $row['col'] . "='" . $key . "'";
+                }
+            }
+
+            $result = $this->db->query("SELECT D.* FROM " . TBL_CMS_PREFIX . $table . " D WHERE 1 
+                " . (($cont_matrix_id > 0) ? " AND ds_cid=" . (int)$cont_matrix_id : "") . " 
+                AND ds_langid=" . (int)$langid . "
+                " . (($sql_drfilter != "") ? " AND (" . $sql_drfilter . ")" : "") . "
+                ORDER BY ds_order");
             while ($row = $this->db->fetch_array_names($result)) {
                 $row['ds_settings'] = (!empty($row['ds_settings'])) ? unserialize($row['ds_settings']) : array();
                 $arr[] = $row;
             }
         }
-
         return $arr;
     }
 
@@ -237,11 +421,14 @@ class resource_master_class extends modules_class {
      * @param integer $gid
      * @return
      */
-    function load_dataset_for_plugin($table, $content_matrix_id, $gid = 0) {
+    function load_dataset_for_plugin($table, $content_matrix_id, $gid = 0, $langid = 1) {
         $arr = array();
         if ($table != "") {
-            $result = $this->db->query("SELECT * FROM " . $table . " WHERE ds_cid=" . (int)$content_matrix_id . " " . (($gid > 0) ? " AND ds_group=" . (int)$gid : "") .
-                " ORDER BY ds_order");
+            $result = $this->db->query("SELECT * FROM " . TBL_CMS_PREFIX . $table . " WHERE 
+                ds_cid=" . (int)$content_matrix_id . " 
+                AND ds_langid=" . $langid . "
+                " . (($gid > 0) ? " AND ds_group=" . (int)$gid : "") . " 
+                ORDER BY ds_order");
             while ($row = $this->db->fetch_array_names($result)) {
                 $row['ds_settings'] = (!empty($row['ds_settings'])) ? unserialize($row['ds_settings']) : array();
                 $arr[] = $row;
@@ -274,12 +461,14 @@ class resource_master_class extends modules_class {
      * @param integer $gid
      * @return
      */
-    function load_flexvars_table($resrc_id, $gid = 0) {
+    function load_flexvars_table($resrc_id, $table = "", $varset = false) {
         $resrc_id = (int)$resrc_id;
         $arr = array();
         if ($resrc_id > 0) {
-            $result = $this->db->query("SELECT * FROM " . TBL_RESRCDV . " WHERE v_ftid=" . $resrc_id . " AND v_con=1 " . (($gid > 0) ? " AND v_gid=" . (int)$gid : "") .
-                " ORDER BY v_order");
+            $result = $this->db->query("SELECT * FROM " . TBL_RESRCDV . " WHERE v_ftid=" . $resrc_id . " 
+            AND v_con=1 " . (($table != "") ? " AND v_table='" . $table . "'" : "") . "
+            " . (($varset == true) ? " AND v_table='' " : "") . "  
+            ORDER BY v_order");
             while ($row = $this->db->fetch_array_names($result)) {
                 $row['v_opt'] = unserialize($row['v_opt']);
                 $arr[$row['id']] = $row;
@@ -294,9 +483,9 @@ class resource_master_class extends modules_class {
      * @param mixed $content_matrix_id
      * @return
      */
-    function load_flexvars_for_plugin($content_matrix_id) {
+    function load_flexvars_for_plugin($content_matrix_id, $langid = 1) {
         $arr = array();
-        $result = $this->db->query("SELECT * FROM " . TBL_RESRCVARS . " WHERE v_cid=" . (int)$content_matrix_id);
+        $result = $this->db->query("SELECT * FROM " . TBL_RESRCVARS . " WHERE v_langid=" . (int)$langid . " AND v_cid=" . (int)$content_matrix_id);
         while ($row = $this->db->fetch_array_names($result)) {
             $row['v_settings'] = (!empty($row['v_settings'])) ? unserialize($row['v_settings']) : array();
             $arr[$row['v_vid']] = $row;
@@ -460,10 +649,7 @@ class resource_master_class extends modules_class {
             $label = self::gen_link_label($row);
             $link = '/' . self::format_file_name($row['f_name']) . '/' . self::format_file_name($label) . '.html';
             $query = array('cmd' => 'show_resource', 'id' => $row['id']);
-
-
             $TPL = dao_class::get_data_first(TBL_RESRCPL, array('t_ftid' => $row['FID'], 't_use' => '1'));
-
             $resultlang = $this->db->query("SELECT * FROM " . TBL_CMS_LANG . " WHERE 1");
             while ($lang = $this->db->fetch_array_names($resultlang)) {
                 if ($label != "")

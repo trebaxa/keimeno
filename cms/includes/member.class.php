@@ -432,13 +432,14 @@ class member_class extends keimeno_class {
      * @return
      */
     function logout() {
-        $_SESSION = array();
         unset($_COOKIE[COOKIENAME]);
         setcookie(COOKIENAME, NULL, -1);
+        session_class::clear_session();
+        /*
         session_write_close();
         @session_destroy();
         session_regenerate_id(true);
-        session_start();
+        session_start();*/
     }
 
     /**

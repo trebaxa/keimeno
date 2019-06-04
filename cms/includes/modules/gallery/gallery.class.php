@@ -888,9 +888,12 @@ class gal_class extends modules_class {
         $SM = $this->db->query_first("SELECT * FROM " . TBL_CMS_SITEMAP . " WHERE sm_ident='gallery' AND sm_active=1");
         if ($SM['sm_active'] == 1) {
             $params = array_merge($params, $SM);
-            $result_lang = $this->db->query("SELECT id,post_lang,language FROM " . TBL_CMS_LANG . " WHERE " . (($params['alllang'] === true) ? '' : " id=" . (int)$params['langid'] .
-                " AND ") . " approval=1 ORDER BY post_lang");
-            while ($rowl = $this->db->fetch_array($result_lang)) {
+            $sql_filter = array('approval' => 1);
+            if ((int)$params['langid'] > 0) {
+                $sql_filter['id'] = (int)$params['langid'];
+            }
+            $lang_arr = dao_class::get_data(TBL_CMS_LANG, $sql_filter);
+            foreach ($lang_arr as $rowl) {
                 // Gallery Groups
                 $result = $this->db->query("SELECT id, parent, groupname, picid FROM " . TBL_CMS_GALGROUP . " WHERE approval=1 ORDER BY parent,groupname");
                 while ($row = $this->db->fetch_array_names($result)) {

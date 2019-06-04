@@ -63,7 +63,7 @@
                             <% if ($dskey!='id' && $dskey!='ds_order')%>
                              <td <% if ($row.column.$dskey.v_type=='img') %>class="col-md-1"<%/if%>>                           
                                 <% if ($row.column.$dskey.v_type=='img') %>
-                                    <img class="img-responsive" src="<%$row.column.$dskey.thumb%>" />
+                                    <img class="img-responsive" src="<%$row.column.$dskey.thumb%>?a=<%$randid%>" />
                                 <% elseif ($row.column.$dskey.v_type=='faw') %>
                                     <i class="fa fa-<%$dsvalue|sthsc%> fa-lg"></i>                                    
                                 <% elseif ($row.column.$dskey.v_type=='seli') %>

@@ -1,19 +1,14 @@
+<% if ($GET.id>1) %>
+<div class="text-right">
+    <a class="btn btn-primary rndbtn" href="javascript:void(0);" data-toggle="modal" data-target="#addpage" title="{LBL_NEW}"><i class="fa fa-plus"></i></a>
+    <a class="btn btn-danger rndbtn" onclick="return confirm('Sind Sie sicher?')" href="/admin/run.php?epage=websitemanager.inc&&tarttree=0&cmd=a_delete&aktion=a_delete&id=<%$GET.id%>"><i class="fa fa-trash"></i></a>
+    <a class="btn btn-info rndbtn" target="_blank" href="../index.php?page=<%$GET.id%>&preview=1"><i class="fa fa-eye"></i></a>
+    <a class="btn btn-default rndbtn axapprove" href="javascript:void(0);" title="{LBLA_APPROVED}" id="axapprove-<%$GET.id%>" data-ident="<%$GET.id%>" data-value="<% if ($TPLOBJ.approval==1) %>0<%else%>1<%/if%>" data-cmd="axapprove_item" data-toadd="" data-epage="<%$epage%>" data-phpself="<%$PHPSELF%>"><i class="fa fa-circle <% if ($TPLOBJ.approval==0) %>fa-red<%else%>fa-green<%/if%>"><!----></i></a>
+</div>
+<%/if%>
+<% include file="website.modal.tpl" %>
 <% include file="cb.panel.header.tpl" icon="fa-file-o" title=$TPLOBJ.description title_addon="Page [`$GET.id`]" %>
    
-
-
-<% if ($GET.id>1) %>
-    <div id="fix_box">
-        <ul>
-            <%foreach from=$TPLOBJ.icons key=iconkey item=picon name=cicons %>
-                <%if ($iconkey!='edit') %>
-                    <li><% $picon %></li>
-                <%/if%>
-            <%/foreach%>
-        </ul>
-    </div>
-<%/if%>
-    
     
     <div class="tc-tabs-box" id="webmtabs">
         <ul class="nav nav-tabs bar_tabs" role="tablist">

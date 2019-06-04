@@ -340,7 +340,7 @@ class app_class extends keimeno_class {
             return explode(',', trim($value));
         }
         if ($key == 'php') {
-            if (isset($xml_settings->submodpath)) {
+            if (isset($xml_settings->submodpath) && !empty($xml_settings->submodpath)) {
                 $submodpath = (string )$xml_settings->submodpath;
                 $submodpath .= (substr($submodpath, -1) == '/' ? '' : '/');
                 return MODULE_DIR . $submodpath . $value;

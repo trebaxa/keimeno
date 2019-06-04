@@ -67,6 +67,7 @@ class language_class extends keimeno_class {
                 mkdir(CMS_ROOT . 'smarty/templates_c/' . $row['local'], 0777);
         }
         $this->load_iso_table();
+        return $this->languages;
     }
 
     /**

@@ -366,6 +366,7 @@ class websites_class extends keimeno_class {
         $this->TEMPL_OBJ->template['urltpl'] = content_class::gen_url_template($id);
         $lang = new language_class();
         $this->TEMPL_OBJ->template['langfe'] = $lang->build_lang_select_smarty($this->langid);
+    
         $this->smarty->assign('TPLOBJ', $this->TEMPL_OBJ->template);
 
         $this->load_contentmatrix($this->TEMPL_OBJ->template['formcontent']['id']);
@@ -1834,7 +1835,7 @@ class websites_class extends keimeno_class {
                 $row['edit_icon'] = $edit_icon;
                 $row['label'] = $label;
                 $row['foundcount'] = count($word_arr);
-                $row[thumb] = kf::gen_thumbnail('/images/' . $row['bild'], 20, 20);
+                $row['thumb'] = kf::gen_thumbnail('/images/' . $row['bild'], 20, 20);
                 $res_tab[] = $row;
             }
             $searchresult = array('res_tab' => $res_tab, 'totalfound' => count($res_tab));

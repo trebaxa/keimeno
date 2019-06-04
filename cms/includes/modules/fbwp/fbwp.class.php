@@ -243,7 +243,8 @@ class fbwp_class extends fbwp_master_class {
      * @param mixed $foto_resize_method
      * @return
      */
-    function get_fotos_of_fanpage_stream(&$feed, $foto_width, $foto_height, $foto_resize_method, $get_method = 0, $foto_crop_pos = 'center') {
+    function get_fotos_of_fanpage_stream(&$feed, $foto_width, $foto_height, $foto_resize_method, $get_method = 0, $foto_crop_pos = 'center', $foto_small_width = 320,
+        $foto_small_height = 200) {
 
         foreach ($feed['data'] as $key => $row) {
             # echoarr( $feed['data'][$key]);
@@ -289,15 +290,24 @@ class fbwp_class extends fbwp_master_class {
 
             }
             $feed['data'][$key]['thumb'] = "";
+            $feed['data'][$key]['thumb_small'] = "";
             if (file_exists('./' . CACHE . $basename_foto) && is_file('./' . CACHE . $basename_foto)) {
                 $thumb = gen_thumb_image('./' . CACHE . $basename_foto, (int)$foto_width, (int)$foto_height, $foto_resize_method, $foto_crop_pos);
+                $thumb_small = gen_thumb_image('./' . CACHE . $basename_foto, (int)$foto_small_width, (int)$foto_small_height, $foto_resize_method, $foto_crop_pos);
                 if (file_exists(CMS_ROOT . 'cache/' . basename($thumb)) && is_file(CMS_ROOT . 'cache/' . basename($thumb))) {
                     $feed['data'][$key]['thumb'] = $thumb; # PATH_CMS . CACHE . $thumb;
                     $feed['data'][$key]['size'] = getimagesize(CMS_ROOT . 'cache/' . basename($thumb));
                 }
+                if (file_exists(CMS_ROOT . 'cache/' . basename($thumb_small)) && is_file(CMS_ROOT . 'cache/' . basename($thumb_small))) {
+                    $feed['data'][$key]['thumb_small'] = $thumb_small; # PATH_CMS . CACHE . $thumb;
+                    $feed['data'][$key]['size_small'] = getimagesize(CMS_ROOT . 'cache/' . basename($thumb_small));
+                }
             }
             if ($feed['data'][$key]['thumb'] == "" && $feed['data'][$key]['picture'] != "") {
                 $feed['data'][$key]['thumb'] = $feed['data'][$key]['picture'];
+            }
+            if ($feed['data'][$key]['thumb_small'] == "" && $feed['data'][$key]['picture'] != "") {
+                $feed['data'][$key]['thumb_small'] = $feed['data'][$key]['picture'];
             }
 
             # return;
@@ -363,6 +373,10 @@ class fbwp_class extends fbwp_master_class {
     function load_status_fanpage($PLUGIN_OPT = array()) {
         $foto_width = ($PLUGIN_OPT['foto_width'] > 0) ? $PLUGIN_OPT['foto_width'] : $this->gblconfig->fb_fanpage_thumb_width;
         $foto_height = ($PLUGIN_OPT['foto_height'] > 0) ? $PLUGIN_OPT['foto_height'] : $this->gblconfig->fb_fanpagethumb_height;
+
+        $foto_small_width = ($PLUGIN_OPT['foto_small_width'] > 0) ? $PLUGIN_OPT['foto_small_width'] : $this->gblconfig->fb_fanpage_thumb_width;
+        $foto_small_height = ($PLUGIN_OPT['foto_small_height'] > 0) ? $PLUGIN_OPT['foto_small_height'] : $this->gblconfig->fb_fanpagethumb_height;
+
         $foto_crop_pos = ($PLUGIN_OPT['foto_crop_pos'] > 0) ? $PLUGIN_OPT['foto_crop_pos'] : 'center';
         $ele_count = ($PLUGIN_OPT['ele_count'] > 0) ? $PLUGIN_OPT['ele_count'] : $this->gblconfig->fb_fanpage_count;
         $foto_resize_method = ($PLUGIN_OPT['foto_resize_method'] != '') ? $PLUGIN_OPT['foto_resize_method'] : 'resize';
@@ -387,7 +401,7 @@ class fbwp_class extends fbwp_master_class {
                         $this->gbl_config['fb_page_token'] . '&limit=' . $ele_count . '&locale=de_DE&return_ssl_resources=true';
                     $feed = json_decode(self::curl_get_data($json_url), true);
                     $feed['data'] = (array )$feed['data'];
-                    $this->get_fotos_of_fanpage_stream($feed, $foto_width, $foto_height, $foto_resize_method, 1, $foto_crop_pos);
+                    $this->get_fotos_of_fanpage_stream($feed, $foto_width, $foto_height, $foto_resize_method, 1, $foto_crop_pos, $foto_small_width, $foto_small_height);
                 }
                 else {
                     if ($this->FBWP['WP']['fb_token'] != "" && $this->FBWP['WP']['fb_appid'] != "" && $this->FBWP['WP']['fb_secret'] != "") {
@@ -404,7 +418,7 @@ class fbwp_class extends fbwp_master_class {
                             $fbresult = $this->facebook->get($fb_request);
                             $feed = $fbresult->getDecodedBody();
                             $feed['data'] = (array )$feed['data'];
-                            $this->get_fotos_of_fanpage_stream($feed, $foto_width, $foto_height, $foto_resize_method, 0, $foto_crop_pos);
+                            $this->get_fotos_of_fanpage_stream($feed, $foto_width, $foto_height, $foto_resize_method, 0, $foto_crop_pos, $foto_small_width, $foto_small_height);
                         }
                         catch (Exception $e) {
                             #error_log($e);
@@ -412,7 +426,7 @@ class fbwp_class extends fbwp_master_class {
                             #$this->msge('Facebook API: ' . $e->getMessage());
                             $this->LOGCLASS->addLog('FACEBOOK', $e->getMessage());
                             $feed = self::load_from_cache($cache_file);
-                            $feed = $this->reset_feed_option_for_plugin_use($feed, $foto_width, $foto_height, $foto_resize_method, $foto_crop_pos);
+                            $feed = $this->reset_feed_option_for_plugin_use($feed, $foto_width, $foto_height, $foto_resize_method, $foto_crop_pos, $foto_small_width, $foto_small_height);
                         }
                     }
                 }
@@ -443,7 +457,7 @@ class fbwp_class extends fbwp_master_class {
             }
             else {
                 $feed = self::load_from_cache($cache_file);
-                $feed = $this->reset_feed_option_for_plugin_use($feed, $foto_width, $foto_height, $foto_resize_method, $foto_crop_pos);
+                $feed = $this->reset_feed_option_for_plugin_use($feed, $foto_width, $foto_height, $foto_resize_method, $foto_crop_pos, $foto_small_width, $foto_small_height);
 
             }
 
@@ -461,20 +475,30 @@ class fbwp_class extends fbwp_master_class {
      * @param mixed $foto_resize_method
      * @return
      */
-    function reset_feed_option_for_plugin_use($feed, $foto_width, $foto_height, $foto_resize_method, $foto_crop_pos = 'center') {
+    function reset_feed_option_for_plugin_use($feed, $foto_width, $foto_height, $foto_resize_method, $foto_crop_pos = 'center', $foto_small_width = 320, $foto_small_height =
+        200) {
         if (isset($feed['data'])) {
             foreach ($feed['data'] as $key => $row) {
                 $feed['data'][$key]['thumb'] = "";
+                $feed['data'][$key]['thumb_small'] = "";
                 $basename_foto = $row['mainfoto_local'];
                 if (file_exists(CMS_ROOT . 'cache/' . $basename_foto) && is_file(CMS_ROOT . 'cache/' . $basename_foto)) {
                     $thumb = gen_thumb_image('./' . CACHE . $basename_foto, (int)$foto_width, (int)$foto_height, $foto_resize_method, $foto_crop_pos);
+                    $thumb_small = gen_thumb_image('./' . CACHE . $basename_foto, (int)$foto_small_width, (int)$foto_small_height, $foto_resize_method, $foto_crop_pos);
                     if (file_exists(CMS_ROOT . 'cache/' . basename($thumb)) && is_file(CMS_ROOT . 'cache/' . basename($thumb))) {
                         $feed['data'][$key]['thumb'] = $thumb;
                         $feed['data'][$key]['size'] = getimagesize(CMS_ROOT . 'cache/' . basename($thumb));
                     }
+                    if (file_exists(CMS_ROOT . 'cache/' . basename($thumb_small)) && is_file(CMS_ROOT . 'cache/' . basename($thumb_small))) {
+                        $feed['data'][$key]['thumb_small'] = $thumb_small;
+                        $feed['data'][$key]['size_small'] = getimagesize(CMS_ROOT . 'cache/' . basename($thumb_small));
+                    }
                 }
                 if ($feed['data'][$key]['thumb'] == "" && $feed['data'][$key]['picture'] != "") {
                     $feed['data'][$key]['thumb'] = $feed['data'][$key]['picture'];
+                }
+                if ($feed['data'][$key]['thumb_small'] == "" && $feed['data'][$key]['picture'] != "") {
+                    $feed['data'][$key]['thumb_small'] = $feed['data'][$key]['picture'];
                 }
             }
         }

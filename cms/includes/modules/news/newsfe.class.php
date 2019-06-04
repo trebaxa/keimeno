@@ -96,9 +96,12 @@ class newsfe_class extends modules_class {
         $SM = $this->db->query_first("SELECT * FROM " . TBL_CMS_SITEMAP . " WHERE sm_ident='news' AND sm_active=1");
         if ($SM['sm_active'] == 1) {
             $params = array_merge($params, $SM);
-            $result_lang = $this->db->query("SELECT id,post_lang,language FROM " . TBL_CMS_LANG . " WHERE " . (($params['alllang'] === true) ? '' : " id=" . $params['langid'] .
-                " AND ") . " approval=1 ORDER BY post_lang");
-            while ($rowl = $this->db->fetch_array($result_lang)) {
+            $sql_filter = array('approval' => 1);
+            if ((int)$params['langid'] > 0) {
+                $sql_filter['id'] = (int)$params['langid'];
+            }
+            $lang_arr = dao_class::get_data(TBL_CMS_LANG, $sql_filter);
+            foreach ($lang_arr as $rowl) {
                 $result = $this->db->query("SELECT NL.id AS NLID,NL.*,NC.*
 			FROM " . TBL_CMS_NEWSLIST . " NL
 			LEFT JOIN " . TBL_CMS_NEWSCONTENT . " NC ON (NL.id=NC.nid AND NC.lang_id=" . $rowl['id'] . ")

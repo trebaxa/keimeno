@@ -12,7 +12,7 @@
       
       <%assign var="column" value=$row.v_col%>
         <div class="form-group">
-            <label><%$row.v_name%></label>
+            <label><%$row.v_descr%></label>
             
             <% if ($row.v_type=='seli') %>
                 <select class="form-control" name="FORM[<%$row.v_col%>]">
@@ -34,7 +34,7 @@
                 <option value="">- kein Link -</option>
                        <% foreach from=$FLEXTEMP.menu_selectox item=rvol key=rkey %>                            
                             <%assign var="urltpl" value="{URL_TPL_`$rkey`}"%>
-                            <option <% if ($urltpl==$row.value) %>selected<%/if%> value="<%$urltpl%>"><%$rvol%></option>
+                            <option <% if ($urltpl==$FLEXTEMP.seldataset.row.$column) %>selected<%/if%> value="<%$urltpl%>"><%$rvol%></option>
                        <%/foreach%>              
                 </select>
                     <div class="input-group-btn"><button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button></div>
@@ -89,8 +89,8 @@
                 <div class="form-group">
                     <label for="datei-<%$row.v_col%>"></label>
                     <div class="input-group">
-                        <input class="form-control" type="text" placeholder="Keine Datei ausgewählt" readonly="" value="" name=""/></input>
-                        <input id="datei-<%$row.v_col%>" name="datei[<%$row.v_col%>]" class="xform-control" onchange="this.previousElementSibling.value = this.value" type="file" value="" /></input>
+                        <input class="form-control" type="text" placeholder="Keine Datei ausgewählt" readonly="" value="" name=""/>
+                        <input id="datei-<%$row.v_col%>" name="datei[<%$row.v_col%>]" class="xform-control" onchange="this.previousElementSibling.value = this.value" type="file" value="" />
                         <span class="input-group-btn"><button class="btn btn-default" type="button">Durchsuchen...</button></span>
                      </div>
                 </div>   
@@ -127,24 +127,26 @@
                 <div class="form-group">
                     <label for="datei-<%$row.v_col%>"></label>
                     <div class="input-group">
-                        <input class="form-control" type="text" placeholder="Keine Datei ausgewählt" readonly="" value="" name=""/></input>
-                        <input id="datei-<%$row.v_col%>" name="fdatei[<%$row.v_col%>]" onchange="this.previousElementSibling.value = this.value" class="xform-control" type="file" value="" /></input>
+                        <input class="form-control" type="text" placeholder="Keine Datei ausgewählt" readonly="" value="" name=""/>
+                        <input id="datei-<%$row.v_col%>" name="fdatei[<%$row.v_col%>]" onchange="this.previousElementSibling.value = this.value" class="xform-control" type="file" value="" />
                         <span class="input-group-btn"><button class="btn btn-default" type="button">Durchsuchen...</button></span>
                      </div>
                 </div>   
                 
                 <div class="row" id="js-dataset-img-<%$column%>" <% if ($FLEXTEMP.seldataset.row.$column=="") %>style="display:none"<%/if%>>
-                    <div class="col-md-3" > 
+                    <div class="col-md-12" > 
                         <a href="../file_data/flextemp/files/<%$FLEXTEMP.seldataset.row.$column|hsc%>"><%$FLEXTEMP.seldataset.row.$column%></a>
-                    </div>
+                        <a onclick="$('#js-dataset-img-<%$column%>').fadeOut();" href="<%$eurl%>cmd=deldatasetfile&rowid=<%$GET.rowid%>&flxid=<%$GET.flxid%>&column=<%$column%>" class="json-link"><i class="fa fa-trash text-danger"></i></a>
+                    </div><%*
                     <div class="col-md-9">
                         <button class="btn btn-default" onclick="execrequest('<%$eurl%>cmd=deldatasetfile&rowid=<%$GET.rowid%>&flxid=<%$GET.flxid%>&column=<%$column%>');$('#js-dataset-img-<%$column%>').fadeOut();" type="button"><i class="fa fa-trash"></i></button>
                     </div>
+                    *%>
                  </div>       
                  
             <%/if%> 
                         
-            <p class="help-block"><%$row.v_descr%></p>
+            <p class="help-block"><%$row.v_name%></p>
         </div>
      <%/foreach%>
   <div class="btn-group">

@@ -91,9 +91,9 @@
         <td width="300">
     	<% if ($localid!="de" || $is_keimeno_domain) %>	
                <% if ($joker.value=="") %>
-                <span class="clickedit" data-formname="ATLNG[<%$localid%>][<%$joker.joker_sec%>]"><span class="italic">{LA_TRANSLATE}</span></span>
+               <code><span class="clickedit" data-formname="ATLNG[<%$localid%>][<%$joker.joker_sec%>]"><span class="italic">{LA_TRANSLATE}</span></span></code>
                <%else%>
-                <span class="clickedit" data-formname="ATLNG[<%$localid%>][<%$joker.joker_sec%>]"><%$joker.value|sthsc%></span>
+                <code><span class="clickedit" data-formname="ATLNG[<%$localid%>][<%$joker.joker_sec%>]"><%$joker.value|sthsc%></span></code>
                <%/if%> 
     	<%else%>
     	   <%$joker.value|sthsc%>
@@ -113,9 +113,9 @@
         $('#editinputfield').remove();
         $('.clickedit').show();
         if ($(this).html().length>31) {
-            $(this).after('<textarea id="editinputfield" name="'+$(this).data('formname')+'">'+$(this).html()+'</textarea>');
+            $(this).after('<textarea class="form-control" id="editinputfield" name="'+$(this).data('formname')+'">'+$(this).html()+'</textarea>');
         } else {
-            $(this).after('<input autocomplete="off" id="editinputfield" type="text" value="'+$(this).html()+'" name="'+$(this).data('formname')+'">');
+            $(this).after('<input class="form-control" autocomplete="off" id="editinputfield" type="text" value="'+$(this).html()+'" name="'+$(this).data('formname')+'">');
         }    
         $(this).hide();
         $('#editinputfield').focus();
@@ -123,7 +123,7 @@
         $('#editinputfield').blur(function() {        
             spanfield.after('<img src="./images/axloader.gif" id="editfieldloader" style="width:16px">');
             spanfield.html($(this).val());
-            execrequest('<%$PHPSELF%>?epage=<%$epage%>&cmd=updatexml&'+$(this).attr('name')+'='+$(this).val());
+            execrequest('<%$eurl%>&cmd=updatexml&'+$(this).attr('name')+'='+$(this).val());
             $('#editinputfield').remove();
             $('.clickedit').show();
             window.setTimeout("$('#editfieldloader').remove()",500);
@@ -137,10 +137,7 @@
     
     </script>    
     
-    
-    <%* Tabellen Sortierungs Script *%>
-    <%assign var=tablesortid value="admintranstable" scope="global"%>
-    <%include file="table.sorting.script.tpl"%> 
+   
     
     <%else%>
     <div class="alert alert-info">Es liegt noch kein Sprachpaket vor.</div>	
