@@ -1180,12 +1180,12 @@ class keimeno_class {
      * @return array
      */
     public static function trim_array(&$array) {
-        foreach ($array as $key => $v) {
+        foreach ((array)$array as $key => $v) {
             if (!is_array($v)) {
                 $array[$key] = trim($v);
             }
             else {
-                self::trim_array($v);
+                $array[$key] = self::trim_array($v);
             }
         }
         return (array )$array;

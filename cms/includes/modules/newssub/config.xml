@@ -8,14 +8,33 @@
       <version>1.0</version>
       <php>newssub.inc</php>
       <hasperm>false</hasperm>
+      <stdclass>newssub_class</stdclass>
       <epage>newssub.inc</epage>
       <epage_dir>MODULE_ROOT</epage_dir>
       <is_content_page>true</is_content_page>
       <developer_id>1</developer_id>
       <description>Eine einfache M&#xF6;glichkeit sich am Newsletter an- und abzumelden.</description>
     </settings>
+    <events>
+      <event eventname="beforesmartycompile" method="class" classname="newssub_class" function="parse_newssub"/>
+    </events>
     <includes>
       <include type="class" classname="newssub_class">newssub</include>
     </includes>
+    <admin_includes>
+      <include type="class" classname="newssub_admin_class">newssub</include>
+    </admin_includes>
+    <contentplugins>
+      <plugin>
+        <name>Newsletter Submission</name>
+        <id>newssub_inlay</id>
+        <tpl>newssub.plugin</tpl>
+        <lists>
+          <list name="templates" classname="newssub_admin_class" idname="id" label="description" function="load_homepage_integration"/>
+          <list name="groups" classname="newssub_admin_class" idname="id" label="groupname" function="load_groups_integration"/>
+        </lists>
+        <save classname="newssub_admin_class" function="save_homepage_integration"/>
+      </plugin>
+    </contentplugins>
   </module>
 </config>

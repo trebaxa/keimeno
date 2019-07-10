@@ -498,16 +498,14 @@ function get_email_template($id, $langid = -1) {
     if (intval($temp_mail['approval']) == 0 || empty($temp_mail['content']))
         return array();
 
-    $temp_mail['inhalt'] = $temp_mail['content'];
-    $temp_mail['betreff'] = $temp_mail['email_subject'];
-    $result = array();
-    $result['content'] = $temp_mail['inhalt'] . "\n" . (($temp_mail['add_adress'] == 1) ? $gbl_config['email_absender'] : '');
-    $result['subject'] = $temp_mail['betreff'];
-    $result['admin_copy'] = $temp_mail['admin_copy'];
-    $result['absender_email'] = $temp_mail['t_email'];
-    $result['mit_in_copy'] = $temp_mail['mit_in_copy'];
-    $result['email_id'] = $id;
-    return $result;
+    return array(
+        'content' => $temp_mail['content'] . "\n" . (($temp_mail['add_adress'] == 1) ? $gbl_config['email_absender'] : ''),
+        'subject' => $temp_mail['email_subject'],
+        'admin_copy' => $temp_mail['admin_copy'],
+        'add_adress' => $temp_mail['add_adress'],
+        'absender_email' => $temp_mail['t_email'],
+        'mit_in_copy' => $temp_mail['mit_in_copy'],
+        'email_id' => $id);
 }
 
 /**
@@ -1745,7 +1743,7 @@ function get_locale_of_visitor($typ) {
  * @param string $id
  * @return
  */
-function create_html_editor($textarea_name = '', $value = '', $height = 200, $tset = 'Fullpage', $width = 0, $fullPage = false, $id = '') {
+function create_html_editor($textarea_name = '', $value = '', $height = 200, $tset = 'Fullpage', $width = 0, $fullPage = false, $id = '', $settings = array()) {
     global $kdb;
     $c = "";
     $id = (($id != "") ? $id : md5($textarea_name));
@@ -1766,7 +1764,7 @@ function create_html_editor($textarea_name = '', $value = '', $height = 200, $ts
         force_p_newlines : false,
         paste_data_images: true,
         convert_fonts_to_spans : true,        
-        remove_script_host : true,
+        remove_script_host : ' . ((isset($settings['remove_script_host'])) ? $settings['remove_script_host'] : 'true') . ',
         relative_urls : false,
         document_base_url : "' . keimeno_class::get_domain_url() . '", 
         width: "100%",

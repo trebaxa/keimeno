@@ -679,16 +679,16 @@ class memindex_class extends memindex_master_class {
         $e_object = $this->try_load_user($email);
         $e_object['login_msge'] = "";
         if (verfriy_password($password, $e_object['passwort']) === false && $e_object['kid'] > 0) {
-            $e_object['login_msge'] = '{LBL_INVALID_PASSWORD}';
-            $e_object['feedback'] = 'INVALID_PASSWORT';
+            $e_object['login_msge'] = '{LBL_ACCOUNTNOTFOUND}';
+            $e_object['feedback'] = 'ACCOUNT_NOTFOUND_P';
         }
         if ($e_object['kid'] <= 0) {
             $e_object['login_msge'] = '{LBL_ACCOUNTNOTFOUND}';
             $e_object['feedback'] = 'ACCOUNT_NOTFOUND';
         }
         if ($e_object['sperren'] == 1 && $e_object['kid'] > 0) {
-            $e_object['login_msge'] = '{MSG_ACCOUNTDEAKT}';
-            $e_object['feedback'] = 'ACCOUNT_BLOCKED';
+            $e_object['login_msge'] = '{LBL_ACCOUNTNOTFOUND}';
+            $e_object['feedback'] = 'ACCOUNT_NOTFOUND_B';
         }
         return $e_object;
     }
@@ -752,7 +752,6 @@ class memindex_class extends memindex_master_class {
                 $this->db->query("UPDATE " . TBL_CMS_CUST . " SET sperren=0 WHERE kid=" . $kid);
                 if (REAL_IP == $k_obj['ip']) {
                     $_SESSION['kid'] = $k_obj['kid'];
-                    $_SESSION['password'] = $k_obj['passwort'];
                     $this->user_obj->login($k_obj);
                 }
                 $this->LOGCLASS->addLog('UPDATE', 'profil activation ' . $k_obj['nachname'] . ', ' . $k_obj['kid'] . ', ' . $k_obj['email']);
@@ -772,69 +771,111 @@ class memindex_class extends memindex_master_class {
     }
 
     /**
+     * memindex_class::set_login_timestamp()
+     * 
+     * @return void
+     */
+    protected static function set_login_timestamp() {
+        if (!isset($_SESSION['login_log'])) {
+            $_SESSION['login_log'] = array('first_fail' => time(), 'counter' => 1);
+        }
+        $_SESSION['login_log']['last_fail'] = time();
+        $_SESSION['login_log']['counter']++;
+        if ($_SESSION['login_log']['counter'] >= 3) {
+            $_SESSION['login_log']['next'] = time() + (10 * ($_SESSION['login_log']['counter'] - 3));
+        }
+    }
+
+    /**
+     * memindex_class::clear_login_timestamp()
+     * 
+     * @return void
+     */
+    protected function clear_login_timestamp() {
+        $_SESSION['login_log'] = array();
+    }
+
+    /**
+     * memindex_class::valid_login_timestamp()
+     * 
+     * @return void
+     */
+    protected static function valid_login_timestamp() {
+        $_SESSION['login_log']['wait_seconds'] = 0;
+        if (isset($_SESSION['login_log']['next']) && $_SESSION['login_log']['next'] > time()) {
+            $_SESSION['login_log']['wait_seconds'] = $_SESSION['login_log']['next'] - time();
+        }
+        return ($_SESSION['login_log']['wait_seconds'] == 0);
+    }
+
+    /**
      * memindex_class::cmd_login()
      * 
      * @return
      */
     function cmd_login() {
-        $_SESSION['kid'] = -1;
-        $_SESSION['password'] = '';
-        $pass = $_REQUEST['pass'];
-        $e_object = $this->try_load_user_by_password($_REQUEST['email'], $pass);
-        if ($e_object['login_msge'] != "") {
-            $this->msge($e_object['login_msge']);
-            HEADER("Location: " . SSL_PATH_SYSTEM . $_SERVER['PHP_SELF'] . "?page=" . $_REQUEST['page'] . "&hash=" . md5($e_object['feedback'] . $_REQUEST['email']) .
-                "&feedback=" . $e_object['feedback'] . "&ikey=" . $_POST['email']);
-            $this->hard_exit();
-        }
-
-        if ($e_object['kid'] > 0 && $_REQUEST['email'] != '') {
-            $_SESSION['kid'] = $e_object['kid'];
-            $_SESSION['password'] = $e_object['passwort'];
-            $this->memberclass->login($e_object);
-            $loaded_user = $e_object;
-
-            if (!is_dir(CMS_ROOT . 'file_server/members')) {
-                mkdir(CMS_ROOT . 'file_server/members', 0777);
-            }
-            if (!is_dir(CMS_ROOT . 'file_server/members/' . (int)$e_object['kid'])) {
-                mkdir(CMS_ROOT . 'file_server/members/' . (int)$e_object['kid'], 0777);
+        if (self::valid_login_timestamp()) {
+            $_SESSION['kid'] = -1;
+            $pass = $_REQUEST['pass'];
+            $e_object = $this->try_load_user_by_password($_REQUEST['email'], $pass);
+            if ($e_object['login_msge'] != "") {
+                self::set_login_timestamp();
+                $this->smarty->assign('login_security', $_SESSION['login_log']);
+                $this->msge($e_object['login_msge']);
+                HEADER("Location: " . SSL_PATH_SYSTEM . $_SERVER['PHP_SELF'] . "?page=" . $_REQUEST['page'] . "&hash=" . md5($e_object['feedback'] . $_REQUEST['email']) .
+                    "&feedback=" . $e_object['feedback'] . "&ikey=" . $_POST['email']);
+                $this->hard_exit();
             }
 
-            // set cookie
-            if ($_POST['stayloggedin'] == 1) {
-                $this->memberclass->set_login_cookie($e_object);
-            }
-
-            $params = array('user' => $e_object);
-            $params = exec_evt('OnLoginSuccess', $params);
-            $e_object = $params['user'];
-
-            if ($_POST['redirect'] != "" && self::get_domain_url() . $_POST['redirect'] != self::get_domain_url() . $_SERVER['PHPSELF']) {
-                #   $query_add['sid_id'] = session_id();
-                #  $query_add['msg'] = base64_encode("{MSG_LOGINOK}");
-                $query_add['loginok'] = 1;
-                $query_add['setcookie'] = (int)$_POST['stayloggedin'];
-                $redirect = $_POST['redirect'];
-                $url_arr = parse_url($redirect);
-                $query = explode("&", $url_arr['query']);
-                foreach ($query as $q) {
-                    list($key, $value) = explode("=", $q);
-                    if ($key == 'msge' || $key == 'msg') {
-                        $redirect = preg_replace('/&?' . $key . '=' . $value . '/', '', $redirect);
-                    }
+            if ($e_object['kid'] > 0 && $_REQUEST['email'] != '') {
+                $_SESSION['kid'] = $e_object['kid'];
+                $this->memberclass->login($e_object);
+                self::clear_login_timestamp();
+                $loaded_user = $e_object;
+                $params = array('user' => $e_object);
+                $params = exec_evt('OnLoginSuccess', $params);
+                $e_object = $params['user'];
+                if (!is_dir(CMS_ROOT . 'file_server/members')) {
+                    mkdir(CMS_ROOT . 'file_server/members', 0777);
                 }
-                $url = $this->modify_url(self::get_domain_url() . $redirect, $query_add);
-                HEADER("Location: " . $url);
+                if (!is_dir(CMS_ROOT . 'file_server/members/' . (int)$e_object['kid'])) {
+                    mkdir(CMS_ROOT . 'file_server/members/' . (int)$e_object['kid'], 0777);
+                }
+
+                // set cookie
+                if ($_POST['stayloggedin'] == 1) {
+                    $this->memberclass->set_login_cookie($e_object);
+                }
+
+                if ($_POST['redirect'] != "" && self::get_domain_url() . $_POST['redirect'] != self::get_domain_url() . $_SERVER['PHPSELF']) {
+                    $query_add['loginok'] = 1;
+                    $query_add['setcookie'] = (int)$_POST['stayloggedin'];
+                    $redirect = $_POST['redirect'];
+                    $url_arr = parse_url($redirect);
+                    $query = explode("&", $url_arr['query']);
+                    foreach ($query as $q) {
+                        list($key, $value) = explode("=", $q);
+                        if ($key == 'msge' || $key == 'msg') {
+                            $redirect = preg_replace('/&?' . $key . '=' . $value . '/', '', $redirect);
+                        }
+                    }
+                    $url = $this->modify_url(self::get_domain_url() . $redirect, $query_add);
+                    HEADER("Location: " . $url);
+                }
+                else {
+                    self::msg('{MSG_LOGINOK}');
+                    HEADER("Location: " . self::get_domain_url() . "index.php?" . (($_POST['stayloggedin'] == 1) ? 'setcookie=1&' : '') . "&loginok=1");
+                }
+                exit;
             }
-            else {
-                self::msg('{MSG_LOGINOK}');
-                HEADER("Location: " . self::get_domain_url() . "index.php?" . (($_POST['stayloggedin'] == 1) ? 'setcookie=1&' : '') . "&loginok=1");
-            }
-            exit;
+            self::set_login_timestamp();
+            $this->LOGCLASS->addLog('FORM_FAILURE', 'Customer log in failed: "<a href="index.php?kwort=' . $_POST['email'] . '">' . $_POST['email'] . '</a>"');
+            self::msge('{MSG_ERRLOGIN}');
         }
-        $this->LOGCLASS->addLog('FORM_FAILURE', 'Customer log in failed: "<a href="index.php?kwort=' . $_POST['email'] . '">' . $_POST['email'] . '</a>"');
-        self::msge('{MSG_ERRLOGIN}');
+        else {
+            self::msge('Zuviele Falscheingaben! bitte warten:' . $_SESSION['login_log']['wait_seconds'] . 'sek');
+        }
+        $this->smarty->assign('login_security', $_SESSION['login_log']);
     }
 
     /**
@@ -1290,12 +1331,10 @@ class memindex_class extends memindex_master_class {
             $k_obj['sessionid'] = session_id();
             if ($this->gbl_config['mem_needactivate'] == 1) {
                 unset($_SESSION['kid']);
-                unset($_SESSION['password']);
                 $k_obj['sperren'] = 1;
             }
             else {
                 $_SESSION['kid'] = $k_obj['kid'];
-                $_SESSION['password'] = $k_obj['passwort'];
             }
 
             $k_obj['picture'] = $picture;

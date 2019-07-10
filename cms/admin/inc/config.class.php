@@ -7,7 +7,8 @@
  * @copyright  Copyright (C) Trebaxa GmbH&Co.KG. All rights reserved.
  * @license    GNU General Public License version 2 or later; see LICENSE
  */
-
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 class config_class extends keimeno_class {
 
@@ -181,11 +182,12 @@ class config_class extends keimeno_class {
             }
 
         if (count($CAT_GROUPS) > 1) {
-            $group_table = '<ul class="nav nav-sidebar" id="vertnav">';
+            $group_table = '<ul class="nav flex-column" id="vertnav">';
             foreach ($CAT_GROUPS as $CGID => $CAT_GROUP) {
                 $CAT_GROUPS[$CGID]['ident'] = $k;
                 $group_table .= '	<li>
-   <a title="' . $CAT_GROUP['label'] . '" href="javascript:void(0)" data-layer="' . $k . '" class="vertmenuclick" >' . $CAT_GROUP['label'] . '</a>   </li>';
+   <a title="' . $CAT_GROUP['label'] . '" href="javascript:void(0)" data-layer="' . $k . '" class="nav-link vertmenuclick" >' . $CAT_GROUP['label'] .
+                    '</a>   </li>';
                 $k++;
             }
             $group_table .= '</ul>';
@@ -398,12 +400,103 @@ class config_class extends keimeno_class {
 
                 $content .= '<td><code>' . htmlspecialchars('<% $gbl_config.' . $row['config_name'] . ' %>') . '</code></td></tr>';
             } //WHILE
-            $content .= '</table></div>';
+            $content .= '</table>
+            ' . (($CAT_GROUP['label'] == 'Emails') ?
+                ' <button class="btn btn-warning js-smtp-test mb-lg" type="button"><i class="fa fa-envelope"></i> Test SMTP Mail Verbindung</button><div class="mb-lg" style="display:none;padding:10px;background-color:#000;color:#EFEFF1;font-size:11px;" id="js-smtp-test"></div>       ' :
+                "") . '
+            </div>';
         } // foreach GROUPS
         $content .= '<div >' . kf::gen_admin_sub_btn('{LBLA_SAVE}') . '</div>
         </div></div></form>
+         <script>
+            $( ".js-smtp-test" ).click(function() {
+              simple_load("js-smtp-test","' . $_SERVER['PHP_SELF'] . '?epage=cmsconfig.inc&cmd=test_smtp");
+              $("#js-smtp-test").fadeIn();
+              setTimeout("smtp_analyse()",1000);
+            });
+            function smtp_analyse() {
+                window.scrollTo(0,document.body.scrollHeight);
+                var txt = $("#js-smtp-test").html();
+                var n = txt.indexOf("SMTP Versand erfoglreich");
+                if (n>0) {
+                   $("#js-smtp-test").append("<div class=\'alert alert-success\'><b>SMTP Versand erfoglreich!</b></div>");
+                }    
+            }
+        </script>
         <%include file="cb.panel.footer.tpl"%>';
         return smarty_compile($content);
     }
 
+    /**
+     * config_class::cmd_test_smtp()
+     * 
+     * @return void
+     */
+    function cmd_test_smtp() {
+        # if (!function_exists('PHPMailerAutoload')) {
+        #     require SHOP_ROOT . 'includes/lib/phpmailer/PHPMailerAutoload.php';
+        # }
+        $from_email = $this->gbl_config['adr_service_email'];
+        $from_name = ($this->gbl_config['adr_firma_call'] != "") ? $this->gbl_config['adr_firma_call'] : $this->gbl_config['adr_service_email'];
+        $email_array = array(
+            'cu_email' => $this->gbl_config['adr_service_email'],
+            'subject' => 'Redimero Test-Mail',
+            'content' => "Hallo,\ndies ist eine Test E-Mail aus Ihrem Redimero Account.\nSMTP Versand erfolgreich.",
+            );
+        $textonly = true;
+
+        $mail = new PHPMailer(true);
+
+        $mail->isSMTP();
+        $mail->Timeout = 30;
+        //Enable SMTP debugging
+        // 0 = off (for production use)
+        // 1 = client messages
+        // 2 = client and server messages
+        $mail->SMTPDebug = 2;
+
+        if ($this->gbl_config['smtp_encrypt'] == 'SSL') {
+            $mail->SMTPSecure = 'ssl';
+        }
+        $mail->SMTPAutoTLS = false;
+        $mail->Debugoutput = 'html';
+        $mail->Host = $this->gbl_config['smtp_server'];
+        //Set the SMTP port number - likely to be 25, 465 or 587
+        $mail->Port = $this->gbl_config['smtp_port'];
+        $mail->SMTPAuth = true;
+        $mail->Username = $this->gbl_config['smtp_user'];
+        $mail->Password = $this->gbl_config['smtp_pass'];
+
+
+        $mail->setFrom($from_email, $from_name);
+        $mail->addReplyTo($from_email, $from_name);
+        //Set who the message is to be sent to
+        $mail->addAddress($email_array['cu_email'], $email_array['cu_email']);
+        # set CC
+        if ($cc_email != "")
+            $mail->addCC($cc_email);
+        //Set the subject line
+        $mail->Subject = $email_array['subject'];
+
+        //Read an HTML message body from an external file, convert referenced images to embedded,
+        //convert HTML into a basic plain-text alternative body
+        #$mail->msgHTML(file_get_contents('contents.html'), dirname(__FILE__));
+
+        //Replace the plain text body with one created manually
+        # $mail->AltBody = 'This is a plain-text message body';
+        if ($textonly == true) {
+            $mail->isHTML(false);
+            $mail->Body = $email_array['content'];
+        }
+        else {
+            $mail->isHTML(true);
+            $mail->msgHTML($email_array['content']);
+            $mail->AltBody = strip_tags($email_array['content']);
+        }
+        if (!$mail->send()) {
+            echo "Mailer Error: " . $mail->ErrorInfo;
+            # return array('status' => false, 'msge' => (string )$mail->ErrorInfo);
+        }
+        $this->hard_exit();
+    }
 }

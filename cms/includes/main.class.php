@@ -259,7 +259,8 @@ class main_class extends keimeno_class {
 
         # get content by static page index
         if ($page == 0) {
-            $request_query = $_SERVER['REQUEST_URI'];
+            #$request_query = $_SERVER['REQUEST_URI'];
+            $request_query = strtok($_SERVER["REQUEST_URI"], '?');
             $lng_code_is_set = isset($_GET['lngcode']) && $_GET['lngcode'] != "" && strlen($_GET['lngcode']) == 2;
             if ($lng_code_is_set == true) {
                 $request_query = str_replace('/' . $_GET['lngcode'] . '/', '/', $request_query);
@@ -606,7 +607,7 @@ class main_class extends keimeno_class {
         }
         header("Content-type: text/html; charset=UTF-8");
         header("Cache-Control: max-age=600");
-        $params = exec_evt('on_output', array('html' => $content, 'langid' => $this->GBL_LANGID));
+        $params = exec_evt('OnOutput', array('html' => $content, 'langid' => $this->GBL_LANGID));
         $content = $params['html'];
         echo $content;
     }
