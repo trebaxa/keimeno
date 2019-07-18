@@ -12,7 +12,7 @@
             <div class="form-group">
            <label>System Templates &uuml;berschreiben mit Template Inhalt aus Sprache:</label>
            <div class="input-group"> 
-            <select class="form-control" name="langid">
+            <select class="form-control custom-select" name="langid">
             	<% foreach from=$langselect item=lang %>
                         <option value="<%$lang.id%>"><%$lang.post_lang%></option>
             	<%/foreach%>

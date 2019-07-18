@@ -24,9 +24,9 @@
       <div class="col-md-6">
         <div class="form-group"><label>Letzte &Auml;nderung:</label><br><%$news_obj.n_lastchange%>
           <div class="btn-group pull-right">
-            <a class="btn btn-default" href="run.php?uselang=<%$uselang%>&cmd=remoteadd&type=news&id=<%$id%>&epage=newsletter.inc" title="{LBL_SENDTHISPERMAIL}"><i class="fa fa-envelope-o"></i></a>
-            <a class="btn btn-default" href="<%$news_obj.link%>" target="_newsblank" title="view"><i class="fa fa-eye"></i></a>
-            <a id="axapprove-<%$news_obj.NID%>" class="btn btn-default axapprove" data-phpself="<%$PATH_CMS%>admin/run.php" data-epage="news.inc" data-toadd="" data-cmd="axapprove_item" data-value="<% if ($news_obj.approval==1)%>0<%else%>1<%/if%>" data-ident="<%$news_obj.NID%>" href="javascript:void(0);">
+            <a class="btn btn-secondary" href="run.php?uselang=<%$uselang%>&cmd=remoteadd&type=news&id=<%$id%>&epage=newsletter.inc" title="{LBL_SENDTHISPERMAIL}"><i class="fa fa-envelope-o"></i></a>
+            <a class="btn btn-secondary" href="<%$news_obj.link%>" target="_newsblank" title="view"><i class="fa fa-eye"></i></a>
+            <a id="axapprove-<%$news_obj.NID%>" class="btn btn-secondary axapprove" data-phpself="<%$PATH_CMS%>admin/run.php" data-epage="news.inc" data-toadd="" data-cmd="axapprove_item" data-value="<% if ($news_obj.approval==1)%>0<%else%>1<%/if%>" data-ident="<%$news_obj.NID%>" href="javascript:void(0);">
             <i class="fa fa-circle <% if ($news_obj.approval==1)%>fa-green<%else%>fa-red<%/if%>"></i></a>
             </div>
         </div>
@@ -44,7 +44,7 @@
 	       <input type="file" name="dateiicon" class="autosubmit"> 
 	       
 	           <br><img src="<%$news_obj.n_icon%>" class="thumb newsicon" <% if ($news_obj.n_icon=="") %>style="display:none"<%/if%>>
-	           <br><a class="btn btn-default remove_news_icon" href="javascript:void(0)" <% if ($news_obj.n_icon=="") %>style="display:none"<%/if%>><i class="fa fa-trash"><!----></i></a>
+	           <br><a class="btn btn-secondary remove_news_icon" href="javascript:void(0)" <% if ($news_obj.n_icon=="") %>style="display:none"<%/if%>><i class="fa fa-trash"><!----></i></a>
 	       
         </div>		 
 		<div class="form-group">

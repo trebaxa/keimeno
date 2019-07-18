@@ -1,5 +1,5 @@
 <div class="btn-group">
-<a class="btn btn-default" href="run.php?epage=<%$epage%>&aktion=addnewdate&seldate=<%$seldate_us%>">{LBL_ADD_OTDATE} <% $seldate %> {LBL_CREATE}</a>  <a class="btn btn-default" href="run.php?epage=<%$epage%>&aktion=repeatappointment&dateid=<%$dateid%>">Diesen Termin wiederholt eintragen lassen</a>
+<a class="btn btn-secondary" href="run.php?epage=<%$epage%>&aktion=addnewdate&seldate=<%$seldate_us%>">{LBL_ADD_OTDATE} <% $seldate %> {LBL_CREATE}</a>  <a class="btn btn-secondary" href="run.php?epage=<%$epage%>&aktion=repeatappointment&dateid=<%$dateid%>">Diesen Termin wiederholt eintragen lassen</a>
 </div>
 
 <% if ($aktion=='editdate')%>
@@ -45,7 +45,7 @@
 	  	    <strong>{LBL_PROGRAM}:</strong>
         </td>
 	  	<td>
-          <select class="form-control" onChange="location.href=this.options[this.selectedIndex].value">
+          <select class="form-control custom-select" onChange="location.href=this.options[this.selectedIndex].value">
 	  	    <% $jav_prog_select%>
 	  	    </select>
 	  	
@@ -81,7 +81,7 @@
 		</tr>		
 		<tr>
 	  	<td><strong>Ausf&uuml;hrender {LBL_EMPLOYEE}:</strong> </td>
-	  	<td><select class="form-control" id="employid" name="employid" onChange="doRequestFromValue(hour.options[hour.selectedIndex].value,min.options[min.selectedIndex].value,this.options[this.selectedIndex].value,'timeto','calcendtime','run','&epage=<%$epage%>&groupid=<%$group_id%>&dateid=<%$N_OBJ.DATEID%>&seldate=<%$seldate_us%>&duration=<%$PROG.pr_duration%>','../images/opt_loader.gif')">
+	  	<td><select class="form-control custom-select" id="employid" name="employid" onChange="doRequestFromValue(hour.options[hour.selectedIndex].value,min.options[min.selectedIndex].value,this.options[this.selectedIndex].value,'timeto','calcendtime','run','&epage=<%$epage%>&groupid=<%$group_id%>&dateid=<%$N_OBJ.DATEID%>&seldate=<%$seldate_us%>&duration=<%$PROG.pr_duration%>','../images/opt_loader.gif')">
 	  	<% foreach from=$DAY.employees item=employee name=mt %>
 	  	 <% if ($employee.dt_duration > 0) %>
 	  	<option <% if ($employee.MID==$N_OBJ.prog_employeeid) %>selected <%/if%> value="<%$employee.MID%>">
@@ -115,7 +115,7 @@
         <td valign="top">
         <div class="form-group col-md-6">
             <label for="hour">Stunde</label> 
-    		 <select class="form-control" id="hour" name="hour" onChange="doRequestFromValue(this.options[this.selectedIndex].value,min.options[min.selectedIndex].value,employid.options[employid.selectedIndex].value,'timeto','calcendtime','run','&epage=<%$epage%>&groupid=<%$group_id%>&dateid=<%$N_OBJ.DATEID%>&seldate=<%$seldate_us%>&duration=<%$PROG.pr_duration%>','../images/opt_loader.gif')">
+    		 <select class="form-control custom-select" id="hour" name="hour" onChange="doRequestFromValue(this.options[this.selectedIndex].value,min.options[min.selectedIndex].value,employid.options[employid.selectedIndex].value,'timeto','calcendtime','run','&epage=<%$epage%>&groupid=<%$group_id%>&dateid=<%$N_OBJ.DATEID%>&seldate=<%$seldate_us%>&duration=<%$PROG.pr_duration%>','../images/opt_loader.gif')">
     		 <% foreach from=$OTDATE_OBJ.hours_day.hours item=hour name=mt %>
     		 <option <% if ($hour==$OTDATE_OBJ.hours_day.selhour) %>selected <%/if%>value="<%$hour%>"><%$hour%></option>
     		 <%/foreach%>		 
@@ -123,7 +123,7 @@
             </div>
         <div class="form-group col-md-6">    
         <label>Minute</label>
-            <select class="form-control" id="min" name="min" onChange="doRequestFromValue(hour.options[hour.selectedIndex].value,this.options[this.selectedIndex].value,employid.options[employid.selectedIndex].value,'timeto','calcendtime','run','&epage=<%$epage%>&groupid=<%$group_id%>&dateid=<%$N_OBJ.DATEID%>&seldate=<%$seldate_us%>&duration=<%$PROG.pr_duration%>','../images/opt_loader.gif')">
+            <select class="form-control custom-select" id="min" name="min" onChange="doRequestFromValue(hour.options[hour.selectedIndex].value,this.options[this.selectedIndex].value,employid.options[employid.selectedIndex].value,'timeto','calcendtime','run','&epage=<%$epage%>&groupid=<%$group_id%>&dateid=<%$N_OBJ.DATEID%>&seldate=<%$seldate_us%>&duration=<%$PROG.pr_duration%>','../images/opt_loader.gif')">
     		 <% foreach from=$OTDATE_OBJ.min_day item=min name=mt %>
     		 <option <% if ($min==$OTDATE_OBJ.hours_day.selmin) %>selected <%/if%>value="<%$min%>"><%$min%></option>
     		 <%/foreach%>		 

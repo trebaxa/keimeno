@@ -26,14 +26,15 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
+        <h5 class="modal-title" id="contselectLabel">{LA_INHALTHINZUFGEN}</h5>
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="contselectLabel">{LA_INHALTHINZUFGEN}</h4>
+        
       </div>
       <div class="modal-body">
         <div class="row">
         <% foreach from=$WEBSITE.first_plugs item=row name=plugloop %>
             <div class="col-md-6">
-             <button type="button" class="btn-select-click btn btn-default  btn-block" data-tmtype="<%$row.tm_type%>" data-pluginid="<%$row.id%>" data-modident="<%$row.modident%>"><i class="fa fa-code"><!----></i> <%$row.plug_name%></button>
+             <button type="button" class="btn-select-click btn btn-secondary  btn-block" data-tmtype="<%$row.tm_type%>" data-pluginid="<%$row.id%>" data-modident="<%$row.modident%>"><i class="fa fa-code"><!----></i> <%$row.plug_name%></button>
             </div>
         <%/foreach%>
         </div>
@@ -42,13 +43,13 @@
     <div class="row">
         <% foreach from=$WEBSITE.plugins item=row %>
                 <div class="col-md-6">
-                     <button type="button" class="btn-select-click btn btn-default  btn-block" data-tmtype="<%$row.tm_type%>" data-pluginid="<%$row.id%>" data-modident="<%$row.modident%>"><i class="fa fa-puzzle-piece"><!----></i> <%$row.plug_name%></button>
+                     <button type="button" class="btn-select-click btn btn-secondary  btn-block" data-tmtype="<%$row.tm_type%>" data-pluginid="<%$row.id%>" data-modident="<%$row.modident%>"><i class="fa fa-puzzle-piece"><!----></i> <%$row.plug_name%></button>
                 </div>
         <%/foreach%>
             </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

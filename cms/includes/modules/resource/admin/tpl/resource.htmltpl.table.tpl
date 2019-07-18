@@ -26,7 +26,7 @@
                     </td> 
                     <td>
                         <div class="input-group">
-                            <select class="form-control" name="FORMSET[<%$row.id%>][t_pageid]">
+                            <select class="form-control custom-select" name="FORMSET[<%$row.id%>][t_pageid]">
                                    <% foreach from=$RESOURCE.menu_selectox item=rvol key=rkey %>                            
                                         <option <% if ($rkey==$row.t_pageid) %>selected<%/if%> value="<%$rkey%>"><%$rvol%></option>
                                    <%/foreach%>              
@@ -37,7 +37,7 @@
                     <td class="text-right">
                         <div class="btn-group">
                             <% foreach from=$row.icons item=picon %><% $picon %><%/foreach%>
-                            <a class="btn btn-default" href="javascript:void(0)" onclick="simple_load('js-tpledit','<%$eurl%>cmd=edittpl&flxid=<%$RESOURCE.flextpl.FID%>&id=<%$row.id%>');"><i class="fa fa-pencil-square-o"></i></a>
+                            <a class="btn btn-secondary" href="javascript:void(0)" onclick="simple_load('js-tpledit','<%$eurl%>cmd=edittpl&flxid=<%$RESOURCE.flextpl.FID%>&id=<%$row.id%>');"><i class="far fa-edit"></i></a>
                         </div>
                     </td>
                 </tr>

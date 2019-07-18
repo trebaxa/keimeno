@@ -15,5 +15,5 @@
 
 	</div>
 <%else%>
- <% if ($cmd=='search') %><div class="bg-info text-info"> {LBL_NOENTRIES} </div><%/if%>
+ <% if ($cmd=='search') %><div class="alert alert-info"> {LBL_NOENTRIES} </div><%/if%>
 <%/if%>

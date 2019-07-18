@@ -4,29 +4,29 @@
     <li id="flextpls_treeroot" data-haschildren="1" ><a id="ident-0" href="javascript:void(0)"  data-tid="0">Flex Templates</a>
         <ul>
     <% function name="flextpls_treevar" %>
-        <%foreach from=$items item=element%>     
-                <li id="flextpls_treenode-<%$element.id%>" <% if ($element.haschildren==0) %>data-tid="<%$element.id%>"<%/if%> data-haschildren="<% if ($element.haschildren==1) %>1<%else%>0<%/if%>" data-modid="<%$element.modident%>" data-isadmin="<%$element.admin%>" <% if ($element.haschildren==0) %>data-jstree='{"icon":"glyphicon glyphicon-file"}'<%/if%> >
-                <a id="ident-<%$element.id%>"  
+        <%foreach from=$items item=element%>
+                <li id="flextpls_treenode-<%$element.id%>" <% if ($element.haschildren==0) %>data-tid="<%$element.id%>"<%/if%> data-haschildren="<% if ($element.haschildren==1) %>1<%else%>0<%/if%>" data-modid="<%$element.modident%>" data-isadmin="<%$element.admin%>" <% if ($element.haschildren==0) %>data-jstree='{"icon":"fas fa-file-code"}'<%/if%> >
+                <a id="ident-<%$element.id%>"
                  data-tid="<%$element.id%>" data-modid="<%$element.modident%>"
                 href="javascript:void(0)" title="<%$element.f_name|sthsc%>"
-                ><% if ($element.haschildren==1) %><%$element.f_name|st|truncate:10%><%else%><%$element.f_name|st%><%/if%>    
+                ><span><% if ($element.haschildren==1) %><%$element.f_name|st|truncate:10%><%else%><%$element.f_name|st%><%/if%></span>
                 </a>
-                
+
                 <%if !empty($element.children)%>
                     <ul><%call name="flextpls_treevar" items=$element.children%></ul>
                 <%/if%>
-                
+
                 </li>
-     
+
         <%/foreach%>
     <%/function%><% call name="flextpls_treevar" items=$flextpl_list %>
             </ul>
         </li>
-     </ul> 
+     </ul>
     </div>
-    
+
     <script>
-    
+
       function customMenu(node) {
         // console.log(node.toSource());
             // The default set of all items
@@ -52,7 +52,7 @@
     							if(!sel.length) { return false; }
     							sel = sel[0];
     							ref.edit(sel);
-                                
+
                     }
                 },
                 deleteItem: { // The "delete" menu item
@@ -63,7 +63,7 @@
     								sel = ref.get_selected();
     							if(!sel.length) { return false; }
     							ref.delete_node(sel);
-                            }    
+                            }
                     }
                 }
             };
@@ -78,11 +78,11 @@
                 delete items.deleteItem;
                 delete items.renameItem;
             }
-    
+
             return items;
         }
         // ,"dnd", "search",    "state", "types", "wholerow"
-        $('#flextpls_treeul').jstree({  
+        $('#flextpls_treeul').jstree({
              "plugins" : [ "contextmenu", "types", "wholerow" ],
              core : {
                 "animation" : 0,
@@ -90,39 +90,39 @@
              },
               "types" : {
                         "#" : {
-                        "max_children" : 1, 
-                        "max_depth" : 4, 
+                        "max_children" : 1,
+                        "max_depth" : 4,
                         "valid_children" : ["root"]
-                    },    
+                    },
                     "default" : {
-                        "icon" : "glyphicon glyphicon-folder-open",
+                        "icon" : "fas fa-folder-open",
                         "valid_children" : ["default","file"]
                     },
                     "file" : {
-                        "icon" : "glyphicon glyphicon-file",
+                        "icon" : "fas fa-file",
                         "valid_children" : []
                     }
                 },
               "contextmenu": {items: customMenu}
-         
-            }).bind("select_node.jstree", function(event,data) {  
+
+            }).bind("select_node.jstree", function(event,data) {
                var link_id = data.node.id;
                if ($('#'+link_id).data('haschildren')==0 && $('#'+link_id).data('tid')>0) {
                     simple_load('admincontent','<%$PATH_CMS%>admin/run.php?epage=flextemp.inc&id='+$('#'+link_id).data('tid')+'&section=edit&cmd=ax_editflextpl');
                     return;
-               } 
+               }
                if ($('#'+link_id).data('haschildren')==1) {
                  if ($("#"+link_id).hasClass("jstree-open")) {
                         $("#flextpls_treeul").jstree("close_node", "#" + link_id);
                        }
-                    else {                    
+                    else {
                         $("#flextpls_treeul").jstree("close_all");
                         $("#flextpls_treeul").jstree("open_node", "#flextpls_treeroot");
-                        $("#flextpls_treeul").jstree("open_node", "#" + link_id);                        
-                    }    
+                        $("#flextpls_treeul").jstree("open_node", "#" + link_id);
+                    }
                     simple_load('admincontent','<%$PATH_CMS%>admin/run.php?epage=flextemp.inc&cmd=ax_start&section=start');
                }
-            }).on('rename_node.jstree', function (e, data) {  
+            }).on('rename_node.jstree', function (e, data) {
                 $('#flextpls_title').val(data.text);
                 $.ajax({
     			     url: 'run.php?epage=flextemp.inc&cmd=rename_flextpls',
@@ -139,17 +139,17 @@
     					data.instance.refresh();
     				});
             }).on('delete_node.jstree', function (e, data) {
-                $.getJSON( "/admin/run.php?epage=flextemp.inc&id="+$('#'+data.node.id).data('tid')+"&cmd=axdelflextplsbytree", function( data ) {				
+                $.getJSON( "/admin/run.php?epage=flextemp.inc&id="+$('#'+data.node.id).data('tid')+"&cmd=axdelflextplsbytree", function( data ) {
     					if (data.msge != "") {
                                $('#savedresult').html(data.msge);
                                $('#savedresult').removeClass('okbox').addClass('faultboxajax');
                                show_saved_msg(3000);
                             } else {
                                simple_load('js-flxtpls', '<%$eurl%>cmd=load_flxtpls');
-                            }                    
+                            }
     				});
-                    
-            }).on('create_node.jstree', function (e, data) {             
+
+            }).on('create_node.jstree', function (e, data) {
                 $.ajax({
     			     url: '<%$PATH_CMS%>admin/run.php?epage=flextemp.inc&cmd=ax_create_flextpl',
                      data: { 'id' : data.node.parent, 'position' : data.position, 'FORM[f_name]' : data.node.text },
@@ -168,7 +168,7 @@
     					data.instance.refresh();
     				});
             });
-    
+
     <% if ($GET.doopentree==1)%>
         $("#flextpls_treeul").jstree("open_node", "#flextpls_treeroot");
     <%/if%>

@@ -16,7 +16,7 @@
       <change_date>2014-01-01</change_date>
     </settings>
     <events>
-      <event eventname="on_output" method="class" classname="indexsearch_class" function="on_output"/>
+      <event eventname="OnOutput" method="class" classname="indexsearch_class" function="on_output"/>
       <event eventname="autorun" method="class" classname="indexsearch_class" function="autorun"/>
     </events>
     <includes>

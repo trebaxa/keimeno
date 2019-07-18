@@ -1029,12 +1029,13 @@ class gallery_class extends modules_class {
             $_SESSION['cs_gal']['approved'] = intval($_GET['cs_filter']);
         $this->GALADMIN['gid'] = (int)$_REQUEST['gid'];
         $this->load_tree();
-        $galist = $this->loadGallery($_GET['gid'], 200, 130, true, 'crop', 0, 0, intval($_GET['start']), 999);
+        $galist = $this->loadGallery($_REQUEST['gid'], 200, 130, true, 'crop', 0, 0, intval($_GET['start']), 999);
         $this->add_users($galist['gallery']);
         $this->GALADMIN['galtab'] = $galist['gallery'];
         #  $this->smarty->assign('paging', $this->genPaging($_GET['start'], 35, $_GET['gid'], $this->gallery_obj['pic_count_gallery']));
         $tmp = array_shift($galist['gallery']);
         #  'selectbtn' => gen_submit_btn('{LBL_BTN_REFRESH}'),
+        
         $POBJ = array('galinfo' => $galist, 'album_picid' => $tmp['imginfo']['picid']);
         $this->smarty->assign('POBJ', $POBJ);
         $this->parse_to_smarty();

@@ -17,7 +17,7 @@
     
     
     <div class="form-group"> 
-        <label for="changelanggbltpl"><a class="btn btn-default" target="_kml" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=open_and_view">KML Datei anzeigen</a></label>
+        <label for="changelanggbltpl"><a class="btn btn-secondary" target="_kml" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=open_and_view">KML Datei anzeigen</a></label>
        
     </div><!-- /.form-group -->
     
@@ -53,7 +53,7 @@
     
 
 
-<div class="bg-info text-info">Registrieren Sie die Geo Sitemap XML Datei in "Google Webmaster Tools" unter "Sitemaps"<br>
+<div class="alert alert-info">Registrieren Sie die Geo Sitemap XML Datei in "Google Webmaster Tools" unter "Sitemaps"<br>
 <a target="_kml" href="<%$KML_OBJ.link%>"><%$KML_OBJ.link%></a>
 <br><a target="_kml" href="<%$KML_OBJ.sitemaplink%>"><%$KML_OBJ.sitemaplink%></a>
 <br><br>

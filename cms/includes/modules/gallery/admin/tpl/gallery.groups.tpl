@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="../includes/modules/gallery/admin/css/style-1.css">
 <% if ($cmd=="load_groups") %>
-<div class="page-header"><h1> <i class="fa fa-photo"><!----></i> {LBL_FOTOALBUMS}</h1></div>
+<div class="page-header"><h1> <i class="far fa-image"><!----></i> {LBL_FOTOALBUMS}</h1></div>
 
 
 <div class="container-fluid">
@@ -22,8 +22,9 @@
     <div class="modal-content">
     <form method="post" action="<%$PHPSELF%>" class="jsonform">
       <div class="modal-header">
+        <h5 class="modal-title" id="addalbumLabel">{LBL_ADD}:</h5>
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="addalbumLabel">{LBL_ADD}:</h4>
+        
       </div>
       <div class="modal-body">
         <div class="form-group">
@@ -38,7 +39,7 @@
        <input type="hidden" value="<%$epage%>" name="epage"/>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <%$subbtn%>
       </div>
       	</form>

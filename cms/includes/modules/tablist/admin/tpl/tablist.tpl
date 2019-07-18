@@ -3,7 +3,7 @@
 <div class="btn-group">
      
     <div class="btn-group">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
       Gruppe
       <span class="caret"></span>
     </button>
@@ -11,7 +11,7 @@
     <% $sel_box %>
     </ul>
     </div>
-     <a class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&aktion=newtab&group_id=<% $group.id %>">{LBL_ADD}</a>
+     <a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&aktion=newtab&group_id=<% $group.id %>">{LBL_ADD}</a>
 </div>
 <% /if %>
 
@@ -82,12 +82,12 @@
 	<input type="hidden" name="cmd" value="a_savetab">		
     <br>
 <div class="btn-group">    
-<a class="btn btn-default" href="javascript:void(0);" onClick="simple_load('tablist','<%$PHPSELF%>?epage=<%$epage%>&aktion=insertrow&id=<% $TAB_OBJ.id %>&uselang=<% $TAB_OBJC.lang_id %>&lang_id=<% $TAB_OBJC.lang_id %>');">Neue Zeile</a>
-    <a class="btn btn-default" href="javascript:void(0);" onClick="simple_load('tablist','<%$PHPSELF%>?epage=<%$epage%>&cmd=addcol&id=<% $TAB_OBJ.id %>&uselang=<% $TAB_OBJC.lang_id %>&lang_id=<% $TAB_OBJC.lang_id %>');">Neue Spalte</a>
+<a class="btn btn-secondary" href="javascript:void(0);" onClick="simple_load('tablist','<%$PHPSELF%>?epage=<%$epage%>&aktion=insertrow&id=<% $TAB_OBJ.id %>&uselang=<% $TAB_OBJC.lang_id %>&lang_id=<% $TAB_OBJC.lang_id %>');">Neue Zeile</a>
+    <a class="btn btn-secondary" href="javascript:void(0);" onClick="simple_load('tablist','<%$PHPSELF%>?epage=<%$epage%>&cmd=addcol&id=<% $TAB_OBJ.id %>&uselang=<% $TAB_OBJC.lang_id %>&lang_id=<% $TAB_OBJC.lang_id %>');">Neue Spalte</a>
  <% if ($tabextview!=1) %>
-    <a class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&aktion=edit&tabextview=1&id=<% $TAB_OBJ.id %>&lang_id=<% $TAB_OBJC.lang_id %>&uselang=<% $TAB_OBJC.lang_id %>">erweiterte Ansicht</a>
+    <a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&aktion=edit&tabextview=1&id=<% $TAB_OBJ.id %>&lang_id=<% $TAB_OBJC.lang_id %>&uselang=<% $TAB_OBJC.lang_id %>">erweiterte Ansicht</a>
  <%else%>
-    <a class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&aktion=edit&tabextview=2&id=<% $TAB_OBJ.id %>&lang_id=<% $TAB_OBJC.lang_id %>&uselang=<% $TAB_OBJC.lang_id %>">normale Ansicht</a>
+    <a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&aktion=edit&tabextview=2&id=<% $TAB_OBJ.id %>&lang_id=<% $TAB_OBJC.lang_id %>&uselang=<% $TAB_OBJC.lang_id %>">normale Ansicht</a>
  <%/if%>		
  </div>
  <br>

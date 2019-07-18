@@ -36,6 +36,6 @@
     <input type="hidden" name="epage" value="<%$epage%>"><input type="hidden" name="cmd" value="a_msave"/>
  </form>
  <%else%>
- <div class="alert alert-info">Es liegen keine Daten über Datein vor.</div>
+ <div class="alert alert-info">Es liegen keine Daten Ã¼ber Datein vor.</div>
  <%/if%>
  <%include file="cb.panel.footer.tpl"%>

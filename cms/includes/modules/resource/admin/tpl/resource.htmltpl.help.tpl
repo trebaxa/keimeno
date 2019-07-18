@@ -12,7 +12,7 @@
                                 <li>
                                 <code>
                                    <% if ($resrc_var.v_type=='img')%>
-                                        &lt;img alt="&lt;%$row.<%$resrc_var.v_varname%>%&gt;" class="img-responsive" src="&lt;%$row.<%$resrc_var.v_varname%>%&gt;"&gt;
+                                        &lt;img alt="&lt;%$row.<%$resrc_var.v_varname%>%&gt;" class="img-fluid" src="&lt;%$row.<%$resrc_var.v_varname%>%&gt;"&gt;
                                    <%else%>
                                         &lt;%$row.<%$resrc_var.v_varname%>%&gt;
                                    <%/if%>
@@ -26,7 +26,7 @@
                                         <li>
                                         <code>
                                             <% if ($ds_var.v_type=='img')%>
-                                                &lt;img alt="&lt;%$ds.<%$ds_var.v_varname%>.value%&gt;" class="img-responsive" src="&lt;%$ds.<%$ds_var.v_varname%>.thumb%&gt;"&gt;
+                                                &lt;img alt="&lt;%$ds.<%$ds_var.v_varname%>.value%&gt;" class="img-fluid" src="&lt;%$ds.<%$ds_var.v_varname%>.thumb%&gt;"&gt;
                                             <%else%>
                                                 &lt;%$ds.<%$ds_var.v_varname%>.value%&gt;
                                             <%/if%>   
@@ -43,7 +43,7 @@
                 <% else%>
                     <li><code>
                     <% if ($row.v_type=='img')%>
-                        &lt;img alt="<%$row.varname%>" class="img-responsive" src="<%$row.varname%>"&gt;
+                        &lt;img alt="<%$row.varname%>" class="img-fluid" src="<%$row.varname%>"&gt;
                    <%else%>
                         <%$row.varname%>
                    <%/if%>
@@ -66,7 +66,7 @@
                    <% if ($row.v_type=='seli') %>
                     &nbsp;&nbsp;&nbsp;&lt;div data-ident="&lt;%$row.<%$row.v_varname%>.vident%&gt;"&gt;&lt;%$row.<%$row.v_varname%>.value%&gt;&lt;/div&gt;<br>
                    <%elseif ($row.v_type=='img') %>
-                    &nbsp;&nbsp;&nbsp;&lt;img alt="&lt;%$row.<%$row.v_varname%>.value|sthsc%&gt;" class="img-responsive" src="&lt;%$row.<%$row.v_varname%>.thumb%&gt;"&gt;<br>
+                    &nbsp;&nbsp;&nbsp;&lt;img alt="&lt;%$row.<%$row.v_varname%>.value|sthsc%&gt;" class="img-fluid" src="&lt;%$row.<%$row.v_varname%>.thumb%&gt;"&gt;<br>
                    <%else%>
                     &nbsp;&nbsp;&nbsp;&lt;%$row.<%$row.v_varname%>.value%&gt;<br>
                    <%/if%> 

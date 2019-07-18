@@ -3,9 +3,9 @@
 <div class="page-header"><h1>Workshop Manager</h1></div>
 
 <div class="btn btn-group">
-    <a href="#" class="btn btn-default" onclick="reload_workshops(0);">Workshops</a>
-    <a href="#" class="btn btn-default" onclick="reload_cities();">Städte</a>
-    <a href="#" class="btn btn-default" onclick="reload_config();">Konfiguration</a>
+    <a href="#" class="btn btn-secondary" onclick="reload_workshops(0);">Workshops</a>
+    <a href="#" class="btn btn-secondary" onclick="reload_cities();">Städte</a>
+    <a href="#" class="btn btn-secondary" onclick="reload_config();">Konfiguration</a>
     
 </div>
 
@@ -26,8 +26,9 @@
         <input type="hidden" name="cmd" value="add_city"/>
         <input type="hidden" name="epage" value="<%$epage%>"/>
       <div class="modal-header">
+        <h5 class="modal-title" id="add_cityLabel">Stadt hinzufügen</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="add_cityLabel">Stadt hinzufügen</h4>
+        
       </div>
       <div class="modal-body">
         
@@ -39,7 +40,7 @@
        
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">schließen</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">schließen</button>
         <button type="submit" class="btn btn-primary">speichern</button>
       </div>
        </form>
@@ -55,8 +56,9 @@
         <input type="hidden" name="cmd" value="add_workshop"/>
         <input type="hidden" name="epage" value="<%$epage%>"/>
       <div class="modal-header">
+        <h5 class="modal-title" id="add_workshopLabel">Workshop hinzufügen</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="add_workshopLabel">Workshop hinzufügen</h4>
+        
       </div>
       <div class="modal-body">
         
@@ -76,7 +78,7 @@
        
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">schließen</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">schließen</button>
         <button type="submit" class="btn btn-primary">speichern</button>
       </div>
        </form>

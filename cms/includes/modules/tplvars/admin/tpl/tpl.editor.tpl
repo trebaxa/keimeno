@@ -27,8 +27,8 @@
 <div class="col-md-6">
         <h3>Variable hinzufügen</h3>
 <div class="btn-group form-inline">
-<a href="javascript:void(0)" class="btn btn-default pull-right" onclick="add_var_to_tpl()">{LBL_ADD}</a>
-        <select class="form-control" id="varselect">
+<a href="javascript:void(0)" class="btn btn-secondary pull-right" onclick="add_var_to_tpl()">{LBL_ADD}</a>
+        <select class="form-control custom-select" id="varselect">
 <% foreach from=$TPLVARS.vars item=row %>
     <option value="<%$row.id%>"><%$row.var_name%></option>
 <%/foreach%>

@@ -1,6 +1,6 @@
 
         <%include file="cb.panel.header.tpl" title="{LA_KUNDENIMPORTIEREN}"%>
-        <div class="bg-info text-info">
+        <div class="alert alert-info">
             <p class="alert alert-info"- {LA_SPALTENREIHENFOLGE}: {LA_NACHNAME},{LA_VORNAME},{LA_SSTRASSE},{LA_PPLZ},{LA_OORT},{LA_TTELEFON},E-Mail,Firma,Fax,Land,{LA_GESCHLECHT} (m,w),Homepage,{LA_REGISTRIERUNGSDATUM},Passwort<br>
             - {LA_DASDATEIFORMATMUSSIMC}<br>
             - {LA_CSVTRENNZEICHEN}: ;<br>

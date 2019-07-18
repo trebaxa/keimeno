@@ -1,5 +1,5 @@
 RewriteEngine On
-Options +FollowSymLinks 
+Options +SymLinksIfOwnerMatch 
 
 RewriteCond %{QUERY_STRING} http[:%] [NC]
 RewriteRule .* /-http- [F,NC]

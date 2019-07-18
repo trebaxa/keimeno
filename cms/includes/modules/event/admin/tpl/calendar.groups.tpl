@@ -1,6 +1,6 @@
 <h3>{LBL_CALGROUPS}</h3>
 <div class="btn-group">
-    <a class="btn btn-default" href="javascript:void(0);" title="neu anlegen" data-toggle="modal" data-target="#addgroupop">Neuer Kalender</a>    
+    <a class="btn btn-secondary" href="javascript:void(0);" title="neu anlegen" data-toggle="modal" data-target="#addgroupop">Neuer Kalender</a>    
 </div>
    <form action="<%$PHPSELF%>" class="form jsonform" method="post">
     <input type="hidden" name="epage" value="<% $epage %>">	
@@ -10,12 +10,14 @@
         <th>Gruppe</th>
         <th></th>
    </thead>
-   <% foreach from=$EVENT.groups item=row %>
-    <tr>
-        <td><input type="text" name="FORM[<%$row.id%>][groupname]" value="<%$row.groupname|sthsc%>"></td>
-        <td><%$row.icon_edit%><%$row.icon_del%></td>
-    </tr>
-   <%/foreach%>
+       <tbody>
+           <% foreach from=$EVENT.groups item=row %>
+            <tr>
+                <td><input class="form-control" type="text" name="FORM[<%$row.id%>][groupname]" value="<%$row.groupname|sthsc%>"></td>
+                <td><%$row.icon_edit%><%$row.icon_del%></td>
+            </tr>
+           <%/foreach%>
+       </tbody>
    </tbody>
    </table>
    <%$subbtn%>
@@ -28,8 +30,9 @@
         <input type="hidden" name="cmd" value="add_group">
         <input type="hidden" name="epage" value="<%$epage%>">
       <div class="modal-header">
+        <h5 class="modal-title" id="addgroupopLabel">Eintrag hinzufügen</h5>
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="addgroupopLabel">Eintrag hinzufügen</h4>
+        
       </div>
       <div class="modal-body">
            <div class="form-group"> 
@@ -38,7 +41,7 @@
            </div>                    
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <%$subbtn%>
       </div>
       </form>

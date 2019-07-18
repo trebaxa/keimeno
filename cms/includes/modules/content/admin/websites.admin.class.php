@@ -701,7 +701,7 @@ class websites_class extends keimeno_class {
         if ($FORM['t_htalinklabel'] == "" || $FORM['linkname'] == "" || $FORM_TEMPLATE['description'] == "") {
             $this->msge('{LA_PFLICHFELDERBITTEAUSF}');
         }
-        $FORM['t_htalinklabel'] = preg_replace("/[^0-9a-zA-Z_-]/", "", $this->format_file_name($FORM['t_htalinklabel']));
+        $FORM['t_htalinklabel'] = preg_replace("/[^0-9a-zA-Z_-]/", "", self::format_link_label($FORM['t_htalinklabel']));
         if ($FORM['t_htalinklabel'] != "") {
             $FORM['t_htalinklabel'] = $this->TEMPL_OBJ->gen_unique_htalabel($FORM['t_htalinklabel'], $_POST['parent'], $_POST['tid'], $FORM['lang_id']);
         }

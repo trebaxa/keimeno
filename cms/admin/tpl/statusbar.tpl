@@ -1,4 +1,5 @@
-<div class="page-header"><h1>Status</h1></div>
+<%include file="cb.page.title.tpl" icon="" title="Status"%>
+
  <div style="width:600px">
 <fieldset>	
 <table  >

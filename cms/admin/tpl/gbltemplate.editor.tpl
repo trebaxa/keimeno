@@ -2,14 +2,13 @@
 <script>
     $('.changelanggbltpl').change(function(e) {
         std_load_gbltpl(<%$GET.id%>,$('.changelanggbltpl').val());
-    });     
-</script>  
+    });
+</script>
 
 <%include file="cb.panel.header.tpl" icon="fa-file-code-o" title=$TPLOBJ.description title_addon="[Page `$GET.id`]"%>
-   
 
     <div class="tc-tabs-box" id="webmtabs">
-        <ul class="nav nav-tabs bar_tabs" id="vertnav">
+        <ul class="nav" id="vertnav">
             <li class="active"><a class="tab-item-link ajax notloaded vertmenuclick" title="Inhalt" href="javascript:void(0);" data-layer="1" onClick="initEditor();">Inhalt</a></li>
             <li><a class="tab-item-link ajax notloaded vertmenuclick" title="Einstellung" href="javascript:void(0);" data-layer="0" >Einstellungen</a></li>
             <li><a class="tab-item-link ajax notloaded vertmenuclick" title="Inhalt" href="javascript:void(0);" data-layer="3" >Meta</a></li>
@@ -21,7 +20,6 @@
         <div class="clearfix"></div>
     </div>
 
-
         <%if ($GBLPAGE.access.language==TRUE)%>
 
     <!-- LAYER0 //-->
@@ -32,39 +30,39 @@
             <input type="hidden" name="uselang" value="<% $GET.uselang%>">
             <input type="hidden" name="FORMCON[lang_id]" value="<% $GET.uselang %>">
             <input type="hidden" name="FORMCON[tid]" value="<% $GET.id %>">
-            <input type="hidden" name="id" value="<% $TPLOBJ.formcontent.id %>">    
-            <input type="hidden" name="epage" value="<% $epage %>"> 
-            <input type="hidden" name="tmsid" value="<% $GET.tmsid %>"> 
-            <input type="hidden" name="configid" value="0">                
+            <input type="hidden" name="id" value="<% $TPLOBJ.formcontent.id %>">
+            <input type="hidden" name="epage" value="<% $epage %>">
+            <input type="hidden" name="tmsid" value="<% $GET.tmsid %>">
+            <input type="hidden" name="configid" value="0">
                <div class="row">
-                <div class="col-md-6"> 
-                    <%include file="cb.panel.header.tpl" icon="fa-cog" title="Seiten Einstellungen"%>                        
-                                
+                <div class="col-md-6">
+                    <%include file="cb.panel.header.tpl" icon="fa-cog" title="Seiten Einstellungen"%>
+
                             <div class="form-group">
                                 <label for="">Link</label>
                                 <p class="form-control-static"><code><% $TPLOBJ.fixlink %></code></p>
                             </div><!-- /.form-group -->
-                            
+
                             <div class="form-group">
                                 <label for="phpsrc">PHP Script:</label>
                                 <input id="phpsrc"type="text" class="form-control" name="FORM_TEMPLATE[php]" value="<% $TPLOBJ.php|sthsc %>">
                             </div><!-- /.form-group -->
-                            
+
                             <div class="form-feet"><% $subbtn %></div>
-                        
+
                         <%include file="cb.panel.footer.tpl"%>
                     </div>
                     <div class="col-md-6">
-                        <%include file="cb.panel.header.tpl" icon="fa-user" title="Zugriffsberechtigung"%>                                           
+                        <%include file="cb.panel.header.tpl" icon="fa-user" title="Zugriffsberechtigung"%>
                             <%if ($TPLOBJ.permboxes!="") %>
                                 <div class="form-group">
                                     <%$TPLOBJ.permboxes%>
                                 </div>
                             <%/if%>
-                        <%include file="cb.panel.footer.tpl"%>    
+                        <%include file="cb.panel.footer.tpl"%>
                     </div>
-                </div>  
-                </form>  
+                </div>
+                </form>
             </div><!-- .vertmenulayer #layer0 -->
 
 
@@ -73,9 +71,9 @@
 <!-- LAYER1 //-->
 <div style="display:visible" class="vertmenulayer" id="layer1">
     <div id="topofpage">
-    
-        <%include file="cb.panel.header.tpl" icon="fa-clone" title="System Template"%>  
-           
+
+        <%include file="cb.panel.header.tpl" icon="fa-clone" title="System Template"%>
+
     <form class="jsonform form" method="post" action="<%$PHPSELF%>" enctype="multipart/form-data">
         <input type="hidden" name="tid" value="<% $GET.id %>">
         <input type="hidden" name="cmd" value="a_save">
@@ -90,9 +88,9 @@
         <input type="hidden" name="epage" value="<% $epage %>">
         <input type="hidden" name="tmsid" value="<% $GET.tmsid %>">
         <input type="hidden" name="configid" value="1">
-        
+
         <%if ($GET.id==0) %><input type="hidden" name="FORM_TEMPLATE[modident]" value="<% $GET.mod %>"><%/if%>
-        
+
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -110,7 +108,7 @@
                         </select>
                     </div><!-- /.form-group -->
                 <%/if%>
-                
+
                 <div class="form-group">
                     <label for="modident">Modul</label>
                     <select id="modident" class="form-control" name="FORM_TEMPLATE[modident]">
@@ -122,9 +120,9 @@
                         <%/foreach%>
                     </select>
                 </div><!-- /.form-group -->
-                
-            </div>  
-            <div class="col-md-6">  
+
+            </div>
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="">Template Auswahl aktivieren</label>
                     <label class="radio-inline">
@@ -134,7 +132,7 @@
                         <input <%if ($TPLOBJ.layout_group==0) %>checked<%/if%> type="radio" value="0" name="FORM_TEMPLATE[layout_group]">{LBL_NO}
                     </label>
                 </div><!-- /.form-group -->
-                
+
                 <%if ($GET.id>0 && $TPLOBJ.is_framework==0) %>
                     <div class="form-group">
                         <label for="">Implementierung</label>
@@ -144,16 +142,16 @@
                 <%if ($GET.id>0 && $TPLOBJ.admin==0) %>
                     <a class="btn btn-danger json-link" href="<%$eurl%>cmd=deltpljson&id=<%$GET.id%>"><i class="fa fa-times"></i></a>
                 <%/if%>
-       
-                
+
+
                 <!--
                 <%if ($gbl_config.nomultilang_systemtemplates==0) %>
                     <div class="form-group">
                         <label for="">Replizieren</label>
-                        <a class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=replicateland&id=<% $TPLOBJ.formcontent.tid %>&uselang=<% $GET.uselang %>">Inhalt auf alle Sprachen replizieren</a>
+                        <a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=replicateland&id=<% $TPLOBJ.formcontent.tid %>&uselang=<% $GET.uselang %>">Inhalt auf alle Sprachen replizieren</a>
                     </div><!-- /.form-group -->
                 <!--<%/if%>-->
-                
+
                 <%if ($GET.id!=1 && $GET.id!=9670) %>
                     <div class="form-group">
                         <label for="">Framework Template</label>
@@ -165,11 +163,11 @@
                         </label>
                     </div><!-- /.form-group -->
                 <%/if%>
-                
+
                 <%if ($GET.id>0 && $TPLOBJ.is_framework==1) %>
                     <div class="form-group">
                         <label for="">GUI Framework</label>
-                        <select class="form-control" name="FORM_TEMPLATE[gui_frame]">
+                        <select class="form-control custom-select" name="FORM_TEMPLATE[gui_frame]">
                             <%foreach from=$TPLOBJ.guiframeworks item=row %>
                                 <option <%if ($TPLOBJ.gui_frame==$row.fw_number) %>selected<%/if%> value="<%$row.fw_number%>">Framework <%$row.fw_number%></option>
                             <%/foreach%>
@@ -177,26 +175,26 @@
                     </div><!-- /.form-group -->
                 <%/if%>
         </div>
-       </div><!--row--> 
-        
+       </div><!--row-->
+
                 <div id="editor"></div><!-- /#editor -->
                 <%$TPLOBJ.oeditor %>
-            
+
                 <div class="form-feet mt-lg">
                     <%if ($gbl_config.nomultilang_systemtemplates==0) %>
-                        <a class="btn btn-default json-link" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=replicateland&id=<% $TPLOBJ.formcontent.tid %>&uselang=<% $GET.uselang %>"><i class="fa fa-language" aria-hidden="true"></i> Inhalt auf alle Sprachen replizieren</a>
+                        <a class="btn btn-secondary json-link" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=replicateland&id=<% $TPLOBJ.formcontent.tid %>&uselang=<% $GET.uselang %>"><i class="fas fa-language" aria-hidden="true"></i> Inhalt auf alle Sprachen replizieren</a>
                     <%/if%>
-                  
+
                     <%$subbtn%>
                 </div><!-- /.form-feet -->
             </form>
-        <%include file="cb.panel.footer.tpl"%>       
-    
+        <%include file="cb.panel.footer.tpl"%>
+
     </div><!-- #topofpage -->
-    
+
     <%include file="gbltemplate.scriptatt.tpl"%>
-     
-    <div class="col-md-6">    
+
+    <div class="col-md-6">
         <% if (count($TPLINUSEINSIDE)>0) %>
         <table class="table table-striped table-hover">
             <thead>
@@ -205,16 +203,16 @@
                     <th>Unterseiten</th>
                 </tr>
             </thead>
-            
+
             <% foreach from=$TPLINUSEINSIDE item=row %>
             <tr>
                 <td><a title="<% $row.description|hsc %>" class="js-subtpl-click" data-tid="<%$row.tid%>" href="javascript:void(0)"><% $row.description|truncate:30 %></a></td>
                 <td><% $row.label%></td>
-            </tr> 
+            </tr>
             <%/foreach%>
-            
+
         </table>
-        <%/if%>    
+        <%/if%>
     <script>
        $('.js-subtpl-click').unbind('click');
        $('.js-subtpl-click').css('cursor','pointer');
@@ -226,10 +224,10 @@
             $('#gbltpltreeul').jstree(true)
                 .select_node('gbltreenode-'+$(this).data('tid'));
             });
-   
+
     </script>
     </div><!-- .col-md-6 -->
-    
+
 </div><!-- .vertmenulayer #layer1 -->
 
 
@@ -238,44 +236,44 @@
 <!-- LAYER3 //-->
 <div style="display:none" class="vertmenulayer" id="layer3">
 
-    <%include file="cb.panel.header.tpl" title="Meta-Beschreibungen"%>        
-    
+    <%include file="cb.panel.header.tpl" title="Meta-Beschreibungen"%>
+
         <form class="jsonform form" method="post" action="<%$PHPSELF%>" role="form" enctype="multipart/form-data">
             <input type="hidden" name="tid" value="<% $GET.id %>">
             <input type="hidden" name="cmd" value="a_save">
             <input type="hidden" name="uselang" value="<% $GET.uselang%>">
             <input type="hidden" name="FORMCON[lang_id]" value="<% $GET.uselang %>">
             <input type="hidden" name="FORMCON[tid]" value="<% $GET.id %>">
-            <input type="hidden" name="id" value="<% $TPLOBJ.formcontent.id %>">    
-            <input type="hidden" name="epage" value="<% $epage %>"> 
-            <input type="hidden" name="tmsid" value="<% $GET.tmsid %>"> 
+            <input type="hidden" name="id" value="<% $TPLOBJ.formcontent.id %>">
+            <input type="hidden" name="epage" value="<% $epage %>">
+            <input type="hidden" name="tmsid" value="<% $GET.tmsid %>">
             <input type="hidden" name="configid" value="3">
-            
+
             <div class="form-body">
                 <div class="row">
                     <div class="col-md-5">
-    
+
                         <div class="form-group">
                             <label for="mtitle">Meta-Title</label>
                             <div class="input-group">
                                 <input class="form-control" id="mtitle" value="<% $TPLOBJ.formcontent.meta_title %>" name="FORMCON[meta_title]">
-                                <span class="input-group-btn"><button class="btn btn-default" type="button" onClick="GetRequest2Value('mtitle','genmetatitle','run','&uselang=<%$GET.uselang%>&epage=<%$epage%>&id=<% $TPLOBJ.id%>&conid=<% $TPLOBJ.formcontent.meta_title %>'); return false;"><i class="fa fa-refresh"></i> generieren</button></span>
+                                <span class="input-group-btn"><button class="btn btn-secondary" type="button" onClick="GetRequest2Value('mtitle','genmetatitle','run','&uselang=<%$GET.uselang%>&epage=<%$epage%>&id=<% $TPLOBJ.id%>&conid=<% $TPLOBJ.formcontent.meta_title %>'); return false;"><i class="fa fa-refresh"></i> generieren</button></span>
                             </div><!-- /.input-group -->
                             <span class="help-block">Der Meta-Titel wird im Browserfester dargestellt.</span>
                         </div><!-- /.form-group -->
-                        
+
                     </div><!-- /.col-md-5 -->
                     <div class="col-md-7">
-                        
+
                         <div class="form-group">
                             <label for="mkeys">Meta-Keywords</label>
                             <div class="input-group">
                                 <input id="mkeys"  type="text" class="form-control" name="FORMCON[meta_keywords]" value="<% $TPLOBJ.formcontent.meta_keywords|hsc %>">
-                                <span class="input-group-btn"><button class="btn btn-default" type="button" onClick="GetRequest2Value('mkeys','genkeys','run','&uselang=<%$GET.uselang%>&epage=<%$epage%>&id=<% $TPLOBJ.id%>&conid=<% $TPLOBJ.formcontent.id %>'); return false;"><i class="fa fa-refresh"></i> generieren</button></span>
+                                <span class="input-group-btn"><button class="btn btn-secondary" type="button" onClick="GetRequest2Value('mkeys','genkeys','run','&uselang=<%$GET.uselang%>&epage=<%$epage%>&id=<% $TPLOBJ.id%>&conid=<% $TPLOBJ.formcontent.id %>'); return false;"><i class="fa fa-refresh"></i> generieren</button></span>
                             </div><!-- /.input-group -->
                             <span class="help-block">Der Meta-Titel wird im Browserfester dargestellt.</span>
                         </div><!-- /.form-group -->
-                        
+
                     </div><!-- /.col-md-7 -->
                 </div><!-- /.row -->
                 <div class="row">
@@ -288,11 +286,11 @@
                 </div>
                 <!-- /.row -->
             </div><!-- /.form-body -->
-    
+
             <div class="form-feet">
                 <%$subbtn %>
             </div>
-    
+
         </form>
     <%include file="cb.panel.footer.tpl"%>
 
@@ -304,9 +302,9 @@
 
 <!-- LAYER4 //-->
 <div style="display:none" class="vertmenulayer" id="layer4">
-    
-    <%include file="cb.panel.header.tpl" title="Verwendung"%>  
-        
+
+    <%include file="cb.panel.header.tpl" title="Verwendung"%>
+
         <%if (count($TPLINUSE)>0) %>
         <table class="table table-striped">
             <thead>
@@ -317,7 +315,7 @@
                     <th></th>
                 </tr>
             </thead>
-            
+
             <% foreach from=$TPLINUSE item=row %>
                 <tr>
                     <td><a href="<% $row.edit_link %>"><% $row.description %></a></td>
@@ -328,7 +326,7 @@
             <%/foreach%>
         </table>
         <%else%>
-        <div class="bg-info text-info"><p class="text-info">Keine Implementierung in anderen Tempates gefunden.</p></div>
+        <div class="alert alert-info"><p class="text-info">Keine Implementierung in anderen Tempates gefunden.</p></div>
         <%/if%>
     <%include file="cb.panel.footer.tpl"%>
 
@@ -347,13 +345,13 @@
     <form class="stdform form-inline"  method="post" action="<%$PHPSELF%>" enctype="multipart/form-data">
         <input type="hidden" name="tid" value="<% $GET.id %>">
         <input type="hidden" name="cmd" value="save_hta">
-        <input type="hidden" name="epage" value="<% $epage %>"> 
-        <input type="hidden" name="id" value="<% $HTAF.id %>">  
-        <input type="hidden" name="HTAF[hta_tid]" value="<% $GET.id %>">    
-        <input type="hidden" name="HTAF[hta_description]" value="<% $TPLOBJ.description|sthsc %>">  
-        <input type="hidden" name="tmsid" value="<% $GET.tmsid %>"> 
+        <input type="hidden" name="epage" value="<% $epage %>">
+        <input type="hidden" name="id" value="<% $HTAF.id %>">
+        <input type="hidden" name="HTAF[hta_tid]" value="<% $GET.id %>">
+        <input type="hidden" name="HTAF[hta_description]" value="<% $TPLOBJ.description|sthsc %>">
+        <input type="hidden" name="tmsid" value="<% $GET.tmsid %>">
         <input type="hidden" name="configid" value="2">
-        
+
         <fieldset>
 
             <legend>URL Darstellung</legend>
@@ -373,19 +371,19 @@
         <input type="text" class="form-control" size="31" maxlength="100" name="HTAF[hta_add]" value="<% $HTAF.hta_add %>">
         <br><span class="small">z.B.: &cmd=load_something</span>
     </td>
- </tr>  
+ </tr>
 
 
  <tr>
     <td>Es werden POST/GET Variablen empfangen:</td>
     <td><input type="checkbox" name="HTAF[hta_allowaddtags]" value="1"></td>
  </tr>
- 
+
  <tr>
     <td>Link:</td>
     <td><a target="_ht" href="../<% $HTAF.link %>"><% $HTAF.link %></a></td>
- </tr> 
- 
+ </tr>
+
 <tr>
     <td colspan="2">
         <table class="table table-striped table-hover">
@@ -399,15 +397,15 @@
                     <th>NOT USED</th>
                 </tr>
             </thead>
-    
+
             <% foreach from=$HTAF.vars key=li item=htavar %>
                 <% assign var=test value=$htavar.li %>
                  <tr>
                     <td>PHP Url Tag (<%$li%>):</td>
                     <td>
-                        <select class="form-control" name="HTAF[hta_delimeter<%$li%>]">
+                        <select class="form-control custom-select" name="HTAF[hta_delimeter<%$li%>]">
                             <% foreach from=$HTAF.htad item=trenner %><option <% if ($htavar.delimiter==$trenner) %> selected <%/if%> value="<% $trenner %>"><% $trenner %></option><%/foreach%>
-                        </select>(.*)           
+                        </select>(.*)
                     </td>
                     <td>
                         <input type="text" class="form-control" id="htavar<%$li%>" size="10" name="HTAF[hta_var<%$li%>]" value="<% $htavar.vars %>">
@@ -419,22 +417,22 @@
                     <td class="text-center"><input onClick="$('#htavar<%$li%>').fadeIn();" <% if ($htavar.vartype==1) %> checked <%/if%> type="radio" name="HTAF[hta_vartype<%$li%>]" value="1"></td>
                     <td class="text-center"><input onClick="$('#htavar<%$li%>').fadeOut();" <% if ($htavar.vartype==2) %> checked <%/if%> type="radio" name="HTAF[hta_vartype<%$li%>]" value="2"></td>
                     <td class="text-center"><input onClick="$('#htavar<%$li%>').fadeOut();"<% if ($htavar.vartype==3 || $htavar.vartype==0) %> checked <%/if%> type="radio" name="HTAF[hta_vartype<%$li%>]" value="3"></td>
-                 </tr> 
+                 </tr>
             <%/foreach%>
         </table>
     </td>
 </tr>
- 
+
 </table>
 <div class="subright"><% $subbtn %></div>
-    </fieldset> 
-    
+    </fieldset>
+
 </form>
 </div><!-- /#layer2 /.vermenulayer -->
 
 <%include file="cb.panel.footer.tpl"%>
 
-    <script>fwstart();</script> 
+    <script>fwstart();</script>
     <%else %>
         <%include file="no_permissions.admin.tpl" %>
     <%/if%>

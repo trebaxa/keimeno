@@ -1,6 +1,6 @@
 <h3>{LBL_OTPROGRAMS}</h3>
 <div class="btn-group">
-    <a href="#" data-toggle="modal" data-target="#newprogotimer" class="btn btn-default">Neues Programm</a>
+    <a href="#" data-toggle="modal" data-target="#newprogotimer" class="btn btn-secondary">Neues Programm</a>
 </div>
 <% if (count($OTIMER.programs)>0) %>
 <form action="<%$PHPSELF%>" method="post" class="form jsonform">
@@ -33,7 +33,7 @@
          </form>
        
 <%else%>	  	 
-<div class="bg-info text-info">
+<div class="alert alert-info">
     Es wurden noch keine Programme gefunden.
 </div>
 <%/if%>
@@ -46,8 +46,9 @@
             <input type="hidden" name="epage" value="<%$epage%>">
             <input type="hidden" name="cmd" value="add_program">
       <div class="modal-header">
+        <h5 class="modal-title" id="newprogotimerLabel">Neues Programm</h5>
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="newprogotimerLabel">Neues Programm</h4>
+        
       </div>
       <div class="modal-body">
         <div class="form-group">
@@ -56,7 +57,7 @@
         </div>    
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <%$subbtn%>
       </div>
       </form>

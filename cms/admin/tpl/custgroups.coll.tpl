@@ -1,6 +1,4 @@
-<div class="page-header">
-        <div class="page-header"><h1>{LBL_COLLECTIONS}</h1></div>
-    </div><!-- /.page-header -->
+<%include file="cb.page.title.tpl" icon="" title="{LBL_COLLECTIONS}"%>
     
     <%include file="cb.panel.header.tpl" title="Kollektionen"%>    
         <form method="post" action="<%$PHPSELF%>" class="">
@@ -28,7 +26,7 @@
             <input type="hidden" name="section" value="<%$section%>">
             <div class="form-feet">
                 <div class="btn-group">
-                    <a class="btn btn-default" href="<%$PHPSELF%>?cmd=addnewcol&epage=<%$epage%>">{LBL_ADDCOLLECTION}</a>
+                    <a class="btn btn-secondary" href="<%$PHPSELF%>?cmd=addnewcol&epage=<%$epage%>">{LBL_ADDCOLLECTION}</a>
                 </div>
                 <%$subbtn%>
             </div>
@@ -36,12 +34,9 @@
     <%include file="cb.panel.footer.tpl"%>
 
     <%include file="cb.panel.header.tpl" title="Kollektionen hinzuf&uuml;gen"%>
-        <div class="panel-body">
-            <div class="bg-info text-info"><p class="text-info">Pro Zeile eine Kollektion.</p></div>
-        </div><!-- /.panel-body -->
+      <div class="alert alert-info"><p class="text-info">Pro Zeile eine Kollektion.</p></div>
     
-        <form method="post" action="<%$PHPSELF%>">
-    
+        <form method="post" action="<%$PHPSELF%>">    
             <textarea class="form-control" name="collist" rows="15"></textarea>
             <input type="hidden" name="epage" value="<%$epage%>">
             <input type="hidden" name="cmd" value="add_col_list">

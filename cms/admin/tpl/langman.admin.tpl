@@ -1,4 +1,4 @@
-<div class="page-header"><h1>{LBL_LANGUAGE} Manager</h1></div>
+<%include file="cb.page.title.tpl" icon="fas fa-language" title="{LBL_LANGUAGE} Manager"%>
 
 <div class="tab-content">
 
@@ -46,7 +46,7 @@
     <% if ($cmd=='edit') %>
     <div class="row">
         <div class="col-md-6">
-        
+        <%include file="cb.panel.header.tpl" title="bearbeiten"%>
             <form action="<%$PHPSELF%>" method="post" enctype="multipart/form-data" class="jsonform form">
                <div class="form-group"> 
                 <label>{LBL_LANGUAGE}</label>
@@ -54,7 +54,7 @@
                </div> 
                <div class="form-group">
                 <label>Language Code (ISO 639-1)</label>	
-                <select class="form-control" name="FORM[local]">
+                <select class="form-control custom-select" name="FORM[local]">
             			<% foreach from=$lng_obj.iso_list item=iso %>	 
             				<option <% if ($lng_obj.lng_loaded.local==$iso.localid) %> selected <%/if%>  value="<%$iso.localid%>"><%$iso.lname%> [<%$iso.localid%>]</option>
             			<%/foreach%>    
@@ -70,7 +70,7 @@
             <% if ($GET.id==0) %>
              <div class="form-group">
                 <label>based on {LBL_LANGUAGE}:</label>	
-            		<select class="form-control"  name="basedon">
+            		<select class="form-control custom-select"  name="basedon">
             			<% foreach from=$lng_obj.languages item=lang %>	 
             				<option value="<%$lang.id%>"><%$lang.post_lang%></option>
             			<%/foreach%>	
@@ -83,14 +83,17 @@
             	<input type="hidden" name="epage" value="<%$epage%>">
             	<input type="hidden" name="id" id="lng_id" value="<%$REQUEST.id%>">
             </form>
+         
+                <% if ($GET.id==0) %>
+                    <div class="alert alert-info">
+                        Legen Sie nun bequem eine neue Sprache basierend auf einer bestehenden an.
+                    </div> 
+                <%/if%>
+            
+          <%include file="cb.panel.footer.tpl" text="Verwalten Sie hier Ihre Sprachen für das Backend und Frontend."%>  
         </div>
         <div class="col-md-6">
-            <div class="alert alert-info">
-                Verwalten Sie hier Ihre Sprachen für das Backend und Frontend.
-                <% if ($GET.id==0) %>
-                <br><br><br>Legen Sie nun bequem eine neue Sprache basierend auf einer bestehenden an. 
-                <%/if%>
-            </div>
+            
         </div>
     </div>
 </div><!--tab-content-->

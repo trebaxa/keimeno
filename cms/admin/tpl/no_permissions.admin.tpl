@@ -1,1 +1,1 @@
-<div class="bg-info text-info">{NO_PERMISSIONS}</div>
+<div class="alert alert-info">{NO_PERMISSIONS}</div>

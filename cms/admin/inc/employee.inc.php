@@ -45,4 +45,3 @@ if ($_GET['aktion']=="edit") {
 }
 
 $ADMINOBJ->inc_tpl('employee.admin');
-?>

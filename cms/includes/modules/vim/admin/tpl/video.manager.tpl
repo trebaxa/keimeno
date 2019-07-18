@@ -1,7 +1,7 @@
 <div class="btn-group">
-<a class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=videolist&section=videomanager">Videos verwalten</a>
-  <a class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&aktion=showall&section=cats">{LA_SHOWALL}</a>
-  <a class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=catadd&section=cats">{LA_ADDCATEGORY}</a>
+<a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=videolist&section=videomanager">Videos verwalten</a>
+  <a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&aktion=showall&section=cats">{LA_SHOWALL}</a>
+  <a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=catadd&section=cats">{LA_ADDCATEGORY}</a>
 </div>
 <% if ($cmd=="videolist") %>
 <h3>Videos verwalten</h3>
@@ -23,14 +23,14 @@
 </tr>
 <tr>
 <td>{LA_PLEASESELECTCATEGORY}:</td><td>
- <select class="form-control" name="QFILTER[cid]">
+ <select class="form-control custom-select" name="QFILTER[cid]">
 <% $VIM.cat_selectbox %>
 </select></td>
 </tr>
 <tr>
 <td>{LA_VIDEOSTOCK}:</td>
 <td>
-      <select class="form-control" name="QFILTER[v_stock]">
+      <select class="form-control custom-select" name="QFILTER[v_stock]">
         <option <% if ($QFILTER.v_stock==0) %>selected<%/if%> value="">{LA_NOMATTERALL}</option>
         <% foreach from=$VIM.stock_list item=stitem %>	        
         <option <% if ($QFILTER.v_stock==$stitem.v_stock) %>selected<%/if%> value="<%$stitem.v_stock%>"><%$stitem.v_stock%></option>
@@ -62,7 +62,7 @@
 <div class="row">
     <div class="col-md-6">
     {LA_FOLGENDEAUFGABEAUSFHR}:
-    <select class="form-control" name="cmd">
+    <select class="form-control custom-select" name="cmd">
         <option <% if ($GET.cmd=="vim_save_videos" || $GET.cmd=="") %>selected<%/if%> value="vim_save_videos">{LA_SAVE}</option>
     	<option <% if ($GET.cmd=="vim_delete_videos") %>selected<%/if%> value="vim_delete_videos">delete marked video links</option>
     </select><%$btngo%>
@@ -111,6 +111,6 @@
 <br><a href="javascript:void(0);" onClick="markAllRows('videoform','idvideo',true);return false;">{LA_ALLEAUSWHLEN}</a> | <a href="javascript:void(0);" onClick="markAllRows('videoform','idvideo',false);return false;">{LA_ALLEABWHLEN}</a>
 
 <%else%>
-<div class="bg-info text-info">no results</div>
+<div class="alert alert-info">no results</div>
 <%/if%>
 <%/if%>

@@ -4,7 +4,7 @@
         <input type="text" name="" value="" class="form-control" readonly="" placeholder="Keine Datei ausgewählt">
         <input id="datei" type="file" name="<%$name%>" value="" class="xform-control" onchange="this.previousElementSibling.value = this.files[0].name">
         <span class="input-group-btn">
-            <button class="btn btn-default" type="button">Durchsuchen...</button>
+            <button class="btn btn-secondary" type="button">Durchsuchen...</button>
   
         </span>
     </div><!-- /input-group -->

@@ -1,6 +1,6 @@
 <div class="form-group">
     <label>Google Maps:</label>
-    <select class="form-control" name="PLUGFORM[tplid]">
+    <select class="form-control custom-select" name="PLUGFORM[tplid]">
         <% foreach from=$WEBSITE.PLUGIN.result.templates item=row %>
             <option <% if ($WEBSITE.node.tm_plugform.tplid==$row.ID) %>selected<%/if%> value="<%$row.ID%>"><%$row.LABEL%></option>
         <%/foreach%>
@@ -30,13 +30,17 @@
 </div>
 
 <div class="row">
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-4">
         <label>Breite:</label>
         <input class="form-control" type="text" name="PLUGFORM[width]" placeholder="z.B. 100%" value="<%$WEBSITE.node.tm_plugform.width|sthsc%>"/>
     </div>
     
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-4">
         <label>Höhe:</label>
         <input class="form-control" type="text" name="PLUGFORM[height]" placeholder="z.B. 390px" value="<%$WEBSITE.node.tm_plugform.height|sthsc%>"/>
+    </div>
+    <div class="form-group col-md-4">
+        <label>Google Map Key:</label>
+        <input class="form-control" type="text" name="PLUGFORM[gmapkey]" placeholder="" value="<%$WEBSITE.node.tm_plugform.gmapkey|sthsc%>"/>
     </div>
 </div>

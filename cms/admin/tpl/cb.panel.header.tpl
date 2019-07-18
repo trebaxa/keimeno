@@ -1,17 +1,3 @@
-<% if ($type=="") %>
-<div class="x_panel  <%$class%>">
-      <div class="x_title">
-         <h2 class=""><% if ($icon!="") %><i class="fa <%$icon%>"></i> <%/if%><%$title%> <small><%$title_addon%></small></h2>
-            <div class="clearfix"></div>
-      </div>
-      <div class="x_content">
-<%/if%>       
-
-<% if ($type=="info") %>
-<div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h3 class="panel-title"><%$title%></h3><!-- /.panel-title -->
-                    </div><!-- /.panel-heading -->
-                    
-                    <div class="panel-body">
-<%/if%>
+<div class="card <%$class%>">
+    <div class="card-body">
+        <h5 class="card-title"><% if ($icon!="") %><i class="fa <%$icon%>"></i> <%/if%><%$title%> <span class="ml-1 badge badge-secondary"><% if ($title_addon!="") %><small><%$title_addon%></small><%/if%></span></h5>

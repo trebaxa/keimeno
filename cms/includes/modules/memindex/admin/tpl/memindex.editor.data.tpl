@@ -38,7 +38,7 @@
                     <form action="small_tasks.php" method="post">
                        <div class="form-group">
                         <label>E-Mail Vorlage:</label> 
-                        <select class="form-control" name="emt" size="-1"><%$POBJ.mailtemps%></select>
+                        <select class="form-control custom-select" name="emt" size="-1"><%$POBJ.mailtemps%></select>
                         </div>
                         <input autocomplete="off" type="hidden" name="kid" value="<%$CUSTOMER.kid%>">
                         <input autocomplete="off" type="hidden" name="aktion" value="email_form_show">
@@ -55,8 +55,8 @@
                     </div><!-- /.panel-heading -->
                     
                     <div class="panel-body">
-                        <a class="btn btn-default json-link" href="<% $PHPSELF %>?cmd=a_sendpassword&kid=<% $GET.kid %>">{LA_NEUESPASSWORTZUSENDEN}</a>
-                        <a class="btn btn-default json-link" href="<% $PHPSELF %>?cmd=sendaktlink&kid=<% $GET.kid %>">Aktivierungslink senden</a>
+                        <a class="btn btn-secondary json-link" href="<% $PHPSELF %>?cmd=a_sendpassword&kid=<% $GET.kid %>">{LA_NEUESPASSWORTZUSENDEN}</a>
+                        <a class="btn btn-secondary json-link" href="<% $PHPSELF %>?cmd=sendaktlink&kid=<% $GET.kid %>">Aktivierungslink senden</a>
                         <%$POBJ.delcusticon%>
                         
                     </div><!-- /.panel-body -->

@@ -8,8 +8,7 @@
  * @version    1.0
  */
 
-class gearth_admin_class extends keimeno_class
-{
+class gearth_admin_class extends keimeno_class {
     var $kml_body = "";
     var $kml_header = "";
     var $kml_footer = "";
@@ -20,8 +19,7 @@ class gearth_admin_class extends keimeno_class
      * 
      * @return
      */
-    function __construct()
-    {
+    function __construct() {
         parent::__construct();
         $this->TCR = new kcontrol_class($this);
         $this->kml_theme_name = $this->get_domain_name_pure();
@@ -45,8 +43,7 @@ class gearth_admin_class extends keimeno_class
      * 
      * @return
      */
-    function load_file()
-    {
+    function load_file() {
         $xml_array = array();
         if (file_exists($this->xml_file)) {
             $xml_array = $this->parse_xmlfile_to_array($this->xml_file);
@@ -55,15 +52,11 @@ class gearth_admin_class extends keimeno_class
         list($lon, $lat, $alt) = explode(',', $coords);
         $KML_OBJ = array(
             'xml_array' => $xml_array['http://earth.google.com/kml/2.0']['DOCUMENT'],
-            'framelink' => 'https://www.trebaxa.com/gmgen.php?width=100%&zoom=9&point=' . $coords .
-                '&address=' . $xml_array['http://earth.google.com/kml/2.0']['DOCUMENT']['PLACEMARK']['NAME'],
-            'gm_frame' => '<iframe class="gkmlframe" marginwidth="0" marginheight="0" src="https://www.trebaxa.com/gmgen.php?height=500px&width=100%&zoom=9&point=' .
-                $coords . '&address=' . $xml_array['http://earth.google.com/kml/2.0']['DOCUMENT']['PLACEMARK']['NAME'] .
-                '" frame scrolling="no"></iframe>',
-            'link' => 'http://www.' . FM_DOMAIN . $this->sys_path . basename($this->
-                xml_file),
-            'sitemaplink' => 'http://www.' . FM_DOMAIN . $this->sys_path . basename($this->
-                xml_sitemap_file),
+            'framelink' => 'https://www.trebaxa.com/gmgen.php?width=100%&zoom=9&point=' . $coords . '&address=' . $xml_array['http://earth.google.com/kml/2.0']['DOCUMENT']['PLACEMARK']['NAME'],
+            'gm_frame' => '<iframe class="gkmlframe" marginwidth="0" marginheight="0" src="https://www.trebaxa.com/gmgen.php?height=500px&width=100%&zoom=9&point=' . $coords .
+                '&address=' . $xml_array['http://earth.google.com/kml/2.0']['DOCUMENT']['PLACEMARK']['NAME'] . '" frame scrolling="no"></iframe>',
+            'link' => 'http://www.' . FM_DOMAIN . $this->sys_path . basename($this->xml_file),
+            'sitemaplink' => 'http://www.' . FM_DOMAIN . $this->sys_path . basename($this->xml_sitemap_file),
             'coords' => array(
                 'lon' => ($lon * 1),
                 'lat' => ($lat * 1),
@@ -76,13 +69,11 @@ class gearth_admin_class extends keimeno_class
      * 
      * @return
      */
-    function cmd_gen_kml()
-    {
+    function cmd_gen_kml() {
         $FORM = $_POST['FORM'];
         foreach ($FORM as $key => $value)
             $FORM[$key] = trim($value);
-        $this->add_point($FORM['lon'], $FORM['lat'], $FORM['alt'], $FORM['title'], $FORM['description'],
-            $FORM['sLayer']);
+        $this->add_point($FORM['lon'], $FORM['lat'], $FORM['alt'], $FORM['title'], $FORM['description'], $FORM['sLayer']);
         $this->store_to_file();
         $this->echo_json_fb('reloadkml');
     }
@@ -93,8 +84,7 @@ class gearth_admin_class extends keimeno_class
      * @param mixed $kml_element
      * @return
      */
-    function addElement($kml_element)
-    {
+    function addElement($kml_element) {
         $this->kml_body .= $kml_element;
     }
 
@@ -104,11 +94,9 @@ class gearth_admin_class extends keimeno_class
      * 
      * @return
      */
-    function export_and_view()
-    {
+    function export_and_view() {
         header('Content-type: application/keyhole');
-        header('Content-Disposition:atachment; filename="' . $this->kml_theme_name .
-            '.kml"');
+        header('Content-Disposition:atachment; filename="' . $this->kml_theme_name . '.kml"');
         $sKml = $this->kml_header . $this->kml_body . $this->kml_footer;
         header('Content-Length: ' . strlen($sKml));
         header('Expires: 0');
@@ -123,11 +111,9 @@ class gearth_admin_class extends keimeno_class
      * 
      * @return
      */
-    function store_to_file()
-    {
+    function store_to_file() {
         $this->gen_geo_sitemap();
-        file_put_contents($this->xml_file, $this->kml_header . $this->kml_body . $this->
-            kml_footer);
+        file_put_contents($this->xml_file, $this->kml_header . $this->kml_body . $this->kml_footer);
     }
 
     /**
@@ -135,14 +121,12 @@ class gearth_admin_class extends keimeno_class
      * 
      * @return
      */
-    function gen_geo_sitemap()
-    {
+    function gen_geo_sitemap() {
         $xml = '<?xml version="1.0" encoding="UTF-8"?>
 	<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
 	xmlns:geo="http://www.google.com/geo/schemas/sitemap/1.0">
 		<url>
-		<loc>http://www.' . FM_DOMAIN . $this->sys_path . basename($this->xml_file) .
-            '</loc>
+		<loc>http://www.' . FM_DOMAIN . $this->sys_path . basename($this->xml_file) . '</loc>
 		<geo:geo>
 			<geo:format>kml</geo:format>
 		</geo:geo>
@@ -156,19 +140,18 @@ class gearth_admin_class extends keimeno_class
      * 
      * @return
      */
-    function cmd_open_and_view()
-    {
+    function cmd_open_and_view() {
         if (file_exists($this->xml_file)) {
             $sKML = file_get_contents($this->xml_file);
             header('Content-Type: application/vnd.google-earth.kml+xml\n');
-            header('Content-Disposition:atachment; filename="' . $this->kml_theme_name .
-                '.kml"');
+            header('Content-Disposition:atachment; filename="' . $this->kml_theme_name . '.kml"');
             header('Content-Length: ' . strlen($sKML));
             header("Expires: 0");
             header('Pragma: no-cache');
             header("Cache-Control: no-cache, must-revalidate");
             echo $sKML;
-        } else {
+        }
+        else {
             echo 'no generarted XML file. Please create file.';
         }
         die;
@@ -186,8 +169,7 @@ class gearth_admin_class extends keimeno_class
      * @param string $sLayer
      * @return
      */
-    function add_point($lon, $lat, $alt, $tit, $des, $sLayer = '')
-    {
+    function add_point($lon, $lat, $alt, $tit, $des, $sLayer = '') {
         $kml_xml = '
 <Placemark>
 	<description><![CDATA[' . $des . ']]></description>
@@ -195,8 +177,7 @@ class gearth_admin_class extends keimeno_class
 	<visibility>1</visibility>
 	<styleUrl>#' . $sLayer . '</styleUrl>
 	<Point>
-			<coordinates>' . ($lon * 1) . ',' . ($lat * 1) . ',' . ($alt * 1) .
-            '</coordinates>
+			<coordinates>' . ($lon * 1) . ',' . ($lat * 1) . ',' . ($alt * 1) . '</coordinates>
 		</Point>
 	</Placemark>';
         $this->addElement($kml_xml);
@@ -212,8 +193,7 @@ class gearth_admin_class extends keimeno_class
      * @param string $sLayer
      * @return
      */
-    function addLine($points, $tit, $des, $sLayer = '')
-    {
+    function addLine($points, $tit, $des, $sLayer = '') {
         $kml_xml = '<Placemark>
 	<name>' . $tit . '</name>
 	<description>' . $des . '</description>
@@ -226,7 +206,8 @@ class gearth_admin_class extends keimeno_class
             if ($primero) {
                 $kml_xml .= $punto['lon'] . "," . $punto['lat'] . "," . $punto['alt'];
                 $primero = false;
-            } else
+            }
+            else
                 $kml_xml .= " " . $punto['lon'] . "," . $punto['lat'] . "," . $punto['alt'];
         }
         $kml_xml .= '</coordinates>
@@ -245,8 +226,7 @@ class gearth_admin_class extends keimeno_class
      * @param string $sLayer
      * @return
      */
-    function addPolygon($points, $tit, $des, $sLayer = '')
-    {
+    function addPolygon($points, $tit, $des, $sLayer = '') {
         $kml_xml = "<Placemark>";
         $kml_xml .= "<name>$tit</name>";
         $kml_xml .= "<styleUrl>#$sLayer</styleUrl>";
@@ -261,7 +241,8 @@ class gearth_admin_class extends keimeno_class
             if ($primero) {
                 $kml_xml .= $punto['lon'] . "," . $punto['lat'] . "," . $punto['alt'];
                 $primero = false;
-            } else
+            }
+            else
                 $kml_xml .= " " . $punto['lon'] . "," . $punto['lat'] . "," . $punto['alt'];
         }
         $kml_xml .= '</coordinates>
@@ -279,14 +260,12 @@ class gearth_admin_class extends keimeno_class
      * 
      * @return
      */
-    function addLink()
-    {
+    function addLink() {
         $kml_xml = '
 <NetworkLink>
 	<name>' . $this->get_domain_name() . ' KML File</name>
 	<Url>
-	<href>http://www.' . FM_DOMAIN . $this->sys_path . basename($this->xml_file) .
-            '</href>
+	<href>http://www.' . FM_DOMAIN . $this->sys_path . basename($this->xml_file) . '</href>
 	<refreshMode>onInterval</refreshMode>
 	<viewRefreshMode>onRequest</viewRefreshMode>
 	</Url>
@@ -302,8 +281,7 @@ class gearth_admin_class extends keimeno_class
      * @param mixed $tit
      * @return
      */
-    function addScreenOverlay($link, $tit)
-    {
+    function addScreenOverlay($link, $tit) {
         $aScript = explode('/', $_SERVER[SCRIPT_NAME]);
         array_pop($aScript);
         $sScript = implode('/', $aScript);

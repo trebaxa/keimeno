@@ -1,13 +1,13 @@
 <link rel="stylesheet" href="../includes/modules/flextemp/admin/css/style.css" type="text/css"/>
 
-<div class="page-header"><h1>FlexTemplates</h1></div>
+<%include file="cb.page.title.tpl" title="FlexTemplates"%>
 
 <div class="tab-content">
 
     <%include file="cb.panel.header.tpl" title="FlexTemplates" class=""%>
         <div class="btn-group">
-            <a class="btn btn-default" href="#" onclick="reload_flx_table(0)"><i class="fa fa-table"></i> Alle anzeigen</a>
-            <a class="btn btn-default" href="#" data-toggle="modal" data-target="#new-flex-tpl"><i class="fa fa-plus"></i> Neues Flex-Template</a>     
+            <a class="btn btn-secondary" href="#" onclick="reload_flx_table(0)"><i class="fa fa-table"></i> Alle anzeigen</a>
+            <a class="btn btn-secondary" href="#" data-toggle="modal" data-target="#new-flex-tpl"><i class="fa fa-plus"></i> Neues Flex-Template</a>     
         </div>
         
         <div id="js-flxtpls">
@@ -46,8 +46,9 @@
           <input type="hidden" value="<%$epage%>" name="epage" />
           
           <div class="modal-header">
+            <h5 class="modal-title" id="new-flex-tplLabel">Neues Flex-Template</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="new-flex-tplLabel">Neues Flex-Template</h4>
+            
           </div>
           <div class="modal-body">
             <div class="form-group">
@@ -56,7 +57,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" onclick="$('#new-flex-tpl').modal('hide');" class="btn btn-primary">{LA_SAVE}</button>
           </div>
       </form>

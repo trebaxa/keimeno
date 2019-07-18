@@ -1,5 +1,5 @@
 <br>Kategorie - Filter:
-<select class="form-control"  onChange="location.href=this.options[this.selectedIndex].value">
+<select class="form-control custom-select"  onChange="location.href=this.options[this.selectedIndex].value">
 	<option <% if ($GET.cid==0) %>selected<%/if%> value="<%$PHPSELF%>?epage=<%$epage%>&cid=0">alle anzeigen</option>
 		<% foreach from=$linklist_groups item=gi %>
 		<option <% if ($GET.cid==$gi.id) %>selected<%/if%> value="<%$PHPSELF%>?epage=<%$epage%>&cid=<%$gi.id%>"><%$gi.lc_title%></option>
@@ -27,7 +27,7 @@
             	</td>
             	<!-- <td><input name="orders[<%$linkitem.id%>]" type="text" class="form-control" size="3"  value="<%$linkitem.s_order%>"></td> -->
             	<td>
-            	<select class="form-control" name="category[<%$linkitem.id%>]">
+            	<select class="form-control custom-select" name="category[<%$linkitem.id%>]">
             	 		<% foreach from=$RELLINK.linklist_groups item=gi %>         
  									<option <% if ($gi.id==$linkitem.cat_id) %>selected<%/if%> value="<%$gi.id%>"><%$gi.lc_title%></option>
  									<%/foreach%>
@@ -37,7 +37,7 @@
          </tr>
  		<%/foreach%>
 </table><br>
-Ausf&uuml;hren:<select class="form-control" name="cmd">
+Ausf&uuml;hren:<select class="form-control custom-select" name="cmd">
 		<option value="save_link_table">alles speichern</option>
 		<option value="show_meta_import">... markierte Metas importieren</option>
 		<option value="delete_listed_links">... markierte {LBL_DELETE}</option>
@@ -45,6 +45,6 @@ Ausf&uuml;hren:<select class="form-control" name="cmd">
 		</select> 
 
 <%else%>
-<div class="bg-info text-info">Es liegen Daten vor.</div>
+<div class="alert alert-info">Es liegen Daten vor.</div>
 <%/if%>
 

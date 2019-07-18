@@ -15,8 +15,9 @@
           <%/if%>
           <% if ($cmd!="show_flxvar_editor")%>
               <div class="modal-header">
+                <h5 class="modal-title" id="new-flex-var-modalLabel">Neue HTML Vorlage</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="new-flex-var-modalLabel">Neue HTML Vorlage</h4>
+                
               </div>
           <%/if%>
           <div class="modal-body">
@@ -45,7 +46,7 @@
                 
           </div><!--body-->
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <%$subbtn%>
           </div>
       </form>

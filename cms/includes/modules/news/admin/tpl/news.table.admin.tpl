@@ -2,9 +2,9 @@
 <div class="row">
    <div class="col-md-6"> 
         <div class="btn-group">
-            <a class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=list"><i class="fa fa-table"></i> {LBL_SHOWALL}</a>  
-            <a class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=a_new"><i class="fa fa-plus"></i> {LBL_NEW_NEWS}</a>
-            <a class="btn btn-default" onclick="jsonexec('<%$PHPSELF%>?epage=<%$epage%>&cmd=rebuildperma',true);" href="#"><i class="fa fa-disk"></i> Permalinks neu erstellen</a>
+            <a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=list"><i class="fa fa-table"></i> {LBL_SHOWALL}</a>  
+            <a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=a_new"><i class="fa fa-plus"></i> {LBL_NEW_NEWS}</a>
+            <a class="btn btn-secondary" onclick="jsonexec('<%$PHPSELF%>?epage=<%$epage%>&cmd=rebuildperma',true);" href="#"><i class="fa fa-disk"></i> Permalinks neu erstellen</a>
         </div>
     </div>    
     <div class="col-md-6 text-right form-inline">     
@@ -22,7 +22,7 @@
     <div class="col-md-3 form-inline">
         <div class="form-group">
             <label>{LBL_NEWSGROUPS}:</label>
-            <select class="form-control" name="cid" onChange="location.href=this.options[this.selectedIndex].value">
+            <select class="form-control custom-select" name="cid" onChange="location.href=this.options[this.selectedIndex].value">
                 <option value="">- please select -</option>
                 	<% foreach from=$NEWSADMIN.groups item=row %>
                     <option <% if ($row.id==$REQUEST.gid) %>selected<%/if%> value="<%$PHPSELF%>?epage=<%$GET.epage%>&cmd=list&gid=<%$row.id%>"><%$row.groupname%></option>
@@ -32,7 +32,7 @@
     </div>        
 </div>
 <% if ($NEWSADMIN.allnewslist.count>0) %>
-<form method="POST" action="<%$PHPSELF%>" class="form-inline">
+<form method="POST" action="<%$PHPSELF%>" class="">
 <input type="hidden" value="<%$epage%>" name="epage">
 <table class="table table-striped table-hover" id="news-table">
 	<thead><tr>
@@ -65,7 +65,7 @@
 			</tr>
 			<% /foreach %>
 		</table>
-markierte: <select class="form-control" name="cmd">
+markierte: <select class="form-control custom-select" name="cmd">
 <option value="massdeletenews">{LBL_DELETE}</option>
 </select>  <%$btngo%>     
 </form>
@@ -73,7 +73,7 @@ markierte: <select class="form-control" name="cmd">
 <%assign var=tablesortid value="news-table" scope="global"%>
 <%include file="table.sorting.script.tpl"%>         	
 <%else%>		
-    <div class="bg-info text-info">{LBL_NOITEMS}</div>
+    <div class="alert alert-info">{LBL_NOITEMS}</div>
 <%/if%>	
 <%include file="cb.panel.footer.tpl"%>
 <%/if%>	

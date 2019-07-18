@@ -89,7 +89,7 @@ class dashboard_class extends keimeno_class {
                 'hoverable' => 'true',
                 'clickable' => 'true',
                 'aboveData' => 'true',
-                'color' => '#3f3f3f',
+                'color' => '#708092',
                 'autoHighlight' => 'true',
                 #'labelMargin' => '10',
                 'axisMargin' => '0',
@@ -99,9 +99,9 @@ class dashboard_class extends keimeno_class {
                 'mouseActiveRadius' => '100'),
             'lines' => array(
                 'show' => 'true',
-                'fill' => 'true',
+                'fill' => 'false',
                 'lineWidth' => '2',
-                # 'steps' => 'false'
+                 #'steps' => 'true'
                 ),
             'points' => array(
                 'show' => 'true',
@@ -115,9 +115,9 @@ class dashboard_class extends keimeno_class {
         $series_list[] = array(
             'label' => '',
             'data' => $data,
-            'lines' => array('fillColor' => 'rgba(150, 202, 89, 0.12)'),
-            'points' => array('fillColor' => '#fff'),
-            'color' => '#96CA59');
+            'lines' => array('fillColor' => 'transparent'),
+            'points' => array('fillColor' => '#DC3545'),
+            'color' => '#DC3545');
         ECHO json_encode(array('serielist' => $series_list, 'foptions' => $options));
         $this->hard_exit();
     }

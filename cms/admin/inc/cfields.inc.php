@@ -32,7 +32,7 @@ if ($_GET['aktion'] == 'a_new') {
 }
 
 
-$menu = array("{LBL_SHOWALL}" => "", "{LBL_CUSTOMERMANAGER}" => "cmd=a_custm");
+$menu = array("{LBL_SHOWALL}" => "");
 $ADMINOBJ->set_top_menu($menu);
 
 if ($_GET['aktion'] == '') {

@@ -49,16 +49,21 @@ class ganalytics_class extends ganalytics_master_class {
      * @return
      */
     function on_output($params) {
-        $this->GANALYTICS['config'] = array(
-            'anonymize_ip' => ($this->gbl_config['ga_anonymize_ip'] == 1) ? 'true' : 'false',
-            'forcessl' => ($this->gbl_config['ga_forcessl'] == 1) ? 'true' : 'false',
-            'send_page_view' => ($this->gbl_config['ga_send_page_view'] == 1) ? 'true' : 'false',
-            'link_attribution' => ($this->gbl_config['ga_link_attribution'] == 1) ? 'true' : 'false',
-            );
-        $this->parse_to_smarty();
-        $gcode = file_get_contents(CMS_ROOT . 'includes/modules/ganalytics/tpl/ganalytics.tpl');
-        $gcode = str_replace(array("\n","\r","\t"),"", smarty_compile($gcode));
-        $params['html'] = str_replace('</head>', $gcode . '</head>', $params['html']);
+        if ($this->gbl_config['ga_active'] == 1) {
+            $this->GANALYTICS['config'] = array(
+                'anonymize_ip' => ($this->gbl_config['ga_anonymize_ip'] == 1) ? 'true' : 'false',
+                'forcessl' => ($this->gbl_config['ga_forcessl'] == 1) ? 'true' : 'false',
+                'send_page_view' => ($this->gbl_config['ga_send_page_view'] == 1) ? 'true' : 'false',
+                'link_attribution' => ($this->gbl_config['ga_link_attribution'] == 1) ? 'true' : 'false',
+                );
+            $this->parse_to_smarty();
+            $gcode = file_get_contents(CMS_ROOT . 'includes/modules/ganalytics/tpl/ganalytics.tpl');
+            $gcode = str_replace(array(
+                "\n",
+                "\r",
+                "\t"), "", smarty_compile($gcode));
+            $params['html'] = str_replace('</head>', $gcode . PHP_EOL . '</head>', $params['html']);
+        }
         return $params;
     }
 

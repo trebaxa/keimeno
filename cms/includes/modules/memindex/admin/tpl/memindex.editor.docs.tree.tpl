@@ -5,7 +5,7 @@
                 <ul id="doc-ul-<%$element.id%>">
             <% function name="resrc_treevar" %>
                 <%foreach from=$items item=element%>     
-                        <li id="resrc_treenode-<%$element.id%>" data-hash="<%$element.hash%>" <% if ($element.haschildren==0) %>data-tid="<%$element.id%>"<%/if%> data-haschildren="<% if ($element.haschildren==1) %>1<%else%>0<%/if%>" data-modid="<%$element.modident%>" <% if ($element.haschildren==0) %>data-jstree='{"icon":"glyphicon glyphicon-file"}'<%/if%> >
+                        <li id="resrc_treenode-<%$element.id%>" data-hash="<%$element.hash%>" <% if ($element.haschildren==0) %>data-tid="<%$element.id%>"<%/if%> data-haschildren="<% if ($element.haschildren==1) %>1<%else%>0<%/if%>" data-modid="<%$element.modident%>" <% if ($element.haschildren==0) %>data-jstree='{"icon":"far fa-file-alt"}'<%/if%> >
                         <a id="ident-<%$element.id%>"  
                          data-tid="<%$element.id%>" data-modid="<%$element.modident%>"
                         href="javascript:void(0)" title="<%$element.folder|sthsc%>"

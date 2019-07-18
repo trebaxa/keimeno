@@ -4,7 +4,7 @@
     <ul>
 <% function name="gblvarstreevar" %>
     <%foreach from=$items item=element%>     
-            <li id="gblvarstreenode-<%$element.var_name%>" <% if ($element.haschildren==0) %>data-tid="<%$element.var_name%>"<%/if%> data-haschildren="<% if ($element.haschildren==1) %>1<%else%>0<%/if%>" data-modid="<%$element.modident%>" data-isadmin="<%$element.admin%>" <% if ($element.haschildren==0) %>data-jstree='{"icon":"glyphicon glyphicon-file"}'<%/if%> >
+            <li id="gblvarstreenode-<%$element.var_name%>" <% if ($element.haschildren==0) %>data-tid="<%$element.var_name%>"<%/if%> data-haschildren="<% if ($element.haschildren==1) %>1<%else%>0<%/if%>" data-modid="<%$element.modident%>" data-isadmin="<%$element.admin%>" <% if ($element.haschildren==0) %>data-jstree='{"icon":"far fa-file-alt"}'<%/if%> >
             <a id="ident-<%$element.var_name%>"  
              data-tid="<%$element.var_name%>" data-modid="<%$element.modident%>"
             href="javascript:void(0)" title="<%$element.var_desc|sthsc%>"
@@ -86,11 +86,11 @@
                     "valid_children" : ["root"]
                 },    
                 "default" : {
-                    "icon" : "glyphicon glyphicon-folder-open",
+                    "icon" : "fas fa-folder-open",
                     "valid_children" : ["default","file"]
                 },
                 "file" : {
-                    "icon" : "glyphicon glyphicon-file",
+                    "icon" : "far fa-file-alt",
                     "valid_children" : []
                 }
             },

@@ -20,7 +20,7 @@
             
             <% if ($row.v_type=='seli') %>
             <div class="input-group">
-                <select class="form-control" name="FORM[<%$row.v_col%>]">                  
+                <select class="form-control custom-select" name="FORM[<%$row.v_col%>]">                  
                        <% foreach from=$row.select item=rvol key=rkey %>
                             <%assign var="selisel" value="`$rkey`|`$rvol`"%>
                             <option <% if ($RESOURCE.seldataset.row.$column==$selisel) %>selected<%/if%> value="<%$rkey%>|<%$rvol%>"><%$rvol%></option>
@@ -32,7 +32,7 @@
             <% if ($row.v_type=='resid') %>        
                 <%*$row|echoarr*%>    
                 <div class="input-group">
-                <select class="form-control" name="FORM[<%$row.v_col%>]">                  
+                <select class="form-control custom-select" name="FORM[<%$row.v_col%>]">                  
                    <% foreach from=$row.resrc_table item=rvol %>
                         <option <% if ($rvol.id==$RESOURCE.seldataset.row.$column) %>selected<%/if%> value="<%$rvol.id%>"><%$rvol.c_label%></option>
                    <%/foreach%>                
@@ -42,7 +42,7 @@
             
             <% if ($row.v_type=='link') %>
                 <div class="input-group">
-                <select class="form-control" name="FORM[<%$row.v_col%>]">
+                <select class="form-control custom-select" name="FORM[<%$row.v_col%>]">
                        <% foreach from=$RESOURCE.menu_selectox item=rvol key=rkey %>                            
                             <%assign var="urltpl" value="{URL_TPL_`$rkey`}"%>
                             <option <% if ($urltpl==$row.value) %>selected<%/if%> value="<%$urltpl%>"><%$rvol%></option>
@@ -54,7 +54,7 @@
             
             <% if ($row.v_type=='sel') %>
             <div class="input-group">
-                <select class="form-control" name="FORM[<%$row.v_col%>]">
+                <select class="form-control custom-select" name="FORM[<%$row.v_col%>]">
                    <% if ($GET.rowid==0) %>
                        <% foreach from=$row.select item=rvol key=rkey %>
                             <option value="<%$rvol%>"><%$rvol%></option>
@@ -107,7 +107,7 @@
                     <div class="input-group">
                         <input class="form-control" type="text" placeholder="Keine Datei ausgewählt" readonly="" value="" name=""/>
                         <input id="datei-<%$row.v_col%>" name="datei[<%$row.v_col%>]" class="xform-control" onchange="this.previousElementSibling.value = this.value" type="file" value="" /></input>
-                        <span class="input-group-btn"><button class="btn btn-default" type="button">Durchsuchen...</button></span>
+                        <span class="input-group-btn"><button class="btn btn-secondary" type="button">Durchsuchen...</button></span>
                      </div>
                 </div>   
                 <div class="row">
@@ -115,15 +115,15 @@
                 </div>
                 <div class="row" id="js-dataset-img-<%$column%>" <% if ($RESOURCE.seldataset.row.$column=="") %>style="display:none"<%/if%>>
                     <div class="col-md-3" > 
-                        <img src="../file_data/resource/images/<%$RESOURCE.seldataset.row.$column|hsc%>" class="img-responsive img-thumbnail" />
+                        <img src="../file_data/resource/images/<%$RESOURCE.seldataset.row.$column|hsc%>" class="img-fluid img-thumbnail" />
                     </div>
                     <div class="col-md-1">
-                        <button class="btn btn-default" onclick="execrequest('<%$eurl%>cmd=deldatasetimg&rowid=<%$GET.rowid%>&flxid=<%$GET.flxid%>&column=<%$column%>&langid=<%$GET.langid%>&table=<%$GET.table%>');$('#js-dataset-img-<%$column%>').fadeOut();" type="button"><i class="fa fa-trash"></i></button>               
+                        <button class="btn btn-secondary" onclick="execrequest('<%$eurl%>cmd=deldatasetimg&rowid=<%$GET.rowid%>&flxid=<%$GET.flxid%>&column=<%$column%>&langid=<%$GET.langid%>&table=<%$GET.table%>');$('#js-dataset-img-<%$column%>').fadeOut();" type="button"><i class="fa fa-trash"></i></button>               
                     </div>
                     <div class="col-md-8">    
                      <div class="form-group">
                             <label for="<%$row.v_col%>-v_settings">Individual Crop Position</label>                           
-                            <select class="form-control" id="<%$row.v_col%>-v_settings" name="FORM[ds_settings][foto][foto_gravity]" >
+                            <select class="form-control custom-select" id="<%$row.v_col%>-v_settings" name="FORM[ds_settings][foto][foto_gravity]" >
                                     <option <% if ($RESOURCE.seldataset.ds_settings.foto.foto_gravity=='default')%>selected<%/if%> value="default">- default-</option>
                                     <option <% if ($RESOURCE.seldataset.ds_settings.foto.foto_gravity=='Center')%>selected<%/if%> value="Center">Center</option>
                                     <option <% if ($RESOURCE.seldataset.ds_settings.foto.foto_gravity=='North')%>selected<%/if%> value="North">North</option>
@@ -147,7 +147,7 @@
                     <div class="input-group">
                         <input class="form-control" type="text" placeholder="Keine Datei ausgewählt" readonly="" value="" name=""/></input>
                         <input id="datei-<%$row.v_col%>" name="fdatei[<%$row.v_col%>]" onchange="this.previousElementSibling.value = this.value" class="xform-control" type="file" value="" /></input>
-                        <span class="input-group-btn"><button class="btn btn-default" type="button">Durchsuchen...</button></span>
+                        <span class="input-group-btn"><button class="btn btn-secondary" type="button">Durchsuchen...</button></span>
                      </div>
                 </div>  
                 <div class="row">
@@ -159,7 +159,7 @@
                         <a href="../file_data/resource/files/<%$RESOURCE.seldataset.row.$column|hsc%>"><%$RESOURCE.seldataset.row.$column%></a>
                     </div>
                     <div class="col-md-9">
-                        <button class="btn btn-default" onclick="execrequest('<%$eurl%>cmd=deldatasetfile&rowid=<%$GET.rowid%>&flxid=<%$GET.flxid%>&column=<%$column%>');$('#js-dataset-img-<%$column%>').fadeOut();" type="button"><i class="fa fa-trash"></i></button>
+                        <button class="btn btn-secondary" onclick="execrequest('<%$eurl%>cmd=deldatasetfile&rowid=<%$GET.rowid%>&flxid=<%$GET.flxid%>&column=<%$column%>');$('#js-dataset-img-<%$column%>').fadeOut();" type="button"><i class="fa fa-trash"></i></button>
                     </div>
                  </div>       
                  
@@ -169,7 +169,7 @@
         </div>
      <%/foreach%>
   <div class="btn-group">
-   <%* <button type="button" class="btn btn-default" onclick="reload_dataset(1);">schließen</button> *%>
+   <%* <button type="button" class="btn btn-secondary" onclick="reload_dataset(1);">schließen</button> *%>
     <% if ($GET.rowid>0) %>
         <%$subbtn%>
     <%else%>

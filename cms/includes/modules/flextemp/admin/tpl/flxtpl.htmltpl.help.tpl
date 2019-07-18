@@ -15,7 +15,7 @@
                                 <li>
                                 <code>
                                    <% if ($resrc_var.v_type=='img')%>
-                                        &lt;img alt="&lt;%$row.<%$resrc_var.v_varname%>%&gt;" class="img-responsive" src="&lt;%$row.<%$resrc_var.v_varname%>%&gt;"&gt;
+                                        &lt;img alt="&lt;%$row.<%$resrc_var.v_varname%>%&gt;" class="img-fluid" src="&lt;%$row.<%$resrc_var.v_varname%>%&gt;"&gt;
                                    <%elseif ($resrc_var.v_type=='resid') %>
                                       <%assign var="resrcfilter" value="1"%>
                                      &lt;!-- RFILTER[v_vid]=<%$resrc_var.id%> !XXX! -->
@@ -46,7 +46,7 @@
                                                 <li>
                                                 <code>
                                                     <% if ($ds_var.v_type=='img')%>
-                                                        &lt;img alt="&lt;%$ds.<%$ds_var.v_varname%>.value%&gt;" class="img-responsive" src="&lt;%$ds.<%$ds_var.v_varname%>.thumb%&gt;"&gt;
+                                                        &lt;img alt="&lt;%$ds.<%$ds_var.v_varname%>.value%&gt;" class="img-fluid" src="&lt;%$ds.<%$ds_var.v_varname%>.thumb%&gt;"&gt;
                                                     <%elseif ($ds_var.v_type=='resid') %>
                                                         &lt;%$ds.<%$ds_var.v_varname%>.value%&gt; &lt;!-- !AAA! -->
                                                         <%assign var="resrcfilterdb" value="1"%>
@@ -93,7 +93,7 @@
                <% if ($row.v_type=='seli') %>
                 &nbsp;&nbsp;&nbsp;&lt;div data-ident="&lt;%$row.<%$row.v_col%>.vident%&gt;"&gt;&lt;%$row.<%$row.v_col%>.value%&gt;&lt;/div&gt;<br>
                <%elseif ($row.v_type=='img') %>
-                &nbsp;&nbsp;&nbsp;&lt;img alt="&lt;%$row.<%$row.v_col%>.value|sthsc%&gt;" class="img-responsive" src="&lt;%$row.<%$row.v_col%>.thumb%&gt;"&gt;<br>
+                &nbsp;&nbsp;&nbsp;&lt;img alt="&lt;%$row.<%$row.v_col%>.value|sthsc%&gt;" class="img-fluid" src="&lt;%$row.<%$row.v_col%>.thumb%&gt;"&gt;<br>
                <%else%>
                 &nbsp;&nbsp;&nbsp;&lt;%$row.<%$row.v_col%>.value%&gt;<br>
                <%/if%> 

@@ -15,14 +15,14 @@
         <tr>
             <td><%$row.pname%></td>
             <td>Artikel</td>
-            <td><button type="button" data-label="<%$row.pname|sthsc%>" data-id="<%$row.pid%>" class="btn btn-default btn-sm js-onj-click"><i class="fa fa-arrow-right"></i></button></td>
+            <td><button type="button" data-label="<%$row.pname|sthsc%>" data-id="<%$row.pid%>" class="btn btn-secondary btn-sm js-onj-click"><i class="fa fa-arrow-right"></i></button></td>
         </tr>
     <%/foreach%>
     <% foreach from=$REDIAPI.table.cats item=row %>
         <tr>
             <td><%$row.name%></td>
             <td>Warengruppe</td>
-            <td><button type="button" data-label="<%$row.name|sthsc%>" data-id="<%$row.cid%>" class="btn btn-default btn-sm js-conj-click"><i class="fa fa-arrow-right"></i></button></td>
+            <td><button type="button" data-label="<%$row.name|sthsc%>" data-id="<%$row.cid%>" class="btn btn-secondary btn-sm js-conj-click"><i class="fa fa-arrow-right"></i></button></td>
         </tr>
     <%/foreach%>
     </tbody>

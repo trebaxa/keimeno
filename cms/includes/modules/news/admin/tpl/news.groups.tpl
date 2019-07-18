@@ -19,7 +19,7 @@
 
 <% if (count($NEWSADMIN.ngroups)>0) %>
 <%include file="cb.panel.header.tpl" title="{LBL_NEWSGROUPS}"%>
-    <form class="stdform form-inline" method="POST" action="<%$PHPSELF%>">
+    <form class="stdform" method="POST" action="<%$PHPSELF%>">
         <input type="hidden" value="<%$epage%>" name="epage">
         <input type="hidden" value="savegtab" name="cmd">
         <table class="table table-striped table-hover" id="news-groups-table" >
@@ -45,7 +45,7 @@
     </form>   
 <%include file="cb.panel.footer.tpl"%>
 <%else%>		
-<div class="bg-info text-info">{LBL_NOITEMS}</div>
+<div class="alert alert-info">{LBL_NOITEMS}</div>
 <%/if%>
 
 <script>

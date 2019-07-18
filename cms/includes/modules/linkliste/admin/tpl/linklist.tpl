@@ -1,8 +1,8 @@
 <div class="page-header"><h1>Links Manager</h1></div>
 
 <div class="btn-group">
-<a class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=edit_link">Neuer Link</a>
-  <a class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=groupedit">Neue Kategorie</a>
+<a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=edit_link">Neuer Link</a>
+  <a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=groupedit">Neue Kategorie</a>
 </div>
 
 <% if ($cmd=='' || $cmd=='search') %>
@@ -18,7 +18,7 @@
           </tr>
           <tr>
             <td>Toplevel:</td><td>
-                <select class="form-control" name="PFILTER[toplevel]">
+                <select class="form-control custom-select" name="PFILTER[toplevel]">
                     <option value="0">-all-</option>
                     <% foreach from=$BALINK.toplevel item=row %>
                         <option <% if ($BALINK.PFILTER.toplevel==$row.id) %>selected<%/if%> value="<%$row.id%>"><%$row.description%></option>
@@ -28,7 +28,7 @@
           </tr>
           <tr>
             <td>Country:</td><td>
-                <select class="form-control" name="PFILTER[country]">
+                <select class="form-control custom-select" name="PFILTER[country]">
                     <option value="0">-all-</option>
                     <% foreach from=$BALINK.countries item=row %>
                         <option <% if ($BALINK.PFILTER.country==$row.id) %>selected<%/if%> value="<%$row.id%>"><%$row.land%></option>
@@ -38,7 +38,7 @@
           </tr>  
           <tr>
             <td>Type:</td><td>
-                <select class="form-control" name="PFILTER[type]">
+                <select class="form-control custom-select" name="PFILTER[type]">
                     <option <% if ($BALINK.PFILTER.type=='') %>selected<%/if%> value="">-all-</option>
                     <option <% if ($BALINK.PFILTER.type=='U') %>selected<%/if%> value="U">Banner</option>
                     <option <% if ($BALINK.PFILTER.type=='F') %>selected<%/if%> value="F">Flash</option>
@@ -48,7 +48,7 @@
           </tr>   
           <tr>
             <td>Kategorie:</td><td>
-                <select class="form-control" name="PFILTER[cat]">
+                <select class="form-control custom-select" name="PFILTER[cat]">
                     <option value="0">-all-</option>
                     <% foreach from=$BALINK.linklist_groups item=row %>
                         <option <% if ($BALINK.PFILTER.cat==$row.id) %>selected<%/if%> value="<%$row.id%>"><%$row.lc_title%></option>
@@ -71,7 +71,7 @@
 		
 </form>	
 
-<div class="bg-info text-info">
+<div class="alert alert-info">
 Verwenden Sie das Tempalte "Banner Rotation", um die Banner entsprechend zu platzieren.<br>
 <br>Beispiel Variable:<br>
 $banner.C.T.picture_thumb <br>

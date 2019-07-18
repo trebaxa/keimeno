@@ -1,6 +1,7 @@
-<h3>Page Access</h3>
+<% if ($REQUEST.id > 0) %>
+<%include file="cb.panel.header.tpl" class="mt-lg" title="Page Access"%>
 <p class="alert alert-info">Markieren, um Zugriff zu <b>verweigern</b>.</p>
-<form method="post" action="<%$PHPSELF%>" class="jsonform form-inline">
+<form method="post" action="<%$PHPSELF%>" class="jsonform form-inlines">
     <input type="hidden" name="id" value="<% $REQUEST.id %>">
     <input type="hidden" name="cmd" value="save_pageaccess">
     <input type="hidden" name="epage" value="<%$epage%>">
@@ -24,7 +25,9 @@
     </ul>
   <%$subbtn%>
 </form>
+<%include file="cb.panel.footer.tpl"%>
 
+<%/if%>
 <script>
 function set_pageaccess_status(obj) {
   if (obj.prop('checked')==true) {

@@ -24,7 +24,7 @@
 	  	<td  width="171">
 	  	<strong>{LBL_PROGRAM}:</strong></td>
 	  	<td> <% $PROG.pr_admintitle%>
-	  	<div class="bg-info text-info">
+	  	<div class="alert alert-info">
 	  		<strong>{LBL_DESCRIPTION}:</strong><% $PROG.pr_description%>
 	  		<br><strong>{LBL_DURATION}:</strong><% $PROG.pr_duration%>
 	  		<br><strong>Default {LBL_EMPLOYEE}:</strong><% $PROG.mitarbeiter_name%>
@@ -42,7 +42,7 @@
 		</tr>			
 		<tr><td >
 		<strong>Wiederholung:</strong> </td><td>
-		 <select class="form-control" name="repdays">		 
+		 <select class="form-control custom-select" name="repdays">		 
 		 <option value="7">jede Woche</option>		 
 		 <option value="14">alle 2 Wochen</option>		 
 		 <option value="21">alle 3 Wochen</option>		 
@@ -52,7 +52,7 @@
 		</tr>
 		<tr><td >
 		<strong>Anzahl Wiederholungen:</strong> </td><td>
-		 <select class="form-control" name="timespan">		 
+		 <select class="form-control custom-select" name="timespan">		 
 		 <% $REPEAT.timespan %>
 		</select>
 		</td>

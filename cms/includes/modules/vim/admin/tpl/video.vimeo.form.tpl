@@ -3,7 +3,7 @@
      <tr>
      <td>{LA_ORDER}:</td> 
      <td>
-      <select class="form-control" name="YTOPTIONS[orderby]">
+      <select class="form-control custom-select" name="YTOPTIONS[orderby]">
         <option <% if ($VIM.query.qobj.orderby=='newest') %>selected<%/if%> value="newest">newest</option>
         <option <% if ($VIM.query.qobj.orderby=='oldest') %>selected<%/if%> value="oldest">oldest</option>
         <option <% if ($VIM.query.qobj.orderby=='most_played') %>selected<%/if%> value="most_played">most_played</option>
@@ -16,7 +16,7 @@
      <tr>
      <td>{LA_VISEARCHTYPE}:</td> 
      <td>
-      <select class="form-control" name="FORM[vp_vitype]" id="vi_typeselect" onChange="vm_type_change(this.options[this.selectedIndex].value);">
+      <select class="form-control custom-select" name="FORM[vp_vitype]" id="vi_typeselect" onChange="vm_type_change(this.options[this.selectedIndex].value);">
         <option <% if ($VIM.query.vp_vitype=='SER') %>selected<%/if%> value="SER">search by term</option>
         <option <% if ($VIM.query.vp_vitype=='AUT') %>selected<%/if%> value="AUT">search by author</option>
         <option <% if ($VIM.query.vp_vitype=='TAG') %>selected<%/if%> value="TAG">search by tag</option>
@@ -27,7 +27,7 @@
    <tr>
      <td>{LA_YTMAXRESEULTS}:</td> 
      <td>   
-      <select class="form-control" name="YTOPTIONS[maxResults]">   
+      <select class="form-control custom-select" name="YTOPTIONS[maxResults]">   
      <option <% if ($VIM.query.qobj.maxResults==50) %>selected<%/if%> value="50">50</option>
      <option <% if ($VIM.query.qobj.maxResults==40) %>selected<%/if%> value="40">40</option>
      <option <% if ($VIM.query.qobj.maxResults==30) %>selected<%/if%> value="30">30</option>
@@ -39,7 +39,7 @@
    <tr>
      <td>{LA_YTTOTALLIMIT}:</td> 
      <td>   
-      <select class="form-control" name="YTOPTIONS[maxTotalLimit]">   
+      <select class="form-control custom-select" name="YTOPTIONS[maxTotalLimit]">   
      <option <% if ($VIM.query.qobj.maxTotalLimit=='100') %>selected<%/if%> value="100">100</option>
      <option <% if ($VIM.query.qobj.maxTotalLimit=='250') %>selected<%/if%> value="250">250</option>
      <option <% if ($VIM.query.qobj.maxTotalLimit=='500') %>selected<%/if%> value="500">500</option>

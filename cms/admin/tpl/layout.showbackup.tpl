@@ -1,4 +1,5 @@
-<div class="page-header"><h1>Backup</h1></div>
+<%include file="cb.page.title.tpl" icon="" title="Backup"%>
+
 
 <div class="btn-group"><%$LAY.backup.date%></div>
 

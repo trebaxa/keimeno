@@ -18,5 +18,5 @@
   </table>
   <%$subbtn%></form>	
 	<%else%>
-	 <div class="bg-info text-info">Keine Links markiert.</div>
+	 <div class="alert alert-info">Keine Links markiert.</div>
 	<%/if%>

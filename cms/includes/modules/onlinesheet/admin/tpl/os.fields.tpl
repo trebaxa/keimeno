@@ -20,7 +20,7 @@
         			<tr>
         				<td><input type="text" class="form-control" size="20" maxlength="100" name="FORM[<%$osfield.FID%>][f_name]" value="<%$osfield.f_name%>"></td>
         				<td>
-        				  <select class="form-control" name="FORM[<%$osfield.FID%>][f_type]">
+        				  <select class="form-control custom-select" name="FORM[<%$osfield.FID%>][f_type]">
         				  <% foreach from=$fieldtypes item=ftype %>
         						<option <% if ($ftype==$osfield.f_type) %>selected<% /if %> value="<%$ftype%>"><%$ftype%></option>
         					<% /foreach %>
@@ -49,7 +49,7 @@
                         *%>
         				<td><%$osfield.joker%></td>
         				<td>
-        				<select class="form-control" name="FORM[<%$osfield.FID%>][f_column]">
+        				<select class="form-control custom-select" name="FORM[<%$osfield.FID%>][f_column]">
         				  <% foreach from=$cust_cols item=coltypesel %>
         						<option <% if ($coltypesel.column==$osfield.f_column) %>selected<% /if %> value="<%$coltypesel.column%>"><%$coltypesel.value%></option>
         					<% /foreach %>

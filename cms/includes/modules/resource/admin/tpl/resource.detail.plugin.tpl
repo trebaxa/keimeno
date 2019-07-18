@@ -2,7 +2,7 @@
 
     <div class="form-group">
         <label>Resource:</label>
-        <select class="form-control" name="PLUGFORM[resrcid]">
+        <select class="form-control custom-select" name="PLUGFORM[resrcid]">
             <% foreach from=$WEBSITE.PLUGIN.result.resources item=row %>
                 <option <% if ($WEBSITE.node.tm_plugform.resrcid==$row.ID) %>selected<%/if%> value="<%$row.ID%>"><%$row.LABEL%></option>
             <%/foreach%>

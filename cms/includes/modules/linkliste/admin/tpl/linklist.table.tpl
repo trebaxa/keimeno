@@ -41,7 +41,7 @@ Kategorie - Filter:
             	<td><input name="orders[<%$linkitem.id%>]" type="text" class="form-control" size="3"  value="<%$linkitem.s_order%>"></td>
             	<td><%$linkitem.pos%></td>
                 <td>
-            	<select class="form-control" name="category[<%$linkitem.id%>]">
+            	<select class="form-control custom-select" name="category[<%$linkitem.id%>]">
             	 		<% foreach from=$linklist_groups item=gi %>         
  									<option <% if ($gi.id==$linkitem.cat_id) %>selected<%/if%> value="<%$gi.id%>"><%$gi.lc_title%></option>
  									<%/foreach%>
@@ -52,7 +52,7 @@ Kategorie - Filter:
             	<td class="text-right"> <% foreach from=$linkitem.icons item=picon name=cicons %><% $picon %><%/foreach%></td>
          </tr>
  		<%/foreach%>
-</table>Ausf&uuml;hren:<select class="form-control" name="cmd">
+</table>Ausf&uuml;hren:<select class="form-control custom-select" name="cmd">
 
     <%* Tabellen Sortierungs Script *%>
     <%assign var=tablesortid value="links-manager-table" scope="global"%>

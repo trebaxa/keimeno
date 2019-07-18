@@ -27,7 +27,7 @@
           <td class="text-right">
           <div class="btn-group">
                 <% foreach from=$row.icons item=picon name=cicons %><% $picon %><%/foreach%>
-                <a title="Download <%$row.file%>" href="<%$eurl%>cmd=ds_file_download&kid=<%$GET.kid%>&hash=<%$row.hash%>" class="btn btn-default"><i class="fa fa-download"></i></a>
+                <a title="Download <%$row.file%>" href="<%$eurl%>cmd=ds_file_download&kid=<%$GET.kid%>&hash=<%$row.hash%>" class="btn btn-secondary"><i class="fa fa-download"></i></a>
             </div>    
           </td>
       </tr>

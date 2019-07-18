@@ -32,7 +32,7 @@
         
         <div class="form-group">
             <label>{LBL_LANGUAGE}:</label>
-            <select class="form-control" id="js-lang-change-editor">
+            <select class="form-control custom-select" id="js-lang-change-editor">
             <%foreach from=$TPLOBJ.langfe item=row%>
                 <option <% if ($GET.uselang==$row.id) %>selected<%/if%> value="<%$row.id%>"><%$row.local%> - <%$row.post_lang%></option>
             <%/foreach%>
@@ -41,7 +41,7 @@
         <div class="row">        
             <div class="form-group col-md-6">
                 <!--<label for="">Replizieren</label> -->
-                <a class="btn btn-default json-link" href="<%$eurl%>cmd=replicatelang&id=<% $TPLOBJ.formcontent.tid %>&uselang=<% $GET.uselang %>"><i class="fa fa-language" aria-hidden="true"></i> {LA_INHALTAUFALLESPRACHEN}</a>
+                <a class="btn btn-secondary json-link" href="<%$eurl%>cmd=replicatelang&id=<% $TPLOBJ.formcontent.tid %>&uselang=<% $GET.uselang %>"><i class="fas fa-language" aria-hidden="true"></i> {LA_INHALTAUFALLESPRACHEN}</a>
             </div><!-- /.form-group -->
             <div class="col-md-6 text-right">
                 <% $subbtn %>

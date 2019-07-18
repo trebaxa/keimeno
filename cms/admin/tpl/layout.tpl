@@ -1,21 +1,15 @@
-<% if ($section=="stylelive") %>
-
-    
-        <div class="page-header"><h1><i class="fa fa-pencil-square-o"><!----></i> Layout Manager</h1></div>
-    
+<% if ($section=="stylelive") %>    
+        <%include file="cb.page.title.tpl" icon="far fa-edit" title="Layout Manager"%>    
         <div class="btn-group">
-            <a class="btn btn-default" href="javascript:void(0);" onclick="show_csscol();">CSS Collection</a>
-            <!--  <a class="btn btn-default" href="javascript:void(0);" onclick="show_css();">CSS Editor</a> -->
-            <a class="btn btn-default" href="javascript:void(0);" onclick="show_backups();">Backups</a>
-            <a class="btn btn-default" href="javascript:void(0);" onclick="show_template_backup();">Template Backup</a>
+            <a class="btn btn-secondary" href="javascript:void(0);" onclick="show_csscol();">CSS Collection</a>
+            <!--  <a class="btn btn-secondary" href="javascript:void(0);" onclick="show_css();">CSS Editor</a> -->
+            <a class="btn btn-secondary" href="javascript:void(0);" onclick="show_backups();">Backups</a>
+            <a class="btn btn-secondary" href="javascript:void(0);" onclick="show_template_backup();">Template Backup</a>
         </div><!-- /.btn-group -->
     
         <div class="csscoll" id="csscol"><%include file="layout.csscol.tpl"%></div>
         <div class="csscoll" id="backupsdiv"></div>
         <div class="csscoll" id="tplbackup"></div>
-        
- 
-
     
     <script>
         function show_csscol() {

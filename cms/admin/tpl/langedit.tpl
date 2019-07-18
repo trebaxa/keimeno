@@ -6,7 +6,7 @@
 
 <div id="csvupdate" style="display:none">
 <h3>{LBLA_ADDJOKER}:</h3>
-    <form class="jsonform form-inline" action="<%$PHPSELF%>" method="post" enctype="multipart/form-data">
+    <form class="jsonform" action="<%$PHPSELF%>" method="post" enctype="multipart/form-data">
     <input type="hidden" name="admin" value="<%$REQUEST.admin%>">
     <input type="hidden" name="cmd" value="csvupdate">
     <input type="hidden" name="epage" value="<%$epage%>">
@@ -24,8 +24,9 @@
     <div class="modal-content">
      <form action="<%$PHPSELF%>" method="post">
       <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel">{LBLA_ADDJOKER}</h5>
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">{LBLA_ADDJOKER}</h4>
+        
       </div>
       <div class="modal-body">
             <input type="hidden" name="admin" value="<%$REQUEST.admin%>">
@@ -40,7 +41,7 @@
             </table>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <%$addbtn%>
       </div>
       </form> 
@@ -52,13 +53,13 @@
     <%include file="cb.panel.header.tpl" icon="fa-language" title="Übersetzungstabelle bearbeiten" title_addon="`$langlabel`"%>
         
        <div class="btn-group">
-                    <%if ($LANGEDIT.canadd==true) %><a class="btn btn-default" href="javascript:void(0);" data-toggle="modal" data-target="#addjoker"><i class="fa fa-plus"></i> {LBLA_ADDJOKER}</a><%/if%>
+                    <%if ($LANGEDIT.canadd==true) %><a class="btn btn-secondary" href="javascript:void(0);" data-toggle="modal" data-target="#addjoker"><i class="fa fa-plus"></i> {LBLA_ADDJOKER}</a><%/if%>
                 </div>
-            <div id="langtable" class="form-inline"><%include file="langedit.table.tpl"%></div>
+            <div id="langtable" class=""><%include file="langedit.table.tpl"%></div>
             <div class="form-feet">
                 <div class="btn-group">
-                    <%if ($LANGEDIT.canadd==true) %><a class="btn btn-default" href="javascript:void(0);" data-toggle="modal" data-target="#addjoker"><i class="fa fa-plus"></i> {LBLA_ADDJOKER}</a><%/if%>
-                    <a class="btn btn-default" href="javascript:void(0);" onclick="$('#csvupdate').slideDown();">CSV Update</a>
+                    <%if ($LANGEDIT.canadd==true) %><a class="btn btn-secondary" href="javascript:void(0);" data-toggle="modal" data-target="#addjoker"><i class="fa fa-plus"></i> {LBLA_ADDJOKER}</a><%/if%>
+                    <a class="btn btn-secondary" href="javascript:void(0);" onclick="$('#csvupdate').slideDown();">CSV Update</a>
                 </div>
        
             </div>

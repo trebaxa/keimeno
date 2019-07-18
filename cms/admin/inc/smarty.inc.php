@@ -58,7 +58,7 @@ $smarty->assign('time', time());
 $smarty->assign('admin_obj', $_SESSION['admin_obj']);
 $smarty->assign('alang_id', $_SESSION['alang_id']);
 $smarty->assign('today', date('d.m.Y'));
-$smarty->assign('cms_url', 'http://www.' . $gbl_config['opt_domain'] . substr(PATH_CMS, -1));
+$smarty->assign('cms_url', keimeno_class::get_http_protocol().'://www.' . $gbl_config['opt_domain'] . substr(PATH_CMS, -1));
 $smarty->assign('loginbtn', kf::gen_admin_sub_btn('login'));
 $smarty->assign('MYIP', REAL_IP);
 $smarty->assign('FM_DOMAIN', FM_DOMAIN);

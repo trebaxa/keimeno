@@ -182,6 +182,7 @@ class tcblog_class extends tcblog_master_class {
         $row['thumb_small'] = ($row['b_image'] != "") ? gen_thumb_image('file_data/tcblog/' . $row['b_image'], $this->gbl_config['blog_thumbwidth'], $this->gbl_config['blog_thumbheight'],
             $this->gbl_config['blog_thumbresize']) : gen_thumb_image('images/opt_no_pic.jpg', $this->gbl_config['blog_thumbwidth'], $this->gbl_config['blog_thumbheight'], $this->
             gbl_config['blog_thumbresize']);
+        $row['image_data'] = array('width' => $width, 'height' => $height);
         $row['fotos'] = ($row['b_fotos'] != "") ? unserialize($row['b_fotos']) : array();
         $row['fotos'] = (array )$row['fotos'];
         foreach ((array )$row['fotos'] as $key => $foto) {

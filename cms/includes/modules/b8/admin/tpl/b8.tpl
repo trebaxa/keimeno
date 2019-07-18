@@ -11,7 +11,7 @@
 </div>
 <div class="form-group">
     <label>Aktion</label>
-    <select class="form-control" name="cmd">
+    <select class="form-control custom-select" name="cmd">
         <option value="classify">Classify</option>
         <option value="save_spam">Save as Spam</option>
         <option value="save_ham">Save as Ham</option>
@@ -25,7 +25,7 @@
 </div>
     <div class="col-md-6">
         <div id="b8result"></div>
-        <div class="bg-info text-info">1 = SPAM Verdacht sehr hoch; 0 = Kein SPAM<br>Infos unter <a target="_blank" href="http://nasauber.de/opensource/b8/">http://nasauber.de/opensource/b8/</a>
+        <div class="alert alert-info">1 = SPAM Verdacht sehr hoch; 0 = Kein SPAM<br>Infos unter <a target="_blank" href="http://nasauber.de/opensource/b8/">http://nasauber.de/opensource/b8/</a>
         <br>Letzte SPAM Filterung dauerte im Frontend: <%$B8.timetaken%>&thinsp;sec
         </div>
         <h3>Konfiguration</h3>

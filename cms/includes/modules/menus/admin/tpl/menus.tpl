@@ -5,8 +5,8 @@
 <div class="tab-content">
 
     <div class="btn-group">
-        <button type="button" class="btn btn-default" onclick="reload_menus();"><i class="fa fa-table"></i> Alle anzeigen</button>
-        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addmmenu"><i class="fa fa-plus"></i> Neu</button>
+        <button type="button" class="btn btn-secondary" onclick="reload_menus();"><i class="fa fa-table"></i> Alle anzeigen</button>
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addmmenu"><i class="fa fa-plus"></i> Neu</button>
     </div>
     
     <div id="js-multi-menu">
@@ -28,8 +28,9 @@
       <input type="hidden" name="cmd" value="save_menu" />
       <input type="hidden" name="epage" value="<%$epage%>" />
       <div class="modal-header">
+        <h5 class="modal-title" id="addmmenuLabel">Neues Menü</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="addmmenuLabel">Neues Menü</h4>
+        
       </div>
       <div class="modal-body">
         <div class="form-group">
@@ -38,7 +39,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="submit" onclick="$('addmmenu').modal('hide)" class="btn btn-primary">Save changes</button>
       </div>
       </form>

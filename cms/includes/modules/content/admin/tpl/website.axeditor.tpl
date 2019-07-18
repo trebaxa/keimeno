@@ -1,7 +1,7 @@
 <div class="js-content-editor-panel">
-  
+
   <div id="plugintab" class="tc-tabs-box">
-      <ul class="nav nav-tabs bar_tabs" role="tablist">
+      <ul class="nav nav-tabs nav-fill bar_tabs" role="tablist">
         <li class="active"><a href="javascript:void(0);" class="tc-link active" data-ident="#ptab1">{LA_SETTINGS}</a></li>
         <li><a href="javascript:void(0);" class="tc-link" data-ident="#ptab2" id="js-tab-link-2" style="display:none">{LA_INHALTBEARBEITEN}</a></li>
       </ul>
@@ -44,7 +44,7 @@
         <%/if%>
         
         <% if ($WEBSITE.node.tm_type=='W' || $GET.tm_type=='W') %>
-            <fieldset><% $WEBSITE.fck %></fieldset>
+            <fieldset><% $WEBSITE.fck %></fieldset>            
         <%/if%>
         
         <% if ($WEBSITE.node.tm_type=='C' || $GET.tm_type=='C') %>
@@ -69,7 +69,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control" value="" name="urlbox_text" id="urlbox_text" placeholder="Link Platzhalter">
                             <span class="input-group-btn">
-                                <button class="btn btn-default clipboard-copy" type="button"><i class="fa fa-link"></i> {LA_ADD}</button>
+                                <button class="btn btn-secondary clipboard-copy" type="button"><i class="fa fa-link"></i> {LA_ADD}</button>
                             </span>
                             </div><!-- /.input-group -->
                     </div><!-- /.col-md-6 -->
@@ -81,9 +81,9 @@
         
             <div class="modal-footer">        
                 <% if (($WEBSITE.node.tm_type=='P' || $GET.tm_type=='P') && $WEBSITE.PLUGIN.admin_link!="") %>
-                <a href="<%$WEBSITE.PLUGIN.admin_link%>" class="btn btn-default">Zur App "<%$WEBSITE.PLUGIN.pluginobj->name%>"</a>
+                <a href="<%$WEBSITE.PLUGIN.admin_link%>" class="btn btn-secondary">Zur App "<%$WEBSITE.PLUGIN.pluginobj->name%>"</a>
                 <%/if%>
-                <button type="button" class="btn btn-default js-axclose">Close</button>
+                <button type="button" class="btn btn-secondary js-axclose">Close</button>
                 <input type="submit" onclick="toggle_off();" value="{LA_SAVE}" class="btn btn-primary" id="js-plugin-submit-btn">
             </div>
         
@@ -98,7 +98,7 @@
     
     
    </div> <!-- tabs -->
-
+    
 </div>
 
 <script>

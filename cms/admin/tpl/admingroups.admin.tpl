@@ -1,16 +1,10 @@
-<div class="page-header">
-    <h1><i class="fa fa-users"><!----></i> {LBLA_ADMINGROUPS_MANAGER}</h1>
-</div><!-- /.page-header -->
+<%include file="cb.page.title.tpl" icon="fa fa-users" title="{LBLA_ADMINGROUPS_MANAGER}"%>
 
-<%*
-<!-- <div class="btn-group">
-    <a class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=edit">{LBL_ADD_GROUP}</a>
-    <a class="btn btn-default" href="#" onclick="dc_show('addpolicy');">Policy hinzufügen</a>
-</div> -->
-*%>
-
-
-
+<div class="btn-group">
+    <a class="btn btn-primary" href="<%$PHPSELF%>?epage=<%$epage%>">{LBLA_SHOWALL}</a>
+    <a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=edit"><i class="fa fa-plus"></i></a>
+<%*    <a class="btn btn-secondary" href="#" onclick="dc_show('addpolicy');">Policy hinzufügen</a> *%>
+</div> 
 
 
 
@@ -59,7 +53,7 @@
 
 <% if ($cmd=='edit') %>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <%include file="admingroups.edit.tpl"%>
        </div>     
        <div class="col-md-6">
@@ -79,15 +73,8 @@
     </script>
 
     
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">{LBL_ROLES}</h3><!-- /.panel-title -->
-    </div><!-- /.panel-heading -->
-
-    <div class="panel-body">
-        <a class="btn btn-default" href="#" onclick="clear_role();">{LBL_ADD_ROLE}</a>
-    </div><!-- /.panel-body -->
+<%include file="cb.panel.header.tpl" title="{LBL_ROLES}"%>
+    <a class="btn btn-secondary" href="#" onclick="clear_role();">{LBL_ADD_ROLE}</a>
     
     <form action="<%$PHPSELF%>" id="formrolegpo" method="post" enctype="multipart/form-data" <% if ($REQUEST.id>0) %>class="jsonform form-inline"<%/if%>>
         <input type="hidden" name="cmd" value="save_role">
@@ -114,6 +101,7 @@
                 <th></th>
             </tr>
         </thead>
+        <tbody>
         <% foreach from=$AGROUP.admin_roles item=role %>
             <tr>
                 <td><% $role.rl_name %></td>
@@ -123,8 +111,9 @@
                 </td>
             </tr>
     <%/foreach%>
+        </tbody>
     </table>
-</div><!-- /.panel panel-default -->
+<%include file="cb.panel.footer.tpl"%>
 
 <%/if%>
 

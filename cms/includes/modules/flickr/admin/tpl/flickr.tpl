@@ -1,5 +1,5 @@
 <div class="page-header"><h1>Flickr API</h1></div>
-<div class="btn-group"><a class="btn btn-default" href="#" onclick="syncstream();">Foto Stream von "<%$gbl_config.fli_youruser%>" herunterladen</a></div>
+<div class="btn-group"><a class="btn btn-secondary" href="#" onclick="syncstream();">Foto Stream von "<%$gbl_config.fli_youruser%>" herunterladen</a></div>
 <% if ($section=='start') %>
   <div id="flickrimglist" class="row"> 
     <% foreach from=$FLICKR.fotostram item=row %>

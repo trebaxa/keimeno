@@ -1,4 +1,4 @@
-<div class="page-header"><h1> <i class="fa fa-photo"><!----></i>{LBL_FOTOALBUMS}</h1></div>
+<div class="page-header"><h1> <i class="far fa-image"><!----></i>{LBL_FOTOALBUMS}</h1></div>
 <h3><%$GALOBJ.gallery.groupname%></h3>
 <div class="row">
     <div class="col-md-6">
@@ -26,7 +26,7 @@
         			<div class="form-group">
                         <label>{LBL_GALPICUTRE}:</label>
                         <% if ($GALOBJ.gallery.picid==0) %>es wird ein Zufallsbild verwendet<br><%/if%>	
-                        <a class="btn btn-default json-link" href="<%$eurl%>cmd=a_randpic&id=<%$GALOBJ.gallery.GID%>">{LBL_RANDOMPICUTRE}</a>
+                        <a class="btn btn-secondary json-link" href="<%$eurl%>cmd=a_randpic&id=<%$GALOBJ.gallery.GID%>">{LBL_RANDOMPICUTRE}</a>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
@@ -68,7 +68,7 @@
                       <div class="row">    
                           <div class="form-group col-md-6">
                           <label>Sortierung:</label>                 
-    	               <select class="form-control"  name="FORM[default_order]">
+    	               <select class="form-control custom-select"  name="FORM[default_order]">
         					<option value="post_time_int" <% if ($GALOBJ.gallery.default_order=='post_time_int') %>selected<%/if%> >Upload date</option>
         					<option value="pic_title" <% if ($GALOBJ.gallery.default_order=='pic_title') %>selected<%/if%>>{LBL_TITLE}</option>
         					<option value="morder" <% if ($GALOBJ.gallery.default_order=='morder') %>selected<%/if%>>manuelle Sortierung</option>										
@@ -76,7 +76,7 @@
                         </div>
                         <div class="form-group col-md-6">
                         <label>Sortierung Richtung:</label>
-                        <select class="form-control"  name="FORM[default_direc]">
+                        <select class="form-control custom-select"  name="FORM[default_direc]">
         					<option value="ASC" <% if ($GALOBJ.gallery.default_direc=='ASC') %>selected<%/if%> >aufsteigend</option>
         					<option value="DESC" <% if ($GALOBJ.gallery.default_direc=='DESC') %>selected<%/if%>>absteigend</option>
     					</select>

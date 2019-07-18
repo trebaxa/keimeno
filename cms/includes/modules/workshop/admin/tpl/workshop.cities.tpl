@@ -1,6 +1,6 @@
 <h3>Städte für Workshops</h3>
 
-<a href="#" class="btn btn-default" data-toggle="modal" data-target="#add_city">Neue Stadt</a>
+<a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#add_city">Neue Stadt</a>
 
 <% if (count($WORKSHOP.cities)>0)%>
 <form action="<%$PHPSELF%>" class="jsonform" method="POST">

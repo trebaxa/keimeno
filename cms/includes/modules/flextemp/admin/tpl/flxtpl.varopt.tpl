@@ -16,7 +16,7 @@
     <label>Height</label>
     <input type="text" class="form-control js-num-field" id="<%$ident%>-tvaropt-img-foto_height" name="FORMOPT[img][foto_height]" value="<%$FLEXTEMP.flxvaredit.v_opt.img.foto_height|sthsc|intval%>">
     <label>Resize Method</label>
-    <select class="form-control" id="<%$ident%>-tvaropt-img-foto_resize" name="FORMOPT[img][foto_resize]" >            
+    <select class="form-control custom-select" id="<%$ident%>-tvaropt-img-foto_resize" name="FORMOPT[img][foto_resize]" >            
         <option <% if ($FLEXTEMP.flxvaredit.v_opt.img.foto_resize=='resize')%>selected<%/if%> value="resize">resize</option>
         <option <% if ($FLEXTEMP.flxvaredit.v_opt.img.foto_resize=='resizetofit')%>selected<%/if%> value="resizetofit">resizetofit</option>
         <option <% if ($FLEXTEMP.flxvaredit.v_opt.img.foto_resize=='resizetofitpng')%>selected<%/if%> value="resizetofitpng">resizetofitpng</option>
@@ -25,7 +25,7 @@
         <option <% if ($FLEXTEMP.flxvaredit.v_opt.img.foto_resize=='none' || $FLEXTEMP.flxvaredit.v_opt.img.foto_resize=='')%>selected<%/if%> value="none">none</option>
     </select>
     <label>Crop Position</label>
-    <select class="form-control" id="<%$ident%>-tvaropt-img-foto_resize" name="FORMOPT[img][foto_gravity]" >
+    <select class="form-control custom-select" id="<%$ident%>-tvaropt-img-foto_resize" name="FORMOPT[img][foto_gravity]" >
         <option <% if ($FLEXTEMP.flxvaredit.v_opt.img.foto_gravity=='Center')%>selected<%/if%> value="Center">Center</option>
         <option <% if ($FLEXTEMP.flxvaredit.v_opt.img.foto_gravity=='North')%>selected<%/if%> value="North">North</option>
         <option <% if ($FLEXTEMP.flxvaredit.v_opt.img.foto_gravity=='NorthEast')%>selected<%/if%> value="NorthEast">NorthEast</option>

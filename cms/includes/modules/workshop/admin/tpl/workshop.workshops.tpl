@@ -1,7 +1,7 @@
 <h3>Workshops</h3>
 
 <form class="form-inline">
-    <a href="#" class="btn btn-default" data-toggle="modal" data-target="#add_workshop">Neuer Workshop</a>
+    <a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#add_workshop">Neuer Workshop</a>
     <div class="form-group">
         <label>Stadt Filter:</label>
         <select id="js-ws-change" class="form-control">

@@ -5,7 +5,7 @@
     <ul>
 <% function name="inlaytreevar" %>
     <%foreach from=$items item=element%>     
-            <li id="inlaytreenode-<%$element.id%>" <% if ($element.haschildren==0) %>data-tid="<%$element.id%>"<%/if%> data-haschildren="<% if ($element.haschildren==1) %>1<%else%>0<%/if%>" data-modid="<%$element.modident%>" data-isadmin="<%$element.admin%>" <% if ($element.haschildren==0) %>data-jstree='{"icon":"glyphicon glyphicon-file"}'<%/if%> >
+            <li id="inlaytreenode-<%$element.id%>" <% if ($element.haschildren==0) %>data-tid="<%$element.id%>"<%/if%> data-haschildren="<% if ($element.haschildren==1) %>1<%else%>0<%/if%>" data-modid="<%$element.modident%>" data-isadmin="<%$element.admin%>" <% if ($element.haschildren==0) %>data-jstree='{"icon":"far fa-file-alt"}'<%/if%> >
             <a id="ident-<%$element.id%>"  
              data-tid="<%$element.id%>" data-modid="<%$element.modident%>"
             href="javascript:void(0)" title="<%$element.description|sthsc%>"
@@ -93,11 +93,11 @@
                     "valid_children" : ["root"]
                 },    
                 "default" : {
-                    "icon" : "glyphicon glyphicon-folder-open",
+                    "icon" : "fas fa-folder-open",
                     "valid_children" : ["default","file"]
                 },
                 "file" : {
-                    "icon" : "glyphicon glyphicon-file",
+                    "icon" : "far fa-file-alt",
                     "valid_children" : []
                 }
             },

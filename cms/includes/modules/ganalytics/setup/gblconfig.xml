@@ -89,7 +89,7 @@
   </item>
   <item>
     <config_name><![CDATA[ga_ua_ident]]></config_name>
-    <config_value><![CDATA[UA-]]></config_value>
+    <config_value><![CDATA[]]></config_value>
     <config_desc><![CDATA[Google Analytics ID]]></config_desc>
     <isnumeric><![CDATA[0]]></isnumeric>
     <del_spaces><![CDATA[1]]></del_spaces>
@@ -118,7 +118,7 @@
   </item>
   <item>
     <config_name><![CDATA[ga_aw_ident]]></config_name>
-    <config_value><![CDATA[AW-]]></config_value>
+    <config_value><![CDATA[]]></config_value>
     <config_desc><![CDATA[AdWords ID]]></config_desc>
     <isnumeric><![CDATA[0]]></isnumeric>
     <del_spaces><![CDATA[1]]></del_spaces>

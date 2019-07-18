@@ -4,8 +4,8 @@ function fwrealodbl() {
 }
 </script>
 
-<% if ($aktion=="") %>	
-<div class="page-header"><h1>Firewall Einstellungen</h1></div>
+<% if ($aktion=="") %>
+<%include file="cb.page.title.tpl" icon="" title="Firewall"%>	
 <form action="<%$PHPSELF%>" method="post" class="form jsonform">    
 	<div class="row">
                 <% foreach from=$FW_SETTINGS item=litem  %>		 
@@ -34,11 +34,12 @@ function fwrealodbl() {
 	</form>
 <%/if%>
 
-<% if ($aktion=="details") %>	
-    <div class="page-header"><h1>Firewall Blacklist</h1></div>
-    <h3>IP manuell blocken</h3>
+<% if ($aktion=="details") %>
+    <%include file="cb.page.title.tpl" icon="" title="Firewall Blacklist"%>
+    
     <div class="row">
         <div class="col-md-6">
+        <%include file="cb.panel.header.tpl" title="IP manuell blocken"%>
             <form action="<%$PHPSELF%>" method="post" class="jsonform form-inline">
             <table class="table table-striped table-hover">
             	<tr><td>IP:</td><td><input placeholder="z.B. <%$MYIP%>" size="16" maxlength="15" type="text" class="form-control" name="FORM[fw_ip]" value="<%$litem.fw_ip%>"> (Ihre IP als Beispiel: <%$MYIP%>)</td></tr>
@@ -49,14 +50,15 @@ function fwrealodbl() {
             	</form>
             <div id="fwblacklist"></div>
             <script>fwrealodbl();</script>	
-            
+            <%include file="cb.panel.footer.tpl" %>
         </div>
-        <div class="col-md-6">
-            <h3>IP GeoTracking</h3>
+        <div class="col-md-6">            
+            <%include file="cb.panel.header.tpl" title="IP GeoTracking"%>
             <div id="mapsarea">
             <%$MYIP%>
                 <iframe name="gmapsip" marginwidth="0" marginheight="0" src="<%$GMPASIP.iframe_url%>" frame  scrolling="no" style="height:400px;border:0px;"></iframe>
             </div>
+            <%include file="cb.panel.footer.tpl" %>
         </div>
     </div>
 <%/if%>

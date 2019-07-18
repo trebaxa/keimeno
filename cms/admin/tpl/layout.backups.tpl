@@ -14,13 +14,13 @@
     	<td><%$row.date%></td>
         <td><%$row.b_file%></td>
         <td><%$row.b_employee%></td>
-		<td class="text-right"><button type="button" class="btn btn-default js-backupview" data-logid="<%$row.id%>"><i class="fa fa-eye"></i></button></td>
+		<td class="text-right"><button type="button" class="btn btn-secondary js-backupview" data-logid="<%$row.id%>"><i class="fa fa-eye"></i></button></td>
     </tr>  
     <%/foreach%>
     </tbody>
     </table>
     <%else%>
-    <div class="bg-info text-info">Keine Backups gefunden.</div>
+    <div class="alert alert-info">Keine Backups gefunden.</div>
 <%/if%>
 <%include file="cb.panel.footer.tpl"%>
 

@@ -1,6 +1,6 @@
 <div class="form-group">
     <label>Galerieauswahl:</label>
-    <select class="form-control" name="PLUGFORM[galleryid]" id="js-gallery-group-id">
+    <select class="form-control custom-select" name="PLUGFORM[galleryid]" id="js-gallery-group-id">
      <% foreach from=$WEBSITE.PLUGIN.result.groups item=row %>
         <option <% if ($WEBSITE.node.tm_plugform.galleryid==$row.ID) %>selected<%/if%> value="<%$row.ID%>"><%$row.LABEL%></option>
      <%/foreach%>
@@ -9,7 +9,7 @@
 
 <div class="form-group">
     <label>Template:</label>
-    <select class="form-control" name="PLUGFORM[tpl_name]">
+    <select class="form-control custom-select" name="PLUGFORM[tpl_name]">
         <% foreach from=$WEBSITE.PLUGIN.result.templates item=row %>
             <option <% if ($WEBSITE.node.tm_plugform.tpl_name==$row.ID) %>selected<%/if%> value="<%$row.ID%>"><%$row.LABEL%></option>
         <%/foreach%>
@@ -31,7 +31,7 @@
 <div class="row">
     <div class="form-group col-md-6">
         <label>Galerie Themen-Bild Methode:</label>
-        <select class="form-control" name="PLUGFORM[gal_thumb_type]">        
+        <select class="form-control custom-select" name="PLUGFORM[gal_thumb_type]">        
                 <option <% if ($WEBSITE.node.tm_plugform.gal_thumb_type=='crop') %>selected<%/if%> value="crop">zuschneiden (crop)</option>        
                 <option <% if ($WEBSITE.node.tm_plugform.gal_thumb_type=='resize') %>selected<%/if%> value="resize">verkleinern (resize)</option>
                 <option <% if ($WEBSITE.node.tm_plugform.gal_thumb_type=='resizetofit') %>selected<%/if%> value="resizetofit">verkleinern (fit)</option>
@@ -42,7 +42,7 @@
     
     <div class="form-group col-md-6">
         <label>Galerie Themen-Bild Crop Position:</label>    
-        <select class="form-control" name="PLUGFORM[gal_g_croppos]" >
+        <select class="form-control custom-select" name="PLUGFORM[gal_g_croppos]" >
             <option <% if ($WEBSITE.node.tm_plugform.gal_g_croppos=='NorthWest') %>selected<%/if%> value="NorthWest">NorthWest</option>
             <option <% if ($WEBSITE.node.tm_plugform.gal_g_croppos=='North') %>selected<%/if%> value="North">North</option>
             <option <% if ($WEBSITE.node.tm_plugform.gal_g_croppos=='NorthEast') %>selected<%/if%> value="NorthEast">NorthEast</option>
@@ -76,7 +76,7 @@
 <div class="row">
     <div class="form-group col-md-6">
         <label>Methode:</label>
-        <select class="form-control" name="PLUGFORM[thumb_type]">        
+        <select class="form-control custom-select" name="PLUGFORM[thumb_type]">        
                 <option <% if ($WEBSITE.node.tm_plugform.thumb_type=='crop') %>selected<%/if%> value="crop">zuschneiden (crop)</option>        
                 <option <% if ($WEBSITE.node.tm_plugform.thumb_type=='resize') %>selected<%/if%> value="resize">verkleinern (resize)</option>
                 <option <% if ($WEBSITE.node.tm_plugform.thumb_type=='resizetofit') %>selected<%/if%> value="resizetofit">verkleinern (fit)</option>
@@ -87,7 +87,7 @@
     
     <div class="form-group col-md-6">
         <label>Crop Position:</label>    
-        <select class="form-control" name="PLUGFORM[g_croppos]" >
+        <select class="form-control custom-select" name="PLUGFORM[g_croppos]" >
             <option <% if ($WEBSITE.node.tm_plugform.g_croppos=='NorthWest') %>selected<%/if%> value="NorthWest">NorthWest</option>
             <option <% if ($WEBSITE.node.tm_plugform.g_croppos=='North') %>selected<%/if%> value="North">North</option>
             <option <% if ($WEBSITE.node.tm_plugform.g_croppos=='NorthEast') %>selected<%/if%> value="NorthEast">NorthEast</option>
@@ -104,7 +104,7 @@
 <div class="row">
     <div class="form-group col-md-6">
         <label>Sortierung:</label>   
-        <select class="form-control" name="PLUGFORM[default_order]" >
+        <select class="form-control custom-select" name="PLUGFORM[default_order]" >
             <option <% if ($WEBSITE.node.tm_plugform.default_order=='post_time_int') %>selected<%/if%> value="post_time_int">Upload Datum</option>
             <option <% if ($WEBSITE.node.tm_plugform.default_order=='pic_title') %>selected<%/if%> value="pic_title">Titel</option>
             <option <% if ($WEBSITE.node.tm_plugform.default_order=='morder') %>selected<%/if%> value="morder">Manuelle Sortierng</option>
@@ -113,7 +113,7 @@
           
     <div class="form-group col-md-6">
         <label>Sortierung Richtung:</label> 
-        <select class="form-control" name="PLUGFORM[default_direc]" >
+        <select class="form-control custom-select" name="PLUGFORM[default_direc]" >
             <option <% if ($WEBSITE.node.tm_plugform.default_direc=='ASC') %>selected<%/if%> value="ASC">aufsteigend</option>
             <option <% if ($WEBSITE.node.tm_plugform.default_direc=='DESC') %>selected<%/if%> value="DESC">absteigend</option>
         </select>

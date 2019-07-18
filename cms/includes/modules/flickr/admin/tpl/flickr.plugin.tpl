@@ -1,6 +1,6 @@
 <div class="form-group">
 <label>Template:</label>
-    <select class="form-control" name="PLUGFORM[tplid]">
+    <select class="form-control custom-select" name="PLUGFORM[tplid]">
         <% foreach from=$WEBSITE.PLUGIN.result.templates item=row %>
             <option <% if ($WEBSITE.node.tm_plugform.tplid==$row.ID) %>selected<%/if%> value="<%$row.ID%>"><%$row.LABEL%></option>
         <%/foreach%>
@@ -24,7 +24,7 @@
 
 <div class="form-group">
 <label>Sortierung:</label>
-      <select class="form-control" name="PLUGFORM[sortdirec]">
+      <select class="form-control custom-select" name="PLUGFORM[sortdirec]">
             <option <% if ($WEBSITE.node.tm_plugform.sortdirec='ASC') %>selected<%/if%> value="ASC">aufsteigend</option>
             <option <% if ($WEBSITE.node.tm_plugform.sortdirec='DESC') %>selected<%/if%> value="DESC">absteigend</option>
     </select>

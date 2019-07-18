@@ -1,8 +1,8 @@
 <div class="btn-group">
     <% if (count($FEATURES.feature_groups) >0)%>
-        <a class="btn btn-default" href="javascript:void(0);" onclick="add_show_box_tpl('<%$PHPSELF%>?epage=<%$epage%>&cmd=edit_feature&id=0', 'Feature neu anlegen');">Neues Feature</a>
+        <a class="btn btn-secondary" href="javascript:void(0);" onclick="add_show_box_tpl('<%$PHPSELF%>?epage=<%$epage%>&cmd=edit_feature&id=0', 'Feature neu anlegen');">Neues Feature</a>
     <%/if%>
-    <a class="btn btn-default" href="javascript:void(0);" onclick="$('#featgroupid').val('0');$('#feateditgroup').modal('show')">Neue Gruppe</a>
+    <a class="btn btn-secondary" href="javascript:void(0);" onclick="$('#featgroupid').val('0');$('#feateditgroup').modal('show')">Neue Gruppe</a>
     <% if (count($FEATURES.feature_groups) >0)%>
     <div class="form-group">
         <label>Gruppe</label>
@@ -26,8 +26,9 @@
     <div class="modal-content">
     <form id="featuregfroupform" method="POST" action="<%$PHPSELF%>" class="jsonform">
       <div class="modal-header">
+        <h5 class="modal-title" id="feateditgroupLabel">Gruppe anlegen</h5>
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="feateditgroupLabel">Gruppe anlegen</h4>
+        
       </div>
       <div class="modal-body">
         <div class="form-group">
@@ -37,7 +38,7 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <%$subbtn%>
       </div>
         <input type="hidden" name="section" value="<%$REQUEST.section%>">

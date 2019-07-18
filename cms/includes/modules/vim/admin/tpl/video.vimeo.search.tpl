@@ -11,7 +11,7 @@
 	<% foreach from=$VIM.query.cat_selectboxes key=qc item=catselectbox %>
 	<tr>
 	<td>{LA_PLEASESELECTCATEGORY} (<%$qc%>):</td>
-	<td><select class="form-control" name="CIDS[]">
+	<td><select class="form-control custom-select" name="CIDS[]">
 	<% $catselectbox %>
 	</select>
 	</td>
@@ -32,5 +32,5 @@
   <input type="hidden" name="stocktype" value="<%$REQUEST.stocktype%>">
 </form> 
 <%else%>
-<div class="bg-info text-info">Sie m&uuml;ssen sich erst bei Vimeo registrieren und die API entsprechend konfigurieren.</div>
+<div class="alert alert-info">Sie m&uuml;ssen sich erst bei Vimeo registrieren und die API entsprechend konfigurieren.</div>
 <%/if%>

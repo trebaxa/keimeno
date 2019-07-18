@@ -1,7 +1,8 @@
-<div class="page-header"><h1>Kontakt Formular</h1></div>
+<%include file="cb.page.title.tpl" title="Kontakt Formular"%>
 
-<%include file="cb.panel.header.tpl" title="Auswertung"%>
+
 <% if (count($CONTACT.items)>0) %>
+<%include file="cb.panel.header.tpl" title="Anfragen"%>
 <table class="table table-striped table-hover">
     <thead><tr>
         <th>Datum</th>
@@ -13,6 +14,7 @@
         <th>Disclaimer</th>
         <th></th>
     </tr></thead>
+    <tbody>
 <% foreach from=$CONTACT.items item=row %>
     <tr>
         <td><%$row.date %></td>
@@ -25,9 +27,11 @@
         <td><% foreach from=$row.icons item=picon %><% $picon %><%/foreach%></td>
     </tr>
 <%/foreach%>
+</tbody>
 </table>
-<%/if%>
 <%include file="cb.panel.footer.tpl"%>
+<%/if%>
+
 
         <%$CONTACT.conf%>
         

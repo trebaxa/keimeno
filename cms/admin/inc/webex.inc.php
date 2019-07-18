@@ -1,8 +1,6 @@
 <?php
 
 
-
-
 /**
  * @package    Keimeno
  * @author Harald Petrich
@@ -54,5 +52,3 @@ if ($_GET['aktion'] == 'analyze_dirs') {
 }
 
 $ADMINOBJ->inc_tpl('webexplorer');
-
-?>

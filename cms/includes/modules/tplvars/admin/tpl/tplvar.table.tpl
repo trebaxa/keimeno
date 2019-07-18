@@ -15,7 +15,7 @@
     <td><%$row.var_type%></td>
     <td><%$row.var_desc%></td>
     <td class="text-right">
-    <a class="btn btn-default tplvar-var-edit-icon" data-id="<%$row.id%>" data-type="<%$row.var_type%>" title="{LBLA_EDIT}" href="javascript:void(0)"><i class="fa fa-pencil-square-o"></i></a>
+    <a class="btn btn-secondary tplvar-var-edit-icon" data-id="<%$row.id%>" data-type="<%$row.var_type%>" title="{LBLA_EDIT}" href="javascript:void(0)"><i class="far fa-edit"></i></a>
         <% foreach from=$row.icons item=picon name=cicons %><% $picon %><%/foreach%>
     </td>
 </tr>

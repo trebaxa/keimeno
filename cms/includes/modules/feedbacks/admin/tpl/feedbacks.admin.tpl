@@ -2,7 +2,7 @@
 
     <div class="btn-group">
         <a class="btn btn-primary" href="javascript:void(0);" data-toggle="modal" data-target="#addfeed"><i class="fa fa-plus"></i> Neu anlegen</a>
-        <a class="btn btn-default ajax-link" href="<%$eurl%>"><i class="fa fa-table"></i> All anzeigen</a>
+        <a class="btn btn-secondary ajax-link" href="<%$eurl%>"><i class="fa fa-table"></i> All anzeigen</a>
     </div>
     
 
@@ -114,8 +114,9 @@
             <input type="hidden" name="cmd" value="additem">
             <input type="hidden" name="epage" value="<%$epage%>">
       <div class="modal-header">
+        <h5 class="modal-title" id="addfeedLabel">Testimonials hinzufügen</h5>
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="addfeedLabel">Testimonials hinzufügen</h4>
+        
       </div>
       <div class="modal-body">
           <label>Von:</label>
@@ -124,7 +125,7 @@
             <input type="text" class="form-control" placeholder="Email" name="FORM[email]">
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <%$subbtn%>
       </div>
       </form>

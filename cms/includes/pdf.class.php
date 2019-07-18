@@ -105,7 +105,7 @@ class pdf_class extends keimeno_class {
      * @param mixed $htmlfile
      * @return
      */
-    function HTML2PDFonfly($htmlfile) {
+    function HTML2PDFonfly($htmlfile, $download=true) {
         flush();
         header("Content-Type: application/pdf");
         if ($download == true) {

@@ -17,7 +17,6 @@
 <%/if%>
 
 <% if ($cmd=='conf') %>
-   <h3>{LA_MODCONFIGURATION}</h3>
    <% $EVENT.conf %>
 <%/if%>
 

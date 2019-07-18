@@ -1,6 +1,6 @@
 <div class="btn-group form-inline">
 <label>Bitte Vorlage w&auml;hlen:</label>
-    <select class="form-control" id="tplselect" name="PLUGFORM[tplid]">
+    <select class="form-control custom-select" id="tplselect" name="PLUGFORM[tplid]">
         <option value="-">- Please select -</option>
         <% foreach from=$WEBSITE.PLUGIN.data.tpllist item=row %>
             <option <% if ($WEBSITE.node.tm_plugform.tplid==$row.id) %>selected<%/if%> value="<%$row.id%>"><%$row.tpl_name%></option>

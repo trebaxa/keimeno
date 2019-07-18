@@ -5,7 +5,7 @@
     <ul>
 <% function name="recurmenu" %>
     <%foreach from=$items item=element%>     
-            <li data-tid="<%$element.id%>" data-mm_id="<%$element.mm_id%>" data-link="#" id="pagenode-<%$element.id%>" data-haschildren="<% if (!empty($element.children)) %>1<%else%>0<%/if%>" data-tid="<%$element.id%>" data-isadmin="<%$element.admin%>" <% if (empty($element.children)) %>data-jstree='{"icon":"glyphicon glyphicon-file"}'<%/if%> >
+            <li data-tid="<%$element.id%>" data-mm_id="<%$element.mm_id%>" data-link="#" id="pagenode-<%$element.id%>" data-haschildren="<% if (!empty($element.children)) %>1<%else%>0<%/if%>" data-tid="<%$element.id%>" data-isadmin="<%$element.admin%>" <% if (empty($element.children)) %>data-jstree='{"icon":"far fa-file-alt"}'<%/if%> >
             <a data-tid="<%$element.id%>" id="ident-<%$element.id%>" href="#" title="<%$element.description|hsc%>"
             ><%$element.description%></a>            
             <%if !empty($element.children)%>
@@ -75,7 +75,7 @@
                     "valid_children" : ["default","file"]
                 },
                 "file" : {
-                    "icon" : "glyphicon glyphicon-file",
+                    "icon" : "far fa-file-alt",
                     "valid_children" : []
                 }
             },

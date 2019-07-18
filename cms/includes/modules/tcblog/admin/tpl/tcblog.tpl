@@ -11,8 +11,9 @@
     <div class="modal-content">
     <form action="<%$PHPSELF%>" method="post">
       <div class="modal-header">
+        <h5 class="modal-title" id="newblogitemLabel">Neuer Beitrag</h5>
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="newblogitemLabel">Neuer Beitrag</h4>
+        
       </div>
       <div class="modal-body">
         <input type="hidden" name="cmd" value="add_item"/>
@@ -21,7 +22,7 @@
         <input type="text" class="form-control" required="" name="FORM_CON[title]"/>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <%$subbtn%>
       </div>
       </form>
@@ -34,7 +35,7 @@
 
 <% if ($section=="conf") %>
     <% $TCBLOG.CONFIG %>
-    <a href="<%$eurl%>cmd=rebuildpageindex" class="btn btn-default json-link">Rebuild URL Page Index</a>
+    <a href="<%$eurl%>cmd=rebuildpageindex" class="btn btn-secondary json-link">Rebuild URL Page Index</a>
     <%*Verküpfte Page ID: <%$TCBLOG.pageindex.pi_page%> *%> 
 <%/if%>
 
@@ -43,7 +44,7 @@
 <div class="btn-group">
     <a class="btn btn-primary" href="javascript:void(0);" data-toggle="modal" data-target="#newblogitem"><i class="fa fa-plus"></i> Neu anlegen</a>
     <div class="btn-group">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
       Blog Auswahl
       <span class="caret"></span>
     </button>
@@ -104,7 +105,7 @@
     <a href="#" data-toggle="modal" data-target="#newprogotimer" class="btn btn-primary"><i class="fa fa-plus"></i> Neuer Blog</a>
 </div>
 
-<form action="<%$PHPSELF%>" method="POST" class="jsonform form-inline">
+<form action="<%$PHPSELF%>" method="POST" class="jsonform">
      <input type="hidden" name="epage" value="<%$epage%>">
      <input type="hidden" name="cmd" value="save_groups">
 
@@ -152,7 +153,7 @@
         </div>    
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <%$subbtn%>
       </div>
       </form>
@@ -162,28 +163,29 @@
 <%/if%>
 
 <% if ($section=='edit_group') %>
-<h3><%$TCBLOG.group.groupname%></h3>
-
-<div class="btn-group">
-        <%$TCBLOG.langselect%>
-</div>    
-
-							<form action="<%$PHPSELF%>" method="post" class="form jsonform">
-							<div class="form-group">
-                                <label>{LBL_TITLE}</label>
-							     <input required="" value="<%$TCBLOG.groupcon.g_title|sthsc%>" class="form-control" name="FORM_CON[g_title]">
-                            </div>
-<% if ($TCBLOG.permchecks != "")%>
-        <h3>{LBL_PERMISSIONS}</h3> <%$TCBLOG.permchecks %> 
-<%/if%>
-        	
-    <input type="hidden" name="tid" value="<%$GET.id%>">
-                            <input type="hidden" name="epage" value="<%$epage%>">
-							<input type="hidden" name="conid" value="<%$TCBLOG.groupcon.id%>">
-							<input type="hidden" name="FORM_CON[lang_id]" value="<%$GET.uselang%>">
-							<input type="hidden" name="cmd" value="setallperm">
-    <%$subbtn%></form>
-    
+    <%include file="cb.panel.header.tpl" title="`$TCBLOG.group.groupname`"%>
+    <div class="btn-group">
+            <%$TCBLOG.langselect%>
+    </div>    
+    <form action="<%$PHPSELF%>" method="post" class="form jsonform">
+    	<div class="form-group">
+            <label>{LBL_TITLE}</label>
+    	     <input required="" value="<%$TCBLOG.groupcon.g_title|sthsc%>" class="form-control" name="FORM_CON[g_title]">
+        </div>
+    <% if ($TCBLOG.permchecks != "")%>            
+            <%include file="cb.panel.header.tpl" title="{LBL_PERMISSIONS}"%>
+                <%$TCBLOG.permchecks %>
+            <%include file="cb.panel.footer.tpl"%> 
+    <%/if%>
+            	
+        <input type="hidden" name="tid" value="<%$GET.id%>">
+        <input type="hidden" name="epage" value="<%$epage%>">
+		<input type="hidden" name="conid" value="<%$TCBLOG.groupcon.id%>">
+		<input type="hidden" name="FORM_CON[lang_id]" value="<%$GET.uselang%>">
+		<input type="hidden" name="cmd" value="setallperm">
+        <%$subbtn%>
+        </form>
+ <%include file="cb.panel.footer.tpl"%>   
 <%/if%>
 
 

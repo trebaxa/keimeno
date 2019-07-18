@@ -24,7 +24,7 @@
     <td><a href="<%$row.r_url%>" target="_blank"><%$row.r_url%></a></td>
     <td class="text-right">
        <div class="btn-group"> 
-        <a href="javascript:void(0);" class="btn btn-default" onclick="$('#reflinkedit').modal('show');load_json_form('<%$PHPSELF%>?epage=<%$epage%>&cmd=load_reflink&id=<%$row.id%>', 'reflistform')"><span class="glyphicon glyphicon-pencil"><!----></span></a>
+        <a href="javascript:void(0);" class="btn btn-secondary" onclick="$('#reflinkedit').modal('show');load_json_form('<%$PHPSELF%>?epage=<%$epage%>&cmd=load_reflink&id=<%$row.id%>', 'reflistform')"><span class="glyphicon glyphicon-pencil"><!----></span></a>
         <% foreach from=$row.icons item=picon name=cicons %><% $picon %><%/foreach%>
        </div> 
     </td>
@@ -38,5 +38,5 @@
 <h3>Konfiguration</h3>
 <%$REFLIST.config%>
 <%else%>
-<p class="bg-info text-info">Noch keine Ref.-Links hinzugefügt.</p>
+<p class="alert alert-info">Noch keine Ref.-Links hinzugefügt.</p>
 <%/if%>

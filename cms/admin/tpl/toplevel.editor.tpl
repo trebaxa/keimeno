@@ -1,6 +1,4 @@
-<div class="page-header">
-    <h1><i class="fa fa-home"><!----></i>Themen Manager</h1>
-</div>
+<%include file="cb.page.title.tpl" icon="fas fa-home" title="Themen Manager"%>
 
 <% if ($cmd=='show_all' || $cmd=='' || $cmd=='ax_show_all') %>
     <% include file="toplevel.table.tpl"%>

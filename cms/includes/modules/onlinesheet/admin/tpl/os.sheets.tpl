@@ -1,6 +1,6 @@
     <h3>{LBL_ONLINESHEET} <% if ($sheetid>0) %> - <% $sheet_obj.s_name %><%/if%></h3>
     <div class="btn-group">
-        <a class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&aktion=edit&sheetid=0">Neuen Antrag anlegen</a><br><br>
+        <a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&aktion=edit&sheetid=0">Neuen Antrag anlegen</a><br><br>
     </div>    
     <% if ($scount>0) %>
         <form method="post" action="<%$PHPSELF%>" enctype="multipart/form-data" class="form jsonform">
@@ -30,7 +30,7 @@
     <%/if%>		
     
     <% if ($scount==0) %>
-        <div class="bg-info text-info">Bitte legen Sie erst ein Antrag an.</div>
+        <div class="alert alert-info">Bitte legen Sie erst ein Antrag an.</div>
     <%/if%>	
     
     <form method="post" class="stdform form-inline" action="<%$PHPSELF%>" enctype="multipart/form-data">

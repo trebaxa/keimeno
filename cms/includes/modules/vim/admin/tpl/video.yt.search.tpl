@@ -11,7 +11,7 @@
 	<% foreach from=$VIM.query.cat_selectboxes key=qc item=catselectbox %>
 	<tr>
 	<td width="300">{LA_PLEASESELECTCATEGORY} (<% math equation="x + y" x=$qc y=1 %>):</td>
-	<td><select class="form-control" name="CIDS[]">
+	<td><select class="form-control custom-select" name="CIDS[]">
 	<% $catselectbox %>
 	</select>
 	</td>

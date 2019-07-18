@@ -1,8 +1,8 @@
 <% if ($cmd!="sync") %>
 <div class="btn-group">
-<a class="btn btn-default" href="<%$PHPSELF%>?section=<%$section%>&cmd=sync&epage=<%$epage%>">Sync. mit Vimeo</a>
+<a class="btn btn-secondary" href="<%$PHPSELF%>?section=<%$section%>&cmd=sync&epage=<%$epage%>">Sync. mit Vimeo</a>
 <% if ($VIM.loggedin==FALSE) %>
-  <a class="btn btn-default" href="<% $VIM.vi_authlink %>">authenticate Vimeo application</a>
+  <a class="btn btn-secondary" href="<% $VIM.vi_authlink %>">authenticate Vimeo application</a>
 <%/if%>
 </div>
 <%/if%>
@@ -30,7 +30,7 @@
 	 <td><% $file.v_duration %></td>
 	 <td><% $file.v_videodescription|truncate:300  %></td>
      <td>
-     <select class="form-control" name="CIDS[<% $file.v_videoid %>]">
+     <select class="form-control custom-select" name="CIDS[<% $file.v_videoid %>]">
      <option <% if (0==$file.vcm_cid) %>selected<%/if%> value="0">- nicht zugeordnet -</option>
      <% foreach from=$VIM.cat_selectbox_arr key=catid item=catname %>
        <option <% if ($catid==$file.vcm_cid) %>selected<%/if%> value="<%$catid%>"><% $catname %></option>
@@ -51,7 +51,7 @@
   <input type="hidden" name="epage" value="<%$epage%>">
 </form> 	 
 	<%else%>
-<div class="bg-info text-info">No results.</div>
+<div class="alert alert-info">No results.</div>
 	<%/if%>	
 <%/if%>
 

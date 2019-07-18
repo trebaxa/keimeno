@@ -5,15 +5,16 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
+        <h5 class="modal-title" id="unimodLabel">Deinstallation</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="unimodLabel">Deinstallation</h4>
+        
       </div>
       <div class="modal-body">
          <h3>Soll die App wirklich deinstalliert werden?</h3>
          <p class="alert alert-danger">Alle System Templates zu dieser App werden gelöscht!</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Abbruch</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbruch</button>
         <button data-ident="" class="btn btn-danger js-uninstallbtn">Ja</button>
       </div>
     </div>
@@ -55,7 +56,7 @@
                             </td>
                             <td><%$row.settings.description%></td>
                             <td class="text-right">                        
-                                <a class="btn btn-default js-updatemod" title="Update <% $row.settings.module_name %>" href="javascript:void(0)" data-ident="<%$row.settings.id%>">update</a>
+                                <a class="btn btn-secondary js-updatemod" title="Update <% $row.settings.module_name %>" href="javascript:void(0)" data-ident="<%$row.settings.id%>">update</a>
                             </td>
                         </tr>
                     <%/if%>

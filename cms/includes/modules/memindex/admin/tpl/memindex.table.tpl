@@ -33,7 +33,7 @@
                 <td><% if ($row.mailactive==1) %>{LA_AAKTIV}<%else%>-<%/if%></td>
                 <td><% if ($row.sperren==1) %>{LBL_YES}<%else%>-<%/if%></td>
                 <td class="text-right"><div class="btn-group">
-                <a href="kreg.php?cmd=show_edit&kid=<% $row.kid %>" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+                <a href="kreg.php?cmd=show_edit&kid=<% $row.kid %>" class="btn btn-secondary"><i class="far fa-edit"></i></a>
                 <% foreach from=$row.icons item=picon name=cicons %><% $picon %><%/foreach%></div></td>
             </tr>
         <%/foreach%>

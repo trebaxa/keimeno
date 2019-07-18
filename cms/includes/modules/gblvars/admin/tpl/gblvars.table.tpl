@@ -11,16 +11,18 @@
                     <th>Typ</th>
                     <th></th>
                 </tr>
-            </thead>        
+            </thead> 
+            <tbody>       
             <% foreach from=$GBLVARS.vars item=row %>
                 <tr>
                     <td><input type="text" class="form-control" name="FORM[<% $row.var_name %>][var_desc]" value="<% $row.var_desc|sthsc %>"></td>
                     <%include file="gblvars.tablesetting.tpl"%>
                     <td><code><% $row.smarty %></code></td>
                     <td><%$row.var_type%></td>
-                    <td class="text-right"> <% foreach from=$row.icons item=picon name=cicons %><% $picon %><%/foreach%></td>
+                    <%include file="cb.icons.tpl"%>
                 </tr>
             <%/foreach%>
+            </tbody>
         </table>
         <%$subbtn%>
     </form>

@@ -29,7 +29,7 @@
             <%/if%>
             <td class="text-right">
                <div class="btn-group"> 
-                <a href="javascript:void(0);" class="btn btn-default" onclick="add_show_box_tpl('<%$PHPSELF%>?epage=<%$epage%>&cmd=edit_feature&id=<%$row.id%>', 'Feature Editor');"><span class="glyphicon glyphicon-pencil"><!----></span></a>
+                <a href="javascript:void(0);" class="btn btn-secondary" onclick="add_show_box_tpl('<%$PHPSELF%>?epage=<%$epage%>&cmd=edit_feature&id=<%$row.id%>', 'Feature Editor');"><span class="glyphicon glyphicon-pencil"><!----></span></a>
                 <% foreach from=$row.icons item=picon name=cicons %><% $picon %><%/foreach%>
                </div> 
             </td>
@@ -60,7 +60,7 @@
         <td><%$row.fg_name%></td>
         <td class="text-right">
            <div class="btn-group"> 
-            <a href="javascript:void(0);" class="btn btn-default" onclick="$('#feateditgroup').modal('show');load_json_form('<%$PHPSELF%>?epage=<%$epage%>&cmd=load_feature_group&id=<%$row.id%>', 'featuregfroupform')"><span class="glyphicon glyphicon-pencil"><!----></span></a>
+            <a href="javascript:void(0);" class="btn btn-secondary" onclick="$('#feateditgroup').modal('show');load_json_form('<%$PHPSELF%>?epage=<%$epage%>&cmd=load_feature_group&id=<%$row.id%>', 'featuregfroupform')"><span class="glyphicon glyphicon-pencil"><!----></span></a>
             <% foreach from=$row.icons item=picon name=cicons %><% $picon %><%/foreach%>
            </div> 
         </td>

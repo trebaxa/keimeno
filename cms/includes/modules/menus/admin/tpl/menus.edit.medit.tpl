@@ -20,7 +20,7 @@
 
 <div class="form-group ">
     <label>Position</label>
-    <select class="form-control" name="FORM[mm_parent]">
+    <select class="form-control custom-select" name="FORM[mm_parent]">
        <option value="0">Root</option>
         <% foreach from=$MENUS.menu_selectox item=opt %>
             <%$opt%> 

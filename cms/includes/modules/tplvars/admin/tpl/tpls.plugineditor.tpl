@@ -22,7 +22,7 @@ img.delplugimg {
        <%$row.htmleditor%>
     <%/if%> 
     <% if ($row.var_type=='select') %>
-    <select class="form-control" name="PLUGOPT[<%$row.m_placeholder%>]">
+    <select class="form-control custom-select" name="PLUGOPT[<%$row.m_placeholder%>]">
         <% foreach from=$TPLVARS.selectboxes.$formkey item=value %>
             <option <% if ($value==$TPLVARS.tm_plugopt.$formkey) %>selected<%/if%> value="<%$value%>"><%$value%></option>
         <%/foreach%>
@@ -39,7 +39,7 @@ img.delplugimg {
             <div class="input-group">
                 <input class="form-control" type="text" placeholder="Keine Datei ausgewählt" readonly="" value="" name=""></input>
                 <input id="datei-<%$row.m_placeholder%>" name="<%$row.m_placeholder%>" class="xform-control" type="file" value="<% $TPLVARS.tm_plugopt.$formkey|hsc %>"  onchange="$('#plugin-submit-btn').click()"></input>
-                <span class="input-group-btn"><button class="btn btn-default" type="button">Durchsuchen...</button></span>
+                <span class="input-group-btn"><button class="btn btn-secondary" type="button">Durchsuchen...</button></span>
             </div>
     </div>
  

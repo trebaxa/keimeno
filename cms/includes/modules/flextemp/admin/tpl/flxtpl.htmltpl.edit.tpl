@@ -15,7 +15,7 @@
         <textarea name="FORM[t_java]" class="form-control se-html"><%$FLEXTEMP.flxedit.t_java|hsc%></textarea>
     </div>
     <div class="btn-group">
-        <a class="btn btn-default" href="#" onclick="reload_htmltpl();">Abbruch</a>
+        <a class="btn btn-secondary" href="#" onclick="reload_htmltpl();">Abbruch</a>
         <%$subbtn%>
     </div>       
 </form>

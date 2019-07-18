@@ -16,7 +16,7 @@
     <tr>
        <td><a href="javascript:void(0);" onclick="add_show_box_tpl('<%$PHPSELF%>?epage=<%$epage%>&cmd=show_css_edit&file=<%$row.l_file|escape:"url"%>', 'Editor')"><%$row.l_file%></a></td>
        <td><input type="text" class="form-control" size="3" value="<%$row.l_order%>" name="FORM[<%$row.id%>][l_order]"><input type="hidden" value="<%$row.id%>" name="FORM[<%$row.id%>][id]"></td>
-       <td class="text-right"><div class="btn-group"><% foreach from=$row.icons item=picon name=cicons %><% $picon %><%/foreach%></div></td>       
+       <td class="text-right"><div class="btn-group"><% foreach from=$row.icons item=picon name=cicons %><% $picon %><%/foreach%></div></td>
     </tr>
     <%/foreach%>
     </tbody>
@@ -24,7 +24,7 @@
     <%$subbtn%>
 </form>
 
-<div class="alert alert-info">
+<div class="alert alert-info mt-3">
 Diese CSS Dateien werden in 1 Datei zusammengeführt und komprimiert: <a href="../file_data/template/css/template.css" target="_css">/file_data/template/css/template.css</a>
 </div>
 

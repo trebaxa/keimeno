@@ -7,7 +7,7 @@
 <%/if%>
 
 <div class="btn-group mb-lg">
-    <a class="btn btn-primary" href="<%$eurl%>cmd=dayoptions&seldate=<%$OTIMER.selecteddate%>"><i class="fa fa-pencil"></i> Arbeitszeiten festlegen</a>
+    <a class="btn btn-primary" href="<%$eurl%>cmd=dayoptions&seldate=<%$OTIMER.selecteddate%>"><i class="far fa-edit"></i> Arbeitszeiten festlegen</a>
 </div>
 
 
@@ -33,7 +33,7 @@
 	  	  <td class="text-right"><%$employee.dt_duration%> Std.	  	  </td>
 	  	  <td class="text-right">
                         <div class="btn-group">
-                <a title="Arbeitszeit wiederholen lassen" class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&aktion=repeatworktime&mid=<%$employee.id%>&dayid=<%$employee.dt_dayid%>"><i class="fa fa-files-o"></i></a>
+                <a title="Arbeitszeit wiederholen lassen" class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&aktion=repeatworktime&mid=<%$employee.id%>&dayid=<%$employee.dt_dayid%>"><i class="far fa-file-alt"></i></a>
                 <%$employee.icon_del%>
             </div>
             </td>

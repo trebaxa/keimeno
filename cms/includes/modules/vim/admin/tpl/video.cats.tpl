@@ -1,8 +1,8 @@
 <h3>Video Kategorien</h3>
 <div class="btn-group">
-<a class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=videolist&section=videomanager">Videos verwalten</a>
-  <a class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&aktion=showall&section=cats">{LA_SHOWALL}</a>
-  <a class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=catadd&section=cats">{LA_ADDCATEGORY}</a>
+<a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=videolist&section=videomanager">Videos verwalten</a>
+  <a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&aktion=showall&section=cats">{LA_SHOWALL}</a>
+  <a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=catadd&section=cats">{LA_ADDCATEGORY}</a>
 </div>
 
 <% if ($aktion=="showall") %>
@@ -32,7 +32,7 @@
 <tr>
 	<td class="label">Position:</td>
 	<td>
-	<select class="form-control" name="FORM[ytc_parent]" >
+	<select class="form-control custom-select" name="FORM[ytc_parent]" >
 
 		<option value="0"> - ROOT - </option>
 

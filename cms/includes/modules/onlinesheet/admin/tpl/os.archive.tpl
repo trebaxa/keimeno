@@ -25,5 +25,5 @@
         <%assign var=tablesortid value="overture-table" scope="global"%>
         <%*include file="table.sorting.script.tpl"*%>   	
     <%else%>		
-        <div class="bg-info text-info">Sie liegen keine Antr&auml;ge vor.</div>
+        <div class="alert alert-info">Sie liegen keine Antr&auml;ge vor.</div>
     <%/if%>	

@@ -281,7 +281,7 @@ class cmsupt_class extends keimeno_class {
         $crj_obj->genCMSSetXml();
         unset($crj_obj);
         $this->LOGCLASS->addLog('UPDATE', 'CMS Update finished');
-        ECHO '<p class="bg-success text-success">DONE</p>';
+        ECHO '<p class="p-3 mb-2 bg-success text-white">DONE</p>';
         die();
     }
 
@@ -299,7 +299,7 @@ class cmsupt_class extends keimeno_class {
         $upt_obj = new upt_class();
         $upt_obj->validate_dirs();
         $upt_obj->complete_update();
-        ECHO '<p class="bg-success text-success">DONE</p>';
+        ECHO '<p class="p-3 mb-2 bg-success text-white">DONE</p>';
         die();
     }
 
@@ -311,7 +311,7 @@ class cmsupt_class extends keimeno_class {
     function cmd_sql_upt() {        
         $upt_obj = new upt_class();
         $upt_obj->update_database();
-        ECHO '<p class="bg-success text-success">DONE</p>';
+        ECHO '<p class="p-3 mb-2 bg-success text-white">DONE</p>';
         die();
     }
     
@@ -323,7 +323,7 @@ class cmsupt_class extends keimeno_class {
     function cmd_file_upt() {
         $upt_obj = new upt_class();
         $upt_obj->file_update();
-        ECHO '<p class="bg-success text-success">DONE</p>';
+        ECHO '<p class="p-3 mb-2 bg-success text-white">DONE</p>';
         die();
     }
 

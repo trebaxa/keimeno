@@ -5,8 +5,8 @@
 <div class="tab-content">
 
 <div class="btn-group mb-lg">
-    <a href="<%$eurl%>" class="btn btn-default ajax-link"><i class="fa fa-table"></i> Kampanien</a>
-    <a href="<%$eurl%>cmd=add" class="btn btn-default"><i class="fa fa-plus"></i> Neu</a>
+    <a href="<%$eurl%>" class="btn btn-secondary ajax-link"><i class="fa fa-table"></i> Kampanien</a>
+    <a href="<%$eurl%>cmd=add" class="btn btn-secondary"><i class="fa fa-plus"></i> Neu</a>
 </div>
 
 <% if ($cmd=="" || $cmd=="add") %>
@@ -47,7 +47,7 @@
                     <td class="text-right">
                      <div class="btn-group">
                         <% foreach from=$row.icons item=picon %><% $picon %><%/foreach%>
-                        <a href="<%$eurl%>cmd=load_chart&id=<%$row.KID%>" class="btn btn-default ajax-link"><i class="fa fa-eye"></i></a>
+                        <a href="<%$eurl%>cmd=load_chart&id=<%$row.KID%>" class="btn btn-secondary ajax-link"><i class="fa fa-eye"></i></a>
                      </div>   
                     </td> 
                 </tr>
@@ -72,7 +72,7 @@
                             </div>    
                             <div class="col-md-6 text-right">
                                 <div class="dropdown">
-                                  <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                                  <button class="btn btn-secondary btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
                                     Zeitraum
                                     <span class="caret"></span>
                                   </button>

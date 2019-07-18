@@ -1,42 +1,35 @@
 <link rel="stylesheet" href="../includes/modules/gallery/admin/css/style.css">
-<div class="page-header"><h1><i class="fa fa-photo"><!----></i> {LBL_PICMANAGER}</h1></div>
+<div class="page-header"><h1><i class="far fa-image"><!----></i> {LBL_PICMANAGER}</h1></div>
 <%*<div class="btn-group">
-    <a class="btn btn-default" href="javascript:void(0)" onclick="$('#js-fotoupl-galgroup').val('<%$GALADMIN.gid%>')" data-toggle="modal" data-target="#galfotoup">Foto Upload</a>
+    <a class="btn btn-secondary" href="javascript:void(0)" onclick="$('#js-fotoupl-galgroup').val('<%$GALADMIN.gid%>')" data-toggle="modal" data-target="#galfotoup">Foto Upload</a>
 </div>
 *%>
 <%include file="gallery.fotoupload.tpl"%>
 
-<% if ($GALADMIN.gid==0) %><div class="bg-info text-info">	{LBL_PLEASECHOOSEGAL}</div><%/if%>
-<% if ($GALADMIN.albumcount==0) %><div class="bg-info text-info">{LBL_ADDGAL}</div><%/if%>
+<% if ($GALADMIN.gid==0) %><div class="alert alert-info">	{LBL_PLEASECHOOSEGAL}</div><%/if%>
+<% if ($GALADMIN.albumcount==0) %><div class="alert alert-info">{LBL_ADDGAL}</div><%/if%>
  
-<form method="post" action="<%$PHPSELF%>" enctype="multipart/form-data" class="jsonform form-inline">
-    <input type="hidden" value="<%$epage%>" name="epage">
-    <input type="hidden" value="<%$section%>" name="section">
-    <div class="x_panel">
-      <div class="x_title">
-         <h2>Gallery <span class="js-gallery-title"></span></h2>
-         <div class="clearfix"></div>
-      </div>
-          <div class="x_content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-3 col-md-2 sidebar">	
-                    		<div id="adminmenu">
-                    		      <%include file="gallery.tree.tpl"%>
-                    		</div>
-                        </div>
-                        <div class="col-sm-9 col-md-10 main" id="galleryrightcont">
-                    		  <div id="js-fotolist"></div>
-                        </div>      
-                    </div>
+<%include file="cb.panel.header.tpl" title="Gallery"%>
+    <form method="post" action="<%$PHPSELF%>" enctype="multipart/form-data" class="jsonform">
+        <input type="hidden" value="<%$epage%>" name="epage">
+        <input type="hidden" value="<%$section%>" name="section">
+            <div class="row">
+                <div class="col-sm-3 col-md-2 sidebar">	
+                    <% if ($GALADMIN.albumcount>0) %>
+                        <h5>Gallery <span class="js-gallery-title"></span></h5>
+                    <%/if%>
+            		<div id="adminmenu">
+            		      <%include file="gallery.tree.tpl"%>
+            		</div>
                 </div>
+                <div class="col-sm-9 col-md-10 main" id="galleryrightcont">
+            		  <div id="js-fotolist"></div>
+                </div>     
+            
+              <div class="js-gallery-info col-md-12"></div>
           </div>
-          <div class="panel-footer js-gallery-info">
-          
-          </div>
-    </div>
-
-</form>
+    </form>
+<%include file="cb.panel.footer.tpl"%>
 
 <script>
 
@@ -60,8 +53,9 @@ function reloadfotos(gid) {
     <input type="hidden" name="cmd" value="post_to_flickr" >
     <input type="hidden" name="FORM[picid]" id="fl_picid" value="post_to_flickr" >
       <div class="modal-header">
+        <h5 class="modal-title" id="flickruploaderLabel">Flickr Upload</h5>
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="flickruploaderLabel">Flickr Upload</h4>
+        
       </div>
       <div class="modal-body">
 
@@ -80,7 +74,7 @@ function reloadfotos(gid) {
     
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <%$sendbtn%>
       </div>
       </form>

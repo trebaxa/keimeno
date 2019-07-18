@@ -1,6 +1,6 @@
 <div class="form-group">
     <label>Template:</label>
-    <select class="form-control" name="PLUGFORM[tplid]">
+    <select class="form-control custom-select" name="PLUGFORM[tplid]">
         <% foreach from=$WEBSITE.PLUGIN.result.templates item=row %>
             <option <% if ($WEBSITE.node.tm_plugform.tplid==$row.ID) %>selected<%/if%> value="<%$row.ID%>"><%$row.LABEL%></option>
         <%/foreach%>
@@ -22,7 +22,7 @@
     </div>
     <div class="form-group col-md-4">
         <label>Resize Method:</label>
-        <select class="form-control" name="PLUGFORM[method]">
+        <select class="form-control custom-select" name="PLUGFORM[method]">
             <option <% if ($WEBSITE.node.tm_plugform.method=='crop') %>selected<%/if%> value="crop">crop</option>
             <option <% if ($WEBSITE.node.tm_plugform.method=='resize') %>selected<%/if%> value="resize">resize</option>
             <option <% if ($WEBSITE.node.tm_plugform.method=='boxed') %>selected<%/if%> value="boxed">boxed</option>
@@ -41,7 +41,7 @@
     </div>
     <div class="form-group col-md-4">
         <label>Resize Method:</label>
-        <select class="form-control" name="PLUGFORM[method_big]">
+        <select class="form-control custom-select" name="PLUGFORM[method_big]">
             <option <% if ($WEBSITE.node.tm_plugform.method_big=='crop') %>selected<%/if%> value="crop">crop</option>
             <option <% if ($WEBSITE.node.tm_plugform.method_big=='resize') %>selected<%/if%> value="resize">resize</option>
             <option <% if ($WEBSITE.node.tm_plugform.method_big=='boxed') %>selected<%/if%> value="boxed">boxed</option>

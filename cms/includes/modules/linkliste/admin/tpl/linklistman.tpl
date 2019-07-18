@@ -43,5 +43,5 @@
 </fieldset>	
 </div>  
 
-<%else%><div class="bg-info text-info">Keine Kategorien gefunden.</div><%/if%>
+<%else%><div class="alert alert-info">Keine Kategorien gefunden.</div><%/if%>
  		

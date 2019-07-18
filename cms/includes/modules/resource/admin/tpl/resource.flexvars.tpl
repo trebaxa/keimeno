@@ -1,7 +1,7 @@
 <%include file="cb.panel.header.tpl" title="Inhalt Felder" class="panel-featured-primary"%>
     <div class="btn-group">
-        <a class="btn btn-default" href="#" onclick="reload_flexvars_vars();"><i class="fa fa-table"></i> Felder anzeigen</a>        
-        <button class="btn btn-default" type="button" onclick="add_show_box_tpl('<%$eurl%>cmd=show_flxvar_editor&v_con=1&varid=0&flxid=<%$GET.id%>','Variable Editor')"><i class="fa fa-plus"></i> Neu</button>
+        <a class="btn btn-secondary" href="#" onclick="reload_flexvars_vars();"><i class="fa fa-table"></i> Felder anzeigen</a>        
+        <button class="btn btn-secondary" type="button" onclick="add_show_box_tpl('<%$eurl%>cmd=show_flxvar_editor&v_con=1&varid=0&flxid=<%$GET.id%>','Variable Editor')"><i class="fa fa-plus"></i> Neu</button>
     </div>
     
 <div class="row">    

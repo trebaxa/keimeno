@@ -1,3 +1,4 @@
+<%include file="cb.panel.header.tpl" title="bearbeiten"%>
 <form class="jsonform" method="post" action="<%$PHPSELF%>" enctype="multipart/form-data">
         <input type="hidden" name="cmd" value="save_var"/>
         <input type="hidden" name="epage" value="<%$epage%>"/>
@@ -10,7 +11,7 @@
                 </div>
                 <div class="form-group">
                     <label>Var. Type</label>
-                    <select class="form-control" name="FORM[var_type]" id="js-vartype-change">
+                    <select class="form-control custom-select" name="FORM[var_type]" id="js-vartype-change">
                         <option <% if ($GBLVARS.VAR.var_type=='text') %>selected<%/if%> value="text">Textfeld</option>
                         <option <% if ($GBLVARS.VAR.var_type=='list') %>selected<%/if%> value="list">Liste</option>
                         <option <% if ($GBLVARS.VAR.var_type=='switch') %>selected<%/if%> value="switch">Schalter</option>
@@ -39,6 +40,7 @@
         <%$subbtn%>
     </div>
 </form>
+<%include file="cb.panel.footer.tpl"%>
 
 <script>
 $( "#js-vartype-change" ).change(function() {

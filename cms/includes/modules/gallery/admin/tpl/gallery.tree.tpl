@@ -1,11 +1,10 @@
-
 <div id="gallerytreecont">
 <ul>
 <li id="gallerytreeroot" data-haschildren="1" ><a id="ident-0" href="javascript:void(0)"  data-tid="0">Alben</a>
     <ul>
 <% function name="gal_tree" %>
    <%foreach from=$items item=element%>
-   <li id="gallerynode-<%$element.id%>" data-haschildren="<% if (!empty($element.children)) %>1<%else%>0<%/if%>" data-tid="<%$element.id%>" data-isadmin="<%$element.admin%>" <% if (empty($element.children)) %>data-jstree='{"icon":"glyphicon glyphicon-file"}'<%/if%>>   
+   <li id="gallerynode-<%$element.id%>" data-haschildren="<% if (!empty($element.children)) %>1<%else%>0<%/if%>" data-tid="<%$element.id%>" data-isadmin="<%$element.admin%>" <% if (empty($element.children)) %>data-jstree='{"icon":"far fa-file-alt"}'<%/if%>>   
    
     <a href="#" id="ident-<%$element.id%>" title="<%$element.catlabel|hsc%>"><%$element.groupname%>(<%$element.piccount%>)
    </a>
@@ -107,7 +106,7 @@
                     "valid_children" : ["default","file"]
                 },
                 "file" : {
-                    "icon" : "glyphicon glyphicon-file",
+                    "icon" : "far fa-file-alt",
                     "valid_children" : []
                 }
             },
@@ -115,7 +114,7 @@
      
         }).bind("select_node.jstree", function(event,data) {  
            var link_id = data.node.id;
-           if ($('#'+link_id).data('haschildren')==0 && $('#'+link_id).data('tid')>0) {                     
+           if ($('#'+link_id).data('haschildren')==0 && $('#'+link_id).data('tid')>0) {
                 simple_load('js-fotolist','<%$eurl%>&cmd=load_pics&gid='+$('#'+link_id).data('tid'));
                 return;
            } else {

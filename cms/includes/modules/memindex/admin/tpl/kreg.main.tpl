@@ -4,7 +4,7 @@
 
 <% if ($cmd=="show_edit") %>
       <% if ($CUSTOMER.kid==0 && $REQUEST.kid>0) %>
-        <div class="bg-danger">{LA_DIESERKUNDEEXISTIERTN}.</div>
+        <div class="p-3 mb-2 bg-danger text-white">{LA_DIESERKUNDEEXISTIERTN}.</div>
     <%/if%>
   <%include file="memindex.editor.tpl"%> 
 <%/if%>

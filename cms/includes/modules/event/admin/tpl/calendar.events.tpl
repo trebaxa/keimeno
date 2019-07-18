@@ -1,7 +1,7 @@
 <div class="btn-group">
     <div class="btn-group">
         <a class="btn btn-primary" href="javascript:void(0);" title="neu anlegen" onclick="pop_new_event();"><i class="fa fa-plus"></i></a>
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
           {LBL_CALTHEME}
           <span class="caret"></span>
         </button>
@@ -14,7 +14,7 @@
 
         
         <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
               {LBL_YEAR} <%$EVENT.cal_year%>
               <span class="caret"></span>
             </button>
@@ -100,8 +100,9 @@
         <input type="hidden" name="FORM_CON[lang_id]" value="<% $EVENT.langid %>">
         <input type="hidden" name="FORM[group_id]" value="<% $EVENT.calgroup_id %>">
       <div class="modal-header">
+        <h5 class="modal-title" id="addeventpopLabel">Eintrag hinzufügen</h5>
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="addeventpopLabel">Eintrag hinzufügen</h4>
+        
       </div>
       <div class="modal-body">
            <div class="form-group"> 
@@ -115,12 +116,12 @@
            </div>
            <div class="form-group">
             <label>Von</label> 
-            <select class="form-control" name="FORM[time_from]" id="start_hm">
+            <select class="form-control custom-select" name="FORM[time_from]" id="start_hm">
             <% foreach from=$EVENT.times item=uhrzeit  %><option value="<%$uhrzeit%>"><%$uhrzeit%></option><%/foreach%></select>
            </div>
            <div class="form-group"> 
             <label>Ende</label>
-            <select class="form-control" name="FORM[time_to]" id="end_hm">
+            <select class="form-control custom-select" name="FORM[time_to]" id="end_hm">
             <% foreach from=$EVENT.times item=uhrzeit  %><option  value="<%$uhrzeit%>"><%$uhrzeit%></option><%/foreach%>
             </select>
            </div>
@@ -130,7 +131,7 @@
            </div>             
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <%$subbtn%>
       </div>
       </form>

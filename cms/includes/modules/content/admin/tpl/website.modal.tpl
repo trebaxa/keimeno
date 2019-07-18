@@ -4,8 +4,9 @@
     <div class="modal-content">
     <form class="stdform" method="post" action="<%$PHPSELF%>">
       <div class="modal-header">
+        <h5 class="modal-title" id="dfsearchreLabel">{LBLA_SEARCHREPLACE}</h5>
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="dfsearchreLabel">{LBLA_SEARCHREPLACE}</h4>
+        
       </div>
       <div class="modal-body">
         <input type="hidden" name="cmd" value="searchreplace">
@@ -20,7 +21,7 @@
             </div>                    
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <%$replacebtn%>
       </div>
        </form>
@@ -34,8 +35,9 @@
     <div class="modal-content">
     <form class="searchform" role="form" method="post" action="<%$PHPSELF%>">
       <div class="modal-header">
+        <h5 class="modal-title" id="csearchLabel">{LA_INHALTEDURCHSUCHEN}</h5>
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="csearchLabel">{LA_INHALTEDURCHSUCHEN}</h4>
+        
       </div>
       <div class="modal-body">
         <input type="hidden" name="cmd" value="search">
@@ -47,7 +49,7 @@
         </div><!-- /.form-group -->
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <%$searchbtn%>
       </div>
        </form>
@@ -62,8 +64,9 @@
     <div class="modal-content">
     <form class="" role="form" method="post" action="<%$PHPSELF%>">
       <div class="modal-header">
+        <h5 class="modal-title" id="addpageLabel">{LA_NEUEINHALTSSEITEANLEG}</h5>
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="addpageLabel">{LA_NEUEINHALTSSEITEANLEG}</h4>
+        
       </div>
       <div class="modal-body">
             <input type="hidden" name="cmd" value="add_website">
@@ -79,7 +82,7 @@
   
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <% $subbtn %>
       </div>
        </form>

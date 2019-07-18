@@ -1,7 +1,7 @@
     <div class="btn-group">
-        <a class="btn btn-default" href="#" onclick="reload_dataset_vars('<%$GET.table%>');"><i class="fa fa-table"></i> Alle anzeigen</a>
-        <button class="btn btn-default" type="button" onclick="add_show_box_tpl('<%$eurl%>cmd=show_flxvar_editor&v_con=0&varid=0&flxid=<%$GET.id%>&table=<%$GET.table%>','Variable Editor')"><i class="fa fa-plus"></i> Neues Feld</button>
-        <a href="#" data-url="<%$eurl%>cmd=save_table_name" data-formname="f_table" data-id="<%$GET.table%>" class="js-clickedit btn btn-default"><%$RESOURCE.table.f_name%></a>
+        <a class="btn btn-secondary" href="#" onclick="reload_dataset_vars('<%$GET.table%>');"><i class="fa fa-table"></i> Alle anzeigen</a>
+        <button class="btn btn-secondary" type="button" onclick="add_show_box_tpl('<%$eurl%>cmd=show_flxvar_editor&v_con=0&varid=0&flxid=<%$GET.id%>&table=<%$GET.table%>','Variable Editor')"><i class="fa fa-plus"></i> Neues Feld</button>
+        <a href="#" data-url="<%$eurl%>cmd=save_table_name" data-formname="f_table" data-id="<%$GET.table%>" class="js-clickedit btn btn-secondary"><%$RESOURCE.table.f_name%></a>
         <% if ($RESOURCE.flextpl.f_table!=$GET.table) %>
             <button class="btn btn-danger" onclick="del_table('<%$GET.table%>')" type="button"><i class="fa fa-times"></i></button>
         <%/if%>
@@ -37,7 +37,7 @@
                     <td><code>&lt;%$row.<%$column%>.value%&gt;</code></td>                    
                     <td class="text-right">                    
                      <div class="btn-group">
-                        <button class="btn btn-default" type="button" onclick="add_show_box_tpl('<%$eurl%>cmd=show_flxvar_editor&v_con=0&varid=<%$row.id%>&flxid=<%$GET.id%>&table=<%$GET.table%>','Variable Editor')"><i class="fa fa-pencil-square-o"></i></button>                     
+                        <button class="btn btn-secondary" type="button" onclick="add_show_box_tpl('<%$eurl%>cmd=show_flxvar_editor&v_con=0&varid=<%$row.id%>&flxid=<%$GET.id%>&table=<%$GET.table%>','Variable Editor')"><i class="far fa-edit"></i></button>                     
                         <% foreach from=$row.icons item=picon %><% $picon %><%/foreach%>
                      </div>   
                     </td> 

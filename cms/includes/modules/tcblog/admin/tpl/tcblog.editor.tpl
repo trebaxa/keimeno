@@ -49,7 +49,7 @@
             <div class="input-group">
                 <input class="form-control" type="text" placeholder="Keine Datei ausgewählt" readonly="" value="" name="">
                 <input id="datei" class="xform-control autosubmit" type="file" onchange="this.previousElementSibling.value = this.value" value="" name="datei">
-                <span class="input-group-btn"><button class="btn btn-default" type="button">Durchsuchen...</button></span>
+                <span class="input-group-btn"><button class="btn btn-secondary" type="button">Durchsuchen...</button></span>
             </div>
             <br><i class="fa fa-trash del_blog_img" style="display:none;cursor:pointer;position:absolute;margin-left:10px;margin-top:10px;"></i>            
             <img src="./images/axloader.gif" id="blog-theme-img" style="display:none;" class="img-thumbnail">        
@@ -75,7 +75,7 @@
                 <div class="input-group">
                     <input class="form-control" type="text" placeholder="Keine Datei ausgewählt" readonly="" value="" name=""></input>
                     <input id="datei-gal" class="xform-control autosubmit" type="file" onchange="this.previousElementSibling.value = this.value" value="" name="datei"></input>
-                    <span class="input-group-btn"><button class="btn btn-default" type="button">Durchsuchen...</button></span>
+                    <span class="input-group-btn"><button class="btn btn-secondary" type="button">Durchsuchen...</button></span>
                     <input onclick="toggle_off();" type="submit" id="fmr-vfoto-btn" class="btn btn-primary" value="upload" style="display:none">
                 </div>                    
             </div>

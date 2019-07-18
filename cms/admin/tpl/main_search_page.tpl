@@ -12,5 +12,5 @@
     </div>
 <%/foreach%>
 <%else%>
-<div class="bg-info text-info">{LNL_NOSEARCHRESULT}</div>
+<div class="alert alert-info">{LNL_NOSEARCHRESULT}</div>
 <%/if%>

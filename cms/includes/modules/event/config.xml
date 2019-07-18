@@ -4,7 +4,7 @@
     <settings>
       <module_name>Kalender</module_name>
       <id>event</id>
-      <active>true</active>
+      <active>false</active>
       <version>1.2</version>
       <php>events.inc</php>
       <hasperm>true</hasperm>

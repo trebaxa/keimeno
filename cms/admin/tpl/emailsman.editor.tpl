@@ -1,8 +1,9 @@
-<h2><% $EM.mailtemplate.title %><small>[<%$EM.mailtemplate.id%>]</small></h2>
-	<% if ($GBLPAGE.access.language==TRUE)%>
+<%include file="cb.page.title.tpl" icon="far fa-envelope" title="`$EM.mailtemplate.title`" title_addon="[`$EM.mailtemplate.id`]"%>
+
+<% if ($GBLPAGE.access.language==TRUE)%>
     <div class="row">
         <div class="col-md-6">
-        <h3>Editor</h3>
+        <%include file="cb.panel.header.tpl" icon="far fa-envelope" title="Editor"%>
     	<form class="jsonform" method="post" action="<%$PHPSELF%>">
         	<input type="hidden" name="id" value="<% $EM.mailtpl.id %>">
         	<input type="hidden" name="epage" value="<%$epage%>">
@@ -20,7 +21,7 @@
         	</div>
         	<div class="form-group">
         		<label>Module:</label>
-        		<select class="form-control" name="module_id">           
+        		<select class="form-control custom-select" name="module_id">           
                     <option <% if ($EM.mailtemplate.module_id=="") %>selected<%/if%> value="">System</option>
                     <% foreach from=$EM.modlist item=row  %>
                          <option <% if ($EM.mailtemplate.module_id|lower==$row.settings.id) %>selected<%/if%> value="<%$row.settings.id%>"><%$row.settings.module_name%></option>
@@ -34,14 +35,15 @@
         	
         	<div class="subright"><%$subbtn%></div>    	
     	</form>
+                <%include file="cb.panel.footer.tpl"%>
     </div>
     <div class="col-md-6">
-    
+    <%include file="cb.panel.header.tpl" icon="far fa-envelope" title="Empf&auml;nger dieses Tempalte (Admin in Copy)"%>
   	<form class="jsonform form-inline" method="post" action="<%$PHPSELF%>">
     	<input type="hidden" name="id" value="<%$REQUEST.id%>">
     	<input type="hidden" name="epage" value="<%$epage%>">
-    	<input type="hidden" name="cmd" value="save_recipient_matrix">     	
-        <h3>Empf&auml;nger dieses Tempalte (Admin in Copy)</h3>
+    	<input type="hidden" name="cmd" value="save_recipient_matrix">    	
+        
         <table  class="table table-striped table-hover">
         <thead><tr>
                 <th>Name</th>
@@ -66,13 +68,14 @@
          </table>
     	<div class="subright"><%$subbtn%></div>    
     	</form>
+        <%include file="cb.panel.footer.tpl"%>
     </div>
 </div>        
    	
     <div class="row">
 
         <div class="col-md-6">
-            <h3>Variablen für Firmenangaben</h3>
+        <%include file="cb.panel.header.tpl" title="Variablen für Firmenangaben"%>            
             <table class="table"><% $EM.legende %></table>
                 
             <% if ($EM.mailtemplate.admin != 1) %>
@@ -83,11 +86,13 @@
             		<input type="submit" value="{LBL_DELETE}" class="btn btn-primary">
         		</form>
             <%else%>    
-                <div class="bg-info text-info">Dieses Template kann nicht gel&ouml;scht werden, <br>da es ein fester Bestandteil des CMS ist.</div>
+                <div class="alert alert-info">Dieses Template kann nicht gel&ouml;scht werden, <br>da es ein fester Bestandteil des CMS ist.</div>
             <%/if%>
+            <%include file="cb.panel.footer.tpl"%>
     	</div>
                 <div class="col-md-6">
-        <h3>Spezielle Variablen</h3>
+        
+        <%include file="cb.panel.header.tpl" title="Spezielle Variablen"%>
             <table class="table">
                 <tbody>
                 <tr>
@@ -124,6 +129,7 @@
                 </tr>
                 </tbody>                
             </table>
+            <%include file="cb.panel.footer.tpl"%>
         </div>
 	</div>    
 <% else %>

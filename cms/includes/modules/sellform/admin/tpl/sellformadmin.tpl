@@ -7,11 +7,11 @@
 
 
 <% if ($SELLFORM.rediinstalled==false) %>
-    <div class="bg-danger">ACHTUNG! Redimero API App muss installiert sein.</div>
+    <div class="p-3 mb-2 bg-danger text-white">ACHTUNG! Redimero API App muss installiert sein.</div>
 <%/if%>
 
 <% if ($SELLFORM.invalidredi==true) %>
-    <div class="bg-danger">Ungültige Redimero Verbindung</div>
+    <div class="p-3 mb-2 bg-danger text-white">Ungültige Redimero Verbindung</div>
 <%/if%>
 
 <% if ($section=='conf') %>
@@ -20,7 +20,7 @@
 
 <% if ($section=='' || $section=='start') %>
 <div class="btn-group">
-    <a class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=edit&section=editor">Neu anlegen</a>
+    <a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=edit&section=editor">Neu anlegen</a>
 </div>
 
 
@@ -75,7 +75,7 @@
         </tr>
         <tr>
             <td>Template:</td>
-            <td><select class="form-control" name="FORM[fo_tpl]">
+            <td><select class="form-control custom-select" name="FORM[fo_tpl]">
              <% foreach from=$SELLFORM.templates item=row %>
               <option <% if ($row.id==$SELLFORM.sform.fo_tpl) %>selected<%/if%> value="<%$row.id%>"><%$row.description%></option>
              <%/foreach%>
@@ -119,7 +119,7 @@
  <tr>
     <td><%$row.pname%></td>
     <td><input size="3" name="FORM[<%$row.pid%>][fm_order]" type="text" class="form-control" value="<%$row.fm_order%>"></td>
-    <td><select class="form-control" name="FORM[<%$row.pid%>][fm_tarifid]">
+    <td><select class="form-control custom-select" name="FORM[<%$row.pid%>][fm_tarifid]">
         <option value="0">- keine Zuordnung -</option>
         <% foreach from=$SELLFORM.sform.abo_traife item=tarif %>
             <option <% if ($tarif.id==$row.fm_tarifid) %>selected<%/if%> value="<%$tarif.id%>"><%$tarif.tarif_title%></option>

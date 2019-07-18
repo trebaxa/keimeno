@@ -9,7 +9,7 @@
                 </div><!-- /.form-group -->
                 <div class="form-group">
                     <label for="">{LA_FILTER}</label>
-                    <select class="form-control" onChange="location.href=this.options[this.selectedIndex].value">
+                    <select class="form-control custom-select" onChange="location.href=this.options[this.selectedIndex].value">
                         <option <% if ($MEMINDEX.settings.filter.type=='-') %>selected<%/if%> value="<%$PHPSELF%>?type=-&aktion=showall">{LBL_NOSELECTION}</option>
                         <option <% if ($MEMINDEX.settings.filter.type=='showinactive') %>selected<%/if%> value="<%$PHPSELF%>?type=showinactive&aktion=showall">{LBL_SHOWINACTIV}</option>
                         <option <% if ($MEMINDEX.settings.filter.type=='notmember') %>selected<%/if%> value="<%$PHPSELF%>?type=notmember&aktion=showall">{LBL_NOTMEMBER}</option>
@@ -21,7 +21,7 @@
                 </div><!-- /.form-group -->
                 <div class="form-group">
                     <label for="">Export {LA_NACH} XLS</label>
-                    <select class="form-control" size="-1" onChange="location.href=this.options[this.selectedIndex].value">
+                    <select class="form-control custom-select" size="-1" onChange="location.href=this.options[this.selectedIndex].value">
                         <option value="<% $PHPSELF %>?cmd=">-</option>
                         <option value="<% $PHPSELF %>?cmd=xls_kunden">{LA_ALLEKUNDEN}</option>
                         <option value="<% $PHPSELF %>?cmd=xls_kundennewsakt">Newsletter {LA_AAKTIV}</option>

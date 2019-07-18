@@ -12,7 +12,7 @@ class kf extends keimeno_class {
 
     /**
      * kf::__construct()
-     * 
+     *
      * @return
      */
     function __construct() {
@@ -23,7 +23,7 @@ class kf extends keimeno_class {
     /**
      * kf::gen_approve_icon()
      * Generate approval icon for backend; controlled with ajax
-     * 
+     *
      * @param mixed $id
      * @param mixed $value
      * @param string $acmd
@@ -32,12 +32,12 @@ class kf extends keimeno_class {
      */
     public static function gen_approve_icon($id, $value, $acmd = 'axapprove_item', $toadd = '') {
         if ($value == 1) {
-            return '<a class="btn btn-default axapprove" href="javascript:void(0);" title="{LBLA_APPROVED}" id="axapprove-' . $id . '" data-ident="' . $id .
+            return '<a class="btn btn-secondary axapprove" href="javascript:void(0);" title="{LBLA_APPROVED}" id="axapprove-' . $id . '" data-ident="' . $id .
                 '" data-value="0" data-cmd="' . $acmd . '" data-toadd="' . $toadd . '" data-epage="' . $_REQUEST['epage'] . '" data-phpself="' . $_SERVER['PHP_SELF'] .
                 '"  ><i class="fa fa-circle fa-green"><!----></i></a>';
         }
         else {
-            return '<a class="btn btn-default axapprove" href="javascript:void(0);" title="{LBLA_NOTAPPROVED}" id="axapprove-' . $id . '" data-ident="' . $id .
+            return '<a class="btn btn-secondary axapprove" href="javascript:void(0);" title="{LBLA_NOTAPPROVED}" id="axapprove-' . $id . '" data-ident="' . $id .
                 '" data-value="1" data-cmd="' . $acmd . '" data-toadd="' . $toadd . '" data-epage="' . $_REQUEST['epage'] . '" data-phpself="' . $_SERVER['PHP_SELF'] .
                 '" ><i class="fa fa-circle fa-red"><!----></i></a>';
         }
@@ -56,8 +56,8 @@ class kf extends keimeno_class {
     public static function gen_edit_icon($id, $toadd = '', $a = 'edit', $idc = 'id', $siteurl = '') {
         if ($siteurl == "")
             $siteurl = $_SERVER['PHP_SELF'];
-        return '<a class="btn btn-default ajax-link" title="{LBLA_EDIT}" href="' . $siteurl . '?' . (($_GET['epage'] != "") ? 'epage=' . $_GET['epage'] . '&' : '') . '' .
-            $idc . '=' . $id . '&aktion=' . $a . '&cmd=' . $a . $toadd . '"><i class="fa fa-pencil"></i></a>';
+        return '<a class="btn btn-secondary ajax-link" title="{LBLA_EDIT}" href="' . $siteurl . '?' . (($_GET['epage'] != "") ? 'epage=' . $_GET['epage'] . '&' : '') . '' .
+            $idc . '=' . $id . '&aktion=' . $a . '&cmd=' . $a . $toadd . '"><i class="far fa-edit"></i></a>';
     }
 
     /**
@@ -75,8 +75,8 @@ class kf extends keimeno_class {
         if ($siteurl == "")
             $siteurl = $_SERVER['PHP_SELF'];
         $target = ($target != "") ? $target : 'admincontent';
-        return '<a class="btn btn-default" title="{LBLA_EDIT}" href="javascript:void(0);" onClick="simple_load(\'' . $target . '\',\'' . $siteurl . '?' . (($_GET['epage'] !=
-            "") ? 'epage=' . $_GET['epage'] . '&' : '') . '' . $idc . '=' . $id . '&aktion=' . $a . '&cmd=' . $a . $toadd . '\')"><i class="fa fa-pencil-square-o"></i></a>';
+        return '<a class="btn btn-secondary" title="{LBLA_EDIT}" href="javascript:void(0);" onClick="simple_load(\'' . $target . '\',\'' . $siteurl . '?' . (($_GET['epage'] !=
+            "") ? 'epage=' . $_GET['epage'] . '&' : '') . '' . $idc . '=' . $id . '&aktion=' . $a . '&cmd=' . $a . $toadd . '\')"><i class="far fa-edit"></i></a>';
     }
 
     /**
@@ -92,20 +92,20 @@ class kf extends keimeno_class {
     public static function gen_plus_icon($id, $toadd = '', $a = 'edit', $idc = 'id', $siteurl = '') {
         if ($siteurl == "")
             $siteurl = $_SERVER['PHP_SELF'];
-        return '<a class="btn btn-default" title="{LBLA_PLUS}" href="' . $siteurl . '?' . (($_GET['epage'] != "") ? 'epage=' . $_GET['epage'] . '&' : '') . '' . $idc .
+        return '<a class="btn btn-secondary" title="{LBLA_PLUS}" href="' . $siteurl . '?' . (($_GET['epage'] != "") ? 'epage=' . $_GET['epage'] . '&' : '') . '' . $idc .
             '=' . $id . '&aktion=' . $a . $toadd . '"><i class="fa fa-plus"></i></a>';
     }
 
     /**
      * kf::gen_eye_icon()
-     * Generates an view icon with an eye. 
+     * Generates an view icon with an eye.
      * @param mixed $link
      * @param string $target
      * @param string $class
      * @return string
      */
     public static function gen_eye_icon($link, $target = '_self', $class = "") {
-        return '<a class="btn btn-default" ' . (($class != "") ? " class=\"" . $class . "\"" : "") . ' target="' . $target . '" title="{LBL_VIEW}" href="' . $link .
+        return '<a class="btn btn-secondary" ' . (($class != "") ? " class=\"" . $class . "\"" : "") . ' target="' . $target . '" title="{LBL_VIEW}" href="' . $link .
             '"><i class="fa fa-eye" ><!----></i></a>';
     }
 
@@ -117,7 +117,7 @@ class kf extends keimeno_class {
      * @return string
      */
     public static function gen_chart_icon($id, $toadd = '') {
-        return '<a class="btn btn-default" title="{LBLA_STATISTIC}" href="' . $_SERVER['PHP_SELF'] . '?' . (($_GET['epage'] != "") ? 'epage=' . $_GET['epage'] . '&' :
+        return '<a class="btn btn-secondary" title="{LBLA_STATISTIC}" href="' . $_SERVER['PHP_SELF'] . '?' . (($_GET['epage'] != "") ? 'epage=' . $_GET['epage'] . '&' :
             '') . 'id=' . $id . '&aktion=a_tracking' . $toadd . '"><i class="fa fa-bar-chart-o"><!----></i></a>';
     }
 
@@ -128,7 +128,7 @@ class kf extends keimeno_class {
      * @return string
      */
     public static function gen_del_img_tagADMIN($id) {
-        return '<a class="btn btn-default" title="{LBLA_DELETE}" href="' . $_SERVER['PHP_SELF'] . '?' . (($_GET['epage'] != "") ? 'epage=' . $_GET['epage'] . '&' : '') .
+        return '<a class="btn btn-secondary" title="{LBLA_DELETE}" href="' . $_SERVER['PHP_SELF'] . '?' . (($_GET['epage'] != "") ? 'epage=' . $_GET['epage'] . '&' : '') .
             'id=' . $id . '&aktion=a_delconfirm"><i class="fa fa-trash"><!----></i></a>';
     }
 
@@ -139,7 +139,7 @@ class kf extends keimeno_class {
      * @return string
      */
     public static function gen_clone_icon($id) {
-        return '<a class="btn btn-default" title="{LBLA_CLONE}" href="' . $_SERVER['PHP_SELF'] . '?' . (($_GET['epage'] != "") ? 'epage=' . $_GET['epage'] . '&' : '') .
+        return '<a class="btn btn-secondary" title="{LBLA_CLONE}" href="' . $_SERVER['PHP_SELF'] . '?' . (($_GET['epage'] != "") ? 'epage=' . $_GET['epage'] . '&' : '') .
             'id=' . $id . '&cmd=a_klonen"><i class="fa fa-files-o"><!----></i></a>';
     }
 
@@ -156,7 +156,7 @@ class kf extends keimeno_class {
      * @return string
      */
     public static function gen_std_icon($id, $icon, $alt_tag, $id_name = 'id', $aktion = '', $toadd = '', $php_script) {
-        return '<a class="btn btn-default" title="' . $alt_tag . '" href="' . $php_script . '?' . (($_GET['epage'] != "") ? 'epage=' . $_GET['epage'] . '&' : '') . '' .
+        return '<a class="btn btn-secondary" title="' . $alt_tag . '" href="' . $php_script . '?' . (($_GET['epage'] != "") ? 'epage=' . $_GET['epage'] . '&' : '') . '' .
             $id_name . '=' . $id . '&cmd=' . $aktion . $toadd . '"><i class="fa ' . $icon . '" ><!----></i></a>';
     }
 
@@ -214,7 +214,7 @@ class kf extends keimeno_class {
     /**
      * kf::load_permissions()
      * Loads permission of logged in admin.
-     * 
+     *
      */
     public static function load_permissions() {
         global $kdb;
@@ -323,7 +323,7 @@ class kf extends keimeno_class {
 
     /**
      * kf::remove_doublewhitespace()
-     * 
+     *
      * @param mixed $s
      * @return
      */
@@ -333,7 +333,7 @@ class kf extends keimeno_class {
 
     /**
      * kf::remove_whitespace()
-     * 
+     *
      * @param mixed $s
      * @return
      */
@@ -343,7 +343,7 @@ class kf extends keimeno_class {
 
     /**
      * kf::remove_whitespace_feed()
-     * 
+     *
      * @param mixed $s
      * @return
      */
@@ -353,7 +353,7 @@ class kf extends keimeno_class {
 
     /**
      * kf::remove_keimeno_vars()
-     * 
+     *
      * @param mixed $html
      * @return
      */
@@ -371,7 +371,7 @@ class kf extends keimeno_class {
 
     /**
      * kf::smart_clean()
-     * 
+     *
      * @param mixed $s
      * @return
      */
@@ -392,7 +392,7 @@ class kf extends keimeno_class {
 
     /**
      * kf::format_meta()
-     * 
+     *
      * @param mixed $description
      * @param integer $length
      * @return
@@ -437,8 +437,8 @@ class kf extends keimeno_class {
             $confirm = gen_java_confirm($confirm);
         else
             $confirm = '';
-        return '<input onClick="toggle_off();" ' . $confirm . ' title="' . $title . '" type="submit" id="' . $rand_name . '" name="' . $rand_name .
-            '" class="btn btn-primary" value="' . htmlspecialchars($value) . '">';
+        return '<button onClick="toggle_off();" class="btn btn-primary" type="submit" id="' . $rand_name . '" ' . $confirm . ' title="' . $title . '">'.htmlspecialchars($value).'</button>';
+        #return '<input onClick="toggle_off();" ' . $confirm . ' title="' . $title . '" type="submit" id="' . $rand_name . '" name="' . $rand_name .            '" class="btn btn-primary" value="' . htmlspecialchars($value) . '">';
     }
 
     /**
@@ -509,7 +509,7 @@ class kf extends keimeno_class {
                     $_SESSION['modul_selected'] = $MODULE[$key];
             }
         }
-        return '<select class="form-control" name="FORM_TEMPLATE[module_id]">' . $olist . '</select>';
+        return '<select class="form-control custom-select" name="FORM_TEMPLATE[module_id]">' . $olist . '</select>';
     }
 
     /**
@@ -552,9 +552,9 @@ class kf extends keimeno_class {
 
     /**
      * kf::validate_module()
-     * 
+     *
      * @param mixed $key
-     * 
+     *
      */
     public static function validate_module($key) {
         global $content, $gbl_config, $smarty, $kdb, $crj_obj;
@@ -569,7 +569,7 @@ class kf extends keimeno_class {
      * kf::echo_template()
      * Direct output of template to browser. Userfull for ajax request like simple_load()
      * @param mixed $tpl
-     * 
+     *
      */
     public static function echo_template($tpl) {
         self::output('<% include file="' . $tpl . '.tpl" %>');
@@ -595,7 +595,7 @@ class kf extends keimeno_class {
      * Outputs content to browser
      * @param mixed $html
      * @param integer $langid
-     * 
+     *
      */
     public static function output($html, $langid = 0) {
         global $TCMASTER;
@@ -609,7 +609,7 @@ class kf extends keimeno_class {
      * kf::simple_output()
      * (desperate function)
      * @param mixed $html
-     * 
+     *
      */
     public static function simple_output($html) {
         global $smarty;
@@ -643,7 +643,7 @@ class kf extends keimeno_class {
 
     /**
      * kf::is_superadmin()
-     * 
+     *
      * @return
      */
     public static function is_superadmin() {

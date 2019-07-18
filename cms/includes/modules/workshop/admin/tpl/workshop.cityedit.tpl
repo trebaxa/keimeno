@@ -22,14 +22,14 @@
                     <input type="text" name="" value="" class="form-control" readonly="" placeholder="Keine Datei ausgewählt"/>
                     <input id="datei" type="file" name="datei" value="" class="xform-control autosubmit" onchange="this.previousElementSibling.value = this.value">
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">Durchsuchen...</button>          
+                        <button class="btn btn-secondary" type="button">Durchsuchen...</button>          
                     </span>
                 </div><!-- /input-group -->
             </div><!-- /.form-group -->   
             <% if ($WORKSHOP.city.c_image!="") %>
-                <img src="../file_data/workshop/<%$WORKSHOP.city.c_image%>" id="js-city-image" class="img-responsive" />
+                <img src="../file_data/workshop/<%$WORKSHOP.city.c_image%>" id="js-city-image" class="img-fluid" />
                 <br>
-                <button class="btn btn-default" type="button" onclick="ws_delete_city_image(<%$GET.id%>);"><i class="fa fa-trash"></i></button>
+                <button class="btn btn-secondary" type="button" onclick="ws_delete_city_image(<%$GET.id%>);"><i class="fa fa-trash"></i></button>
             <%/if%>
   <%$subbtn%> 
   </div>

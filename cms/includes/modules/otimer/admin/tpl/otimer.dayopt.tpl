@@ -79,8 +79,8 @@
   	   	      </td>
   	   	      <td class="text-right">
                 <div class="btn-group">
-                       <a title="Arbeitszeit wiederholen lassen" class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&aktion=repeatworktime&mid=<%$employee.id%>&dayid=<%$employee.dt_dayid%>"><i class="fa fa-files-o"></i></a>
-                       <a class="btn btn-default" title="Programme ansehen" href="run.php?epage=<%$epage%>&aktion=otprograms&mid=<%$employee.id%>"><i class="fa fa-eye"></i></a>
+                       <a title="Arbeitszeit wiederholen lassen" class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&aktion=repeatworktime&mid=<%$employee.id%>&dayid=<%$employee.dt_dayid%>"><i class="far fa-file-alt"></i></a>
+                       <a class="btn btn-secondary" title="Programme ansehen" href="run.php?epage=<%$epage%>&aktion=otprograms&mid=<%$employee.id%>"><i class="fa fa-eye"></i></a>
                     </div>   
                   </td>                       
 	  	  </tr>

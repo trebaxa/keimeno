@@ -4,16 +4,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Keimeno Login</title>
-    <link href="./theme/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./theme/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- Bootstrap -->
-    <link rel="stylesheet" type="text/css" href="./css/layout-login.css">
-    <%*<link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">    
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">*%>
+    <link rel="stylesheet" href="./assets/fonts/fontawesome/css/all.css">
+    <link href="./assets/css/app.css" rel="stylesheet">    
+    <link rel="stylesheet" type="text/css" href="./assets/css/layout-login.css">
     
-
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -21,15 +16,16 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <link rel="shortcut icon" href="./images/favicon.ico" />
-    <script type="text/javascript" src="./js/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="./js/functions.js"></script>
-    <script type="text/javascript" src="./js/login.js"></script>
+    <script src="./assets/js/jquery.min.js"></script><!-- 331 -->
+    <script src="./assets/js/app.js"></script>            
+    <script src="./assets/js/functions.js"></script>
+    <script type="text/javascript" src="./assets/js/login.js"></script>
   </head>
   <body id="admin-login-wrapper">
 
     <div class="container">
-
-      <div class="col-xs-12 col-xs-offset-0 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4">
+<div class="row">
+      <div class="col-xs-12 col-xs-offset-0 col-sm-4 col-sm-offset-4 col-md-4 offset-md-4">
         <div id="login-box">
           <div class="login-header">
             <h1 class="sr-only">Admin Login</h1>
@@ -75,11 +71,10 @@
                   This work is licensed under GNU GENERAL PUBLIC LICENSE Version 2 or higher.</p>
                 </div>
           
+            </div>
         </div>
-      </div>
-
     </div>
-
+</div>
 
   </body>
 </html>

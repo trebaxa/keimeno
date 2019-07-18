@@ -1,10 +1,10 @@
 <% assign var=counter value=0 %>
 <div class="btn-group form-inline">
-    <a class="btn btn-default" href="run.php?epage=<%$epage%>&aktion=addnewdate&seldate=<%$seldate_us%>"><i class="fa fa-plus"></i> {LBL_ADD_OTDATE} <% $seldateform%> {LBL_CREATE}</a>
-    <a class="btn btn-default" href="run.php?epage=<%$epage%>&aktion=dayoptions&seldate=<%$seldate_us%>"><i class="fa fa-clock-o"></i> Arbeitszeiten vom <% $seldateform%></a>
+    <a class="btn btn-secondary" href="run.php?epage=<%$epage%>&aktion=addnewdate&seldate=<%$seldate_us%>"><i class="fa fa-plus"></i> {LBL_ADD_OTDATE} <% $seldateform%> {LBL_CREATE}</a>
+    <a class="btn btn-secondary" href="run.php?epage=<%$epage%>&aktion=dayoptions&seldate=<%$seldate_us%>"><i class="fa fa-clock-o"></i> Arbeitszeiten vom <% $seldateform%></a>
  
 <div class="btn-group">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
       {LBL_OTTHEME}
       <span class="caret"></span>
     </button>
@@ -13,7 +13,7 @@
     </ul>
     </div> 
 <div class="btn-group">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
       {LBL_YEAR} <%$OTOBJ.set_year%>
       <span class="caret"></span>
     </button>
@@ -69,7 +69,7 @@
  
 
 <%include file="cb.panel.header.tpl" title="{LBL_OTOVERVIEW}"%>        
-    <div id='loading' class="bg-info text-info" style='display:none;position:absolute'>loading...</div>
+    <div id='loading' class="alert alert-info" style='display:none;position:absolute'>loading...</div>
     <div id='calendar'></div>
 <%include file="cb.panel.footer.tpl" %> 
 

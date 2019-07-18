@@ -1,13 +1,11 @@
-<div class="page-header">
-    <h1><i class="fa fa-cloud"><!----></i>Web Explorer</h1>
-</div><!-- /.page-header -->
+<%include file="cb.page.title.tpl" icon="fa fa-cloud" title="Web Explorer"%>
 
 <% if ($aktion=='') %>
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">{LA_IHREDATEIEN}</h3><!-- /.panel-title -->
         </div><!-- /.panel-heading -->
-        <iframe src="../cjs/ResponsiveFilemanager/filemanager/dialog.php?type=2&editor=mce_0&lang=eng&fldr=" style="width:100%;height:800px;border:0px"></iframe>
+        <iframe src="../cjs/responsive_filemanager/filemanager/dialog.php?type=2&editor=mce_0&lang=eng&fldr=" style="width:100%;height:800px;border:0px"></iframe>
     </div><!-- /.panel panel-default -->
 <%/if%>
 
@@ -21,7 +19,7 @@
         </div><!-- /.panel-heading -->
 
         <label>Verzeichnis: </label>
-        <select class="form-control"  onChange="location.href=this.options[this.selectedIndex].value">
+        <select class="form-control custom-select"  onChange="location.href=this.options[this.selectedIndex].value">
             <option <% if ($GET.dir=='fs') %>selected<%/if%> value="<%$PHPSELF%>?epage=<%$epage%>&aktion=analyze_dirs&dir=fs">File Server</option>
             <option <% if ($GET.dir=='img') %>selected<%/if%> value="<%$PHPSELF%>?epage=<%$epage%>&aktion=analyze_dirs&dir=img">CMS System Bilder</option>
             <option <% if ($GET.dir=='js') %>selected<%/if%> value="<%$PHPSELF%>?epage=<%$epage%>&aktion=analyze_dirs&dir=js">Java Plugins</option>

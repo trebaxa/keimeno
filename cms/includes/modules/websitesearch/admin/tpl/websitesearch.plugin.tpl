@@ -25,19 +25,19 @@ label {
     <input size="3" maxlength="2" type="text" class="form-control" name="PLUGFORM[itemcount]" value="<% $WEBSITE.node.tm_plugform.itemcount %>">
 
 <label>Sucherergebnis Template:</label>
-<select class="form-control" name="PLUGFORM[srtpl]">
+<select class="form-control custom-select" name="PLUGFORM[srtpl]">
  <% foreach from=$WEBSITE.PLUGIN.result.templates item=row %>
     <option <% if ($WEBSITE.node.tm_plugform.srtpl==$row.ID) %>selected<%/if%> value="<%$row.ID%>"><%$row.LABEL%></option>
  <%/foreach%>
 </select>
-<div class="bg-info text-info">Bitte folgende URL Variable im Suchformular für "action" verwenden: <%$WEBSITE.node.urltpl%></div>
+<div class="alert alert-info">Bitte folgende URL Variable im Suchformular für "action" verwenden: <%$WEBSITE.node.urltpl%></div>
 </fieldset>
 </div>
 
 <div class="sfe">
 <fieldset class="plugin">
 <label>Such-Formular Template:</label>
-<select class="form-control" name="PLUGFORM[sformtpl]">
+<select class="form-control custom-select" name="PLUGFORM[sformtpl]">
  <% foreach from=$WEBSITE.PLUGIN.result.templates item=row %>
     <option <% if ($WEBSITE.node.tm_plugform.sformtpl==$row.ID) %>selected<%/if%> value="<%$row.ID%>"><%$row.LABEL%></option>
  <%/foreach%>

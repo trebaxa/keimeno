@@ -17,7 +17,7 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>{LA_ANREDE}</label>
-                                <select class="form-control" name="FORM[anrede_sign]">
+                                <select class="form-control custom-select" name="FORM[anrede_sign]">
                                     <%$CUSTOMER.anrede_arr%>                                  
                                 </select>
                             </div><!-- /.form-group -->

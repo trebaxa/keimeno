@@ -29,7 +29,7 @@
 	<input type="hidden" name="epage" value="<%$epage%>">
 </form>
 <%else%> 
-<div class="bg-info text-info">Noch keine Seite aufgenommen.</div>
+<div class="alert alert-info">Noch keine Seite aufgenommen.</div>
 <%/if%>
 <%/if%>
 
@@ -53,7 +53,7 @@
      			<td width="10"><input type="checkbox" name="bwords[]" value="<% $sword.si_word %>"></td>
             	<td><p style="word-wrap: break-word;"><% $sword.si_word %></p></td>
             	<td class="text-right" width="130"><% $sword.icon_del %>
-            	<a class="btn btn-default pull-right" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=blockword&word=<% $sword.si_word %>"><i class="fa fa-eraser"><!----></i></a></td>
+            	<a class="btn btn-secondary pull-right" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=blockword&word=<% $sword.si_word %>"><i class="fa fa-eraser"><!----></i></a></td>
          </tr>
        <% if $smarty.foreach.gloop.iteration % 10 == 0 && $smarty.foreach.gloop.last==false%>
        </table>
@@ -70,14 +70,14 @@
   </table>
 </div>
 </div>
-  	<label>ausgew&auml;hlte:</label><select class="form-control" name="cmd">
+  	<label>ausgew&auml;hlte:</label><select class="form-control custom-select" name="cmd">
 		<option value="massblock" <% if ($POST.task=='massblock') %>selected<%/if%>>blockieren</option>				
 	</select>
   
 	<input type="hidden" name="epage" value="<%$epage%>"><%$subbtn%>
 </form>
 <%else%> 
-<div class="bg-info text-info">Noch keine W&ouml;rter aufgenommen.</div>
+<div class="alert alert-info">Noch keine W&ouml;rter aufgenommen.</div>
 <%/if%>
 <%/if%>
 
@@ -88,7 +88,7 @@
 <div class="col-md-4">
 <h3>Aufgaben</h3>
 <form action="<%$PHPSELF%>" onSubmit="showPageLoadInfo();" class="form-inline" method="post" enctype="multipart/form-data">
-	<select class="form-control" name="task">
+	<select class="form-control custom-select" name="task">
 		<option value="autocrawl" <% if ($POST.task=='autocrawl') %>selected<%/if%>>Automatische Indexierung starten</option>				
 		<option value="clean_sites" <% if ($POST.task=='clean_sites') %>selected<%/if%>>Index nach Vorgabe s&auml;ubern</option>				
 		<option value="reset" <% if ($POST.task=='reset') %>selected<%/if%>>Kompletten Suchindex leeren</option>		
@@ -109,7 +109,7 @@
 </form>
 </div>
 <div class="col-md-4">
-<div class="bg-info text-info">Verwenden Sie das "%" Zeichen als Platzhalter.</div>
+<div class="alert alert-info">Verwenden Sie das "%" Zeichen als Platzhalter.</div>
 </div>
 </div>
 <%/if%>

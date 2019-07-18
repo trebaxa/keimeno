@@ -2,7 +2,7 @@
 
 <% if (count($PNF.ptable)>0) %> 
 Einträge: <span class="badge"><%$PNF.ptable_count%></span>   
-<a href="<%$eurl%>cmd=clear" class="btn btn-default json-link">Tabelle leeren</a>       	
+<a href="<%$eurl%>cmd=clear" class="btn btn-secondary json-link">Tabelle leeren</a>       	
 <form action="<%$PHPSELF%>" method="POST" class="jsonform form-inline">
 <table class="table table-striped table-hover" >
 			<thead>
@@ -34,7 +34,7 @@ Einträge: <span class="badge"><%$PNF.ptable_count%></span>
 </form>
 <%include file="cb.panel.footer.tpl"%> 
 <%else%>
-<div class="bg-success">Prima! Es wurden bisher noch alle Seiten gefunden.</div>
+<div class="alert alert-success">Prima! Es wurden bisher noch alle Seiten gefunden.</div>
 <%/if%>
 
 <script>

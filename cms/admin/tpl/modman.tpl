@@ -1,5 +1,4 @@
-<div class="page-header"><h1><i class="fa fa-cubes"><!----></i> App Manager</h1></div>
-
+<%include file="cb.page.title.tpl" icon="fa fa-cubes" title="App Manager"%>
 
 <% if ($section=="pool") %>
     <% include file="modman.pool.tpl" %>
@@ -14,9 +13,9 @@
 <% if ($section=="") %>
 
     <div class="btn-group">
-        <a class="btn btn-default" href="javascript:void(0)" onclick="$('#newmod').slideDown()">Neue App</a>  
-        <a class="btn btn-default" href="javascript:void(0)" onclick="compile_all_apps();">Apps neu kompilieren</a>
-        <a class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&section=appupstart">App bei Keimeno veröffentlichen</a>
+        <a class="btn btn-secondary" href="javascript:void(0)" onclick="$('#newmod').slideDown()">Neue App</a>  
+        <a class="btn btn-secondary" href="javascript:void(0)" onclick="compile_all_apps();">Apps neu kompilieren</a>
+        <a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&section=appupstart">App bei Keimeno veröffentlichen</a>
     </div>
     
     <div id="newmod" style="display:none;margin:10px 0px 30px 0px;">

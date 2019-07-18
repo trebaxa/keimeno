@@ -67,7 +67,7 @@
 	<%/foreach%>		
 </table>
 <div class="btn-group">
- <a class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=alphasort_cats&parent=<%$GET.starttree%>">sort categories by name</a>
+ <a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=alphasort_cats&parent=<%$GET.starttree%>">sort categories by name</a>
 </div>
 <%/if%>
 		</td></tr></table>

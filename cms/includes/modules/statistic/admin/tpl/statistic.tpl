@@ -1,11 +1,11 @@
 <% if ($cmd=='') %>
 <div class="page-header"><h1>Auswertungen</h1></div>
 <div class="btn-group">
-    <a class="btn btn-default" href="javascript:void(0)" onclick="load_ref();">Referer</a>  
-    <a class="btn btn-default" href="javascript:void(0)" onclick="load_wio();">Wer ist online?</a>  
-    <a class="btn btn-default" href="javascript:void(0)" onclick="load_se();">Suchmaschinen</a>  
-    <a class="btn btn-default" href="javascript:void(0)" onclick="load_visitors();">Besucher</a> 
-    <a class="btn btn-default" href="javascript:void(0)" onclick="load_browsers();">Browser</a>
+    <a class="btn btn-secondary" href="javascript:void(0)" onclick="load_ref();">Referer</a>  
+    <a class="btn btn-secondary" href="javascript:void(0)" onclick="load_wio();">Wer ist online?</a>  
+    <a class="btn btn-secondary" href="javascript:void(0)" onclick="load_se();">Suchmaschinen</a>  
+    <a class="btn btn-secondary" href="javascript:void(0)" onclick="load_visitors();">Besucher</a> 
+    <a class="btn btn-secondary" href="javascript:void(0)" onclick="load_browsers();">Browser</a>
 </div>
 
 <%include file="cb.panel.header.tpl" title="Auswertung"%>

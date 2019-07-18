@@ -1,8 +1,9 @@
-    <div class="page-header"><h1><i class="fa fa-columns"><!----></i> Frameworks</h1></div>
+<%include file="cb.page.title.tpl" icon="fa fa-columns" title="Frameworks"%>
+
 
 <div class="form-group">
     <label>Framework Auswahl:</label> 
-    <select class="form-control" id="fwselect">
+    <select class="form-control custom-select" id="fwselect">
     <% foreach from=$FRAMEW.frameworks item=row %>
         <option value="<%$row.fw_number%>">Framework <%$row.fw_number%></option>
     <%/foreach%>

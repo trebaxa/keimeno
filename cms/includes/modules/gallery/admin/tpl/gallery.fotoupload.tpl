@@ -8,14 +8,15 @@
         <input type="hidden" name="cmd" value="insertpic">
       
       <div class="modal-header">
+        <h5 class="modal-title" id="galfotoupLabel">Foto Upload</h5>
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="galfotoupLabel">Foto Upload</h4>
+        
       </div>
       
       <div class="modal-body">      
       <div class="form-group">
 		<label>Gallery:</label>
-        <select class="form-control" id="js-fotoupl-galgroup" name="FORM[group_id]">
+        <select class="form-control custom-select" id="js-fotoupl-galgroup" name="FORM[group_id]">
             <% foreach from=$GALADMIN.tree_select key=catid item=cname %>
                 <option value="<%$catid%>"><%$cname%></option>
             <%/foreach%>
@@ -44,7 +45,7 @@
 	  </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <%$subbtn%>
       </div>
       </form>

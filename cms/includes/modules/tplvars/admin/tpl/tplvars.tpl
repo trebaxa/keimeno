@@ -12,7 +12,7 @@
 <div class="tabs">
 <!-- TAB1 -->
 <div id="tabvartpl1" class="tabvisi" style="display:block">
-    <div class="btn-group"><a class="btn btn-default" href="javascript:void(0)" onclick="$('#tpleditor').slideDown(200)">Neue Vorlage</a></div>
+    <div class="btn-group"><a class="btn btn-secondary" href="javascript:void(0)" onclick="$('#tpleditor').slideDown(200)">Neue Vorlage</a></div>
     
     <div id="tpleditor" style="display:none">
         <form action="<%$PHPSELF%>" method="POST" class="jsonform">
@@ -35,13 +35,13 @@
 <div class="row">
     <div class="col-md-6">
     <h3>Template Variablen</h3>
-     <div class="btn-group"><a class="btn btn-default" href="javascript:void(0)" onclick="$('#tplvar-var-form').trigger('reset');$('#tvar-id').val('');">Neue Variable</a></div>
+     <div class="btn-group"><a class="btn btn-secondary" href="javascript:void(0)" onclick="$('#tplvar-var-form').trigger('reset');$('#tvar-id').val('');">Neue Variable</a></div>
     <form action="<%$PHPSELF%>" method="POST" class="jsonform" id="tplvar-var-form">
     <input type="hidden" name="epage" value="<%$epage%>">
     <input type="hidden" name="cmd" value="savever">
     <input type="hidden" name="id" id="tvar-id" value="">
             <label>Var.-Typ:</label>
-            <select class="form-control" name="FORM[var_type]" id="var-type">
+            <select class="form-control custom-select" name="FORM[var_type]" id="var-type">
                 <option value="editfield">Edit Field</option>
                 <option value="htmledit">WYSIWYG Editor</option>
                 <option value="script">HTML Script</option>                        
@@ -58,7 +58,7 @@
     <div class="varopt notshown" id="tplvar-opt-select">
         <label>Select Box Values:</label>
         <input type="text" class="form-control" id="tvaropt-select-values" name="FORMOPT[select][values]" value="">
-        <div class="bg-info text-info">Werte getrennt durch "|"</div>
+        <div class="alert alert-info">Werte getrennt durch "|"</div>
     </div>
     
     <div class="varopt notshown" id="tplvar-opt-imgfile">   
@@ -67,7 +67,7 @@
         <label>Height</label>
         <input type="text" class="form-control" id="tvaropt-imgfile-foto_height" name="FORMOPT[imgfile][foto_height]" value="">
         <label>Resize Method</label>
-        <select class="form-control" id="tvaropt-imgfile-foto_resize" name="FORMOPT[imgfile][foto_resize]" >            
+        <select class="form-control custom-select" id="tvaropt-imgfile-foto_resize" name="FORMOPT[imgfile][foto_resize]" >            
             <option value="resize">resize</option>
             <option value="resizetofit">resizetofit</option>
             <option value="resizetofitpng">resizetofitpng</option>
@@ -76,7 +76,7 @@
             <option value="none">none</option>
         </select>
         <label>Crop Position</label>
-        <select class="form-control" id="tvaropt-imgfile-foto_resize" name="FORMOPT[imgfile][foto_gravity]" >
+        <select class="form-control custom-select" id="tvaropt-imgfile-foto_resize" name="FORMOPT[imgfile][foto_gravity]" >
             <option value="center">center</option>
             <option value="north">north</option>
             <option value="south">south</option>

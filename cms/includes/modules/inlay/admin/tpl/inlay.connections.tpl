@@ -12,12 +12,12 @@
 <input type="hidden" name="FORM[inlay_id]" value="<%$REQUEST.id%>">
 <table class="table table-striped table-hover">
 <tr>
-    <td><select class="form-control" id="i_tid" name="FORM[tid]">
+    <td><select class="form-control custom-select" id="i_tid" name="FORM[tid]">
         <% $INLAY.website_tree %>
         </select>
     </td>
     <td>
-       <select class="form-control" id="i_pos" name="FORM[i_pos]">
+       <select class="form-control custom-select" id="i_pos" name="FORM[i_pos]">
             <option value="1">oben</option>
             <option value="2">unten</option>
        </select>

@@ -1,4 +1,4 @@
-<div class="page-header"><h1><i class="fa fa-twitter"></i>Twiiter</h1></div>
+<div class="page-header"><h1><i class="fab fa-twitter"></i>Twiiter</h1></div>
 <% if ($aktion=="" || $section=='start') %>
 
 <% if ($TW.twuser.id!="") %>
@@ -119,9 +119,9 @@
 
 <div class="btn-group">
 <% if ($gbl_config.tw_oauth_token_secret=="") %>
-<a class="btn btn-default" title="Connect to Twitter" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=request_token">Request Token</a> 
+<a class="btn btn-secondary" title="Connect to Twitter" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=request_token">Request Token</a> 
 <%/if%> 
-<a class="btn btn-default" href="https://dev.twitter.com/apps" target="_blank">https://dev.twitter.com/apps</a>
+<a class="btn btn-secondary" href="https://dev.twitter.com/apps" target="_blank">https://dev.twitter.com/apps</a>
 </div>
 <% if ($gbl_config.tw_oauth_token_secret!="sss") %>
 {LA_SIEMSSENSICHERSTMITTW}

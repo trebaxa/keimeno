@@ -18,7 +18,7 @@
 			</td>	</tr>
 			<%/foreach%>
 		</table><br>
-<div class="bg-info text-info">In dieser Tabelle befinden sich alle Kunden, die von Online-Reservierungen ausgeschlossen werden.</div>
+<div class="alert alert-info">In dieser Tabelle befinden sich alle Kunden, die von Online-Reservierungen ausgeschlossen werden.</div>
 <%else%><br>
-<div class="bg-info text-info">Es wurden keine gesperrten Kunden gefunden.</div>
+<div class="alert alert-info">Es wurden keine gesperrten Kunden gefunden.</div>
 <%/if%>

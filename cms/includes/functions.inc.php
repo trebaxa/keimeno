@@ -508,6 +508,27 @@ function get_email_template($id, $langid = -1) {
         'email_id' => $id);
 }
 
+
+/**
+ * send_easy_mail_to()
+ * An easys way to send an email
+ * @param mixed $email_to
+ * @param mixed $email_content
+ * @param mixed $email_subject
+ * @param string $att_files
+ * @param bool $textonly
+ * @param mixed $from_email
+ * @param string $from_name
+ * @return
+ */
+function send_easy_mail_to($email_to, $email_content, $email_subject, $att_files = "", $textonly = TRUE, $from_email = FM_EMAIL, $from_name = '', $reply_to = "") {
+    $email_array['absender_email'] = $from_email;
+    $email_array['cu_email'] = $email_to;
+    $email_array['subject'] = $email_subject;
+    $email_array['content'] = $email_content;
+    send_mail_to($email_array, $att_files, $textonly, $from_email, $from_name, $reply_to);
+}
+
 /**
  * send_mail_to()
  * 
@@ -518,7 +539,7 @@ function get_email_template($id, $langid = -1) {
  * @param string $from_name
  * @return
  */
-function send_mail_to($email_array, $att_files = array(), $textonly = TRUE, $from_email = '', $from_name = '') {
+function send_mail_to($email_array, $att_files = array(), $textonly = TRUE, $from_email = '', $from_name = '', $reply_to = "") {
     global $kdb, $TCMASTER, $gbl_config;
     $att_files = (array )$att_files;
     $status = array('status' => 'ok', 'msg' => '');
@@ -578,7 +599,13 @@ function send_mail_to($email_array, $att_files = array(), $textonly = TRUE, $fro
         }
 
         $mail->setFrom($from_email, $from_name);
-        $mail->addReplyTo($from_email, $from_name);
+        if ($reply_to != "") {
+            $mail->addReplyTo($reply_to, $reply_to);
+        }
+        else {
+            $mail->addReplyTo($from_email, $from_name);
+        }
+
         //Set who the message is to be sent to
         $mail->addAddress($email_array['cu_email'], $email_array['cu_email']);
         # set CC
@@ -636,25 +663,6 @@ function send_mail_to($email_array, $att_files = array(), $textonly = TRUE, $fro
     return $status;
 }
 
-/**
- * send_easy_mail_to()
- * An easys way to send an email
- * @param mixed $email_to
- * @param mixed $email_content
- * @param mixed $email_subject
- * @param string $att_files
- * @param bool $textonly
- * @param mixed $from_email
- * @param string $from_name
- * @return
- */
-function send_easy_mail_to($email_to, $email_content, $email_subject, $att_files = "", $textonly = TRUE, $from_email = FM_EMAIL, $from_name = '') {
-    $email_array['absender_email'] = $from_email;
-    $email_array['cu_email'] = $email_to;
-    $email_array['subject'] = $email_subject;
-    $email_array['content'] = $email_content;
-    send_mail_to($email_array, $att_files, $textonly, $from_email, $from_name);
-}
 
 
 /**
@@ -1731,9 +1739,10 @@ function get_locale_of_visitor($typ) {
     return ($locale);
 }
 
+
 /**
  * create_html_editor()
- * Generates html editor for online editing
+ * 
  * @param string $textarea_name
  * @param string $value
  * @param integer $height
@@ -1741,12 +1750,14 @@ function get_locale_of_visitor($typ) {
  * @param integer $width
  * @param bool $fullPage
  * @param string $id
+ * @param mixed $settings
  * @return
  */
 function create_html_editor($textarea_name = '', $value = '', $height = 200, $tset = 'Fullpage', $width = 0, $fullPage = false, $id = '', $settings = array()) {
     global $kdb;
     $c = "";
     $id = (($id != "") ? $id : md5($textarea_name));
+    #   $id = md5(time() . rand(0, 100000));
     $local = ($_SESSION['GBL_LOCAL_ID'] != "") ? strtolower($_SESSION['GBL_LOCAL_ID']) : 'de';
     # http://www.tinymce.com/wiki.php/FAQ
 
@@ -1776,55 +1787,72 @@ function create_html_editor($textarea_name = '', $value = '', $height = 200, $ts
         plugins: [
          "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
          "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
-         "save table contextmenu directionality emoticons template paste textcolor responsivefilemanager' . (($fullPage == true) ? ' fullpage' : '') . '"
+         "save table contextmenu directionality emoticons template paste textcolor responsivefilemanager ' . (($fullPage == true) ? ' fullpage' : '') . '"
         ], 
+        setup: function (editor) {
+            editor.on(\'change\', function () {
+                tinymce.triggerSave();
+            });
+        },
         filemanager_title:"Filemanager",
-        external_filemanager_path:"/cjs/ResponsiveFilemanager/filemanager/",
-         external_plugins: { "filemanager" : "' . PATH_CMS . 'cjs/ResponsiveFilemanager/filemanager/plugin.min.js"}
+        external_filemanager_path:"/cjs/responsive_filemanager/filemanager/",
+        external_plugins: { "filemanager" :  "/cjs/responsive_filemanager/filemanager/plugin.min.js"}
+       
        ';
+
     if ($tset == 'Full' || $tset == '' || $tset == NULL) {
         $tset = 'Fullpage';
     }
     if ($tset == 'Basic') {
         $c .= '
-    <script type="text/javascript">
+  
 tinymce.init({
     menubar: false,       
     toolbar: "undo redo | bold italic | alignleft aligncenter alignright alignjustify | image link",    
    ' . $general_Settings . '
 });
-</script>';
+';
     }
     if ($tset == 'Basic2') {
         $c .= '
-    <script type="text/javascript">
+    
 tinymce.init({
     menubar: false,  
     toolbar: "undo redo | bold italic | alignleft aligncenter alignright alignjustify | image code link",
 ' . $general_Settings . '
 });
-</script>';
+';
     }
     if ($tset == 'Simple') {
         $c .= '
-    <script type="text/javascript">
+   
 tinymce.init({
     toolbar: "undo redo | bold italic | alignleft aligncenter alignright alignjustify",
 ' . $general_Settings . '
 });
-</script>';
+';
     }
     if ($tset == 'Fullpage') {
         $c .= '
-    <script type="text/javascript">
+    
 tinymce.init({
      toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media | print preview fullpage | forecolor code fullscreen",
 ' . $general_Settings . '
 });
-</script>';
+';
     }
 
-    return $c . '<textarea id="' . $id . '" name="' . $textarea_name . '">' . htmlspecialchars($value) . '</textarea>';
+    return '<textarea id="' . $id . '" name="' . $textarea_name . '">' . ($value) . '</textarea>
+        <script>        
+        ' . $c . '
+             sleep(100).then(() => {
+                tinymce.execCommand("mceRemoveEditor", false,"' . $id . '");
+                tinymce.execCommand("mceAddEditor", false, "' . $id . '");              
+                /*tinymce.execCommand("mceFocus", false, "' . $id . '");*/                             
+              });
+             
+        </script>
+        ';
 }
 
 /**

@@ -274,7 +274,8 @@ class newsletter_admin_class extends newsletter_master_class {
             $FORM['e_anrede_w'] = 'Sehr geehrte Frau';
         }
 
-        $this->NEWSLETTER['htmleditor'] = create_html_editor('FORM[e_content]', ($FORM['e_content']), 600, 'Fullpage', 1000, true);
+        $this->NEWSLETTER['htmleditor'] = create_html_editor('FORM[e_content]', ($FORM['e_content']), 600, 'Fullpage', 1000, true, 'newsletteditor', array('remove_script_host' =>
+                'false'));
         $this->NEWSLETTER['newsedit'] = $FORM;
         $this->NEWSLETTER['attachments'] = (array )$this->load_attachments($FORM);
     }
@@ -467,6 +468,7 @@ class newsletter_admin_class extends newsletter_master_class {
         $FORM = array();
         $ATT_FORM = $this->db->query_first("SELECT attachments FROM " . TBL_CMS_EMAILER . " WHERE id=" . $_GET['id']);
         $afiles = unserialize($ATT_FORM['attachments']);
+        $afiles = (array )$afiles;
         $FORM['attachments'] = array();
         if (count($afiles) > 0) {
             foreach ((array )$afiles as $key => $afile) {

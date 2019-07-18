@@ -1,4 +1,4 @@
-<div class="btn-group"><a class="btn btn-default" href="javascript:void(0)" data-toggle="modal" data-target="#ekomimailnew">Email erstellen</a></div>
+<div class="btn-group"><a class="btn btn-secondary" href="javascript:void(0)" data-toggle="modal" data-target="#ekomimailnew">Email erstellen</a></div>
 
 
 <!-- Modal -->
@@ -9,8 +9,9 @@
     <input type="hidden" name="cmd" value="create_et"/>
     <input type="hidden" name="epage" value="<%$epage%>"/>    
       <div class="modal-header">
+        <h5 class="modal-title" id="ekomimailnewLabel">Email Template</h5>
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="ekomimailnewLabel">Email Template</h4>
+        
       </div>
       <div class="modal-body">
        <table>
@@ -21,7 +22,7 @@
         </table>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <%$subbtn%>
       </div>
       </form> 
@@ -32,7 +33,7 @@
 
 <div class="row">
     <div class="col-md-3">
-        <select class="form-control" id="emailtselect"></select>
+        <select class="form-control custom-select" id="emailtselect"></select>
     </div>
 </div>        
 <form action="<%$PHPSELF%>" method="post" class="jsonform form-inline">

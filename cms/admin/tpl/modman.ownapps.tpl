@@ -1,5 +1,5 @@
 <% if ($GET.showuploaddone==1) %>
-    <div class="bg-success">
+    <div class="p-3 mb-2 bg-success text-white">
     App "<%$MODMAN.modul.module_name%>" wurde erfolgreich an das Keimeno Team gesendet. Sie werden informiert, wenn Ihre App aufgenommen worden ist.
     </div>
 <%/if%>
@@ -12,14 +12,15 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
+        <h5 class="modal-title" id="js-unimodLabel">Modal title</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="js-unimodLabel">Modal title</h4>
+        
       </div>
       <div class="modal-body">
         <h3>Soll die App wirklich deinstalliert werden?</h3>
       </div>
       <div class="modal-footer">
-        <button data-ident="" class="btn btn-default uninstallbtn">Ja</button>
+        <button data-ident="" class="btn btn-secondary uninstallbtn">Ja</button>
         <button class="btn btn-danger">Abbruch</button>
       </div>
     </div>

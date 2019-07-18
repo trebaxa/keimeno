@@ -2,7 +2,7 @@
 <%*
 <div class="form-group">
     <label>Template:</label>
-    <select class="form-control" name="PLUGFORM[tplid]">
+    <select class="form-control custom-select" name="PLUGFORM[tplid]">
         <% foreach from=$WEBSITE.PLUGIN.result.templates item=row %>
             <option <% if ($WEBSITE.node.tm_plugform.tplid==$row.ID) %>selected<%/if%> value="<%$row.ID%>"><%$row.LABEL%></option>
         <%/foreach%>
@@ -28,7 +28,7 @@
             <input id="js-mylivechat-check" type="checkbox" value="1" name="disclaimner_accept" /> Hiermit akzeptieren Sie unsere <a href="#">Datenschutzbestimmungen</a>.
         </label>
     </div>
-    <button type="button" onclick="start_mylivechat()" class="btn btn-default btn-sm">Chat starten</button> 
+    <button type="button" onclick="start_mylivechat()" class="btn btn-secondary btn-sm">Chat starten</button> 
   </div>
 </div>
 <style>

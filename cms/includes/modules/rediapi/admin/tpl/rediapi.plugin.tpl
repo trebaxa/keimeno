@@ -10,7 +10,7 @@
 <div class="row">
     <div class="form-group col-md-6">
         <label>Redimero System:</label>
-        <select class="form-control" id="js-api-id" name="PLUGFORM[api_id]">
+        <select class="form-control custom-select" id="js-api-id" name="PLUGFORM[api_id]">
             <% foreach from=$WEBSITE.PLUGIN.result.api item=row %>
                 <option <% if ($WEBSITE.node.tm_plugform.api_id==$row.ID) %>selected<%/if%> value="<%$row.ID%>"><%$row.LABEL%></option>
             <%/foreach%>
@@ -19,7 +19,7 @@
 
     <div class="form-group col-md-6">
         <label>Template:</label>
-        <select class="form-control" name="PLUGFORM[tpl_name]">
+        <select class="form-control custom-select" name="PLUGFORM[tpl_name]">
             <% foreach from=$WEBSITE.PLUGIN.result.templates item=row %>
                 <option <% if ($WEBSITE.node.tm_plugform.tpl_name==$row.ID) %>selected<%/if%> value="<%$row.ID%>"><%$row.LABEL%></option>
             <%/foreach%>
@@ -29,7 +29,7 @@
  
     <div class="form-group">
         <label>Function:</label>
-        <select class="form-control" id="js-func-change" name="PLUGFORM[func_name]">
+        <select class="form-control custom-select" id="js-func-change" name="PLUGFORM[func_name]">
             <% foreach from=$WEBSITE.PLUGIN.result.functions item=row %>
                 <option <% if ($WEBSITE.node.tm_plugform.func_name==$row.function) %>selected<%/if%> value="<%$row.function%>"><%$row.label%></option>
             <%/foreach%>
@@ -68,7 +68,7 @@
                             <td><%$row.label%></td>
                             <td><%$row.type%></td>
                             <td><input type="text" class="js-num-field input-sm form-control" name="PLUGFORM[awelements][<%$row.id%>][order]" value="<%$smarty.foreach.aweloop.iteration%>"></td>
-                            <td class="text-right"><button type="button" data-id="<%$row.id%>" data-type="<%$row.type%>" class="btn btn-default btn-sm js-pdel-click"><i class="fa fa-trash"></i></button></td>
+                            <td class="text-right"><button type="button" data-id="<%$row.id%>" data-type="<%$row.type%>" class="btn btn-secondary btn-sm js-pdel-click"><i class="fa fa-trash"></i></button></td>
                         </tr>               
                     <%/foreach%>
                     </tbody>
@@ -83,7 +83,7 @@
      <div class="row"> 
         <div class="form-group col-md-4">
             <label>Sort:</label>
-            <select class="form-control" name="PLUGFORM[column]">
+            <select class="form-control custom-select" name="PLUGFORM[column]">
                     <option <% if ($WEBSITE.node.tm_plugform.column=='pname') %>selected<%/if%> value="pname">Artikel Titel</option>                
                     <option <% if ($WEBSITE.node.tm_plugform.column=='vk') %>selected<%/if%> value="vk">Preis</option>                
                     <option <% if ($WEBSITE.node.tm_plugform.column=='order') %>selected<%/if%> value="order">manuelle Sortierung</option>
@@ -92,14 +92,14 @@
         
         <div class="form-group col-md-4">
             <label>Sort. Richtung:</label>
-            <select class="form-control" name="PLUGFORM[sort]">
+            <select class="form-control custom-select" name="PLUGFORM[sort]">
                     <option <% if ($WEBSITE.node.tm_plugform.sort=='SORT_ASC') %>selected<%/if%> value="SORT_ASC">aufsteigend</option>
                     <option <% if ($WEBSITE.node.tm_plugform.sort=='SORT_DESC') %>selected<%/if%> value="SORT_DESC">absteigend</option>
             </select>
         </div>
         <div class="form-group col-md-4">
             <label>Sort. Type:</label>
-            <select class="form-control" name="PLUGFORM[sort_type]">
+            <select class="form-control custom-select" name="PLUGFORM[sort_type]">
                     <option <% if ($WEBSITE.node.tm_plugform.sort_type=='SORT_REGULAR') %>selected<%/if%> value="SORT_REGULAR">Standard</option>
                     <option <% if ($WEBSITE.node.tm_plugform.sort_type=='SORT_STRING') %>selected<%/if%> value="SORT_STRING">Zeichen</option>
                     <option <% if ($WEBSITE.node.tm_plugform.sort_type=='SORT_NUMERIC') %>selected<%/if%> value="SORT_NUMERIC">Zahl</option>
@@ -119,7 +119,7 @@
     
         <div class="form-group col-md-4">
             <label>Methode:</label>
-            <select class="form-control" name="PLUGFORM[thumb_type]">        
+            <select class="form-control custom-select" name="PLUGFORM[thumb_type]">        
                     <option <% if ($WEBSITE.node.tm_plugform.thumb_type=='crop') %>selected<%/if%> value="crop">zuschneiden (crop)</option>        
                     <option <% if ($WEBSITE.node.tm_plugform.thumb_type=='resize') %>selected<%/if%> value="resize">verkleinern (resize)</option>
                     <option <% if ($WEBSITE.node.tm_plugform.thumb_type=='resizetofit') %>selected<%/if%> value="resizetofit">verkleinern (fit)</option>

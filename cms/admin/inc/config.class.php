@@ -182,20 +182,21 @@ class config_class extends keimeno_class {
             }
 
         if (count($CAT_GROUPS) > 1) {
-            $group_table = '<ul class="nav flex-column" id="vertnav">';
+            $group_table = '<div id="list-example" class="list-group">
+            ';
             foreach ($CAT_GROUPS as $CGID => $CAT_GROUP) {
                 $CAT_GROUPS[$CGID]['ident'] = $k;
-                $group_table .= '	<li>
-   <a title="' . $CAT_GROUP['label'] . '" href="javascript:void(0)" data-layer="' . $k . '" class="nav-link vertmenuclick" >' . $CAT_GROUP['label'] .
-                    '</a>   </li>';
+                $group_table .= '
+   <a title="' . $CAT_GROUP['label'] . '" href="javascript:void(0)" data-layer="' . $k . '" class="list-group-item list-group-item-action vertmenuclick" >' . $CAT_GROUP['label'] .
+                    '</a>';
                 $k++;
             }
-            $group_table .= '</ul>';
+            $group_table .= '</div>';
         }
 
         $content .= '
 	<%include file="cb.panel.header.tpl" icon="fa-cog" title="Konfiguration"%>
-    <form class="stdform form-inline" method="post" action="' . $_SERVER['PHP_SELF'] . '?epage=' . $_GET['epage'] . '">';
+    <form class="stdform" method="post" action="' . $_SERVER['PHP_SELF'] . '?epage=' . $_GET['epage'] . '">';
         if (count($addkeys) > 0) {
             foreach ($addkeys as $key => $value) {
                 $content .= '<input type="hidden" name="' . $key . '" value="' . htmlspecialchars($value) . '">';
@@ -206,7 +207,7 @@ class config_class extends keimeno_class {
 	<input type="hidden" name="epage" value="' . $_GET['epage'] . '">
 	<input type="hidden" id="configcid" name="configcid" value="' . $selected_cid . '">
 	<div class="row">
-	' . ((count($CAT_GROUPS) > 1) ? '<div class="col-md-2 sidebar">' . $group_table . '</div>' : "") . '<div class="col-md-' . ((count($CAT_GROUPS) > 1) ? "10" :
+	' . ((count($CAT_GROUPS) > 1) ? '<div class="col-md-3 sidebar">' . $group_table . '</div>' : "") . '<div class="col-md-' . ((count($CAT_GROUPS) > 1) ? "9" :
             "12") . '">';
 
         foreach ($CAT_GROUPS as $CGID => $CAT_GROUP) {
@@ -440,8 +441,8 @@ class config_class extends keimeno_class {
         $from_name = ($this->gbl_config['adr_firma_call'] != "") ? $this->gbl_config['adr_firma_call'] : $this->gbl_config['adr_service_email'];
         $email_array = array(
             'cu_email' => $this->gbl_config['adr_service_email'],
-            'subject' => 'Redimero Test-Mail',
-            'content' => "Hallo,\ndies ist eine Test E-Mail aus Ihrem Redimero Account.\nSMTP Versand erfolgreich.",
+            'subject' => 'SMTP Test-Mail von ' . $_SERVER['HTTP_HOST'],
+            'content' => "Hallo,\ndies ist eine Test E-Mail von " . $_SERVER['HTTP_HOST'] . ".\nSMTP Versand erfolgreich.",
             );
         $textonly = true;
 

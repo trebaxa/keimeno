@@ -339,8 +339,8 @@ class resource_master_class extends modules_class {
         $id = (int)$id;
         $arr = array();
         if ($id > 0) {
-            $result = dao_class::$cdb->query("SELECT * FROM " . TBL_RESRCDV . " WHERE v_ftid=" . $id . " AND v_con=0 " . (($table != "") ? " AND v_table='" . $table . "'" : "") .
-                " ORDER BY v_order");
+            $result = dao_class::$cdb->query("SELECT * FROM " . TBL_RESRCDV . " WHERE v_ftid=" . $id . " AND v_con=0 " . (($table != "") ? " AND v_table='" . $table . "'" :
+                "") . " ORDER BY v_order");
             while ($row = dao_class::$cdb->fetch_array_names($result)) {
                 $row['v_opt'] = unserialize($row['v_opt']);
                 if ($table != "") {
@@ -366,7 +366,7 @@ class resource_master_class extends modules_class {
         if ($table != "") {
             $sql_drfilter = "";
             if (isset($db_filter['columns'][$table]) && is_array($db_filter['columns'][$table])) {
-             #   echoarr($db_filter['columns'][$table]);
+                #   echoarr($db_filter['columns'][$table]);
                 foreach ($db_filter['columns'][$table] as $key => $row) {
                     $sql_drfilter .= (($sql_drfilter != "") ? " OR " : "") . $row['col'] . "='" . $key . "'";
                 }
@@ -627,10 +627,7 @@ class resource_master_class extends modules_class {
      * @return
      */
     public static function gen_link_label($row) {
-        #$row['nachname'] = (isset($row['nachname']) ? $row['nachname'] : "");
-        #$label = (isset($row['vorname']) && $row['vorname'] != "") ? $row['vorname'] . ' ' . $row['nachname'] : $row['nachname'];
-        #$label = (isset($row['firma']) && $row['firma'] != "") ? $row['firma'] . ' ' . $label : $label;
-        return $row['c_label'];
+        return self::format_link_label($row['c_label']);
     }
 
     /**
@@ -647,13 +644,14 @@ class resource_master_class extends modules_class {
         while ($row = $this->db->fetch_array($result)) {
             $k++;
             $label = self::gen_link_label($row);
-            $link = '/' . self::format_file_name($row['f_name']) . '/' . self::format_file_name($label) . '.html';
+            $link = '/' . self::format_link_label($row['f_name']) . '/' . $label . '.html';
             $query = array('cmd' => 'show_resource', 'id' => $row['id']);
             $TPL = dao_class::get_data_first(TBL_RESRCPL, array('t_ftid' => $row['FID'], 't_use' => '1'));
             $resultlang = $this->db->query("SELECT * FROM " . TBL_CMS_LANG . " WHERE 1");
             while ($lang = $this->db->fetch_array_names($resultlang)) {
-                if ($label != "")
+                if ($label != "") {
                     $this->connect_to_pageindex($link, $query, $row['id'], 'resource', $lang['id'], 0, $TPL['t_pageid']);
+                }
             }
         }
         return $k;

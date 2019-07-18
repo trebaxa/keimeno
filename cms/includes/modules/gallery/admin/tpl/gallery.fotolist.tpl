@@ -1,3 +1,4 @@
+<% if ($GET.gid>0) %>
 <style>
 
 .dropzonecss {
@@ -54,7 +55,7 @@ $(document).ready(function() {
 });
 
 
-    $('.js-gallery-title').html('- <%$POBJ.galinfo.groupname%>');
+    $('.js-gallery-title').html('- <%$POBJ.galinfo.groupname%> [<%$GET.gid%>]');
     $('.js-gallery-info').html('Anzahl: <%$POBJ.galinfo.pic_count_gallery%>&nbsp;|&nbsp;belegt:<% $POBJ.galinfo.totalsizekb %>&nbsp;|&nbsp;Speicher:<% $POBJ.galinfo.gblsizekb %>');
    
 </script>
@@ -79,7 +80,7 @@ $(document).ready(function() {
 			<input type="hidden" name="aktion" value="a_sort">
             <div class="form-group">            
             <label class="sr-only">Sortierung</label>
-            <select class="form-control" name="column">
+            <select class="form-control custom-select" name="column">
     			<option value="pic_title">{LBL_SORTALPHA}</option>
     			<option value="post_time_int">{LBL_DATE}</option>
     			<option value="pic_size">{LBL_FILESIZE}</option>
@@ -87,7 +88,7 @@ $(document).ready(function() {
             </div>
             <div class="form-group">
                 <label class="sr-only">Sort. Richtung</label>
-                <select class="form-control" name="direction">
+                <select class="form-control custom-select" name="direction">
         			<option value="DESC">{LBL_DESC}</option>
         			<option value="ASC">{LBL_ASC}</option>
     			</select>
@@ -119,7 +120,7 @@ $( ".js-filtergal" ).change(function() {
             <br>{LBL_FILESIZE}: <% $foto.filesize %>
             <br>{LBL_PUBLISHEDAT}: 	<% $foto.img_posttime %>            
             " data-toggle="tooltip" data-placement="bottom" class="ajax-link" rel="<%$foto.preview%>" title="{LBL_EDIT}" onclick="showPageLoadInfo();" href="<%$foto.edit_link%>">
-				<img class="img-responsive" src="<% $foto.thumbnail %>" alt="<%$foto.imginfo.pic_title|sthsc%>" >
+				<img class="img-fluid" src="<% $foto.thumbnail %>" alt="<%$foto.imginfo.pic_title|sthsc%>" >
 				</a>
             <div class="caption wordbreak text-center">
                 <h4><% if ($foto.imginfo.pic_title!="") %><% $foto.imginfo.pic_title|truncate:60 %><%else%>-<%/if%></h4>
@@ -128,10 +129,10 @@ $( ".js-filtergal" ).change(function() {
         <div class="col-md-12 text-center">
             <div class="btn-group">
              <%$foto.icon_edit%>
-             <a href="javascript:void(0)" class="btn btn-default text-danger picdelete" rel="<%$foto.imginfo.PICID%>"><i class="fa fa-trash"><!----></i></a>
+             <a href="javascript:void(0)" class="btn btn-secondary text-danger picdelete" rel="<%$foto.imginfo.PICID%>"><i class="fa fa-trash"><!----></i></a>
              <%$foto.icon_approve%>
              <% if ($GALADMIN.flickractive==true) %>
-                <a href="javascript:void(0)" class="btn btn-default flickr" data-tags="<%$foto.imginfo.pic_tags%>" data-picid="<%$foto.imginfo.PICID%>" data-title="<%$foto.imginfo.pic_title|hsc%>" data-description="<%$foto.imginfo.pic_content|st|hsc%>"><i class="fa fa-flickr fa-pink"><!----></i></a>
+                <a href="javascript:void(0)" class="btn btn-secondary flickr" data-tags="<%$foto.imginfo.pic_tags%>" data-picid="<%$foto.imginfo.PICID%>" data-title="<%$foto.imginfo.pic_title|hsc%>" data-description="<%$foto.imginfo.pic_content|st|hsc%>"><i class="fa fa-flickr fa-pink"><!----></i></a>
              <%/if%>	
 			        
             </div>        
@@ -164,14 +165,14 @@ $( ".js-filtergal" ).change(function() {
 <table class="table table-striped table-hover"  >
 	<tr>
 		<td><% if ($POBJ.galinfo.piccount>0) %> 
-        Aktion:<select class="form-control" name="cmd">
+        Aktion:<select class="form-control custom-select" name="cmd">
 		<option value="a_msave">speichern</option>
 		<option value="a_deletem">markierte l&ouml;schen</option>
 		<option value="a_app">markierte ver&ouml;ffentlichen</option>
 		<option value="a_disapp">markierte nicht ver&ouml;ffentlichen</option>
 		<option value="a_movecat">markierte bewegen</option>
 		</select>... nach Album: 
-        <select class="form-control" name="FORM[group_id]">
+        <select class="form-control custom-select" name="FORM[group_id]">
             <% foreach from=$GALADMIN.tree_select key=catid item=cname %>
                 <option value="<%$catid%>"><%$cname%></option>
             <%/foreach%>
@@ -183,7 +184,7 @@ $( ".js-filtergal" ).change(function() {
 	</tr>
 </table>  
 <%else%>
-<div class="bg-info text-info">Keine Bilder vorhanden</div>
+<div class="alert alert-info">Keine Bilder vorhanden</div>
 <%/if%>
 <script>
 $(function () {
@@ -223,5 +224,6 @@ function flickrsend() {
   $('#flickruploader').modal('hide');
 }
 </script>
+<%/if%>
 <%/if%>
   

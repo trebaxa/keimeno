@@ -1,7 +1,7 @@
 <section class="plugin">
     <div class="form-group">
         <label>Features Tabelle:</label>
-        <select class="form-control" name="PLUGFORM[feature_group_id]">
+        <select class="form-control custom-select" name="PLUGFORM[feature_group_id]">
          <% foreach from=$WEBSITE.PLUGIN.result.groups item=row %>
             <option <% if ($WEBSITE.node.tm_plugform.feature_group_id==$row.ID) %>selected<%/if%> value="<%$row.ID%>"><%$row.LABEL%></option>
          <%/foreach%>
@@ -10,7 +10,7 @@
     
     <div class="form-group">
         <label>Template:</label>
-        <select class="form-control" name="PLUGFORM[tpl_name]">
+        <select class="form-control custom-select" name="PLUGFORM[tpl_name]">
             <% foreach from=$WEBSITE.PLUGIN.result.templates item=row %>
                 <option <% if ($WEBSITE.node.tm_plugform.tpl_name==$row.ID) %>selected<%/if%> value="<%$row.ID%>"><%$row.LABEL%></option>
             <%/foreach%>
@@ -19,7 +19,7 @@
       
     <div class="form-group">
         <label>Sort:</label>
-        <select class="form-control" name="PLUGFORM[column]">
+        <select class="form-control custom-select" name="PLUGFORM[column]">
                 <option <% if ($WEBSITE.node.tm_plugform.column=='f_title') %>selected<%/if%> value="f_title">Titel</option>                
                 <option <% if ($WEBSITE.node.tm_plugform.column=='f_order') %>selected<%/if%> value="f_order">Manuelle Sortierung</option>
         </select>
@@ -27,7 +27,7 @@
     
     <div class="form-group">
         <label>Sort. Richtung:</label>
-        <select class="form-control" name="PLUGFORM[sort]">
+        <select class="form-control custom-select" name="PLUGFORM[sort]">
                 <option <% if ($WEBSITE.node.tm_plugform.sort=='ASC') %>selected<%/if%> value="ASC">ASC</option>
                 <option <% if ($WEBSITE.node.tm_plugform.sort=='DESC') %>selected<%/if%> value="DESC">DESC</option>
         </select>
@@ -45,7 +45,7 @@
     
     <div class="form-group">
         <label>Methode:</label>
-        <select class="form-control" name="PLUGFORM[thumb_type]">        
+        <select class="form-control custom-select" name="PLUGFORM[thumb_type]">        
                 <option <% if ($WEBSITE.node.tm_plugform.thumb_type=='crop') %>selected<%/if%> value="crop">zuschneiden (crop)</option>        
                 <option <% if ($WEBSITE.node.tm_plugform.thumb_type=='resize') %>selected<%/if%> value="resize">verkleinern (resize)</option>
                 <option <% if ($WEBSITE.node.tm_plugform.thumb_type=='resizetofit') %>selected<%/if%> value="resizetofit">verkleinern (fit)</option>
@@ -55,7 +55,7 @@
     
     <div class="form-group">
         <label>Crop Position:</label>    
-        <select class="form-control" name="PLUGFORM[g_croppos]" >
+        <select class="form-control custom-select" name="PLUGFORM[g_croppos]" >
             <option <% if ($WEBSITE.node.tm_plugform.g_croppos=='NorthWest') %>selected<%/if%> value="NorthWest">NorthWest</option>
             <option <% if ($WEBSITE.node.tm_plugform.g_croppos=='North') %>selected<%/if%> value="North">North</option>
             <option <% if ($WEBSITE.node.tm_plugform.g_croppos=='NorthEast') %>selected<%/if%> value="NorthEast">NorthEast</option>

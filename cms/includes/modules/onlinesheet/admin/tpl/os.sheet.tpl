@@ -39,7 +39,7 @@
                 	<input type="text" class="form-control" name="FORMSHEET[s_name]" value="<%$sheet_obj.s_name%>">
             </div>     
             <h3>Felder</h3>
-            <div class="btn-group"><a class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&aktion=addfield&sheetid=<%$sheetid%>">Neues Feld anlegen</a></div>
+            <div class="btn-group"><a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&aktion=addfield&sheetid=<%$sheetid%>">Neues Feld anlegen</a></div>
             <%include file="os.fields.tpl"%>
     
     

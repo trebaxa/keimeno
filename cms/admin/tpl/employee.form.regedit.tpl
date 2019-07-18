@@ -1,8 +1,4 @@
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">{LBL_EMPLOYEE} <% if ($GET.id==0) %>{LBL_INSERTCAP}<%else%>{LBL_EDIT}<%/if%></h3><!-- /.panel-title -->
-    </div><!-- /.panel-heading -->
-    <div class="panel-body">
+<%include file="cb.panel.header.tpl" title="{LBL_EMPLOYEE}"%>
         <form method="post" action="<%$PHPSELF%>" class="jsonform" enctype="multipart/form-data">
             <fieldset>
                 <legend>Benutzer</legend>
@@ -16,7 +12,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="">{LBL_EMPLOYEE} {LBL_GROUP}</label>
-                            <select class="form-control" name="FORM[gid]">
+                            <select class="form-control custom-select" name="FORM[gid]">
                                 <% foreach from=$employeegroups item=gr %><option <% if ($gr.id==$empobjform.gid) %>selected<%/if%> value="<%$gr.id %>"><% $gr.mgname %></option><%/foreach%>
                             </select>
                         </div><!-- /.form-group -->
@@ -127,5 +123,4 @@
             <input type="hidden" name="id" class="empid" value="<%$GET.id%>">
             <div class="form-feet"><%$subbtn%></div><!-- ./form-feet -->
         </form>
-      </div>  
-</div><!-- /.panel panel-default -->
+<%include file="cb.panel.footer.tpl"%>

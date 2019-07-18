@@ -1,7 +1,7 @@
 <% if ($EVENT.edit_form.id>0) %>
-<h3>{LBL_EDIT} - <% $EVENT.edit_form.FORM_CON.title %></h3>
+    <%include file="cb.panel.header.tpl" title="`$EVENT.edit_form.FORM_CON.title`" title_addon="{LBL_EDIT}"%>
 <%else%>
-<h3>{LBL_ADD} - <% $EVENT.seldate %></h3>
+    <%include file="cb.panel.header.tpl" title="`$EVENT.seldate`" title_addon="{LBL_ADD}"%>
 <%/if%>
 <form action="<% $PHPSELF%>" <% if ($EVENT.edit_form.id>0) %>class="jsonform"<%/if%> method="post" enctype="multipart/form-data">
 	<input type="hidden" name="conid" value="<% $EVENT.edit_form.FORM_CON.id %>">
@@ -19,7 +19,7 @@
 			<% $EVENT.edit_form.langselect %>
 		</div>		
 		<div class="form-group"><label>{LBL_CALTHEME}:</label>
-			<select class="form-control" name="FORM[group_id]">
+			<select class="form-control custom-select" name="FORM[group_id]">
 			<% foreach from=$EVENT.CALTHEMES item=cal %>
 		 	<option <% if ($EVENT.edit_form.event.group_id==$cal.id) %>selected <%/if%>value="<%$cal.id%>"><%$cal.groupname%></option>
 			<% /foreach %></select>
@@ -86,7 +86,7 @@
 		</div>
         <div class="form-group">
 			<label>Interner Link:</label>:
-			<select class="form-control" name="FORM[c_ilink]">
+			<select class="form-control custom-select" name="FORM[c_ilink]">
 			<% foreach from=$EVENT.edit_form.event.internal_link_arr key=tid item=label %>
 		 	        <option <% if ($EVENT.edit_form.event.c_ilink==$tid) %>selected <%/if%>value="<%$tid%>"><%$label%></option>
 			<% /foreach %>
@@ -123,3 +123,4 @@
 </div>
     <% $subbtn %>
  </form>
+  <%include file="cb.panel.footer.tpl"%>

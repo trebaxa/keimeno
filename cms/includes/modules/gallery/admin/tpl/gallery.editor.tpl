@@ -2,9 +2,9 @@
     <h1>{LBLA_GAL_EDITPIC}<small>[<%$EDITOR.box_header%>]</small></h1>
 </div>
 <div class="btn-group">
-    <a class="btn btn-default" href="javascript:void(0)" onclick="$('#js-fotoupl-galgroup').val('<%$EDITOR.gid%>')" data-toggle="modal" data-target="#galfotoup">Neues Foto hochladen</a>
-    <a class="btn btn-default" href="<%$PHPSELF%>?epage=gallerypicmanager.inc&cmd=multiupload&section=multiupload&gid=<%$REQUSET.gid%>">Multi-Upload</a> 
-    <a class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=initpicman&section=start&gid=<%$EDITOR.FORM.group_id%>">zu den Bildern</a>
+    <a class="btn btn-secondary" href="javascript:void(0)" onclick="$('#js-fotoupl-galgroup').val('<%$EDITOR.gid%>')" data-toggle="modal" data-target="#galfotoup">Neues Foto hochladen</a>
+    <a class="btn btn-secondary" href="<%$PHPSELF%>?epage=gallerypicmanager.inc&cmd=multiupload&section=multiupload&gid=<%$REQUSET.gid%>">Multi-Upload</a> 
+    <a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=initpicman&section=start&gid=<%$EDITOR.FORM.group_id%>">zu den Bildern</a>
 </div>
 <%include file="gallery.fotoupload.tpl"%>
 <%include file="cb.panel.header.tpl" title="{LBLA_GAL_EDITPIC}"%>
@@ -41,7 +41,7 @@
     
 	<div class="form-group">
 		<label>Gallery:</label>
-        <select class="form-control" id="groupid" name="FORM[group_id]">
+        <select class="form-control custom-select" id="groupid" name="FORM[group_id]">
             <% foreach from=$GALADMIN.tree_select key=catid item=cname %>
                 <option <% if ($EDITOR.FORM.group_id==$catid) %>selected<%/if%> value="<%$catid%>"><%$cname%></option>
             <%/foreach%>
@@ -54,7 +54,7 @@
             <input id="datei" class="xform-control"  type="file" name="attfile" accept="gif|jpg|png|jpeg" onchange="$('#fotoupload input:submit').click()"></input>
            <!-- <input id="datei" class="xform-control" type="file" onchange="this.previousSibling.value = this.value" value="" name="datei"></input> -->
             <span class="input-group-btn">
-                <button class="btn btn-default" type="button">Durchsuchen</button>
+                <button class="btn btn-secondary" type="button">Durchsuchen</button>
             </span>
 
         </div>

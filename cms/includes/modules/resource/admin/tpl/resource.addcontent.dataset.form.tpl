@@ -1,7 +1,7 @@
 
 <div class="btn-group">
-        <button class="btn btn-default" type="button" onclick="reload_dataset(<%$GET.content_matrix_id%>,<%$GET.langid%>,'<%$GET.table%>')"><i class="fa fa-refresh"></i>&nbsp;alle anzeigen</button>
-        <button class="btn btn-default" type="button" onclick="simple_load('js-after-plugin-editor','<%$eurl%>cmd=show_addds&table=<%$GET.table%>&gid=<%$RESOURCE.flextpl.group.id%>&content_matrix_id=<% $GET.content_matrix_id %>&flxid=<%$GET.flxid%>&langid=<%$GET.langid%>')"><i class="fa fa-plus"></i>&nbsp;Neuer Datensatz</button>    
+        <button class="btn btn-secondary" type="button" onclick="reload_dataset(<%$GET.content_matrix_id%>,<%$GET.langid%>,'<%$GET.table%>')"><i class="fa fa-refresh"></i>&nbsp;alle anzeigen</button>
+        <button class="btn btn-secondary" type="button" onclick="simple_load('js-after-plugin-editor','<%$eurl%>cmd=show_addds&table=<%$GET.table%>&gid=<%$RESOURCE.flextpl.group.id%>&content_matrix_id=<% $GET.content_matrix_id %>&flxid=<%$GET.flxid%>&langid=<%$GET.langid%>')"><i class="fa fa-plus"></i>&nbsp;Neuer Datensatz</button>    
     </div>
 
 <div id="js-after-plugin-editor">
@@ -39,7 +39,7 @@
                             <% if ($dskey!='id' && $dskey!='ds_order' && $dskey!='ds_group')%>
                              <td <% if ($row.column.$dskey.v_type=='img') %>class="col-md-1"<%/if%>>                           
                                 <% if ($row.column.$dskey.v_type=='img') %>
-                                    <img class="img-responsive" src="<%$row.column.$dskey.thumb%>" />
+                                    <img class="img-fluid" src="<%$row.column.$dskey.thumb%>" />
                                 <% elseif ($row.column.$dskey.v_type=='faw') %>
                                     <i class="fa fa-<%$dsvalue|sthsc%> fa-lg"></i>                                    
                                 <% elseif ($row.column.$dskey.v_type=='seli') %>
@@ -54,7 +54,7 @@
                         <%/foreach%>
                        <td class="col-md-2 text-right">
                          <div class="btn-group">
-                            <button type="button" class="btn btn-default" onclick="simple_load('js-after-plugin-editor','<%$eurl%>rowid=<%$row.row.id%>&cmd=show_edit_dataset&content_matrix_id=<% $GET.content_matrix_id %>&flxid=<%$GET.flxid%>&table=<%$GET.table%>&langid=<%$GET.langid%>')"><i class="fa fa-pencil-square-o"></i></button>
+                            <button type="button" class="btn btn-secondary" onclick="simple_load('js-after-plugin-editor','<%$eurl%>rowid=<%$row.row.id%>&cmd=show_edit_dataset&content_matrix_id=<% $GET.content_matrix_id %>&flxid=<%$GET.flxid%>&table=<%$GET.table%>&langid=<%$GET.langid%>')"><i class="far fa-edit"></i></button>
                             <% foreach from=$row.icons item=picon %><% $picon %><%/foreach%>
                          </div>   
                         </td>       

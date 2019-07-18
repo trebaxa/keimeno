@@ -1,9 +1,9 @@
 <div class="page-header"><h1>Videothek</h1></div>
 
 <div class="btn-group">
-<a class="btn btn-default" href="<%$PHPSELF%>?cmd=sync&epage=<%$epage%>">Sync. mit Vimeo</a>
+<a class="btn btn-secondary" href="<%$PHPSELF%>?cmd=sync&epage=<%$epage%>">Sync. mit Vimeo</a>
 <% if ($VIM.loggedin==FALSE) %>
-  <a class="btn btn-default" href="<% $VIM.vi_authlink %>">authenticate Vimeo application</a>
+  <a class="btn btn-secondary" href="<% $VIM.vi_authlink %>">authenticate Vimeo application</a>
 <%/if%>
 </div>
 
@@ -35,7 +35,7 @@
 	</table> 
 	 
 	<%else%>
-<div class="bg-info text-info">No results.</div>
+<div class="alert alert-info">No results.</div>
 	<%/if%>	
 <%/if%>
 

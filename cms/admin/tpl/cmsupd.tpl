@@ -1,43 +1,55 @@
 <% if ($section=='showtools') %>
-    <div class="page-header"><h1>System {LBL_FILES} & Aufgaben</h1></div>
-    
-    <h3>System {LBL_TASKS}</h3>
+    <%include file="cb.page.title.tpl" icon="fas fa-cog" title="System {LBL_FILES} & Aufgaben"%>
+
+    <div class="row">
+            <div class="col-md-6">
+          <%include file="cb.panel.header.tpl" title="robots.txt anpassen"%>
+              <div class="text-warning">Dies sind Experten Einstellungen!</div>
+              <form action="<%$PHPSELF%>" method="POST" class="jsonform">
+                 <textarea class="form-control se-html" name="FORM[robots]" rows="20" cols="130"><%$CMSUPDT.robot|hsc%></textarea>
+                 <br><%$subbtn%>
+                 <input type="hidden" name="cmd" value="save_robot">
+                 <input type="hidden" name="epage" value="<%$epage%>">
+             </form>
+            <%include file="cb.panel.footer.tpl"%>
+        </div>
+        <div class="col-md-6">
+<%include file="cb.panel.header.tpl" title="System {LBL_TASKS}"%>
     <form action="<%$eurl%>" class="form-inline jsonform" method="post" enctype="multipart/form-data">
-    	<label for="toolcmd">Aufgabe:</label>
-        <select id="toolcmd" class="form-control" name="cmd">
-    		<option value="cleancache" <% if ($POST.task=="cleancache") %>selected<%/if%>>{LBLA_CLEANPICCACHE}</option>		
+    	<label for="toolcmd" class="mr-2">Aufgabe:</label>
+        <select id="toolcmd" class="form-control custom-select" name="cmd">
+    		<option value="cleancache" <% if ($POST.task=="cleancache") %>selected<%/if%>>{LBLA_CLEANPICCACHE}</option>
             <option value="clearsmartycache" <% if ($POST.task=="clearsmartycache") %>selected<%/if%>>SMARTY Cache leeren</option>
     		<option value="instlangadmin" <% if ($POST.task=="instlangadmin") %>selected<%/if%>>{LBLA_INSTALLADMINLANG}</option>
-            <option value="rewritetpls" <% if ($POST.task=="rewritetpls") %>selected<%/if%>>Templates neu erzeugen</option>            		
+            <option value="rewritetpls" <% if ($POST.task=="rewritetpls") %>selected<%/if%>>Templates neu erzeugen</option>
     	</select>
         <%$execbtn%>
     </form>
-    
-    <h3>robots.txt anpassen</h3>
-      <div class="text-warning">Dies sind Experten Einstellungen!</div>
-      <form action="<%$PHPSELF%>" method="POST" class="jsonform form-inline">
-         <textarea class="form-control se-html" name="FORM[robots]" rows="20" cols="130"><%$CMSUPDT.robot|hsc%></textarea>
-         <br><%$subbtn%>
-         <input type="hidden" name="cmd" value="save_robot">
-         <input type="hidden" name="epage" value="<%$epage%>">
-     </form>
+    <%include file="cb.panel.footer.tpl"%>
+        </div>
+
+    </div>
+
+
+
+
 <%/if%>
 
 <% if ($section=='history') %>
-    <div class="page-header"><h1>Keimeno - Version Build Table:</h1></div>
+    <%include file="cb.page.title.tpl" icon="fas fa-cog" title="Keimeno - Version Build Table"%>
     <%$CMSUPDT.history%>
 <%/if%>
 
 
 
 <% if ($section=='backup' ) %>
-    <div class="page-header"><h1>Backups</h1></div>
+    <%include file="cb.page.title.tpl" icon="fas fa-cog" title="Backups"%>
         <div class="btn-group mb-lg">
-            <a class="btn btn-default json-link" data-spinner="1" href="<%$eurl%>cmd=createbackup">Create DB backup</a>
-            <a class="btn btn-default json-link" data-spinner="1" href="<%$eurl%>cmd=backuphomepage">Backup CMS</a>
+            <a class="btn btn-secondary json-link" data-spinner="1" href="<%$eurl%>cmd=createbackup">Create DB backup</a>
+            <a class="btn btn-secondary json-link" data-spinner="1" href="<%$eurl%>cmd=backuphomepage">Backup CMS</a>
         </div>
-            
-<% if (count($BACKUPCMS.files)>0) %>            
+
+<% if (count($BACKUPCMS.files)>0) %>
    <table class="table table-striped table-hover">
     <thead>
         <th>#</th>
@@ -47,8 +59,8 @@
         <th></th>
         <th></th>
     </thead>
+        <tbody>
    	<% foreach from=$BACKUPCMS.files item=row %>
-        <tbody>	 
             <tr>
 			 <td><% $row.num%></td>
 			 <td><a href="./db_backup/<% $row.file%>"><% $row.file%></a></td>
@@ -67,20 +79,17 @@
    <div class="alert alert-info mt-lg">Total used backupspace: <%$BACKUPCMS.usedspace%></div>
    <%else%>
     <div class="alert alert-info">No Backup founds.</div>
-   <%/if%>                                                                                                                                                                                  
+   <%/if%>
 <%/if%>
 
 
 
 <% if ($section=='update' || $section=='') %>
-    <script src="./js/cmsupt.js"></script>
-    <div class="page-header">
-        <h1><i class="fa fa-database"></i> Keimeno Update</h1>
-    </div>
+    <script src="./assets/js/cmsupt.js"></script>
+    <%include file="cb.page.title.tpl" icon="fas fa-database" title="Keimeno Update"%>
     <div class="row">
         <div class="col-md-6">
-            <div id="updatecont" class="text-center-">
-        
+            <div id="updatecont">
             <%include file="cb.panel.header.tpl" icon="fa-database" title="Remote Update"%>
                     <% if ($CMSUPDT.needupd==true) %>
                         <div class="alert alert-warning text-center">
@@ -97,26 +106,25 @@
                             <li>Ich habe die Datenbank gesichert</li>
                         </ul>
                     </div>
-                    <div class="checkbox">
+                    <div class="custom-checkbox">
                         <label>
-                            <input id="rulecheck" type="checkbox" required="" value="1" name="yes">{LBL_UPD_CONFIRM}
+                            <input id="rulecheck" class="mr-2" type="checkbox" required="" value="1" name="yes">{LBL_UPD_CONFIRM}
                         </label>
                     </div>
                     <p class="alert alert-danger" id="uptfault" style="display:none">{ERR_TERMSNOTCONFIRMED}</p>
-              
+
               <div class="panel-footer text-center">
                 <button class="btn btn-primary" onclick="return start_update();">{LBLA_DOUPDATE}</button>
                 <hr><a class="json-link" title="exceute update scripts" href="<%$eurl%>cmd=repair">or only exceute update scripts</a>
               </div>
             <%include file="cb.panel.footer.tpl"%>
-        
         </div>
-     
+
 
 
         <div style="display:none" id="tpltab">
             <div id="updprocess">
-            <p id="updwarning" class="bg-danger text-danger">Bitte warten! Vorgang nicht abbrechen!</p><br><br><br>
+            <p id="updwarning" class="p-3 mb-2 bg-danger text-white">Bitte warten! Vorgang nicht abbrechen!</p><br><br><br>
             <table class="table table-striped table-hover"  >
                 <tbody>
                <tr style="display:none">
@@ -139,8 +147,8 @@
             </table>
             </div>
             <div class="alert alert-success" id="uptfinish" style="display:none">{LBL_UPDATEDONE}</div>
-        </div>        
-  </div> 
-</div> 
+        </div>
+  </div>
+</div>
 
 <%/if%>

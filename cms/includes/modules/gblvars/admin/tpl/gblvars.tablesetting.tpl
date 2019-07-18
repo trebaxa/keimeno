@@ -9,7 +9,7 @@
     </label>
   </div>
  <%elseif $row.var_type=='list'%>
-    <select class="form-control" name="FORM[<%$row.var_name%>][var_value]">
+    <select class="form-control custom-select" name="FORM[<%$row.var_name%>][var_value]">
         <% foreach from=$row.var_settings.list item=listvalue %>
             <option <% if ($row.var_value==$listvalue) %>selected<%/if%> value="<%$listvalue%>"><%$listvalue%></option>
         <%/foreach%>

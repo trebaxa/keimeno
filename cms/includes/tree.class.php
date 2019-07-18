@@ -733,7 +733,7 @@ class cms_tree_class extends keimeno_class {
      */
     function output_as_selectbox($box_name = 'parent', $block_id, $id_select = 0, $null_obj = 0, $null_name = '') {
         $tree = $this->outputtree_select();
-        $ret = '<select class="form-control" name="' . $box_name . '">';
+        $ret = '<select class="form-control custom-select" name="' . $box_name . '">';
         if (strlen(trim($null_name)) > 0)
             $ret .= '<option ' . ($id_select == $null_obj ? 'selected' : '') . ' value="' . $null_obj . '">' . $null_name . '</option>';
         $node = $this->getOneNode(intval($block_id), $this->menu_array);
@@ -764,7 +764,7 @@ class cms_tree_class extends keimeno_class {
     function output_as_selectbox_jumb($box_name = 'parent', $block_id, $id_select = 0, $null_obj = 0, $null_name = '', $toadd = '', $phpself = '') {
         $phpself = ($phpself != "") ? $phpself : $_SERVER['PHP_SELF'];
         $tree = $this->outputtree_select();
-        $ret = '<select class="form-control" name="' . $box_name . '" onChange="location.href=this.options[this.selectedIndex].value">';
+        $ret = '<select class="form-control custom-select" name="' . $box_name . '" onChange="location.href=this.options[this.selectedIndex].value">';
         if (strlen(trim($null_name)) > 0)
             $ret .= '<option ' . ($id_select == $null_obj ? 'selected' : '') . ' value="http://www.' . FM_DOMAIN . $phpself . '?' . $null_name . '=' . $null_obj . $toadd .
                 '">' . $null_name . '</option>';
@@ -795,7 +795,7 @@ class cms_tree_class extends keimeno_class {
      */
     function output_as_selectbox_jumb_gallery($box_name = 'parent', $block_id, $id_select = 0, $null_obj = 0, $null_name = '', $toadd = '') {
         $tree = $this->outputtree_select();
-        $ret = '<select class="form-control" name="' . $box_name . '" onChange="location.href=this.options[this.selectedIndex].value">';
+        $ret = '<select class="form-control custom-select" name="' . $box_name . '" onChange="location.href=this.options[this.selectedIndex].value">';
         if (strlen(trim($null_name)) > 0)
             $ret .= '<option ' . ($id_select == $null_obj ? 'selected' : '') . ' value="http://www.' . FM_DOMAIN . $_SERVER['PHP_SELF'] . '?' . $null_name . '=' . $null_obj .
                 $toadd . '">' . $null_name . '</option>';
@@ -825,7 +825,7 @@ class cms_tree_class extends keimeno_class {
      */
     function output_as_selectbox_only_childs($box_name = 'parent', $template_id, $id_select = 0, $null_obj = 0, $null_name = '') {
         $tree = $this->outputtree_select();
-        $ret = '<select class="form-control" name="' . $box_name . '">';
+        $ret = '<select class="form-control custom-select" name="' . $box_name . '">';
         if (strlen(trim($null_name)) > 0)
             $ret .= '<option ' . ($id_select == $null_obj ? 'selected' : '') . ' value="' . $null_obj . '">' . $null_name . '</option>';
         $node = $this->getOneNode(intval($template_id), $this->menu_array);

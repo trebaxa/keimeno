@@ -10,8 +10,9 @@
         <input type="hidden" name="epage" value="<%$epage%>">
         <input type="hidden" name="cmd" value="addpage">
       <div class="modal-header">
+        <h5 class="modal-title" id="fbwp_page_createLabel">Fanpage anlegen</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="fbwp_page_createLabel">Fanpage anlegen</h4>
+        
       </div>
       <div class="modal-body">
         <div class="form-group">
@@ -20,7 +21,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary">{LA_SAVE}</button>
       </div>
       </form>  
@@ -36,7 +37,7 @@
     
      <div class="btn-group">
      <% if (count($FBWP.sites)>0) %>
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
           Seite
           <span class="caret"></span>
         </button>
@@ -50,7 +51,7 @@
         
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#fbwp_page_create"><i class="fa fa-plus"></i> Neu</button>  
         <% if ($FBWP.WP.id>0) %>
-            <a class="btn btn-default" href="javascript:void(0);" onclick="add_show_box('<%$cms_url%>/includes/modules/fbwp/index.php?id=<%$FBWP.WP.id%>',900,800,1);"><i class="fa fa-eye"></i> Vorschau</a>
+            <a class="btn btn-secondary" href="javascript:void(0);" onclick="add_show_box('<%$cms_url%>/includes/modules/fbwp/index.php?id=<%$FBWP.WP.id%>',900,800,1);"><i class="fa fa-eye"></i> Vorschau</a>
             <%$FBWP.WP.delicon%>
         <%/if%>   
     </div>
@@ -109,12 +110,12 @@
     <%/if%>    
             
             <div class="btn-group">
-                <a class="btn btn-default" href="https://www.facebook.com/dialog/pagetab?app_id=<%$FBWP.WP.fb_appid%>&redirect_uri=<%$THISURL|uen%>"><i class="fa fa-plus"></i> App auf Fanpage hinzuf&uuml;gen</a>
-                <%*<a class="btn btn-default" href="javascript:void(0)" onclick="dc_show('searchpro',900);" >Produkte hinzuf&uuml;gen</a>*%>
-                <% if ($FBWP.WP.fb_groupid!="") %><a class="btn btn-default" href="javascript:void(0)" onclick="simple_load('js-fbgroup','<%$PHPSELF%>?epage=<%$epage%>&cmd=update_group_stream&id=<%$FBWP.WP.id%>');" ><i class="fa fa-refresh"></i> Sync Gruppe</a><%/if%>
-                <a class="btn btn-default" href="<%$FBWP.loginUrl %>"><i class="fa fa-download"></i> Get Facebook Token</a>
+                <a class="btn btn-secondary" href="https://www.facebook.com/dialog/pagetab?app_id=<%$FBWP.WP.fb_appid%>&redirect_uri=<%$THISURL|uen%>"><i class="fa fa-plus"></i> App auf Fanpage hinzuf&uuml;gen</a>
+                <%*<a class="btn btn-secondary" href="javascript:void(0)" onclick="dc_show('searchpro',900);" >Produkte hinzuf&uuml;gen</a>*%>
+                <% if ($FBWP.WP.fb_groupid!="") %><a class="btn btn-secondary" href="javascript:void(0)" onclick="simple_load('js-fbgroup','<%$PHPSELF%>?epage=<%$epage%>&cmd=update_group_stream&id=<%$FBWP.WP.id%>');" ><i class="fa fa-refresh"></i> Sync Gruppe</a><%/if%>
+                <a class="btn btn-secondary" href="<%$FBWP.loginUrl %>"><i class="fa fa-download"></i> Get Facebook Token</a>
                 <% if ($FBWP.WP.fb_token!="")%>
-                    <a class="btn btn-default ajax-link" data-target="js-tokentarget" href="<%$eurl %>cmd=getpermatoken&fbwpid=<%$FBWP.WP.id%>"><i class="fa fa-refresh"></i> convert to permanent token</a>
+                    <a class="btn btn-secondary ajax-link" data-target="js-tokentarget" href="<%$eurl %>cmd=getpermatoken&fbwpid=<%$FBWP.WP.id%>"><i class="fa fa-refresh"></i> convert to permanent token</a>
                 <%/if%> 
             </div>
     <% if ($FBWP.WP.fb_token=="") %>

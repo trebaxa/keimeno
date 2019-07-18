@@ -21,5 +21,5 @@
     
     
     <% if ($cmd=='sync') %>
-        <div class="bg-success">{LBL_DONE}</div>
+        <div class="p-3 mb-2 bg-success text-white">{LBL_DONE}</div>
     <% /if %>

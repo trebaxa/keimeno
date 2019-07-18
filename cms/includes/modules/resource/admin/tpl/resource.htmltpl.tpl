@@ -1,7 +1,7 @@
 <%include file="cb.panel.header.tpl" title="HTML Vorlagen bearbeiten" class="panel-featured-primary"%>
     <div class="btn-group">
-        <a class="btn btn-default" href="#" onclick="reload_htmltpl();"><i class="fa fa-table"></i> Alle anzeigen</a>
-        <a class="btn btn-default" href="#" data-toggle="modal" data-target="#new-flex-tpl-html"><i class="fa fa-plus"></i> Neu</a>
+        <a class="btn btn-secondary" href="#" onclick="reload_htmltpl();"><i class="fa fa-table"></i> Alle anzeigen</a>
+        <a class="btn btn-secondary" href="#" data-toggle="modal" data-target="#new-flex-tpl-html"><i class="fa fa-plus"></i> Neu</a>
     </div>
     
 <div class="row">    
@@ -24,8 +24,9 @@
           <input type="hidden" value="<%$GET.id%>" name="FORM[t_ftid]" />
           
           <div class="modal-header">
+            <h5 class="modal-title" id="new-flex-tpl-htmlLabel">Neue HTML Vorlage</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="new-flex-tpl-htmlLabel">Neue HTML Vorlage</h4>
+            
           </div>
           <div class="modal-body">
             <div class="form-group">
@@ -34,7 +35,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <%$subbtn%>
           </div>
       </form>

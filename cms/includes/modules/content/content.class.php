@@ -252,8 +252,8 @@ class content_class extends keimeno_class {
             return;
         $redirect = PATH_CMS . 'index.html';
         $pnf_hash = md5($_SERVER['SCRIPT_URI']);
-        $PNF = $this->db->query_first("SELECT * FROM " . TBL_CMS_PAGENF . " WHERE pnf_hash='" . $pnf_hash . "'");
-        if ($PNF['pnf_page'] == 0 && count($PNF) <= 1) {
+        $PNF = dao_class::get_data_first(TBL_CMS_PAGENF, array('pnf_hash' => $pnf_hash));
+        if (isset($PNF['pnf_page']) && $PNF['pnf_page'] == 0 && count($PNF) <= 1) {
             $arr = array(
                 'pnf_page' => $page,
                 'pnf_time' => time(),
@@ -264,7 +264,7 @@ class content_class extends keimeno_class {
             insert_table(TBL_CMS_PAGENF, $arr);
         }
         else {
-            if ($PNF['pnf_url'] != "")
+            if (isset($PNF['pnf_page']) && $PNF['pnf_url'] != "")
                 $redirect = $PNF['pnf_url'];
         }
         $this->redirect_301($redirect);
@@ -372,7 +372,7 @@ class content_class extends keimeno_class {
             $url['url'] = rtrim(self::get_http_protocol() . '://www.' . FM_DOMAIN . PATH_CMS, '/');
             $url['frecvent'] = $params['sm_changefreq'];
             $url['priority'] = $params['sm_priority'];
-            $params['urls'][] = $url;           
+            $params['urls'][] = $url;
             $sql_filter = array('approval' => 1);
             if ((int)$params['langid'] > 0) {
                 $sql_filter['id'] = (int)$params['langid'];

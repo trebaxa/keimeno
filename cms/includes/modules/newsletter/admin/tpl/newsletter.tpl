@@ -3,11 +3,11 @@
     <div class="btn-group">
         <a class="btn btn-primary" href="<%$PHPSELF%>?epage=<%$epage%>&aktion=edit"><i class="fa fa-plus"></i> Neu anlegen</a>
         <% if ($NEWSLETTER.not_finished_newsletter==true) %>
-            <a class="btn btn-default json-link" href="<%$PHPSELF%>?epage=<%$epage%>&aktion=a_reset">Reset Newsletter</a>
+            <a class="btn btn-secondary json-link" href="<%$PHPSELF%>?epage=<%$epage%>&aktion=a_reset">Reset Newsletter</a>
         <%/if%>
         <% if ($cmd=='edit') %>
-            <a class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&aktion=setframework&id=<%$GET.id%>">Newsletter Vorlage laden (&uuml;berschreibt bestehenden Inhalt!)</a>
-            <a class="btn btn-default" href="<%$eurl%>cmd=preview&id=<%$GET.id%>" title="Versenden"><i class="fa fa-envelope"></i> Versenden</a>
+            <a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&aktion=setframework&id=<%$GET.id%>">Newsletter Vorlage laden (&uuml;berschreibt bestehenden Inhalt!)</a>
+            <a class="btn btn-secondary" href="<%$eurl%>cmd=preview&id=<%$GET.id%>" title="Versenden"><i class="fa fa-envelope"></i> Versenden</a>
         <%/if%>
     </div>
    </div>

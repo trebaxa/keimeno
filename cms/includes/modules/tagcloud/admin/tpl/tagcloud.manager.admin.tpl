@@ -57,7 +57,7 @@
 <%include file="table.sorting.script.tpl"%>   
 		
 <% include file="mark_all_checkboxes.tpl" %>
-<br><br>markierte: <select class="form-control" name="aktion">
+<br><br>markierte: <select class="form-control custom-select" name="aktion">
 <option value="masstagdelete">l&ouml;schen</option>
 <option value="masstagapprove">genehmigen</option>
 <option value="masstagdisapprove">nicht genehmigen</option>
@@ -101,7 +101,7 @@
 <% include file="mark_all_checkboxes.tpl" %>
 <div class="row form-inline">
     <div class="col-md-3">
-    markierte: <select class="form-control" name="aktion">
+    markierte: <select class="form-control custom-select" name="aktion">
 <option value="masstagdelete">l&ouml;schen</option>
 <option value="masstagapprove">genehmigen</option>
 <option value="masstagdisapprove">nicht genehmigen</option>
@@ -113,7 +113,7 @@
 <%/if%>
 
 <% if (count($tagcloudobj.words)==0) %>
-<div class="bg-info text-info">Es liegen noch keine Tags vor.</div>
+<div class="alert alert-info">Es liegen noch keine Tags vor.</div>
 <% /if %>
 
 <% /if %>
@@ -150,7 +150,7 @@
 
 <div class="row form-inline">
     <div class="col-md-3">
-markierte: <select class="form-control" name="aktion">
+markierte: <select class="form-control custom-select" name="aktion">
 <option value="delrelation">{LA_DELETE}</option>
 </select>
 <input type="submit" class="btn btn-primary" value="GO">

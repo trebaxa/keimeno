@@ -1,4 +1,5 @@
-<h3>Blacklist</h3>	
+<%include file="cb.panel.header.tpl" title="Blacklist"%>
+	
 <% if (count($FW_LOG)>0) %>
 <table class="table table-striped table-hover">
 <thead><tr>
@@ -10,6 +11,7 @@
 	<th></th>
 	<th></th>
 </tr></thead>
+<tbody>
 	<% foreach from=$FW_LOG item=litem  %>	 	 	
 	  <tr>
 	 	<td><% $litem.fw_id %></td>
@@ -21,9 +23,15 @@
 	 	<td><% $litem.icon_del %></td>
 	 </tr>	
 	<%/foreach%>
+    </tbody>
 	</table>	<br>
 	<br>
-<a href="<%$PHPSELF%>?epage=<%$epage%>&aktion=delall">Alle gesperrten IPs entfernen</a> | <a href="<%$PHPSELF%>?epage=<%$epage%>&aktion=clear">Blacklist gem&auml;ss Vorgaben leeren</a>
+    <div class="btn-group">
+        <a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&aktion=delall">Alle gesperrten IPs entfernen</a>
+        <a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&aktion=clear">Blacklist gem&auml;ss Vorgaben leeren</a>
+</div>
 	<%else%>
-	<div class="bg-info text-info">Keine Eintr&auml;ge vorhanden</div>
+	<div class="alert alert-info">Keine Eintr&auml;ge vorhanden</div>
 <%/if%>
+
+<%include file="cb.panel.footer.tpl"%>

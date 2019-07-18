@@ -4,7 +4,7 @@
     <div class="col-md-6">
             <div class="form-group">
             <label>Vorlagen Auswahl:</label>
-            <select class="form-control" id="js-flxchange" name="PLUGFORM[flxtid]">
+            <select class="form-control custom-select" id="js-flxchange" name="PLUGFORM[flxtid]">
                 <% foreach from=$WEBSITE.PLUGIN.result.templates item=row %>
                     <option <% if ($WEBSITE.node.tm_plugform.flxtid==$row.ID) %>selected<%/if%> value="<%$row.ID%>"><%$row.LABEL%></option>
                 <%/foreach%>

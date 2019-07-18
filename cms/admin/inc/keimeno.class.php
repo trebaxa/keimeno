@@ -613,15 +613,20 @@ class keimeno_class {
         return utf8_decode($str);
     }
 
+
     /**
      * keimeno_class::format_file_name()
-     * Turns a overhanded filename into a readable internet filename
+     * 
      * @param mixed $str
+     * @param mixed $no_allowed
      * @return
      */
-    public static function format_file_name($str) {
+    public static function format_file_name($str, $no_allowed = array()) {
         $str = mb_strtolower($str, 'UTF-8');
         $str = trim(strtr($str, static::$umlaute));
+        if (count($no_allowed) > 0) {
+            $str = trim(strtr($str, $no_allowed));
+        }
         $str = preg_replace('#[\/]+#', ' ', $str); // entfernt alle slashes /
         #$str = preg_replace('/[^0-9a-z?-????\`\~\!\$\%\^\*\; \,\.\_\-]/i', ' ',$str);
         $str = preg_replace('/[^0-9a-z\`\~\!\$\%\^\*\; \,\.\_\-]/i', ' ', $str);
@@ -633,7 +638,18 @@ class keimeno_class {
         if (substr($str, -1) == '-') {
             $str = rtrim($str, '-');
         }
+
         return $str;
+    }
+
+    /**
+     * keimeno_class::format_link_label()
+     * 
+     * @param mixed $label
+     * @return
+     */
+    public static function format_link_label($label) {
+        return self::format_file_name($label, array('.' => '-'));
     }
 
 
@@ -1180,7 +1196,7 @@ class keimeno_class {
      * @return array
      */
     public static function trim_array(&$array) {
-        foreach ((array)$array as $key => $v) {
+        foreach ((array )$array as $key => $v) {
             if (!is_array($v)) {
                 $array[$key] = trim($v);
             }

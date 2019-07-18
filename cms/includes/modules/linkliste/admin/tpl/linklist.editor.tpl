@@ -11,14 +11,14 @@
  <table class="table table-striped table-hover" >
 	<tr><td>Homepage Title:</td><td><input class="validate[required]" id="rl-title" value="<% $BALINK.rl.title|hsc %>" size="30" name="FORM[title]"></td></tr>
 	<tr id="links_url_tr"><td>URL to homepage:</td><td><input id="links_url"  value="<% $BALINK.rl.url|hsc %>"  size="30" name="FORM[url]"></td></tr>
-	<tr><td>Category:</td><td>  	<select class="form-control" name="FORM[cat_id]">
+	<tr><td>Category:</td><td>  	<select class="form-control custom-select" name="FORM[cat_id]">
             	 		<% foreach from=$BALINK.linklist_groups item=gi %>         
  									<option <% if ($gi.id==$BALINK.rl.cat_id) %>selected<%/if%> value="<%$gi.id%>"><%$gi.lc_title%></option>
  									<%/foreach%>
             	</select></td></tr>
   <tr>
     <td>Type:</td>
-    <td><select class="form-control" id="links_type" name="FORM[lb_type]" onChange="setform();">
+    <td><select class="form-control custom-select" id="links_type" name="FORM[lb_type]" onChange="setform();">
         <option <% if ($BALINK.rl.lb_type=='U') %>selected<%/if%> value="U">Banner</option>
         <option <% if ($BALINK.rl.lb_type=='S') %>selected<%/if%> value="S">Script</option>
         <option <% if ($BALINK.rl.lb_type=='F') %>selected<%/if%> value="F">Flash</option>
@@ -26,7 +26,7 @@
   </tr>    
   <tr>
     <td>Position:</td>
-    <td><select class="form-control" name="FORM[lb_position]">
+    <td><select class="form-control custom-select" name="FORM[lb_position]">
         <option <% if ($BALINK.rl.lb_verticalpos=='T' && $BALINK.rl.lb_horpos=='L') %>selected<%/if%> value="TL">Top Left</option>
         <option <% if ($BALINK.rl.lb_verticalpos=='T' && $BALINK.rl.lb_horpos=='C') %>selected<%/if%> value="TC">Top Center</option>
         <option <% if ($BALINK.rl.lb_verticalpos=='T' && $BALINK.rl.lb_horpos=='R') %>selected<%/if%> value="TR">Top Right</option>
@@ -98,7 +98,7 @@ $("table td img.delete").click(function () {
  	 <input type="hidden" name="epage" value="<% $epage %>">
  	 <input type="hidden" name="metaids[]" value="<%$BALINK.rl.id%>">
       <div style="width:700px">
-	<fieldset><div class="bg-info text-info">Importieren Sie die Meta Daten dieser Homepage.</div> 
+	<fieldset><div class="alert alert-info">Importieren Sie die Meta Daten dieser Homepage.</div> 
  	 <%$btnimport%>
       </fieldset>
 </div>

@@ -89,7 +89,7 @@
                             <input type="text" name="" value="" class="form-control" readonly="" placeholder="Keine Datei ausgewählt"/>
                             <input id="datei" type="file" name="datei" value="" class="xform-control autosubmit" onchange="this.previousElementSibling.value = this.value">
                             <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">Durchsuchen...</button>          
+                                <button class="btn btn-secondary" type="button">Durchsuchen...</button>          
                             </span>
                         </div><!-- /input-group -->
                     </div><!-- /.form-group -->   
@@ -146,7 +146,7 @@
                         <input type="text" name="" value="" class="form-control" readonly="" placeholder="Keine Datei ausgewählt">
                         <input id="datei" type="file" name="datei" value="" class="xform-control autosubmit" onchange="this.previousSibling.value = this.value">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Durchsuchen...</button>          
+                            <button class="btn btn-secondary" type="button">Durchsuchen...</button>          
                         </span>
                     </div><!-- /input-group -->
                 </div><!-- /.form-group -->

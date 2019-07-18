@@ -16,5 +16,5 @@ $( ".fotodel" ).click(function() {
 });
 </script>
 <%else%>
-<div class="bg-info text-info">Noch keine Fotos hochgeladen.</div>
+<div class="alert alert-info">Noch keine Fotos hochgeladen.</div>
 <%/if%>

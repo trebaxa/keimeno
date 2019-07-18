@@ -9,7 +9,7 @@
                     <div class="filter">
                       <div id="reportrange" class="pull-right" >
                         <div class="dropdown">
-                                  <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                                  <button class="btn btn-secondary btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
                                     Zeitraum
                                     <span class="caret"></span>
                                   </button>
@@ -69,5 +69,5 @@ $( document ).ready(function() {
         <%assign var=tablesortid value="doc-track-table" scope="global"%>
         <%include file="table.sorting.script.tpl"%>  
 <%else%>
-    <div class="bg-info text-info">Es liegen noch keine Werte vor.</div>
+    <div class="alert alert-info">Es liegen noch keine Werte vor.</div>
 <%/if%>

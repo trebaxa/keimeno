@@ -18,7 +18,7 @@
             <label><%$row.v_descr%></label>
             
             <% if ($row.v_type=='sel') %>
-                <select class="form-control" name="FORMFLEXVAR[<%$row.id%>]">
+                <select class="form-control custom-select" name="FORMFLEXVAR[<%$row.id%>]">
                        <% foreach from=$row.select item=rvol key=rkey %>
                             <option <% if ($rvol==$row.value) %>selected<%/if%> value="<%$rvol%>"><%$rvol%></option>
                        <%/foreach%>              
@@ -26,7 +26,7 @@
             <%/if%>
             
             <% if ($row.v_type=='seli') %>
-                <select class="form-control" name="FORMFLEXVAR[<%$row.id%>]">                  
+                <select class="form-control custom-select" name="FORMFLEXVAR[<%$row.id%>]">                  
                    <% foreach from=$row.select item=rvol key=rkey %>
                         <%assign var="selisel" value="`$rkey`|`$rvol`"%>
                         <option <% if ($row.value==$selisel) %>selected<%/if%> value="<%$rkey%>|<%$rvol%>"><%$rvol%></option>
@@ -40,7 +40,7 @@
             <%/if%>
             
             <% if ($row.v_type=='resid') %>            
-                <select class="form-control" name="FORMFLEXVAR[<%$row.id%>]">                  
+                <select class="form-control custom-select" name="FORMFLEXVAR[<%$row.id%>]">                  
                    <% foreach from=$RESOURCE.flextpl.resrc_table item=rvol %>
                         <option <% if ($rvol.id==$row.value) %>selected<%/if%> value="<%$rvol.id%>"><%$rvol.c_label%></option>
                    <%/foreach%>                
@@ -49,7 +49,7 @@
             
             <% if ($row.v_type=='link') %>
                 <div class="input-group">
-                <select class="form-control" name="FORMFLEXVAR[<%$row.id%>]">
+                <select class="form-control custom-select" name="FORMFLEXVAR[<%$row.id%>]">
                     <option <% if ($row.value=="") %>selected<%/if%> value="">- kein Link -</option>
                        <% foreach from=$RESOURCE.menu_selectox item=rvol key=rkey %>                            
                             <%assign var="urltpl" value="{URL_TPL_`$rkey`}"%>
@@ -82,7 +82,7 @@
                     <div class="input-group">
                         <input class="form-control" type="text" placeholder="Keine Datei ausgewählt" readonly="" value="" name=""/>
                         <input id="datei-<%$row.id%>" name="fdatei[<%$row.id%>]" onchange="this.previousElementSibling.value = this.value" class="xform-control" type="file" value="" />
-                        <span class="input-group-btn"><button class="btn btn-default" type="button">Durchsuchen...</button></span>
+                        <span class="input-group-btn"><button class="btn btn-secondary" type="button">Durchsuchen...</button></span>
                      </div>
                 </div> 
                 <div class="row">
@@ -103,7 +103,7 @@
                     <div class="input-group">
                         <input class="form-control" type="text" placeholder="Keine Datei ausgewählt" readonly="" value="" name=""/>
                         <input id="datei-<%$row.id%>" name="datei[<%$row.id%>]" onchange="this.previousElementSibling.value = this.value" class="xform-control" type="file" value="" /></input>
-                        <span class="input-group-btn"><button class="btn btn-default" type="button">Durchsuchen...</button></span>
+                        <span class="input-group-btn"><button class="btn btn-secondary" type="button">Durchsuchen...</button></span>
                      </div>
                 </div> 
                 <div class="row">
@@ -112,15 +112,15 @@
                 
                 <div class="row" id="js-dataset-img-<%$row.id%>" <% if ($row.value=="") %>style="display:none"<%/if%>>
                     <div class="col-md-3" > 
-                      <a href="../file_data/resource/images/<%$row.value%>" target="_blank"><img src="../file_data/resource/images/<%$row.value%>?a=<%$randid%>" class="img-responsive" /></a>
+                      <a href="../file_data/resource/images/<%$row.value%>" target="_blank"><img src="../file_data/resource/images/<%$row.value%>?a=<%$randid%>" class="img-fluid" /></a>
                     </div>
                     <div class="col-md-1">
-                        <button class="btn btn-default" onclick="execrequest('<%$eurl%>cmd=delflexvarimg&content_matrix_id=<%$GET.content_matrix_id%>&rowid=<%$row.id%>&flxid=<%$GET.flxid%>&langid=<%$GET.langid%>');$('#js-dataset-img-<%$row.id%>').fadeOut();" type="button"><i class="fa fa-trash"></i></button>
+                        <button class="btn btn-secondary" onclick="execrequest('<%$eurl%>cmd=delflexvarimg&content_matrix_id=<%$GET.content_matrix_id%>&rowid=<%$row.id%>&flxid=<%$GET.flxid%>&langid=<%$GET.langid%>');$('#js-dataset-img-<%$row.id%>').fadeOut();" type="button"><i class="fa fa-trash"></i></button>
                     </div>
                     <div class="col-md-8">    
                      <div class="form-group">
                             <label for="<%$row.id%>-v_settings">Individual Crop Position</label>
-                            <select class="form-control" id="<%$row.id%>-v_settings" name="SETTINGS[<%$row.id%>][foto][foto_gravity]" >
+                            <select class="form-control custom-select" id="<%$row.id%>-v_settings" name="SETTINGS[<%$row.id%>][foto][foto_gravity]" >
                                     <option <% if ($row.v_settings.foto.foto_gravity=='default')%>selected<%/if%> value="default">- default-</option>
                                     <option <% if ($row.v_settings.foto.foto_gravity=='Center')%>selected<%/if%> value="Center">Center</option>
                                     <option <% if ($row.v_settings.foto.foto_gravity=='North')%>selected<%/if%> value="North">North</option>

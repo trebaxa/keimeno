@@ -38,7 +38,7 @@
                     </td>
                     <td class="text-right">                    
                      <div class="btn-group">
-                        <button class="btn btn-default" type="button" onclick="add_show_box_tpl('<%$eurl%>cmd=show_flxvar_editor&v_con=0&varid=<%$row.id%>&flxid=<%$GET.id%>','Variable Editor')"><i class="fa fa-pencil-square-o"></i></button>                     
+                        <button class="btn btn-secondary" type="button" onclick="add_show_box_tpl('<%$eurl%>cmd=show_flxvar_editor&v_con=0&varid=<%$row.id%>&flxid=<%$GET.id%>','Variable Editor')"><i class="far fa-edit"></i></button>                     
                         <% foreach from=$row.icons item=picon %><% $picon %><%/foreach%>
                      </div>   
                     </td> 

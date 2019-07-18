@@ -12,7 +12,7 @@
 <fieldset>
 <table  class="table table-striped table-hover">
 <tr><td>{LA_FILTERMETHOD}: </td><td>
-<select class="form-control" name="QF[method]">
+<select class="form-control custom-select" name="QF[method]">
 	<option value="accept_sel">approve selected</option>	
 </select>
 </td></tr>

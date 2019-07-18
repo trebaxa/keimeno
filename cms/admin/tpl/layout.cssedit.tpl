@@ -4,7 +4,7 @@
  <input type="hidden" name="epage" value="<%$epage%>">
  <input type="hidden" name="file" value="<%$GET.file%>">
 <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
          <%$subbtn%>
 </div>
 </form>

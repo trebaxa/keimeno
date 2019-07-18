@@ -1,6 +1,6 @@
 <% if ($aktion=='fgroups') %>
     <div class="page-header"><h1><i class="fa fa-file-code-o"><!----></i> Foren Gruppen</h1></div>
-    <br/><a class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&id=0&aktion=edit">Neue Gruppe anlegen</a><br><br>
+    <br/><a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&id=0&aktion=edit">Neue Gruppe anlegen</a><br><br>
     <% if (count($ftable)>0) %>
         <h3>Gruppen</h3>
          <table class="table table-striped table-hover" >
@@ -89,7 +89,7 @@
                     
                     <div class="form-group"> 
                                <label for="changelanggbltpl">Gruppe:</label>
-                               	<select class="form-control" name="FORM[fn_gid]">
+                               	<select class="form-control custom-select" name="FORM[fn_gid]">
                                     <% foreach from=$ftable item=fd name=csvt %>
                                        <option <% if ($fd.id==$GET.gid || $fd.id==$forum.fn_gid) %>selected<%/if%> value="<%$fd.id%>"><%$fd.fg_name%></option>
                                     <%/foreach%>
@@ -116,7 +116,7 @@
 
 <% if ($section=='conf') %>
 <div class="page-header"><h1>{LA_MODCONFIGURATION}</h1></div>
-<a class="btn btn-default json-link" href="<%$eurl%>cmd=rebuildpageindex">Rebuild Page Index</a>
+<a class="btn btn-secondary json-link" href="<%$eurl%>cmd=rebuildpageindex">Rebuild Page Index</a>
 <%$FORUM.conf%>
 <%/if%>
 

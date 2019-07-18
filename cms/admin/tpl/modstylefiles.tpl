@@ -42,7 +42,7 @@
 <td>{LBL_FILE}: </td><td><input type="file" name="datei[]"></td>
 </tr>
 <tr>
-<td>{LA_TARGETROOT}: </td><td><select class="form-control" name="target">
+<td>{LA_TARGETROOT}: </td><td><select class="form-control custom-select" name="target">
 <% foreach from=$MODUL.dirlist item=dir %>
  <option value="<% $dir.dir64 %>"><%$dir.dir%></option>
 <%/foreach%>

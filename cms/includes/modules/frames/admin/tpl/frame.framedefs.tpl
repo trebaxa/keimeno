@@ -1,6 +1,6 @@
  <h3>Rahmen definieren</h3>
  <div class="btn-group">
- <a class="btn btn-default" href="javascript:void(0)" onclick="$('.addframe').slideDown()">Neuer Rahmen</a>
+ <a class="btn btn-secondary" href="javascript:void(0)" onclick="$('.addframe').slideDown()">Neuer Rahmen</a>
  </div>
  
  <div class="addframe" style="display:none">

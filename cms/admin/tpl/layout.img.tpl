@@ -1,5 +1,4 @@
-
-    <div class="page-header"><h1><i class="fa fa-picture-o"><!----></i> CMS default images</h1></div>
+ <%include file="cb.page.title.tpl" icon="far fa-images" title="CMS default images"%>
 
     
 

@@ -72,7 +72,18 @@ class contactform_class extends modules_class {
 
         $FORM = self::arr_trim_striptags($FORM);
         $FORM_NOTEMPTY = self::arr_trim_striptags($FORM_NOTEMPTY);
-        $recipient_email = ($PLUGIN_OPT['email'] != "") ? $PLUGIN_OPT['email'] : FM_EMAIL;
+        $plugin_admin_email = ($PLUGIN_OPT['email'] != "") ? $PLUGIN_OPT['email'] : FM_EMAIL;
+
+        if (count($PLUGIN_OPT['elist']) > 0 && $FORM['elist'] != "") {
+            foreach ($PLUGIN_OPT['elist'] as $hash => $erow) {
+                if ($hash == $FORM['elist']) {
+                    $plugin_admin_email = $erow['email'];
+                    break;
+                }
+            }
+
+        }
+
         $FORM_ALL = array_merge($FORM, $FORM_NOTEMPTY);
 
         // check not emtpy fields , required fields
@@ -86,12 +97,12 @@ class contactform_class extends modules_class {
                     $this->msge(ucfirst($db_column));
                     $contact_err[$db_column] = true;
                 }
-                $FORM[$db_column] = ($sword);
+                $FORM[$db_column] = $sword;
             }
         }
-        $visitor_email = $FORM['email'] = $FORM['tschapura'];
+        $replyto_email = $FORM['email'] = $FORM['tschapura'];
         unset($FORM['tschapura']);
-        $tschapura = preg_replace("/(\n+|\r+|%0A|%0D)/i", '', $visitor_email);
+        $tschapura = preg_replace("/(\n+|\r+|%0A|%0D)/i", '', $replyto_email);
         if ((int)$PLUGIN_OPT['cf_notschapura'] == 0) {
             if (!validate_email_input($tschapura)) {
                 $this->msge("{LBL_LBLPLEASECHECKFIELD} {LBL_EMAIL}");
@@ -100,7 +111,7 @@ class contactform_class extends modules_class {
         }
         else {
             if (!validate_email_input($tschapura)) {
-                $tschapura = $recipient_email;
+                $tschapura = $plugin_admin_email;
             }
         }
 
@@ -219,15 +230,18 @@ class contactform_class extends modules_class {
                 }
             }
 
-            $this->smarty_arr = array('mail' => array('subject' => pure_translation('{LBL_EMAIL_KONTAKT} ' . $FORM['nachname'], 1), 'content' => date("d.m.Y H:i:s") .
-                        PHP_EOL . PHP_EOL . $email_msg));
+            $this->smarty_arr = array('mail' => array(
+                    'subject' => pure_translation('{LBL_EMAIL_KONTAKT} ' . $FORM['nachname'], 1),
+                    'content' => date("d.m.Y H:i:s") . PHP_EOL . PHP_EOL . $email_msg . PHP_EOL . PHP_EOL . 'Website: ' . $_SERVER['HTTP_HOST'],
+                    ));
 
             # SPF Mail Server SPAM Schutz; Versand von Fremdemail durch SPF nicht möglich
             if ($this->gbl_config['smtp_use'] == 1) {
-                $tschapura = $recipient_email;
+                $tschapura = $this->gbl_config['smtp_user']; #$plugin_admin_email;
             }
-            
-            send_easy_mail_to($recipient_email, $this->smarty_arr['mail']['content'], $this->smarty_arr['mail']['subject'], $att_files, true, $tschapura, $tschapura);
+
+            send_easy_mail_to($plugin_admin_email, $this->smarty_arr['mail']['content'], $this->smarty_arr['mail']['subject'], $att_files, true, $tschapura, $tschapura, $replyto_email);
+
             #general mail template
             send_admin_mail(900, $this->smarty_arr, $att_files, $tschapura);
 
@@ -235,14 +249,9 @@ class contactform_class extends modules_class {
             if ((int)$PLUGIN_OPT['cf_send_we'] == 1) {
                 $this->gbl_config['we_link'] = self::get_domain_url() . '?page=' . $_POST['page'] . '&cmd=disclaim_reject&mail=' . $tschapura . '&hash=' . sha1($tschapura . $this->
                     gbl_config['hash_secret']);
-                #  $email_msg_disclaim = "Hallo,\n\nSie haben in die Verarbeitung Ihrer im Kontaktformular angegebenen Daten zum Zwecke der Bearbeitung Ihrer Anfrage eingewilligt. Diese Einwilligung können Sie jederzeit durch Klick auf den nachfolgenden Link \n" .
-                #      $link . "\n, unter dem entsprechenden Link auf der Kontaktseite unserer Homepage, durch gesonderte E-Mail (" . FM_EMAIL . "), Telefax (" . $this->gbl_config['adr_fax'] .
-                #      ") oder Brief an die " . $this->gbl_config['adr_firma'] . ", " . $this->gbl_config['adr_street'] . ", " . $this->gbl_config['adr_plz'] . " " . $this->
-                #      gbl_config['adr_town'] . " widerrufen." . "\n\n\n" . $this->gbl_config['email_absender'];
-
                 $email_msg_disclaim = smarty_compile($PLUGIN_OPT['cf_we_text']);
                 $arr = array('mail' => array('subject' => 'Kontaktaufnahme ' . $this->gbl_config['adr_general_firmname'], 'content' => $email_msg_disclaim));
-                send_easy_mail_to($tschapura, $arr['mail']['content'], $arr['mail']['subject'], array(), true, $recipient_email, $recipient_email);
+                send_easy_mail_to($tschapura, $arr['mail']['content'], $arr['mail']['subject'], array(), true, $plugin_admin_email, $plugin_admin_email, $tschapura);
             }
 
             # save to db
@@ -251,12 +260,13 @@ class contactform_class extends modules_class {
                     'c_time' => time(),
                     'c_sender' => $tschapura,
                     'c_cc' => $this->gblconfig->cf_ccemail,
-                    'c_recipient' => $recipient_email,
+                    'c_recipient' => $plugin_admin_email,
                     'c_text' => $email_msg,
                     'c_disclaimer_sign' => $c_disclaimer_sign,
                     'c_subject' => $this->smarty_arr['mail']['subject']);
                 insert_table(TBL_CMS_CONTACTS, $this->arr_trim_striptags($arr));
             }
+
             # send CC
             if ($this->gblconfig->cf_ccemail != "") {
                 send_easy_mail_to($this->gblconfig->cf_ccemail, $this->smarty_arr['mail']['content'], 'CC COPY ' . $this->smarty_arr['mail']['subject'], $att_files, true, $tschapura);

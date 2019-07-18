@@ -2,7 +2,7 @@
 
 <div class="form-group">
     <label>Template:</label>
-    <select class="form-control" name="PLUGFORM[tplid]">
+    <select class="form-control custom-select" name="PLUGFORM[tplid]">
         <% foreach from=$WEBSITE.PLUGIN.result.templates item=row %>
             <option <% if ($WEBSITE.node.tm_plugform.tplid==$row.ID) %>selected<%/if%> value="<%$row.ID%>"><%$row.LABEL%></option>
         <%/foreach%>
@@ -26,7 +26,7 @@
 
 <div class="form-group">
     <label>Foto Resize Method:</label>
-    <select class="form-control" name="PLUGFORM[foto_resize_method]">
+    <select class="form-control custom-select" name="PLUGFORM[foto_resize_method]">
         <option <% if ($WEBSITE.node.tm_plugform.foto_resize_method=='none') %>selected<%/if%> value="none">none</option>
         <option <% if ($WEBSITE.node.tm_plugform.foto_resize_method=='crop') %>selected<%/if%> value="crop">crop</option>
         <option <% if ($WEBSITE.node.tm_plugform.foto_resize_method=='resize') %>selected<%/if%> value="resize">resize</option>

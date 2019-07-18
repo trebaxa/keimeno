@@ -33,10 +33,10 @@
                         <td><%$row.e_description%></td>
                         <td class="text-right">                        
                             <% if (($row.current_version_num!=$row.e_version_num || $row.current_version_num==$row.e_version_num) && $row.installed==true) %>
-                                <a class="btn btn-default js-updatemod" title="Update <% $row.e_name %>" href="javascript:void(0)" data-ident="<%$row.id%>">update</a>
+                                <a class="btn btn-secondary js-updatemod" title="Update <% $row.e_name %>" href="javascript:void(0)" data-ident="<%$row.id%>">update</a>
                             <%/if%>
                             <% if ($row.installed==false) %>
-                                <a class="btn btn-default installmod" title="Install <% $row.e_name %>" href="javascript:void(0)" data-ident="<%$row.id%>">install</a>
+                                <a class="btn btn-secondary installmod" title="Install <% $row.e_name %>" href="javascript:void(0)" data-ident="<%$row.id%>">install</a>
                             <%/if%>
                             
                         </td>

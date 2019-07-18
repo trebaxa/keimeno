@@ -1,22 +1,49 @@
    <div class="form-group"> 
     <label>Template</label> 
-    <select class="form-control" name="PLUGFORM[tplid]">
+    <select class="form-control custom-select" name="PLUGFORM[tplid]">
         <% foreach from=$WEBSITE.PLUGIN.result.templates item=row %>
             <option <% if ($WEBSITE.node.tm_plugform.tplid==$row.ID) %>selected<%/if%> value="<%$row.ID%>"><%$row.LABEL%></option>
         <%/foreach%>
     </select>
   </div>
-  <div class="form-group">  
-    <label>Empfänger Email</label>
-    <input type="email" class="form-control" name="PLUGFORM[email]" value="<%$WEBSITE.node.tm_plugform.email%>" required>
+  <div class="row">
+      <div class="form-group col-md-6">  
+        <label>Empfänger Email</label>
+        <input type="email" class="form-control" name="PLUGFORM[email]" value="<%$WEBSITE.node.tm_plugform.email%>" required>
+      </div>
+      <div class="form-group col-md-6 ">  
+        <label>Empfänger Email Auswahl</label><br>
+        <div class="form-inline" id="js-email-form">
+            <input placeholder="Name, Label, Beschriftung" type="text" class="form-control" name="EFORM[label]" value=""/>
+            <div class="input-group">
+                <input placeholder="E-Mail" type="email" class="form-control" name="EFORM[email]" value="" />
+                <div class="input-group-btn">
+                    <button type="button" onclick="save_contact_emaillist();" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+                </div>
+            </div>
+        </div>
+        <div id="js-elist"></div>
+      </div>
   </div>  
-  <div class="form-group">  
-    <label>Titel</label>
-    <input type="text" class="form-control" name="PLUGFORM[cf_title]" value="<%$WEBSITE.node.tm_plugform.cf_title%>" required>
-  </div> 
-  <div class="form-group">  
-    <label>Untertitel</label>
-    <input type="text" class="form-control" name="PLUGFORM[cf_lead]" value="<%$WEBSITE.node.tm_plugform.cf_lead%>">
+  <script>
+    function save_contact_emaillist() {      
+      var url = 'run.php?epage=contact.inc&cmid=<% $WEBSITE.node.id %>&cmd=add_email_to_list&'+$('#js-email-form :input').serialize();
+      jsonexec(url, true);
+    }
+    function reload_elist() {
+       simple_load('js-elist', 'run.php?epage=contact.inc&cmid=<% $WEBSITE.node.id %>&cmd=reload_elist'); 
+    }
+    reload_elist();
+  </script>  
+  <div class="row">
+      <div class="form-group col-md-6">  
+        <label>Titel</label>
+        <input type="text" class="form-control" name="PLUGFORM[cf_title]" value="<%$WEBSITE.node.tm_plugform.cf_title%>" required>
+      </div> 
+      <div class="form-group col-md-6">  
+        <label>Untertitel</label>
+        <input type="text" class="form-control" name="PLUGFORM[cf_lead]" value="<%$WEBSITE.node.tm_plugform.cf_lead%>">
+      </div>
   </div>
   <hr>
   <div class="form-group">  
@@ -67,4 +94,9 @@
         CAPTCHA aktivieren
     </label>
   </div>
+  
+  <% if ($gbl_config.smtp_use==0) %>
+    <div class="alert alert-danger">Es wird empfohlen den Mailversand über SMTP einzurichten, um SPAM Erkennung zu vermeiden. Zusätzlich sollte Ihre 
+    Domain den SPF Eintrag in den DNS Einstellungen haben.</div>
+  <%/if%>
  

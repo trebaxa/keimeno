@@ -8,8 +8,9 @@
         <input type="hidden" name="epage" value="<%$epage%>">
         <input type="hidden" name="section" value="<%$section%>">
       <div class="modal-header">
+        <h5 class="modal-title" id="js-addgroupLabel">Neue Gruppe</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="js-addgroupLabel">Neue Gruppe</h4>
+        
       </div>
       <div class="modal-body">
         <div class="form-group">
@@ -18,7 +19,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <%$subbtn%>
       </div>
       </form>
@@ -52,9 +53,7 @@
 
 <% if ($section=='edit') %>
     
-    <div class="page-header">
-        <div class="page-header"><h1>{LBL_GROUPS}</h1></div>
-    </div><!-- /.page-header -->
+     <%include file="cb.page.title.tpl" icon="" title="{LBL_GROUPS}"%>
     
      <%include file="cb.panel.header.tpl" title="{LBL_PERMISSIONS}"%>
         
@@ -104,11 +103,8 @@
 
 
 <% if ($section=='ksuche') %>
-    
-    <div class="page-header">
-        <div class="page-header"><h1>Gefunden</h1></div>
-    </div><!-- /.page-header -->
-    
+  
+    <%include file="cb.page.title.tpl" icon="" title="Gefunden"%>
     <table class="table table-striped table-hover" >
     
         <% foreach from=$CUSTGROUPS.customers item=row %>
@@ -129,11 +125,9 @@
  
  
  <% if ($section=='showcustomer') %>
-  <div class="page-header">
-        <h1><i class="fa fa-users"><!----></i> Mitglieder der Gruppe</h1>
-    </div><!-- /.page-header -->
+    <%include file="cb.page.title.tpl" icon="" title="Mitglieder der Gruppe"%>
     <div class="btn-group">
-        <a class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=all&section=start">Alle Gruppen anzeigen</a>
+        <a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=all&section=start">Alle Gruppen anzeigen</a>
     </div><!-- /.btn-group -->
 
     <form method="post" action="<%$PHPSELF%>">
@@ -166,10 +160,8 @@
 
 <% if ($section=='a_addcolgroup') %>
 
-    <div class="page-header">
-        <div class="page-header"><h1>{LBL_MEMSELECTIONS} -><%$CUSTGROUPS.COLL_OBJ.col_name%></h1></div>
-    </div><!-- /.page-header -->
     
+    <%include file="cb.page.title.tpl" icon="" title="{LBL_MEMSELECTIONS} ->`$CUSTGROUPS.COLL_OBJ.col_name`"%>
     <form method="post" action="<%$PHPSELF%>">
         <table class="table">
             <thead>
@@ -205,8 +197,9 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
+        <h5 class="modal-title" id="js-addkundeLabel">Kunden Suche</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="js-addkundeLabel">Kunden Suche</h4>
+        
       </div>
       <div class="modal-body">
         <form method="post" action="<%$PHPSELF%>">
@@ -219,7 +212,7 @@
     <div id="custgsearch"></div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>       
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>       
       </div>
     </div>
   </div>

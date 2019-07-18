@@ -13,7 +13,7 @@
             
             <% if ($row.v_type=='sel') %>
                 <div class="input-group">
-                    <select class="form-control" name="FORMFLEXVAR[<%$row.id%>]">
+                    <select class="form-control custom-select" name="FORMFLEXVAR[<%$row.id%>]">
                            <% foreach from=$row.select item=rvol key=rkey %>
                                 <option <% if ($rvol==$row.value) %>selected<%/if%> value="<%$rvol%>"><%$rvol%></option>
                            <%/foreach%>              
@@ -24,7 +24,7 @@
             
             <% if ($row.v_type=='link') %>
                 <div class="input-group">
-                <select class="form-control" name="FORMFLEXVAR[<%$row.id%>]">
+                <select class="form-control custom-select" name="FORMFLEXVAR[<%$row.id%>]">
                 <option value="">- kein Link -</option>
                        <% foreach from=$FLEXTEMP.menu_selectox item=rvol key=rkey %>                            
                             <%assign var="urltpl" value="{URL_TPL_`$rkey`}"%>
@@ -39,7 +39,7 @@
             <div class="row"> 
                 <div class="form-group col-md-4">
                     <label>Auswahl</label>
-                    <select class="form-control" name="SETTINGS[<%$row.id%>][resrc][cid][]" multiple="" style="min-height:300px;">
+                    <select class="form-control custom-select" name="SETTINGS[<%$row.id%>][resrc][cid][]" multiple="" style="min-height:300px;">
                         <option <% if (0==count($row.v_settings.resrc.cid)) %>selected<%/if%> value="0">- alle -</option>
                        <% foreach from=$row.resrc_table item=rvol key=rkey %>
                             <option <% if ($rvol.CID|inarray:$row.v_settings.resrc.cid) %>selected<%/if%> value="<%$rvol.CID%>"><%$rvol.c_label%></option>
@@ -54,7 +54,7 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label>Sortierung:</label>
-                        <select class="form-control" name="SETTINGS[<%$row.id%>][resrc][sort]">
+                        <select class="form-control custom-select" name="SETTINGS[<%$row.id%>][resrc][sort]">
                              <optgroup label="Standard">
                                 <option <% if ($row.v_settings.resrc.sort==0) %>selected<%/if%> value="0">- manuelle Sortierung -</option>
                                 <option <% if ($row.v_settings.resrc.sort==-1) %>selected<%/if%> value="-1">- zufällig -</option>
@@ -68,7 +68,7 @@
                     </div>   
                     <div class="form-group col-md-4">
                         <label>Sort. Richtung:</label>
-                        <select class="form-control" name="SETTINGS[<%$row.id%>][resrc][direc]">
+                        <select class="form-control custom-select" name="SETTINGS[<%$row.id%>][resrc][direc]">
                             <option <% if ($row.v_settings.resrc.direc=='ASC')%>selected<%/if%> value="ASC">aufsteigend</option>      
                             <option <% if ($row.v_settings.resrc.direc=='DESC')%>selected<%/if%> value="DESC">absteigend</option>
                     </select>
@@ -113,21 +113,21 @@
                     <div class="input-group">
                         <input class="form-control" type="text" placeholder="Keine Datei ausgewählt" readonly="" value="" name=""/>
                         <input id="datei-<%$row.id%>" name="datei[<%$row.id%>]" onchange="this.previousElementSibling.value = this.value" class="xform-control" type="file" value="" />
-                        <span class="input-group-btn"><button class="btn btn-default" type="button">Durchsuchen...</button></span>
+                        <span class="input-group-btn"><button class="btn btn-secondary" type="button">Durchsuchen...</button></span>
                      </div>
                 </div>   
                 
                 <div class="row" id="js-dataset-img-<%$row.id%>" <% if ($row.value=="") %>style="display:none"<%/if%>>
                     <div class="col-md-3" > 
-                       <a href="../file_data/flextemp/images/<%$row.value%>?a=<%$randid%>" target="_blank"><img src="../file_data/flextemp/images/<%$row.value%>?a=<%$randid%>" class="img-responsive" /></a>
+                       <a href="../file_data/flextemp/images/<%$row.value%>?a=<%$randid%>" target="_blank"><img src="../file_data/flextemp/images/<%$row.value%>?a=<%$randid%>" class="img-fluid" /></a>
                     </div>
                     <div class="col-md-1">
-                        <button class="btn btn-default" onclick="execrequest('<%$eurl%>cmd=delflexvarimg&content_matrix_id=<%$GET.content_matrix_id%>&rowid=<%$row.id%>&flxid=<%$GET.flxid%>');$('#js-dataset-img-<%$row.id%>').fadeOut();" type="button"><i class="fa fa-trash"></i></button>
+                        <button class="btn btn-secondary" onclick="execrequest('<%$eurl%>cmd=delflexvarimg&content_matrix_id=<%$GET.content_matrix_id%>&rowid=<%$row.id%>&flxid=<%$GET.flxid%>');$('#js-dataset-img-<%$row.id%>').fadeOut();" type="button"><i class="fa fa-trash"></i></button>
                     </div>
                     <div class="col-md-8">    
                      <div class="form-group">
                             <label for="<%$row.id%>-v_settings">Individual Crop Position</label>
-                            <select class="form-control" id="<%$row.id%>-v_settings" name="SETTINGS[<%$row.id%>][foto][foto_gravity]" >
+                            <select class="form-control custom-select" id="<%$row.id%>-v_settings" name="SETTINGS[<%$row.id%>][foto][foto_gravity]" >
                                     <option <% if ($row.v_settings.foto.foto_gravity=='default')%>selected<%/if%> value="default">- default-</option>
                                     <option <% if ($row.v_settings.foto.foto_gravity=='Center')%>selected<%/if%> value="Center">Center</option>
                                     <option <% if ($row.v_settings.foto.foto_gravity=='North')%>selected<%/if%> value="North">North</option>
@@ -151,7 +151,7 @@
                     <div class="input-group">
                         <input class="form-control" type="text" placeholder="Keine Datei ausgewählt" readonly="" value="" name=""/>
                         <input id="datei-<%$row.id%>" name="fdatei[<%$row.id%>]" onchange="this.previousElementSibling.value = this.value" class="xform-control" type="file" value="" />
-                        <span class="input-group-btn"><button class="btn btn-default" type="button">Durchsuchen...</button></span>
+                        <span class="input-group-btn"><button class="btn btn-secondary" type="button">Durchsuchen...</button></span>
                      </div>
                 </div>   
                 

@@ -25,7 +25,7 @@
                     <td><input required="" type="text" class="form-control" value="<% $row.v_order|sthsc%>" name="FORM[<%$row.id%>][v_order]" /></td>
                     <td>
                       <% if ($row.v_type=='resrc') %>
-                            <select class="form-control" name="FORM[<%$row.id%>][v_resrc_id]">
+                            <select class="form-control custom-select" name="FORM[<%$row.id%>][v_resrc_id]">
                                 <% foreach from=$FLEXTEMP.resources.table item=resrc %>
                                     <option value="<%$resrc.FID%>" <% if ($resrc.FID==<%$row.v_resrc_id%>) %>selected<%/if%>><%$resrc.f_name%></option>
                                 <%/foreach%>
@@ -48,7 +48,7 @@
                     </td>                    
                     <td class="text-right">
                      <div class="btn-group">
-                        <button class="btn btn-default" type="button" onclick="add_show_box_tpl('<%$eurl%>cmd=show_flxvar_editor&v_con=1&varid=<%$row.id%>&flxid=<%$GET.id%>','Variable Editor')"><i class="fa fa-pencil-square-o"></i></button>
+                        <button class="btn btn-secondary" type="button" onclick="add_show_box_tpl('<%$eurl%>cmd=show_flxvar_editor&v_con=1&varid=<%$row.id%>&flxid=<%$GET.id%>','Variable Editor')"><i class="far fa-edit"></i></button>
                         <% foreach from=$row.icons item=picon %><% $picon %><%/foreach%>
                      </div>   
                     </td> 

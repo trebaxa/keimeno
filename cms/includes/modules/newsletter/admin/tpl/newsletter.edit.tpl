@@ -38,7 +38,7 @@
                 <div class="input-group">
                     <input class="form-control" type="text" placeholder="Keine Datei ausgewählt" readonly="" value="" name=""></input>
                     <input id="datei-news" class="xform-control autosubmit" type="file" onchange="this.previousElementSibling.value = this.value" value="" name="attfile"></input>
-                    <span class="input-group-btn"><button class="btn btn-default" type="button">Durchsuchen...</button></span>                
+                    <span class="input-group-btn"><button class="btn btn-secondary" type="button">Durchsuchen...</button></span>                
                 </div>                    
             </div>
           </div>  

@@ -12,11 +12,11 @@ function init_doc_tree() {
                         "valid_children" : ["root"]
                     },    
                     "default" : {
-                        "icon" : "glyphicon glyphicon-folder-open",
+                        "icon" : "fas fa-folder-open",
                         "valid_children" : ["default","file"]
                     },
                     "file" : {
-                        "icon" : "glyphicon glyphicon-file",
+                        "icon" : "far fa-file-alt",
                         "valid_children" : []
                     }
                 },

@@ -26,7 +26,7 @@
                     <input type="hidden" name="content_id" value="<% $TPLOBJ.formcontent.id %>">
                     
                     <fieldset>
-                        <legend><i class="fa fa-picture-o"><!----></i> Bild / Bildbeschreibung</legend>
+                        <legend><i class="far fa-images"><!----></i> Bild / Bildbeschreibung</legend>
                         
                         <div class="row">
                             <div class="col-md-11">
@@ -36,7 +36,7 @@
                                         <input type="text" name="" value="" class="form-control" readonly="" placeholder="Keine Datei ausgewählt">
                                         <input id="datei" type="file" name="datei" value="" class="xform-control" onchange="this.previousElementSibling.value = this.value">
                                         <span class="input-group-btn">
-                                            <button class="btn btn-default" type="button">Durchsuchen...</button>
+                                            <button class="btn btn-secondary" type="button">Durchsuchen...</button>
                                   
                                         </span>
                                     </div><!-- /input-group -->
@@ -98,7 +98,7 @@
                         </div><!-- /.row -->
                         <div class="form-group">
                             <label for="cpos">Crop Position:</label>
-                            <select id="cpos" class="form-control" name="FORM[t_ticroppos]"><% foreach from=$WEBSITE.croppositions item=pos %><option <% if ($pos==$TPLOBJ.formcontent.t_ticroppos) %>selected<%/if%> value="<%$pos%>"><%$pos%></option><%/foreach%></select>
+                            <select id="cpos" class="form-control custom-select" name="FORM[t_ticroppos]"><% foreach from=$WEBSITE.croppositions item=pos %><option <% if ($pos==$TPLOBJ.formcontent.t_ticroppos) %>selected<%/if%> value="<%$pos%>"><%$pos%></option><%/foreach%></select>
                         </div><!-- /.form-group -->
                         <div class="form-group">
                             <label for="tdesc">Theme Description</label>

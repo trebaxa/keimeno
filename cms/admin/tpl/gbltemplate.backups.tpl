@@ -1,4 +1,4 @@
- <%include file="cb.panel.header.tpl" title="Backups"%>  
+ <%include file="cb.page.title.tpl" icon="" title="Backups"%>
       
     <% if (count($GBLTPL.backups)>0) %>
         <table class="table table-striped table-hover"  >
@@ -18,7 +18,7 @@
         </tbody>
         </table>
         <%else%>
-        <div class="bg-info text-info"><p class="text-info">Keine Backups gefunden.</p></div>
+        <div class="alert alert-info"><p class="text-info">Keine Backups gefunden.</p></div>
     <%/if%>
     <script>
         $( ".backupview" ).click(function() {

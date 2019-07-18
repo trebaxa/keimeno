@@ -16,7 +16,7 @@
     		
         <div class="form-group">
     		<label>Wiederholung:</label>
-    		 <select class="form-control" name="repdays">		 
+    		 <select class="form-control custom-select" name="repdays">		 
         		 <option value="1">jeden Tag</option>
         		 <option value="7">jede Woche</option>		 
         		 <option value="14">alle 2 Wochen</option>		 
@@ -27,7 +27,7 @@
     
         <div class="form-group">    
     		<label>Anzahl Wiederholungen:</label>
-    		<select class="form-control" name="timespan">		 
+    		<select class="form-control custom-select" name="timespan">		 
     		 <% $REPEAT.timespan %>
     		</select>		
     	</div>

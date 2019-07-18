@@ -4,8 +4,8 @@
     </div><!-- /.panel-heading -->
     <div class="panel-body">
         <div class="btn-group">
-            <a class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=show_all">{LBLA_SHOWALL}</a>
-            <a class="btn btn-default" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=edit">{LBLA_NEW_SETUP}</a>
+            <a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=show_all">{LBLA_SHOWALL}</a>
+            <a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=edit">{LBLA_NEW_SETUP}</a>
         </div>
     </div><!-- /.pnl-body -->
 
@@ -28,7 +28,7 @@
                         <input type="text" class="form-control" name="FORM[<% $row.id%>][description]" value="<%$row.description|hsc%>">
                     </td>
                     <td>
-                        <select class="form-control" name="FORM[<%$row.id%>][first_page]">
+                        <select class="form-control custom-select" name="FORM[<%$row.id%>][first_page]">
                             <% foreach from=$row.entrypoints item=opt %><%$opt%><%/foreach%>
                         </select>
                     </td>
@@ -44,7 +44,7 @@
                     </td>
                     <td>
                         <div class="btn-group">
-                            <a class="btn btn-default" title="Seiten anzeigen" href="run.php?toplevel=<% $row.id%>&epage=websitemanager.inc"><span class="glyphicon glyphicon-eye-open"><!----></span></a>
+                            <a class="btn btn-secondary" title="Seiten anzeigen" href="run.php?toplevel=<% $row.id%>&epage=websitemanager.inc"><span class="glyphicon glyphicon-eye-open"><!----></span></a>
                             <% foreach from=$row.icons item=picon name=cicons %><% $picon %><%/foreach%>
                         </div><!-- /.btn-group -->
                     </td>

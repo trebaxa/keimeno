@@ -11,5 +11,6 @@
 <%/if%>
 
 <% if ($section=='conf') %>
-   <div class="page-header"><h1><i class="fa fa-photo"><!----></i>Konfiguration</h1></div><%$GALADMIN.conf%>
+   <%include file="cb.page.title.tpl" icon="far fa-image" title="Konfiguration"%>
+   <%$GALADMIN.conf%>
 <%/if%>

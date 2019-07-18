@@ -1,6 +1,6 @@
 <div class="page-header"><h1>Redimero API Configuration</h1></div>
 
-<div class="btn-group"><a class="btn btn-default" href="javascript:void(0);" onclick="clear_redi_form();">Neu anlegen</a></div>
+<div class="btn-group"><a class="btn btn-secondary" href="javascript:void(0);" onclick="clear_redi_form();">Neu anlegen</a></div>
 
 <% if ($section=='' || $section=='start') %>
 <form  class="rediform" method="POST" action="<%$PHPSELF%>">

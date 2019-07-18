@@ -264,8 +264,8 @@ class log_class {
 		</tr>';
             }
             $content = '<div class="btn-group">
-            	<a class="btn btn-default" href="' . $_SERVER['PHP_SELF'] . '?aktion=log_download&epage=' . $_REQUEST['epage'] . '">Download Log</a>
-                <a class="ajax-link btn btn-default" href="' . $_SERVER['PHP_SELF'] . '?aktion=alogtab&epage=' . $_REQUEST['epage'] . '">Filter reset</a>
+            	<a class="btn btn-secondary" href="' . $_SERVER['PHP_SELF'] . '?aktion=log_download&epage=' . $_REQUEST['epage'] . '">Download Log</a>
+                <a class="ajax-link btn btn-secondary" href="' . $_SERVER['PHP_SELF'] . '?aktion=alogtab&epage=' . $_REQUEST['epage'] . '">Filter reset</a>
                 </div>
 <div class="row">
     <div class="col-md-6">            

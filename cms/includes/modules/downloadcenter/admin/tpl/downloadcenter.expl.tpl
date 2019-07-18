@@ -1,4 +1,4 @@
-<div class="btn-group"><a class="btn btn-default" href="<% $PHPSELF %>?epage=<%$epage%>&cmd=sync">{LBL_SYNCDIR}</a></div>
+<div class="btn-group"><a class="btn btn-secondary" href="<% $PHPSELF %>?epage=<%$epage%>&cmd=sync">{LBL_SYNCDIR}</a></div>
 <%include file="cb.panel.header.tpl" title=$doc_center.cms_path_to_current_directory%>
 <div class="row">
     <div class="col-md-6">   
@@ -60,7 +60,7 @@
                     <% foreach from=$doc_center.all_dirs_and_files.all_dirs item=dir  %>
                                 <tr>
                                     <td>
-                                        <a class="btn btn-default" title="<% $dir.dirname %>" href="<% $PHPSELF %>?cmd=enter&dir=<% $dir.dirname %>&epage=<%$epage%>">
+                                        <a class="btn btn-secondary" title="<% $dir.dirname %>" href="<% $PHPSELF %>?cmd=enter&dir=<% $dir.dirname %>&epage=<%$epage%>">
                                            <i class="fa fa-folder-open"></i>
                                         </a>
                                     </td>
@@ -98,7 +98,7 @@
             <div class="form-group">
                <label>{LBL_MARKEDFILES}:</label>
                <div class="input-group">
-                <select class="form-control" name="cmd"><option value="a_massdel">{LBL_DELETE}</option></select>
+                <select class="form-control custom-select" name="cmd"><option value="a_massdel">{LBL_DELETE}</option></select>
                 <div class="input-group-btn"><button class="btn btn-primary" type="submit">GO</button></div>
                </div>
             </div>  

@@ -4,7 +4,7 @@
     <settings>
       <module_name>Google Maps</module_name>
       <id>gmap</id>
-      <active>true</active>
+      <active>false</active>
       <version>1.0</version>
       <php>gmap.inc</php>
       <hasperm>true</hasperm>

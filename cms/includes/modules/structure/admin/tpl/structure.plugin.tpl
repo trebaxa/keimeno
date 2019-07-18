@@ -10,7 +10,7 @@
     </div>
    <div class="form-group">
         <label>Container</label>
-    <select class="form-control" name="PLUGFORM[container]">
+    <select class="form-control custom-select" name="PLUGFORM[container]">
             <option <% if ($WEBSITE.node.tm_plugform.container=='div') %>selected<%/if%> value="div">HTML DIV</option>
             <option <% if ($WEBSITE.node.tm_plugform.container=='aside') %>selected<%/if%> value="aside">HTML5 ASIDE</option>
             <option <% if ($WEBSITE.node.tm_plugform.container=='article') %>selected<%/if%> value="article">HTML5 ARTICLE</option>

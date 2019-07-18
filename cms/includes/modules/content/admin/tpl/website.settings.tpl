@@ -107,7 +107,7 @@ function reload_website_settings() {
                 
                 <div class="form-group">
                     <label for="fw">Framework</label>
-                    <select id="fw" class="form-control" name="FORM_TEMPLATE[use_framework]">
+                    <select id="fw" class="form-control custom-select" name="FORM_TEMPLATE[use_framework]">
                         <% foreach from=$WEBSITE.frameworks item=row %>
                             <option value="<%$row.id%>" <% if ($row.id==$TPLOBJ.use_framework) %> selected <%/if%>><%$row.description%></option>
                         <%/foreach%>
@@ -136,7 +136,7 @@ function reload_website_settings() {
                         <input type="text" name="" value="" class="form-control" readonly="" placeholder="Keine Datei ausgewählt">
                         <input id="datei" type="file" name="dateiicon" value="" class="xform-control autosubmit" onchange="this.previousElementSibling.value = this.value">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Durchsuchen...</button>
+                            <button class="btn btn-secondary" type="button">Durchsuchen...</button>
                         </span>
                     </div><!-- /input-group -->
                 </div><!-- /.form-group -->                
@@ -145,7 +145,7 @@ function reload_website_settings() {
         </div><!-- /.row -->
         
         <div class="form-feet">
-           <%* <a class="btn btn-default json-link" href="<%$eurl%>cmd=replicatelang&id=<%$GET.id%>&uselang=<% $GET.uselang %>"><i class="fa fa-language" aria-hidden="true"></i>
+           <%* <a class="btn btn-secondary json-link" href="<%$eurl%>cmd=replicatelang&id=<%$GET.id%>&uselang=<% $GET.uselang %>"><i class="fas fa-language" aria-hidden="true"></i>
  Inhalt auf andere Sprachen replizieren</a>*%>
             <% $subbtn %>
         </div>

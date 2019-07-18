@@ -1,11 +1,8 @@
-        <div class="page-header">
-            <h1><i class="fa fa-home"></i> Websitemanager</h1>
-        </div><!-- /.page-header -->
-
-<div class="btn-group">
-    <a class="btn btn-default" href="javascript:void(0);" data-toggle="modal" data-target="#addpage" title="{LBL_NEW}"><i class="fa fa-plus"></i> {LBLA_NEW_SETUP}</a>
-    <a class="btn btn-default" href="javascript:void(0);" data-toggle="modal" data-target="#dfsearchre"><i class="fa fa-refresh"></i> {LBLA_SEARCHREPLACE}</a>
-    <a class="btn btn-default" href="javascript:void(0);" data-toggle="modal" data-target="#csearch"><i class="fa fa-search"></i> {LBLA_SEARCH}</a>
+<%include file="cb.page.title.tpl" title="Websitemanager" icon="fas fa-home"%>
+<div class="btn-group mb-3">
+    <a class="btn btn-secondary" href="javascript:void(0);" data-toggle="modal" data-target="#addpage" title="{LBL_NEW}"><i class="fa fa-plus"></i> {LBLA_NEW_SETUP}</a>
+    <a class="btn btn-secondary" href="javascript:void(0);" data-toggle="modal" data-target="#dfsearchre"><i class="fa fa-refresh"></i> {LBLA_SEARCHREPLACE}</a>
+    <a class="btn btn-secondary" href="javascript:void(0);" data-toggle="modal" data-target="#csearch"><i class="fa fa-search"></i> {LBLA_SEARCH}</a>
 </div><!-- /.btn-group -->
 
         <%if (count($WLIST.toplevel_links)>0) %>
@@ -19,80 +16,81 @@
                  </ul>
             </div><!-- /#tc-tabs-box -->
         <%/if%>
-
-        <form id="pagetabform" class="form-inline" action="<%$PHPSELF%>" method="post">
+        
+        <%include file="cb.panel.header.tpl" title="Seiten"%>
+        <form id="pagetabform" class="form-column" action="<%$PHPSELF%>" method="post">
             <input type="hidden" value="<% $GET.toplevel %>" name="toplevel">
             <input type="hidden" value="<% $GET.tmsid %>" name="tmsid">
             <input type="hidden" value="<%$epage%>" name="epage">
-            <div id="treetable" class="tab-content">
-                <% include file="website.pagetable.tpl"%>
+            <div id="treetable" class="tab-content mb-3">
+              <% include file="website.pagetable.tpl"%>
             </div><!-- /.treetable -->
             <div class="form-feet"><% $subbtn %></div><!-- /.form-feet -->
         </form><!-- /#pagetabform /.form-inline -->
-
+       <%include file="cb.panel.footer.tpl"%>
         <div id="fix_box">
             <ul>
-                <li><a class="btn btn-default" href="<% $PHPSELF %>?epage=<%$epage%>&aktion=rootact" title="Alle Root Trees f&uuml;r 'TOPLEVEL' aktivieren"><i class="fa fa-bolt"><!----></i></a></li>
-                <li><a class="btn btn-default" href="<% $PHPSELF %>?epage=<%$epage%>&aktion=setallperm" title="Alle Seiten &ouml;ffentlich machen"><i class="fa fa-check-circle fa-green"><!----></i></a></li>
-                <li><a class="btn btn-default" href="<% $PHPSELF %>?epage=<%$epage%>&cmd=writealltpls" title="Alle Seiten neu erzeugen"><i class="fa fa-recycle fa-green"><!----></i></a></li>
-                <li><a class="btn btn-default" href="javascript:void(0);" onclick="show_all_visi();" title="Alle sichtbaren Seiten anzeigen"><i class="fa fa-eye"><!----></i></a></li>
+                <li><a class="btn btn-secondary" href="<% $PHPSELF %>?epage=<%$epage%>&aktion=rootact" title="Alle Root Trees f&uuml;r 'TOPLEVEL' aktivieren"><i class="fa fa-bolt"><!----></i></a></li>
+                <li><a class="btn btn-secondary" href="<% $PHPSELF %>?epage=<%$epage%>&aktion=setallperm" title="Alle Seiten &ouml;ffentlich machen"><i class="fa fa-check-circle fa-green"><!----></i></a></li>
+                <li><a class="btn btn-secondary" href="<% $PHPSELF %>?epage=<%$epage%>&cmd=writealltpls" title="Alle Seiten neu erzeugen"><i class="fa fa-recycle fa-green"><!----></i></a></li>
+                <li><a class="btn btn-secondary" href="javascript:void(0);" onclick="show_all_visi();" title="Alle sichtbaren Seiten anzeigen"><i class="fa fa-eye"><!----></i></a></li>
             </ul>
         </div>
-    
+
         <script>
         <% if ($GET.starttree>0) %>
             loadtree(<%$GET.toplevel%>,<%$GET.starttree%>);
         <%else%>
             loadtree(<%$GET.toplevel%>);
-        <%/if%>    
+        <%/if%>
             function loadtree(toplevelid,starttree) {
                 simple_load('treetable','<%$PHPSELF%>?epage=<%$epage%>&toplevel='+toplevelid+'&starttree=' +starttree+'&cmd=loadtreepages');
             }
-            
+
             function pagestab_response(responseText, statusText, xhr, $form) {
                 show_saved_msg();
             }
-            
+
             var poptions = {
-                target: '#treetable',   
+                target: '#treetable',
                 type: 'POST',
                 forceSync: true,
                 success: pagestab_response
             };
-            
+
             $('#pagetabform').submit(function() {
                 $(this).ajaxSubmit(poptions);
                 return false;
             });
-            
+
             function mup(id,starttree) {
                  simple_load('treetable','<%$PHPSELF%>?epage=<%$epage%>&cmd=pmoveup&id='+id+'&starttree='+starttree+'&toplevel=<%$GET.toplevel%>');
             }
-            
+
             function mdown(id,starttree) {
                 simple_load('treetable','<%$PHPSELF%>?epage=<%$epage%>&cmd=pmovedown&id='+id+'&starttree='+starttree+'&toplevel=<%$GET.toplevel%>');
             }
-            
+
             function show_all_visi() {
                scrollToAnchor('anchortop');
-               simple_load('webpagemanager','<%$PHPSELF%>?epage=<%$epage%>&cmd=search&show_active=1&id=<% $TPLOBJ.formcontent.tid %>&uselang=<% $GET.uselang %>');  
+               simple_load('webpagemanager','<%$PHPSELF%>?epage=<%$epage%>&cmd=search&show_active=1&id=<% $TPLOBJ.formcontent.tid %>&uselang=<% $GET.uselang %>');
             }
         </script>
 
         <div class="row">
 
-            <div class="col-md-6">
-                <h3>Homepage Inhalte auf andere Sprachen replizieren</h3>
-                <p class="alert alert-info">Ausgew&auml;hlte Sprache auf alle anderen Sprachen &uuml;bertragen. Bestehende Homepage Inhalte werden 
+            <div class="col-md-6">                
+                <%include file="cb.panel.header.tpl" title="Homepage Inhalte auf andere Sprachen replizieren"%>
+                <p class="alert alert-info">Ausgew&auml;hlte Sprache auf alle anderen Sprachen &uuml;bertragen. Bestehende Homepage Inhalte werden
                 durch die ausgew&auml;hlte Sprache &uuml;berschrieben.</p>
-                
+
                 <form class="stdform" method="POST" action="<%$PHPSELF%>">
                     <input type="hidden" name="cmd" value="replicatealllang">
                     <input type="hidden" name="epage" value="<%$epage%>">
-                     <div class="form-group">   
+                     <div class="form-group">
                         <label>Homepage Inhalte &uuml;berschreiben mit Inhalten aus Sprache:</label>
                         <div class="input-group">
-                            <select name="langid" class="form-control">
+                            <select name="langid" class=" custom-select">
                                 <%foreach from=$WEBSITE.langselect item=lang %>
                                     <option value="<%$lang.id%>"><%$lang.post_lang%></option>
                                 <%/foreach%>
@@ -100,9 +98,9 @@
                             <span class="input-group-btn"><%$btngo%></span>
                         </div>
                     </div>
-                    
-                </form><!-- /.stdform .form-inline -->
 
+                </form><!-- /.stdform .form-inline -->
+                <%include file="cb.panel.footer.tpl"%>
             </div><!-- /.col-md-6 -->
             <div class="col-md-6">
               <!--  <legend>Aufgaben</legend>
@@ -111,6 +109,5 @@
                 <a href="<% $PHPSELF %>?epage=<%$epage%>&cmd=writealltpls">Alle Seiten neu erzeugen</a><br>
                 <a href="javascript:void(0);" onclick="show_all_visi();">Alle sichtbaren Seiten anzeigen</a>
                 -->
-            </div><!-- /.col-md-6 -->            
+            </div><!-- /.col-md-6 -->
         </div><!-- /.row -->
-       

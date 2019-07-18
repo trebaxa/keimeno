@@ -37,7 +37,7 @@
     <form method="post" action="<%$PHPSELF%>" class="jsonform">
         <div class="form-group">
             <label for="">Kollektion</label>
-            <select class="form-control" name="collid"><option value="0">-</option><% foreach from=$CUSTGROUPS.collections item=col %>	<option value="<%$col.id%>"><%$col.col_name%></option>	<%/foreach%></select>
+            <select class="form-control custom-select" name="collid"><option value="0">-</option><% foreach from=$CUSTGROUPS.collections item=col %>	<option value="<%$col.id%>"><%$col.col_name%></option>	<%/foreach%></select>
         </div><!-- /.form-group -->
             
                 <textarea class="form-control" name="grouplist" rows="10" cols="60"></textarea>

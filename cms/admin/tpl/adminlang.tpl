@@ -1,13 +1,14 @@
-<div class="page-header"><h1><i class="fa fa-language"></i> Backend - {LBLA_TRANSLATION_ADMIN}</h1></div>
+<%include file="cb.page.title.tpl" icon="fas fa-language" title="Backend - {LBLA_TRANSLATION_ADMIN}"%>
+
 
 <div class="btn-group form-inline">
     <% if ($ATRANS.mod!='global_admintrans' || $is_keimeno_domain) %>
-        <button class="btn btn-default" data-toggle="modal" data-target="#addjokerform">Add placeholder</button>
-        <button class="btn btn-default" data-toggle="modal" data-target="#js-addxmllang">Upload & Replace XML file</button>
+        <button class="btn btn-secondary" data-toggle="modal" data-target="#addjokerform">Add placeholder</button>
+        <button class="btn btn-secondary" data-toggle="modal" data-target="#js-addxmllang">Upload & Replace XML file</button>
         
     <%/if%>
      <div class="btn-group">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
       - bitte wählen -
       <span class="caret"></span>
     </button>
@@ -28,8 +29,9 @@
     <div class="modal-content">
     <form action="<%$PHPSELF%>" method="post" enctype="multipart/form-data">
       <div class="modal-header">
+        <h5 class="modal-title">{LBL_ADDTRANSLATION}</h5>
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title">{LBL_ADDTRANSLATION}</h4>
+        
       </div>
       <div class="modal-body">
         <p>
@@ -46,7 +48,7 @@
         </p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <input type="submit" class="btn btn-primary" value="{LA_SAVE}">
       </div>
       </form>	
@@ -156,8 +158,9 @@
     <input type="hidden" name="cmd" value="at_upload_xml">
     <input type="hidden" name="epage" value="<%$epage%>">
       <div class="modal-header">
+        <h5 class="modal-title">{LBLA_TRANSLATION_ADMIN}</h5>
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title">{LBLA_TRANSLATION_ADMIN}</h4>
+        
       </div>
       <div class="modal-body">
         <div class="form-group">
@@ -167,7 +170,7 @@
         </div>    
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <input type="submit" class="btn btn-primary" value="{LA_SAVE}">
       </div>
       </form>	

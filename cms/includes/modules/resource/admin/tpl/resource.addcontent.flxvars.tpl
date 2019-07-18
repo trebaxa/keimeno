@@ -4,7 +4,7 @@
         <div class="well">
             <div class="form-group">
                 <label>Sprache</label>
-                <select class="form-control" id="js-lang-resrc-change">
+                <select class="form-control custom-select" id="js-lang-resrc-change">
                     <% foreach from=$RESOURCE.languages item=row %>
                         <% if ($row.approval==1) %>
                             <option <% if ($GET.langid==$row.id) %>selected<%/if%> value="<%$row.id%>"><%$row.post_lang%></option>

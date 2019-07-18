@@ -20,7 +20,7 @@
                         <%$row.icon_edit%>
                         <%$row.icon_del%>
                         <%$row.icon_approve%>
-					    <a class="btn btn-default ajax-link" href="run.php?section=start&cmd=initpicman&epage=gallerypicmanager.inc&gid=<%$row.id%>" title="Bilder verwalten"><i class="glyphicon glyphicon-picture"><!----></i></a>
+					    <a class="btn btn-secondary ajax-link" href="run.php?section=start&cmd=initpicman&epage=gallerypicmanager.inc&gid=<%$row.id%>" title="Bilder verwalten"><i class="far fa-image"><!----></i></a>
                     
                     </div>
 				</td>
@@ -74,12 +74,12 @@
 					</td>	
                    	
 				<td>
-					<select class="form-control"  name="FORM[<%$row.id%>][default_order]">
+					<select class="form-control custom-select"  name="FORM[<%$row.id%>][default_order]">
     					<option value="post_time_int" <% if ($row.default_order=='post_time_int') %>selected<%/if%> >Upload date</option>
     					<option value="pic_title" <% if ($row.default_order=='pic_title') %>selected<%/if%>>{LBL_TITLE}</option>
     					<option value="morder" <% if ($row.default_order=='morder') %>selected<%/if%>>manuelle Sortierung</option>										
     				</select>
-                    <select class="form-control"  name="FORM[<%$row.id%>][default_direc]">
+                    <select class="form-control custom-select"  name="FORM[<%$row.id%>][default_direc]">
     					<option value="ASC" <% if ($row.default_direc=='ASC') %>selected<%/if%> >aufsteigend</option>
     					<option value="DESC" <% if ($row.default_direc=='DESC') %>selected<%/if%>>absteigend</option>
 					</select>

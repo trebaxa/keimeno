@@ -7,5 +7,5 @@
     <li id="orga-resource"></li>
     <% if ($PERM.core_acc_gblvars==true) %><li id="orga-gblvars"></li><%/if%>
     <li id="orga-toplevel"></li>
-   </ul> 
-<%/if%>    
+  </ul> 
+<%/if%>

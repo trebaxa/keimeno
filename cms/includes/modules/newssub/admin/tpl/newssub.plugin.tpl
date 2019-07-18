@@ -1,6 +1,6 @@
 <div class="form-group"> 
     <label>Template</label> 
-    <select class="form-control" name="PLUGFORM[tplid]">
+    <select class="form-control custom-select" name="PLUGFORM[tplid]">
         <% foreach from=$WEBSITE.PLUGIN.result.templates item=row %>
             <option <% if ($WEBSITE.node.tm_plugform.tplid==$row.ID) %>selected<%/if%> value="<%$row.ID%>"><%$row.LABEL%></option>
         <%/foreach%>
@@ -9,7 +9,7 @@
 
 <div class="form-group"> 
     <label>Gruppe</label> 
-    <select class="form-control" name="PLUGFORM[groupid]">
+    <select class="form-control custom-select" name="PLUGFORM[groupid]">
         <option value="0">- keine -</option>
         <% foreach from=$WEBSITE.PLUGIN.result.groups item=row %>
             <option <% if ($WEBSITE.node.tm_plugform.groupid==$row.ID) %>selected<%/if%> value="<%$row.ID%>"><%$row.LABEL%></option>

@@ -21,7 +21,7 @@
         <form method="post" action="<%$PHPSELF%>" enctype="multipart/form-data">
         	<div class="form-group">	
                 <label>Mitglieder Gruppen:</label>
-        		<select class="form-control" name="FORM[groups]">
+        		<select class="form-control custom-select" name="FORM[groups]">
                 <% foreach from=$NEWSLETTER.groupopt item=opt %>	
                          <%$opt%>
                     <%/foreach%>
@@ -45,7 +45,7 @@
                 <input type="submit" class="btn btn-primary" value="{LBLA_CONFIRMATION} 3/3">
             </form>
     <%else%>
-        <div class="bg-danger">{LBLA_STOPPNEWS}</div>        
+        <div class="p-3 mb-2 bg-danger text-white">{LBLA_STOPPNEWS}</div>        
     <%/if%>            
             
 <%include file="cb.panel.footer.tpl"%>            
