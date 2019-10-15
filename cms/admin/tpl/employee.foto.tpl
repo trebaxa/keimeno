@@ -21,7 +21,7 @@
             </div><!-- /input-group -->
         </div><!-- /.form-group -->
         
-        <div class="form-feet">
+        <div class="btn-group">
             <button class="btn btn-primary" role="button">Upload</button>
             <a href="javascript:void(0)" id="delimgbtnpro" onclick="delete_profil_img(<%$GET.id%>);" class="btn btn-danger" role="button"><i class="fa fa-trash"><!----></i></a>
         </div><!-- /.form-feet -->

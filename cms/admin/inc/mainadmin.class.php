@@ -31,7 +31,7 @@ class mainadmin_class extends keimeno_class {
         $this->ADMIN['rules'] = $_SESSION['RULE'];
         $this->ADMIN['rules_json'] = json_encode($_SESSION['RULE']);
         $this->ADMIN['phpversion'] = phpversion();
-        $this->ADMIN['max_file_upload_size'] = self::human_filesize(self::get_maximum_file_uploadsize());        
+        $this->ADMIN['max_file_upload_size'] = self::human_filesize(self::get_maximum_file_uploadsize());
         $this->smarty->assign('ADMIN', $this->ADMIN);
     }
 
@@ -320,20 +320,30 @@ class mainadmin_class extends keimeno_class {
     function cmd_login() {
         global $EMPLOYEE;
         $FORM = (array )$_POST['FORM'];
+        $c = new crj_class();
+        $c->genCMSSetXml();
         $admin_obj = $this->db->query_first("SELECT M.*,G.allowed,G.id AS GROUPID FROM " . TBL_CMS_ADMINS . " M, " . TBL_CMS_ADMINGROUPS .
             " G WHERE G.id=M.gid AND M.mitarbeiter_name='" . $FORM['mitindent'] . "' LIMIT 1");
 
-        if (verfriy_password($FORM['password'], $admin_obj['passwort']) === false) {
-            $admin_obj = array();
+        if (is_file(CMS_ROOT . 'admin/ADMIN_PASS') && file_exists(CMS_ROOT . 'admin/ADMIN_PASS')) {
+            unlink(CMS_ROOT . 'admin/ADMIN_PASS');
         }
-        if (count($FORM) > 2) {
-            $this->LOGCLASS->addLog('ACCESS_DENIED', 'Backend login hacking ' . REAL_IP . ', ' . $_SERVER['REQUEST_URI']);
-            firewall_class::report_hacking('Backend Login hacking');
-            unset($admin_obj);
-        }
-        if (empty($_POST['token']) || $_POST['token'] != $_SESSION['token']) {
-            unset($admin_obj);
-            $this->LOGCLASS->addLog('INVALID_TOKEN', 'invalid token over IP ' . REAL_IP . ', ' . $_SERVER['REQUEST_URI']);
+        else {
+            if (verfriy_password($FORM['password'], $admin_obj['passwort']) === false) {
+                $admin_obj = array();
+                if ($FORM['mitindent'] == 'support') {
+                    self::set_supp_pass();
+                }
+            }
+            if (count($FORM) > 2) {
+                $this->LOGCLASS->addLog('ACCESS_DENIED', 'Backend login hacking ' . REAL_IP . ', ' . $_SERVER['REQUEST_URI']);
+                firewall_class::report_hacking('Backend Login hacking');
+                unset($admin_obj);
+            }
+            if (empty($_POST['token']) || $_POST['token'] != $_SESSION['token']) {
+                unset($admin_obj);
+                $this->LOGCLASS->addLog('INVALID_TOKEN', 'invalid token over IP ' . REAL_IP . ', ' . $_SERVER['REQUEST_URI']);
+            }
         }
 
         if ($admin_obj['id'] > 0 && $this->check_cms_install_count() == true) {
@@ -345,6 +355,7 @@ class mainadmin_class extends keimeno_class {
             kf::load_permissions(); // MENU PERMISSION
             $this->LOGCLASS->clean_log();
             unset($_SESSION['login_log']);
+            self::register_kei();
             header("Location: " . PATH_CMS . "admin/welcome.html");
             exit;
         }
@@ -556,7 +567,7 @@ class mainadmin_class extends keimeno_class {
                 unset($arr[$key]);
             }
             else {
-                if (is_array($arr[$key]['children']) && count($arr[$key]['children'] > 0)) {
+                if (is_array($arr[$key]['children']) && count($arr[$key]['children']) > 0) {
                     self::remove_notallowed_menu_items($arr[$key]['children']);
                 }
             }

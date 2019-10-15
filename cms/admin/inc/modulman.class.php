@@ -417,8 +417,10 @@ class moduleman_class extends modules_class {
             if (isset($arr['config']['item']) && is_array($arr['config']['item'])) {
                 foreach ($arr['config']['item'] as $item) {
                     $sql = "";
-                    foreach ($item as $column => $value) {
-                        $sql .= (($sql != "") ? "," : "") . $column . "='" . $this->db->real_escape_string((string )$value) . "'";
+                    if (is_array($item)) {
+                        foreach ($item as $column => $value) {
+                            $sql .= (($sql != "") ? "," : "") . $column . "='" . $this->db->real_escape_string((string )$value) . "'";
+                        }
                     }
                     $result = mysqli_query($this->db->link_id, "INSERT INTO " . TBL_CMS_GBLCONFIG . " SET " . $sql);
                 }
@@ -824,7 +826,7 @@ class moduleman_class extends modules_class {
         $this->compile_all_apps();
         $MA = new mainadmin_class();
         $MA->load_admin_menu();
-        kf::echo_template('adminmenu');
+        kf::echo_template('appmenu');
     }
 
 }

@@ -4,8 +4,8 @@
     <settings>
       <module_name>Google Analytics</module_name>
       <id>ganalytics</id>
-      <active>false</active>
-      <version>1.0</version>
+      <active>true</active>
+      <version>1.1</version>
       <php>ganalytics.inc</php>
       <hasperm>true</hasperm>
       <epage>ganalytics.inc</epage>
@@ -13,7 +13,7 @@
       <epage_dir>MODULE_ROOT</epage_dir>
       <is_content_page>false</is_content_page>
       <stdclass>ganalytics_class</stdclass>
-      <description>Google Analytics App</description>
+      <description>Google Analytics App mit Opt-In</description>
       <developer_id/>
       <change_date>2019-06-04</change_date>
     </settings>

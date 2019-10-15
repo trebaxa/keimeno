@@ -1,7 +1,7 @@
 <ul class="topmenu d-none d-lg-flex expand">
               <li class="has-app-sub">
                 <a href="#">Apps</a>
-                <ul class="app-sub appmenu">
+                <ul class="app-sub appmenu" id="js-appmenu">
                     <%include file="appmenu.tpl"%>
                 </ul>
               </li>

@@ -1,3 +1,40 @@
+<div class="quick-menu">
+        <div class="btn-group">
+            <a class="btn btn-secondary" href="javascript:void(0);" data-toggle="modal" data-target="#addgblpage" title="{LBLA_ADD}"><i class="fa fa-plus"></i> {LBLA_ADD}</a>
+        </div>
+</div>
+
+<!-- Modal ADDPAGE -->
+<div class="modal fade" id="addgblpage" tabindex="-1" role="dialog" aria-labelledby="addpageLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <form role="form" method="post" class="jsonform" action="<%$PHPSELF%>">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addpageLabel">{LA_NEUEINHALTSSEITEANLEG}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <input type="hidden" name="cmd" value="add_gbltpl">
+            <input type="hidden" name="epage" value="<%$epage%>">
+            <input type="hidden" name="FORM[modident]" value="<%$GET.modident%>">
+            <div class="form-group">
+                <label for="desc">{LBLA_DESCRIPTION}:</label>
+                <input autofocus="" id="desc" type="text" class="form-control" name="FORM[description]" value="<% $FORM.description|hsc %>">
+            </div>
+      <div class="text-right"><span class="help-block">App: <%$GET.modident%></span></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <% $subbtn %>
+      </div>
+       </form>
+    </div>
+  </div>
+</div>
+    
+
 <div class="row">
     <div class="col-md-6">
     <%include file="cb.panel.header.tpl" title="System Templates auf andere Sprachen replizieren"%>

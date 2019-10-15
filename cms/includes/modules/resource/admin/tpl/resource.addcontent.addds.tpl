@@ -101,26 +101,36 @@
                 <%/if%>    
             <%/if%> 
               
+            
             <% if ($row.v_type=='img') %>
                 <div class="form-group">
                     <label for="datei-<%$row.v_col%>"></label>
                     <div class="input-group">
                         <input class="form-control" type="text" placeholder="Keine Datei ausgewählt" readonly="" value="" name=""/>
                         <input id="datei-<%$row.v_col%>" name="datei[<%$row.v_col%>]" class="xform-control" onchange="this.previousElementSibling.value = this.value" type="file" value="" /></input>
-                        <span class="input-group-btn"><button class="btn btn-secondary" type="button">Durchsuchen...</button></span>
+                        <span class="input-group-btn">
+                        <button class="btn btn-secondary" type="button">Durchsuchen...</button>                        
+                        </span>
                      </div>
                 </div>   
                 <div class="row">
                     <div class="col-md-12 help-block">Server-Einstellung "File Max Uploadsize": <%$RESOURCE.max_file_upload_size%></div>
                 </div>
                 <div class="row" id="js-dataset-img-<%$column%>" <% if ($RESOURCE.seldataset.row.$column=="") %>style="display:none"<%/if%>>
-                    <div class="col-md-3" > 
-                        <img src="../file_data/resource/images/<%$RESOURCE.seldataset.row.$column|hsc%>" class="img-fluid img-thumbnail" />
+                    <div class="col-md-4" > 
+                        <img src="../file_data/resource/images/<%$RESOURCE.seldataset.row.$column|hsc%>?r=<%$randid%>" class="img-fluid img-thumbnail" />
                     </div>
-                    <div class="col-md-1">
-                        <button class="btn btn-secondary" onclick="execrequest('<%$eurl%>cmd=deldatasetimg&rowid=<%$GET.rowid%>&flxid=<%$GET.flxid%>&column=<%$column%>&langid=<%$GET.langid%>&table=<%$GET.table%>');$('#js-dataset-img-<%$column%>').fadeOut();" type="button"><i class="fa fa-trash"></i></button>               
+                    <div class="col-md-2">
+                       <div class="btn-group">
+                        <% if ($RESOURCE.seldataset.row.$column|pathinfo:$smarty.const.PATHINFO_EXTENSION=='jpg' || $RESOURCE.seldataset.row.$column|pathinfo:$smarty.const.PATHINFO_EXTENSION=='jpeg') %>
+                            <a class="btn btn-secondary ajax-link" onclick="$('#modal_frame').modal('hide');" href="<%$eurl%>cmd=show_dataset_jcrop&content_matrix_id=<%$GET.content_matrix_id%>&rowid=<%$GET.rowid%>&flxid=<%$GET.flxid%>&langid=<%$GET.langid%>&table=<%$GET.table%>&aid=<%$row.id%>"><i class="fas fa-cut"></i></a>
+                        <%/if%>  
+                        <button class="btn btn-secondary" onclick="execrequest('<%$eurl%>cmd=deldatasetimg&rowid=<%$GET.rowid%>&flxid=<%$GET.flxid%>&column=<%$column%>&langid=<%$GET.langid%>&table=<%$GET.table%>');$('#js-dataset-img-<%$column%>').fadeOut();" type="button"><i class="fa fa-trash"></i></button>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i></button>
+                       </div>                
                     </div>
-                    <div class="col-md-8">    
+                    <div class="col-md-6">    
+                      <% if ($row.v_opt.img.foto_resize=="crop")%>
                      <div class="form-group">
                             <label for="<%$row.v_col%>-v_settings">Individual Crop Position</label>                           
                             <select class="form-control custom-select" id="<%$row.v_col%>-v_settings" name="FORM[ds_settings][foto][foto_gravity]" >
@@ -136,6 +146,7 @@
                                     <option <% if ($RESOURCE.seldataset.ds_settings.foto.foto_gravity=='East')%>selected<%/if%> value="East">East</option>
                             </select>    
                         </div>                        
+                        <%/if%>
                     </div>
                  </div>       
                  

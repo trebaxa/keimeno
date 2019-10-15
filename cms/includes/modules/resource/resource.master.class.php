@@ -238,7 +238,7 @@ class resource_master_class extends modules_class {
         $sql_rfilter = "";
         if (isset($filter) && count($filter) > 0 && isset($filter['resrcid']) && $resrc_id == (int)$filter['resrcid']) {
             $RFILTER = (array )$_GET['RFILTER'];
-            $sql_rfilter = "AND F.id IN (SELECT F.id FROM tcms1_resrc_content F, tcms1_resrc_vars V WHERE c_ftid=" . (int)$resrc_id . " 
+            $sql_rfilter = "AND F.id IN (SELECT F.id FROM " . TBL_RESRC_CONTENT . " F, " . TBL_RESRCVARS . " V WHERE c_ftid=" . (int)$resrc_id . " 
             AND F.id=V.v_cid AND v_vid=" . (int)$RFILTER['v_vid'] . " AND v_value=" . (int)$RFILTER['v_value'] . ")";
         }
 

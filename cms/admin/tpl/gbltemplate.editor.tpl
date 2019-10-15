@@ -1,3 +1,45 @@
+<div class="quick-menu text-right">
+        <% if ($GET.id>1) %>
+        <div class="btn-group">
+            <a class="btn btn-secondary" href="javascript:void(0);" data-toggle="modal" data-target="#addgblpage" title="{LBLA_ADD}"><i class="fa fa-plus"></i></a>
+            <%if ($GET.id>0 && $TPLOBJ.admin==0) %>
+                    <a onclick="return confirm('Sind Sie sicher?')" class="btn btn-danger json-link" href="<%$eurl%>cmd=deltpljson&id=<%$GET.id%>"><i class="fa fa-trash"></i></a>
+            <%/if%>            
+        </div>
+        <%/if%>
+</div>
+
+
+<!-- Modal ADDPAGE -->
+<div class="modal fade" id="addgblpage" tabindex="-1" role="dialog" aria-labelledby="addpageLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <form role="form" method="post" class="jsonform" action="<%$PHPSELF%>">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addpageLabel">{LA_NEUEINHALTSSEITEANLEG}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <input type="hidden" name="cmd" value="add_gbltpl">
+            <input type="hidden" name="epage" value="<%$epage%>">
+            <input type="hidden" name="FORM[modident]" value="<%$TPLOBJ.modident%>">
+            <div class="form-group">
+                <label for="desc">{LBLA_DESCRIPTION}:</label>
+                <input autofocus id="desc" type="text" class="form-control" name="FORM[description]" value="<% $FORM.description|hsc %>">
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <% $subbtn %>
+      </div>
+       </form>
+    </div>
+  </div>
+</div>
+    
+      
 <%if ($cmd=='edit' || $cmd=='load_gbltpl_ax') %>
 <script>
     $('.changelanggbltpl').change(function(e) {
@@ -110,7 +152,7 @@
                 <%/if%>
 
                 <div class="form-group">
-                    <label for="modident">Modul</label>
+                    <label for="modident">App Connection</label>
                     <select id="modident" class="form-control" name="FORM_TEMPLATE[modident]">
                         <option <%if ($TPLOBJ.modident==$ml.mod_id) %>selected<%/if%> value="">{LA_GENERAL}</option>
                         <%foreach from=$mod_list item=ml %>
@@ -123,25 +165,22 @@
 
             </div>
             <div class="col-md-6">
-                <div class="form-group">
-                    <label for="">Template Auswahl aktivieren</label>
-                    <label class="radio-inline">
-                        <input <%if ($TPLOBJ.layout_group==1) %>checked<%/if%> type="radio" value="1" name="FORM_TEMPLATE[layout_group]">{LBL_YES}
-                    </label>
-                    <label class="radio-inline">
-                        <input <%if ($TPLOBJ.layout_group==0) %>checked<%/if%> type="radio" value="0" name="FORM_TEMPLATE[layout_group]">{LBL_NO}
-                    </label>
-                </div><!-- /.form-group -->
+                <% include file="cb.radioswitch.tpl" label="Template Auswahl aktivieren" name="FORM_TEMPLATE[layout_group]" value=$TPLOBJ.layout_group %>
+                <%if ($GET.id!=1 && $GET.id!=9670) %>
+                    <% include file="cb.radioswitch.tpl" label="Framework Template" name="FORM_TEMPLATE[is_framework]" value=$TPLOBJ.is_framework %>
+                <%/if%>
 
                 <%if ($GET.id>0 && $TPLOBJ.is_framework==0) %>
-                    <div class="form-group">
-                        <label for="">Implementierung</label>
-                        <code class="form-control-static"><% $TPLOBJ.smartytpl %></code>
+                    <div class="row">
+                        <div class="col-md-4">
+                            Implementierung:
+                        </div>
+                        <div class="col-md-8 text-right">    
+                            <code class="form-control-static"><% $TPLOBJ.smartytpl %></code>
+                        </div>    
                     </div><!-- /.form-group -->
                 <%/if%>
-                <%if ($GET.id>0 && $TPLOBJ.admin==0) %>
-                    <a class="btn btn-danger json-link" href="<%$eurl%>cmd=deltpljson&id=<%$GET.id%>"><i class="fa fa-times"></i></a>
-                <%/if%>
+            
 
 
                 <!--
@@ -152,21 +191,11 @@
                     </div><!-- /.form-group -->
                 <!--<%/if%>-->
 
-                <%if ($GET.id!=1 && $GET.id!=9670) %>
-                    <div class="form-group">
-                        <label for="">Framework Template</label>
-                        <label class="radio-inline">
-                            <input <% if ($TPLOBJ.is_framework==1) %>checked<%/if%> type="radio" value="1" name="FORM_TEMPLATE[is_framework]">{LBL_YES}
-                        </label>
-                        <label class="radio-inline">
-                            <input <% if ($TPLOBJ.is_framework==0) %>checked<%/if%> type="radio" value="0" name="FORM_TEMPLATE[is_framework]">{LBL_NO}
-                        </label>
-                    </div><!-- /.form-group -->
-                <%/if%>
+  
 
                 <%if ($GET.id>0 && $TPLOBJ.is_framework==1) %>
                     <div class="form-group">
-                        <label for="">GUI Framework</label>
+                        <label for="">Admin GUI Framework</label>
                         <select class="form-control custom-select" name="FORM_TEMPLATE[gui_frame]">
                             <%foreach from=$TPLOBJ.guiframeworks item=row %>
                                 <option <%if ($TPLOBJ.gui_frame==$row.fw_number) %>selected<%/if%> value="<%$row.fw_number%>">Framework <%$row.fw_number%></option>

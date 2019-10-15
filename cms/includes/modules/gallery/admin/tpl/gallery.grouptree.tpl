@@ -4,7 +4,7 @@
 </div>
 <div id="gallerytreecont">
 <ul>
-<li id="gallerytreeroot" data-haschildren="1" data-tid="0"  ><a id="ident-0" href="javascript:void(0)" data-tid="0">Alben</a>
+<li id="gallerytreeroot" data-haschildren="1" data-tid="0"  ><a id="ident-0" href="javascript:void(0)" data-tid="0">Alle Alben</a>
     <ul>
 <% function name="gal_tree" %>
    <%foreach from=$items item=element%>

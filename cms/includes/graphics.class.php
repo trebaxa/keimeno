@@ -321,28 +321,30 @@ class graphic_class extends keimeno_class {
      * @return
      */
     public static function resize_picture_imageick($filename, $dest_file, $maxWidth, $maxHeight) {
-        if (!self::func_is_available('system')) {
-            ini_set('memory_limit', '256M');
-            if (extension_loaded('imagick')) {
-                try {
-                    $img = new Imagick($filename);
-                    $img->thumbnailImage($maxWidth, $maxHeight, TRUE);
-                    $img->writeImage($dest_file);
+        if (self::get_ext($filename) != 'svg') {
+            if (!self::func_is_available('system')) {
+                ini_set('memory_limit', '256M');
+                if (extension_loaded('imagick')) {
+                    try {
+                        $img = new Imagick($filename);
+                        $img->thumbnailImage($maxWidth, $maxHeight, TRUE);
+                        $img->writeImage($dest_file);
+                    }
+                    catch (Exception $e) {
+                        #  echo 'Caught exception: ', $e->getMessage(), "n";
+                    }
                 }
-                catch (Exception $e) {
-                    #  echo 'Caught exception: ', $e->getMessage(), "n";
+                else {
+                    # GD Resize
+                    self::resizePicture($filename, $dest_file, $maxWidth, $maxHeight);
                 }
+
             }
             else {
-                # GD Resize
-                self::resizePicture($filename, $dest_file, $maxWidth, $maxHeight);
+                $cmd = "convert " . $filename . " -colorspace RGB -quality " . self::get_config_value('gal_compress') . "% -strip -resize '" . $maxWidth . "x" . $maxHeight .
+                    ">' -colorspace sRGB " . $dest_file;
+                $lastLine = system($cmd, $retval);
             }
-
-        }
-        else {
-            $cmd = "convert " . $filename . " -colorspace RGB -quality " . self::get_config_value('gal_compress') . "% -strip -resize '" . $maxWidth . "x" . $maxHeight .
-                ">' -colorspace sRGB " . $dest_file;
-            $lastLine = system($cmd, $retval);
         }
         return $dest_file;
     }
@@ -544,10 +546,10 @@ class graphic_class extends keimeno_class {
         #http://www.imagemagick.org/Usage/crop/#crop
         #http://www.imagemagick.org/script/command-line-options.php?#gravity
         #http://www.imagemagick.org/discourse-server/viewtopic.php?t=18545
-        if (!self::func_is_available('system') ) {
+        if (!self::func_is_available('system')) {
             ini_set('memory_limit', '256M');
             if (extension_loaded('imagick')) {
-                try {                    
+                try {
                     self::crop_imagick($filename, $dest_file, $thWidth, $thHeight, $gravity);
                 }
                 catch (Exception $e) {
@@ -559,7 +561,7 @@ class graphic_class extends keimeno_class {
                 self::cuttofit_zebra($filename, $dest_file, $thWidth, $thHeight, $gravity);
             }
         }
-        else {            
+        else {
             $use_px = ($width_foto_px > $height_foto_px) ? $height_foto_px : $width_foto_px;
             $cmd = 'convert -define jpeg:size=' . $use_px . 'x' . $use_px . ' ' . $filename . ' -type TrueColorMatte -strip -colorspace RGB -quality ' . self::
                 get_config_value('gal_compress') . '% -resize "' . $thWidth . 'x' . $thHeight . '^" -gravity ' . $gravity . ' -crop ' . $thWidth . 'x' . $thHeight .
@@ -845,9 +847,20 @@ class graphic_class extends keimeno_class {
      * @return
      */
     public static function generate_prefix($filename) {
+        $umlaute = array(
+            "ä" => 'ae',
+            'ö' => 'oe',
+            'ü' => 'ue',
+            'ß' => 'ss',
+            ' ' => '-',
+            ',' => '-');
+        $filename = mb_strtolower(basename($filename), 'UTF-8');
+        $filename = trim(strtr($filename, $umlaute));
+
         $filename = strtolower(basename($filename));
         $filename = preg_replace('/[^0-9a-z?-????\`\~\!\@\#\$\%\^\*\(\)\; \,\.\'\/\_\-]/i', '', $filename);
         $filename = self::GetDomainPure() . '_' . substr($filename, 0, strpos($filename, '.')) . '_';
+        #  echo $filename.'<br>';
         return $filename;
     }
 
@@ -873,7 +886,7 @@ class graphic_class extends keimeno_class {
         if ($target_path[strlen($target_path) - 1] != '/')
             $target_path .= '/';
         $thumb_prefix = self::generate_prefix($source);
-        if (!file_exists($source) || !is_file($source))
+        if (!file_exists($source) || !is_file($source) || keimeno_class::get_ext($source) == 'svg')
             return;
 
 

@@ -1,14 +1,13 @@
-<ul>
+<ul id="js_menu">
 <% if ($PERM.core_acc_content_manager==true) %>
-              <li><a data-cont="websitetree" class="js-sb-box-click" href="#" onclick="load_website_tree();"><i class="fas fa-home"></i> Homepage <span class="fa fa-chevron-down"></span></a>
-                   <!--<ul class="nav child_menu knone">
-                        <li id="websitetree"></li>
-                   </ul>-->
-                   <div id="websitetree" class="js-cont"></div>
+              <li><a data-cont="websitetree" class="" href="#" onclick="load_pages(0);"><i class="fas fa-home"></i> Homepage</a>
+                   <div id="websitetree" ></div>
               </li>
               <% if ($PERM.core_acc_orgatab==true) %>
-                <li><a data-cont="js-orga-tree" class="js-sb-box-click" href="javascript:void(0);" id="js-open-orga-tree" ><i class="fa fa-sitemap"></i> Orga <span class="fa fa-chevron-down"></span></a>
-                    <div id="js-orga-tree" class="js-cont">
+                <li>
+                    <a data-cont="js-orga-tree" class="" href="javascript:void(0);" id="js-open-orga-tree" >
+                    <i class="fa fa-sitemap"></i> Organisation</a>
+                    <div id="js-orga-tree" >
                         <%include file="website.orga.tpl"%>
                     </div>
                 </li>
@@ -16,7 +15,7 @@
 
         <script>
             function load_website_tree() {
-                simple_load('websitetree','run.php?epage=websitemanager.inc&urlcmd=<%$cmd%>&cmd=load_website_tree<% if ($epage=="websitemanager.inc") %>&id=<%$GET.id%><%/if%>');
+                simple_load('websitetree','run.php?epage=websitemanager.inc&urlcmd=<%$cmd%>&cmd=load_website_tree<% if ($epage=="websitemanager.inc") %>&id=<%$GET.id%><%/if%>');                              
             }
             load_website_tree();
             <% if ($PERM.core_acc_orgatab==true) %>
@@ -27,31 +26,28 @@
 
 <% if ($PERM.core_acc_system==true) %>
     <li>
-        <a data-cont="js-settings-tree" class="js-sb-box-click" href="javascript:;"><i class="fa fa-cog fa-lg"></i> Settings <span class="fa fa-chevron-down"></span></a>
-        <div id="js-settings-tree" class="js-cont">
-            <ul id="tree3">
+        <a data-cont="js-settings-tree" class="" href="javascript:;" class="menu-toggle"><i class="fas fa-cog"></i> Settings</a>
+            <div id="js-settings-tree" >
+            <ul class="sub-menu">
                 <% function name="systemtree" %>
                 <%foreach from=$items item=element%>
                     <li>
-                    <%if !empty($element.children)%>
-                        <a href="javascript:;"><i class="fa <%$element.icon%>"></i> <%$element.mname%></a>
-                    <%else%>
-                        <a class="ajax-link <% if ($active_node.id==$element.id) %>active<%/if%>" href="<%$element.php%>" title="<%$element.mname|hsc%>"><%$element.mname%></a>
-                    <%/if%>
-
                         <%if !empty($element.children)%>
-                            <ul><%call name="systemtree" items=$element.children%></ul>
+                            <ul class="sub-sub-menu"><%call name="systemtree" items=$element.children%></ul>
+                            <div class="sub-sub-link">
+                                <a href="javascript:void(0)" class="menu-toggle"><i class="fa <%$element.icon%>"></i>&nbsp; <%$element.mname%></a>
+                                <a href="javascript:void(0)" class="menu-toggle toggle-btn"><i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        <%else%>
+                            <a class="ajax-link <% if ($active_node.id==$element.id) %>active<%/if%>" href="<%$element.php%>" title="<%$element.mname|hsc%>"><%$element.mname%></a>    
                         <%/if%>
                     </li>
                 <%/foreach%>
                 <%/function%><% call name="systemtree" items=$system_menu %>
 
             </ul>
-        </div>
+        </div>       
     </li>
-    <script>
-        $('#tree3').treed({openedClass:'fa fa-chevron-right', closedClass:'fa fa-chevron-down'});
-    </script>
 <%/if%>
 
     <%*APP MENU for mobil device*%>
@@ -86,3 +82,19 @@
 
 
 </ul>
+
+
+<script>
+  const mainMenuToggle = $("#js_menu > li > a");
+  const subMenu = $('.sub-menu');
+  const subMenuToggle = $('.sub-menu > li > a.menu-toggle');
+  const subsubMenu = $('.sub-sub-menu');
+
+  mainMenuToggle.on("click", function(e){
+    //mainMenuToggle.not(this).find("ul").slideUp();
+    $('#js_menu').find('.sub-menu').hide();
+    mainMenuToggle.parent("li").removeClass("active");
+    $(this).parent("li").addClass("active");
+    $(this).parent().find('.sub-menu:first').slideToggle();
+  });
+</script>

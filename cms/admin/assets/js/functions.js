@@ -425,6 +425,9 @@ function set_mark_all_checkboxes() {
     });
 }
 
+function load_pages(starttree) {
+    simple_load('admincontent','run.php?epage=websitemanager.inc&starttree=' +starttree+'&cmd=load_pages');
+}
 
 function remove_all_tinymce() {
  try {
@@ -644,6 +647,7 @@ function set_script_editor() {
                 editor.getSession().setTabSize(2);
                 editor.getSession().setUseWorker(false);
                 editor.getSession().setValue(textarea.val());
+                
 
                 var heightUpdateFunction = function() {
                         var lineheight = (editor.renderer.lineHeight == 1) ? 14 : editor.renderer.lineHeight+3;
@@ -654,6 +658,7 @@ function set_script_editor() {
                         $('#editor-' + id).height(newHeight.toString() + "px");
                         $('#editor-' + id + '-section').height(newHeight.toString() + "px");
                         editor.resize();
+                        console.log(newHeight);
                 };
                 heightUpdateFunction();
 
@@ -686,10 +691,6 @@ function set_script_editor() {
         } catch (e) {
        //  console.log(e.message);
         }
-}
-
-function sleep (time) {
-  return new Promise((resolve) >= setTimeout(resolve, time));
 }
 
 function before_json_submit(formData, jqForm, options) {
@@ -764,19 +765,23 @@ function init_autojson_submit() {
         });
 }
 
-var ajaxform_success = function ax_form_response(responseText, statusText, xhr, $form) {
+var formid = "";
+function ajaxform_success(responseText, statusText, xhr, $form)  {
+    $('#'+formid).find(':submit').prop('disabled',false);
+    $('.show-spinner').remove();
     hidePageLoadInfo();
     fwstart();
+    $form.find(':submit').prop('disabled',false);
 }
 
 function init_auto_axjaxform_submit() {
         $('.ajaxform').unbind('submit');
         $('.ajaxform').submit(function() {
+            formid = $(this).attr('id');
             var axform_options = {
                     type: 'POST',
                     forceSync: true,
-                    target:'#'+$(this).data('target'),
-                    showspinner:$(this).data('showspinner'),
+                    target:'#'+$(this).data('target'),                    
                     beforeSubmit: before_json_submit,
                     success: ajaxform_success
             };
@@ -899,7 +904,7 @@ function set_ajaxapprove_icons() {
 function scrollToAnchor(aid) {
         $('html,body').animate({
                 scrollTop: $('#' + aid).offset().top
-        }, 'slow');
+        }, 'fast');
 }
 
 // FLOT CHART FUNCTIONS
@@ -1163,39 +1168,16 @@ function fwstart() {
     init_editclick();
 }
 
-var recalc_content_height = function () {
-    // reset height
-    $('.right_col').css('min-height', $(window).height());
-
-    var bodyHeight = $('body').outerHeight(),
-        footerHeight = $('body').hasClass('footer_fixed') ? -10 : $('footer').height(),
-        leftColHeight = $('.left_col').eq(1).height() + $('.sidebar-footer').height(),
-        contentHeight = bodyHeight < leftColHeight ? leftColHeight : bodyHeight;
-
-    // normalize content
-    contentHeight -= $('.nav_menu').height() + footerHeight;
-
-    $('.right_col').css('min-height', contentHeight);
-};
 
 function std_load_gbltpl(tid,langid,reload) {
+    $('#addgblpage').modal('hide');
+    simple_load('admincontent','run.php?epage=gbltemplates.inc&id='+tid+'&uselang='+langid+'&cmd=load_gbltpl_ax');
     load_orga_tree(reload);
     if (langid=="") langid=1;
     $('#websearchresult').fadeOut();
     $('#sidebar-menu li').removeClass('active');
     $('#sidebar-menu ul.child_menu').hide();
-    $('#js-open-orga-tree').parent().addClass('active');
-    $('#js-open-orga-tree').parent().find('ul:first').slideDown(function() {
-                recalc_content_height();
-    });
-    simple_load('admincontent','run.php?epage=gbltemplates.inc&id='+tid+'&uselang='+langid+'&cmd=load_gbltpl_ax');
-
-    var ref = $('#gbltpltreeul').jstree(true),sel = ref.get_selected();
-    sel = sel[0];
-    if (sel!='gbltreenode-'+tid){
-        $("#gbltpltreeul").jstree("close_all");
-        $('#gbltpltreeul').jstree('select_node', 'gbltreenode-'+tid);
-    }
+    $('#js-orga-tree').find('.child_menu:first').show();
 }
 
 function expand_node_webtree(nodeID,tree) {
@@ -1205,8 +1187,8 @@ function expand_node_webtree(nodeID,tree) {
         nodeID = $("#"+tree).jstree("get_parent", thisNode);
         if (nodeID==false) {
             break;
-            }
-}
+        }
+    }
 }
 
 function page_allowed(data, epage) {
@@ -1270,7 +1252,7 @@ var doopentree=0;
     if (opentree!=undefined && opentree!="") {
         doopentree=1;
     }
-    simple_load('orga-gblvars','run.php?epage=gblvars.inc&cmd=load_var_tree&doopentree='+doopentree);
+    simple_load_sync('orga-gblvars','run.php?epage=gblvars.inc&cmd=load_var_tree&doopentree='+doopentree);
 }
 
 function escapeHtml(raw) {
@@ -1285,6 +1267,27 @@ function scroll_content_table(prop){
 + parseInt($("#"+prop).css('margin-top'),10) - 100 },'slow');
 }
 
+
+function init_tree_toggle() {
+    $("#js_menu .menu-toggle").unbind('click');
+    $("#js_menu .menu-toggle").on("click", function(e){
+        e.preventDefault();
+        var g = $(this).closest('.sub-sub-menu');
+        if (g.has('.sub-sub-menu')) {
+            $( "#js_menu .sub-sub-menu" ).each(function() {
+                $( "#js_menu .sub-sub-menu" ).not(g).hide();            
+            });
+        }
+        $(this).closest("li").addClass("active");
+        $(this).closest("li").find(".sub-sub-menu:first").slideToggle();
+    });
+    
+    $("#js_menu a").on("click", function(e){
+        e.preventDefault();
+        $('#js_menu').find('.active').removeClass('active');
+        $(this).closest('li').addClass('active');
+    });
+}
 
 
 $(document).ready(function() {
@@ -1347,10 +1350,11 @@ $(document).ready(function() {
         * thanks @harry: http://stackoverflow.com/questions/18111582/tinymce-4-links-plugin-modal-in-not-editable
         * http://jsfiddle.net/e99xf/198/
         * fix editing in tinymce in bootstrap modal window: source code, links etc
+        * makes source code editable in modal window
         */
         $(document).on('focusin', function(e) {
-            if ($(e.target).closest(".mce-window").length) {
-                e.stopImmediatePropagation();
+            if ($(e.target).closest(".tox-dialog").length) {
+                e.stopImmediatePropagation();                
             }
         });
 
@@ -1359,33 +1363,3 @@ jQuery.fn.reset = function() {
                 this.reset();
         });
 }
-
-// BOOTSTRAP TREE & OTHERS
-$(document).ready(function () {
-    $('label.tree-toggler').click(function () {
-		$(this).parent().children('ul.tree').toggle(300);
-	});
-
-
-    $('#js-fixed-sidebar').css('width',$('#js-fixed-sidebar').parent().width()-10+'px');
-    if ($("#js-sidebar-scroller").length>0){
-        $("#js-sidebar-scroller").mCustomScrollbar({
-        	setHeight:$(window).height()-100,
-            setWidth: $('#js-fixed-sidebar').width(),
-        	theme:"minimal-dark"
-        });
-    }
-
-    $( window ).resize(function() {
-        $('#js-fixed-sidebar').css('width',$('#js-fixed-sidebar').parent().width()-10+'px');
-    });
-
-
-    $('.js-sb-box-click').click(function (e) {
-        e.preventDefault();
-        $('.js-cont').hide();
-		$('#'+$(this).data('cont')) .slideToggle();
-	});
-
-
-});

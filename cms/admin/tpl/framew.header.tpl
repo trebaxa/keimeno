@@ -10,7 +10,7 @@
             <link rel="stylesheet" href="./assets/vendors/jstree/dist/themes/default/style.min.css" />
             <link rel="stylesheet" href="./assets/fonts/fontawesome/css/all.css">
             <link href="./assets/vendors/dropzone/dropzone.css" rel="stylesheet">
-            <link href="./assets/css/app.css" rel="stylesheet">
+            <link href="./assets/css/app.all.min.css" rel="stylesheet">
             <!-- THME 2019-->
             <script src="./assets/js/jquery.min.js"></script><!-- 331 -->
             <script src="./assets/js/app.js"></script>
@@ -20,10 +20,14 @@
             <script src="./assets/vendors/tinymce/tinymce.min.js"></script>
         <%else%>
             <link rel="stylesheet" href="./assets/fonts/fontawesome/css/all.css">
-            <link href="./assets/css/app.all.min.css" rel="stylesheet">
+            <link href="./assets/css/app.all.min.css?<%$smarty.now|date_format:"%d%m%Y"%>" rel="stylesheet">
             <script src="./assets/js/functions.min.js"></script>
             <script src="./assets/vendors/tinymce/tinymce.min.js"></script>
-
+<style>
+.menu_section > ul > li .sub-menu li .sub-sub-link a:not(.toggle-btn) {
+    flex-basis:calc(100% - 3rem);
+    }
+</style>
         <%/if%>
 
 
@@ -54,17 +58,18 @@
               <li class="top-has-sub">
                 <a href="#"><i class="fas fa-rocket"></i></a>
                 <ul class="top-sub">
+                    <li><a href="//developers.google.com/speed/pagespeed/insights/?url=<%$project_domain|urlencode%>" target="_blank">Google Page Speed Test</a></li>
+                    <li><a href="https://www.google.com/webmasters/tools/mobile-friendly/?url=<%$project_domain|urlencode%>" target="_blank">Mobile-Friendly Test</a></li>
+                    <li><a href="https://www.google.com/search?q=site:<%$SERVERVARS.HTTP_HOST|replace:"www.":""%>&ie=utf-8&oe=utf-8&client=firefox-b-e" target="_blank">Google Index</a></li>
+                    <li><a href="https://search.google.com/structured-data/testing-tool#url=<%$project_domain|urlencode%>" target="_blank">Google Structured Data Test</a></li>
                     <li><a href="//moz.com/researchtools/ose/links?site=<%$project_domain|urlencode%>" target="_blank">Check Inlinks (OSE)</a></li>
             		<li><a href="http://www.zippy.co.uk/keyworddensity/index.php?url=<%$project_domain|urlencode%>&#038;keyword=" target="_blank">Check Keyword Density</a></li>
-            		<li><a href="//quixapp.com/headers/?r=<%$project_domain|urlencode%>" target="_blank">Check Headers</a></li>
-            		<li><a href="https://search.google.com/structured-data/testing-tool#url=<%$project_domain|urlencode%>" target="_blank">Google Structured Data Test</a></li>
+            		<li><a href="//quixapp.com/headers/?r=<%$project_domain|urlencode%>" target="_blank">Check Headers</a></li>            		
             		<li><a href="//developers.facebook.com/tools/debug/og/object?q=<%$project_domain|urlencode%>" target="_blank">Facebook Debugger</a></li>
             		<li><a href="https://developers.pinterest.com/tools/url-debugger/?link=<%$project_domain|urlencode%>" target="_blank">Pinterest Rich Pins Validator</a></li>
             		<li><a href="//validator.w3.org/check?uri=<%$project_domain|urlencode%>" target="_blank">HTML Validator</a></li>
-            		<li><a href="//jigsaw.w3.org/css-validator/validator?uri=<%$project_domain|urlencode%>" target="_blank">CSS Validator</a></li>
-            		<li><a href="//developers.google.com/speed/pagespeed/insights/?url=<%$project_domain|urlencode%>" target="_blank">Google Page Speed Test</a></li>
-            		<li><a href="https://www.google.com/webmasters/tools/mobile-friendly/?url=<%$project_domain|urlencode%>" target="_blank">Mobile-Friendly Test</a></li>
-                    <li><a href="https://www.google.com/search?q=site:<%$SERVERVARS.HTTP_HOST|replace:"www.":""%>&ie=utf-8&oe=utf-8&client=firefox-b-e" target="_blank">Google Index</a></li>
+            		<li><a href="//jigsaw.w3.org/css-validator/validator?uri=<%$project_domain|urlencode%>" target="_blank">CSS Validator</a></li>            		
+            		<li><a href="http://wave.webaim.org/report#/<%$project_domain|urlencode%>" target="_blank">WAVE - Barrierefrei?</a></li>                    
                 </ul>
               </li>
               <li><a href="../" target="_homepage" title="Frontend"><i class="fas fa-eye"></i></a></li>
@@ -111,56 +116,8 @@
 
 
         <main class="main">
-          <!-- <div class="main_container"> -->
-          <%*
-          <div class="col-md-3 left_col menu_fixed">
-              <div class="left_col scroll-view">
-                <div class="navbar nav_title" style="border: 0;">
-                  <a href="<%$PATH_CMS%>admin/welcome.html" class="site_title"><img style="width:45px" src="./images/logo-cms-keimeno-small.png" alt="Keimeno"> <span>Keimeno</span></a>
-                </div>
-
-                <div class="clearfix"></div>
-
-                <!-- sidebar menu -->
-                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                  <div class="menu_section">
-                    <%include file="sidebar.tpl"%>
-                  </div>
-                </div><!-- sidebar -->
-
-            </div><!-- left_col -->
-          </div><!-- col-md3 sidebar -->
-          *%>
-          <%*
-          <!-- top navigation -->
-            <div class="top_nav" id="adminheader">
-              <div class="nav_menu">
-                <nav>
-                  <div class="nav toggle">
-                    <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                  </div>
-
-                <div class="navbar-form navbar-left hidden-sm hidden-xs">
-                    <div class="form-group top_search" role="search">
-                        <div class="input-group">
-                            <input data-php="index" data-hideaj="1" data-cmd="main_search_page" data-target="websearchresult" type="text" class="live_search form-control" placeholder="{LA_SEARCHFOR}" autocomplete="off">
-                            <span class="input-group-btn"><span class="btn search-icon"><i class="fa fa-search fa-fw"><!----></i></span></span>
-                        </div>
-                        <div id="websearchresult"></div>
-                    </div>
-                </div>
-
-                <ul class="nav navbar-nav navbar-left hidden-sm hidden-xs" id="menu_reload_cont">
-                    <% include file="adminmenu.tpl" %>
-                </ul><!-- .nav .navbar-nav .navbar-right #menu_reload_cont -->
-
-
-                </nav>
-              </div>
-            </div>
-            <!-- /top navigation -->
-            *%>
-
+     
+     
             <!-- page content -->
             <div class="right_col-" role="main" id="admincontent">
                <%* <% if (count($other_employees_wokring)>1)%>{LBL_WHOISWORKING} <% foreach from=$other_employees_wokring item=row %><%$row.mname%><%/foreach%><%/if%> *%>

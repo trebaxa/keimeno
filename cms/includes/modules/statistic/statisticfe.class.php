@@ -1,7 +1,5 @@
 <?php
 
-# Scripting by Trebaxa Company(R) 2012   					*
-
 /**
  * @package    statistic
  *

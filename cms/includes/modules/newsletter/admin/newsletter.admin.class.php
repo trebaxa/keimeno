@@ -290,6 +290,7 @@ class newsletter_admin_class extends newsletter_master_class {
         $FORM = (array )$_POST['FORM'];
         $FORM['e_html'] = intval($FORM['e_html']);
         $FORM['e_content'] = str_replace(' src=\"/', ' src=\"' . self::get_domain_url(), $FORM['e_content']);
+        $FORM['e_content'] = str_replace(' href=\"/', ' href=\"' . self::get_domain_url(), $FORM['e_content']);
         #   echoarr($FORM);die;
         update_table(TBL_CMS_EMAILER, "id", $_POST['id'], $FORM);
         if ($_FILES['attfile']['name'] != "") {
@@ -437,20 +438,33 @@ class newsletter_admin_class extends newsletter_master_class {
      */
     function cmd_a_tracking() {
         $E_OBJ = $this->db->query_first("SELECT * FROM " . TBL_CMS_EMAILER . " WHERE id='" . $_GET['id'] . "' LIMIT 1");
-        $emails = explode("!", $E_OBJ['tracking']);
+        $tracked_emails = $no_feedback = array();
+        if ($E_OBJ['tracking'] != "") {
+            $tracked_emails = explode("!", $E_OBJ['tracking']);
+        }
         $send_emails = explode("!", $E_OBJ['send_emails']);
-        sort($emails);
+        sort($tracked_emails);
         if (count($send_emails) > 0) {
             foreach ($send_emails as $key => $semail) {
-                if (!in_array($semail, $emails))
+                $all[$semail]['email'] = $semail;
+                if (!in_array($semail, $tracked_emails)) {
                     $no_feedback[] = $semail;
+                    $all[$semail]['readed'] = 0;
+                }
+                else {
+                    $all[$semail]['readed']++;
+                }
+
             }
         }
-        $count_arr = array_count_values($emails);
-        $this->NEWSLETTER['all_feedback'] = array_count_values(array_merge((array )$count_arr, (array )$no_feedback));
-        $this->NEWSLETTER['ok_feedback'] = $count_arr;
+        $tracked_count_arr = array_count_values($tracked_emails);
+
+        $this->NEWSLETTER['all_feedback'] = $all;
+        array_count_values(array_merge($tracked_emails, $no_feedback));
+        #  echoarr($this->NEWSLETTER['all_feedback']);
+        $this->NEWSLETTER['ok_feedback'] = $tracked_count_arr;
         $this->NEWSLETTER['no_feedback'] = $no_feedback;
-        $this->NEWSLETTER['ok_feedback_count'] = count($count_arr);
+        $this->NEWSLETTER['ok_feedback_count'] = count($tracked_count_arr);
         $this->NEWSLETTER['all_feedback_count'] = count($this->NEWSLETTER['all_feedback']);
         $this->NEWSLETTER['no_feedback_count'] = count($no_feedback);
     }
@@ -642,10 +656,11 @@ class newsletter_admin_class extends newsletter_master_class {
         $id = (int)$_GET['ident'];
         $ATT_FORM = $this->db->query_first("SELECT attachments FROM " . TBL_CMS_EMAILER . " WHERE id=" . $id);
         $afiles = unserialize($ATT_FORM['attachments']);
-        if (count($afiles) > 0) {
+        if (is_array($afiles) && count($afiles) > 0) {
             foreach ((array )$afiles as $key => $afile)
-                if (file_exists($afile))
+                if (file_exists($afile)) {
                     unlink(NEWS_FOLDER . $afile);
+                }
         }
         $tmp_obj = $this->db->query_first("SELECT * FROM " . TBL_CMS_EMAILER . " WHERE id='" . $id . "' LIMIT 1");
         $this->db->query("DELETE FROM " . TBL_CMS_EMAILER . " WHERE id='" . $id . "' LIMIT 1");

@@ -521,7 +521,8 @@ function get_email_template($id, $langid = -1) {
  * @param string $from_name
  * @return
  */
-function send_easy_mail_to($email_to, $email_content, $email_subject, $att_files = "", $textonly = TRUE, $from_email = FM_EMAIL, $from_name = '', $reply_to = "") {
+function send_easy_mail_to($email_to, $email_content, $email_subject, $att_files = array(), $textonly = TRUE, $from_email = FM_EMAIL, $from_name = '', $reply_to =
+    "") {
     $email_array['absender_email'] = $from_email;
     $email_array['cu_email'] = $email_to;
     $email_array['subject'] = $email_subject;
@@ -662,7 +663,6 @@ function send_mail_to($email_array, $att_files = array(), $textonly = TRUE, $fro
     keimeno_class::allocate_memory($mail);
     return $status;
 }
-
 
 
 /**
@@ -1768,22 +1768,32 @@ function create_html_editor($textarea_name = '', $value = '', $height = 200, $ts
     }
     $links .= '],';
 
+    $opt_str = "";
+    $std_opt = array(
+        'convert_newlines_to_brs' => 'true',
+        'force_br_newlines' => 'true',
+        'force_p_newlines' => 'false',
+        'paste_data_images' => 'true',
+        'convert_fonts_to_spans' => 'true',
+        'remove_script_host' => 'true',
+        'relative_urls' => 'false',
+        'allow_script_urls' => 'true',
+        'image_advtab' => 'true',
+        'height' => '"' . $height . 'px"',
+        'width' => '"100%"');
+    $opt = array_merge($std_opt, $settings);
+
+    foreach ($opt as $key => $val) {
+        $opt_str .= $key . ':' . $val . ',' . PHP_EOL;
+    }
+
 
     $general_Settings = 'selector : "#' . $id . '",
-        convert_newlines_to_brs : true,
-        force_br_newlines : true,
-        force_p_newlines : false,
-        paste_data_images: true,
-        convert_fonts_to_spans : true,        
-        remove_script_host : ' . ((isset($settings['remove_script_host'])) ? $settings['remove_script_host'] : 'true') . ',
-        relative_urls : false,
-        document_base_url : "' . keimeno_class::get_domain_url() . '", 
-        width: "100%",
-        allow_script_urls: true,
-        image_advtab: true,
-        ' . $links . '
+    ' . $opt_str . '
+        document_base_url : "' . keimeno_class::get_domain_url() . '",
+        ' . $links . '      
         extended_valid_elements : "header[id|name|class|style],footer[id|name|class|style],article[id|name|class|style],section[id|name|class|style],hgroup,nav[id|name|class|style],figure[id|name|class|style],aside[id|name|class|style],date[id|name|class|style],style,i[id|name|class|style],em",      
-        height: "' . $height . '",
+        
         plugins: [
          "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
          "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
@@ -1818,7 +1828,7 @@ tinymce.init({
     
 tinymce.init({
     menubar: false,  
-    toolbar: "undo redo | bold italic | alignleft aligncenter alignright alignjustify | image code link",
+    toolbar: "undo redo | bold italic | alignleft aligncenter alignright alignjustify | image code link | removeformat",
 ' . $general_Settings . '
 });
 ';
@@ -1836,7 +1846,7 @@ tinymce.init({
         $c .= '
     
 tinymce.init({
-     toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media | print preview fullpage | forecolor code fullscreen",
+     toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media | print preview fullpage | forecolor code fullscreen | removeformat",
 ' . $general_Settings . '
 });
 ';

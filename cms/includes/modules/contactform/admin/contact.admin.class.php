@@ -8,7 +8,7 @@
  * @version    1.2
  */
 
-class contact_admin_class extends keimeno_class {
+class contact_admin_class extends modules_class {
 
     /**
      * contact_admin_class::__construct()
@@ -66,6 +66,56 @@ class contact_admin_class extends keimeno_class {
         $CONFIG_OBJ = new config_class();
         $CONFIG_OBJ->save($_POST['FORM']);
         $this->hard_exit();
+    }
+
+    /**
+     * contact_admin_class::cmd_add_email_to_list()
+     * 
+     * @return void
+     */
+    function cmd_add_email_to_list() {
+        $content_matrix_id = (int)$_GET['cmid'];
+        $opt = $this->load_plug_opt($content_matrix_id);
+        $elist = (isset($opt['elist'])) ? (array )$opt['elist'] : array();
+        $eform = self::arr_trim($_GET['EFORM']);
+        $elist[md5($eform['label'] . $eform['email'])] = (array )$eform;
+        modules_class::update_plugin_opt($content_matrix_id, array('elist' => $elist));
+        self::msg('saved');
+        $this->ej('reload_elist_' . $content_matrix_id);
+    }
+
+    /**
+     * contact_admin_class::cmd_reload_elist()
+     * 
+     * @return void
+     */
+    function cmd_reload_elist() {
+        $content_matrix_id = (int)$_GET['cmid'];
+        $opt = $this->load_plug_opt($content_matrix_id);
+        $this->CONTACT['elist'] = (isset($opt['elist'])) ? (array )$opt['elist'] : array();
+        foreach ($this->CONTACT['elist'] as $key => $row) {
+            $this->CONTACT['elist'][$key]['icons'][] = kf::gen_del_icon(md5($row['label'] . $row['email']), false, 'delemail', '', '&cmid=' . $content_matrix_id);
+        }
+        $this->parse_to_smarty();
+        kf::echo_template('contact.plugin.elist');
+    }
+
+    /**
+     * contact_admin_class::cmd_delemail()
+     * 
+     * @return void
+     */
+    function cmd_delemail() {
+        $content_matrix_id = (int)$_GET['cmid'];
+        $opt = $this->load_plug_opt($content_matrix_id);
+        $this->CONTACT['elist'] = (isset($opt['elist'])) ? (array )$opt['elist'] : array();
+        foreach ($this->CONTACT['elist'] as $key => $row) {
+            if (md5($row['label'] . $row['email']) == $_GET['ident']) {
+                unset($this->CONTACT['elist'][$key]);
+            }
+        }
+        modules_class::update_plugin_opt($content_matrix_id, array('elist' => $this->CONTACT['elist']));
+        $this->ej();
     }
 
 }

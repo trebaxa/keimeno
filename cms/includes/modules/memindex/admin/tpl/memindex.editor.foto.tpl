@@ -23,7 +23,7 @@
                     </span>
                 </div><!-- /input-group -->
             </div><!-- /.form-group -->
-        <div class="form-feet mb-3">
+        <div class="btn-group mb-3">
             <button class="btn btn-primary" role="button">Upload</button>
             <a href="javascript:void(0)" id="delimgbtnpro" class="btn btn-danger del_cust_img" role="button"><i class="fa fa-trash"><!----></i></a>
         </div><!-- /.form-feet -->

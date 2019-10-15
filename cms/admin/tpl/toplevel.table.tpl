@@ -44,7 +44,7 @@
                     </td>
                     <td>
                         <div class="btn-group">
-                            <a class="btn btn-secondary" title="Seiten anzeigen" href="run.php?toplevel=<% $row.id%>&epage=websitemanager.inc"><span class="glyphicon glyphicon-eye-open"><!----></span></a>
+                            <a class="btn btn-secondary" title="Seiten anzeigen" href="run.php?toplevel=<% $row.id%>&epage=websitemanager.inc"><i class="fas fa-eye"></i></a>
                             <% foreach from=$row.icons item=picon name=cicons %><% $picon %><%/foreach%>
                         </div><!-- /.btn-group -->
                     </td>

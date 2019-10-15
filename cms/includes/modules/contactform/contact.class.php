@@ -67,6 +67,13 @@ class contactform_class extends modules_class {
             $PLUGIN_OPT = $this->load_plug_opt((int)$_POST['cont_matrix_id']);
         }
 
+        if (count($PLUGIN_OPT) == 0) {
+            $this->msge("hacking.");
+            $contact_err['hacking'] = true;
+            $this->LOGCLASS->addLog('HACKING', 'hacking over IP ' . REAL_IP . ', ' . $_SERVER['REQUEST_URI']);
+            firewall_class::report_hack('Contact formular, hacking over hidden field');
+        }
+
         $FORM = (array )$_POST['FORM'];
         $FORM_NOTEMPTY = (array )$_POST['FORM_NOTEMPTY'];
 
@@ -74,7 +81,7 @@ class contactform_class extends modules_class {
         $FORM_NOTEMPTY = self::arr_trim_striptags($FORM_NOTEMPTY);
         $plugin_admin_email = ($PLUGIN_OPT['email'] != "") ? $PLUGIN_OPT['email'] : FM_EMAIL;
 
-        if (count($PLUGIN_OPT['elist']) > 0 && $FORM['elist'] != "") {
+        if (isset($PLUGIN_OPT['elist']) && is_array($PLUGIN_OPT['elist']) && count($PLUGIN_OPT['elist']) > 0 && $FORM['elist'] != "") {
             foreach ($PLUGIN_OPT['elist'] as $hash => $erow) {
                 if ($hash == $FORM['elist']) {
                     $plugin_admin_email = $erow['email'];
@@ -200,7 +207,16 @@ class contactform_class extends modules_class {
                     }
                     else {
                         if (move_uploaded_file($_FILES["datei"]["tmp_name"], CMS_ROOT . CACHE . $_FILES["datei"]["name"])) {
-                            $att_files[] = CMS_ROOT . CACHE . $_FILES["datei"]["name"];
+                            if (stripos($_FILES["datei"]["name"], '.txt.html') > 0) {
+                                $contact_err['hacking'] = true;
+                                $this->LOGCLASS->addLog('HACKING', 'hacking over IP ' . REAL_IP . ', ' . $user_agent);
+                                self::msge('invalid file type');
+                                firewall_class::report_hack('invalid file type ' . $_FILES["datei"]["name"]);
+                                @unlink(CMS_ROOT . CACHE . $_FILES["datei"]["name"]);
+                            }
+                            else {
+                                $att_files[] = CMS_ROOT . CACHE . $_FILES["datei"]["name"];
+                            }
                         }
                         else {
                             self::msge('File upload fehlgeschlagen');
@@ -218,7 +234,16 @@ class contactform_class extends modules_class {
                         else {
                             if ($datei != "") {
                                 if (move_uploaded_file($datei, CMS_ROOT . CACHE . $_FILES["datei"]['name'][$key])) {
-                                    $att_files[] = CMS_ROOT . CACHE . $_FILES["datei"]['name'][$key];
+                                    if (stripos($_FILES["files"]['name'][$key], '.txt.html') > 0) {
+                                        $contact_err['hacking'] = true;
+                                        $this->LOGCLASS->addLog('HACKING', 'hacking over IP ' . REAL_IP . ', ' . $user_agent);
+                                        self::msge('invalid file type');
+                                        firewall_class::report_hack('invalid file type ' . $_FILES["files"]['name'][$key]);
+                                        @unlink(CMS_ROOT . CACHE . $_FILES["files"]['name'][$key]);
+                                    }
+                                    else {
+                                        $att_files[] = CMS_ROOT . CACHE . $_FILES["datei"]['name'][$key];
+                                    }
                                     # self::msg($_FILES["datei"]['name'][$key] . ' upload erfolgreich');
                                 }
                                 else {

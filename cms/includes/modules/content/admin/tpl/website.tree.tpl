@@ -1,25 +1,45 @@
+<ul class="sub-menu">
+<% function name="websitetree" %>
+    <%foreach from=$items item=element%>
+            <li id="js-wbst-<%$element.id%>">                        
+                <%if !empty($element.children)%>
+                    <ul class="sub-sub-menu"><%call name="websitetree" items=$element.children%></ul>
+                    <div class="sub-sub-link">
+                        <a onclick="load_pages(<%$element.id%>);" href="javascript:void(0)" data-tid="0" class="menu-toggle"><%$element.description%></a>
+                        <a class="ajax-link toggle-btn" href="<%$PATH_CMS%>admin/run.php?epage=websitemanager.inc&cmd=page_axedit&id=<%$element.id%>"><i class="fas fa-edit"></i></a>
+                        <a onclick="load_pages(<%$element.id%>);" href="javascript:void(0)" data-tid="0" class="menu-toggle toggle-btn"><i class="fas fa-chevron-right"></i></a>
+                    </div>  
+                <%else%>
+                    <a class="js-website-click" data-tid="<%$element.id%>" id="ident-<%$element.id%>" 
+                data-link="run.php?epage=websitemanager.inc&toplevel=<%$GET.toplevel%>&cmd=edit&id=<%$element.id%>" data-haschildren="<% if (!empty($element.children)) %>1<%else%>0<%/if%>"
+                data-isadmin="<%$element.admin%>" 
+                href="#" title="<%$element.description|hsc%>"
+                ><%$element.description%></a>
+                <%/if%>
+            </li>
+    <%/foreach%>
+    <%/function%><% call name="websitetree" items=$WEBSITE.websitetree %>
+</ul>
+ 
 
-<div id="adminmenu">
+<script>
+$( ".js-website-click" ).unbind('click');
+$( ".js-website-click" ).click(function(e) {    
+   if ($(this).data('haschildren')==0 && $(this).data('tid')>0) {
+        simple_load('admincontent','<%$PATH_CMS%>admin/run.php?epage=websitemanager.inc&cmd=page_axedit&id='+$(this).data('tid'));
+        scrollToAnchor('admincontent');
+   }
+});  
 
-    <ul class="sub-menu">
-        <li id="webtreeroot" data-haschildren="1" data-tid="0" ><a id="ident-0" onclick="load_pages(0);" href="javascript:void(0)"  data-tid="0">Seiten</a>
-            <ul>
-        <% function name="websitetree" %>
-            <%foreach from=$items item=element%>
-                    <li data-tid="<%$element.id%>" data-link="run.php?epage=websitemanager.inc&toplevel=<%$GET.toplevel%>&cmd=edit&id=<%$element.id%>" id="pagenode-<%$element.id%>" data-haschildren="<% if (!empty($element.children)) %>1<%else%>0<%/if%>" data-tid="<%$element.id%>" data-isadmin="<%$element.admin%>" <% if (empty($element.children)) %>data-jstree='{"icon":"far fa-file-alt"}'<%/if%> >
-                    <a data-tid="<%$element.id%>" id="ident-<%$element.id%>" href="#" title="<%$element.description|hsc%>"
-                    ><%$element.description%></a>
-                    <%if !empty($element.children)%>
-                        <ul><%call name="websitetree" items=$element.children%></ul>
-                    <%/if%>
-                    </li>
-            <%/foreach%>
-            <%/function%><% call name="websitetree" items=$WEBSITE.websitetree %>
-            </ul>
-        </li>
-     </ul>
-</div>
+init_tree_toggle();
 
+<% if ($GET.id>0) %>
+     $('#js-wbst-<%$GET.id%>').parents('ul').show();      
+<%/if%>
+      
+</script> 
+
+<%*
 
 <script>
   $('#adminmenu ul').show();
@@ -224,3 +244,4 @@
     }
 
 </script>
+*%>

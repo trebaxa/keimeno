@@ -7,7 +7,7 @@
                     <label class="sr-only" for="wort">{LA_KUNDENSUCHEN}</label>
                     <input placeholder="{LA_KUNDENSUCHEN}" autocomplete="off" type="text" class="form-control" id="wort" value="<% $GET.wort|hsc %>" name="wort" size="11" onKeyUp="simple_load('ksuche_areaw','<%$PHPSELF%>?epage=<%$epage%>&cmd=ax_search&orderby=<% $GET.orderby %>&direc=<% $GET.direc %>&sword='+$('#wort').val());$('#ktable').hide();">
                 </div><!-- /.form-group -->
-                <div class="form-group">
+              <%*  <div class="form-group">
                     <label for="">{LA_FILTER}</label>
                     <select class="form-control custom-select" onChange="location.href=this.options[this.selectedIndex].value">
                         <option <% if ($MEMINDEX.settings.filter.type=='-') %>selected<%/if%> value="<%$PHPSELF%>?type=-&aktion=showall">{LBL_NOSELECTION}</option>
@@ -19,6 +19,7 @@
                         <!-- <option <% if ($MEMINDEX.settings.filter.type=='showall') %>selected<%/if%> value="<%$PHPSELF%>?type=a_sall&aktion=showall">{LBL_SHOWALL}</option> -->
                     </select>
                 </div><!-- /.form-group -->
+                *%>
                 <div class="form-group">
                     <label for="">Export {LA_NACH} XLS</label>
                     <select class="form-control custom-select" size="-1" onChange="location.href=this.options[this.selectedIndex].value">

@@ -920,7 +920,7 @@ class memindex_class extends memindex_master_class {
         WHERE G.cms_approval=1 AND CU.cms_isindex=1 AND CU.kid=K.kid
         GROUP BY G.id ORDER BY G.groupname");
             while ($row = $this->db->fetch_array_names($result)) {
-                $url['url'] = self::get_http_protocol() . '://www.' . FM_DOMAIN . $this->memberclass->genCustomerGroupLink($row['id'], $row['groupname'], $rowl['id']);
+                $url['url'] = rtrim(self::get_domain_url(), '/')  . $this->memberclass->genCustomerGroupLink($row['id'], $row['groupname'], $rowl['id']);
                 $url['frecvent'] = $SM['sm_changefreq'];
                 $url['priority'] = $SM['sm_priority'];
                 $params['urls'][] = $url;
@@ -928,7 +928,7 @@ class memindex_class extends memindex_master_class {
             $result = $this->db->query("SELECT * FROM " . TBL_CMS_CUST . " WHERE cms_isindex=1 ORDER BY nachname");
             while ($row = $this->db->fetch_array_names($result)) {
                 $label = member_class::gen_link_label($row);
-                $url['url'] = self::get_http_protocol() . '://www.' . FM_DOMAIN . $this->memberclass->genCustomerLink($label);
+                $url['url'] = rtrim(self::get_domain_url(), '/') . $this->memberclass->genCustomerLink($label);
                 $url['frecvent'] = $SM['sm_changefreq'];
                 $url['priority'] = $SM['sm_priority'];
                 $params['urls'][] = $url;

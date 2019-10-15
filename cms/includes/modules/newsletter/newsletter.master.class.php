@@ -71,18 +71,16 @@ class newsletter_master_class extends keimeno_class {
         $user_obj['email'] = (!validate_email_input($user_obj['email_notpublic'])) ? $user_obj['email'] : $user_obj['email_notpublic'];
         $content = str_replace("!!CUSTOMER_LASTNAME!!", $user_obj['nachname'], $content);
         $content = str_replace("!!HELLO!!", $anrede, $content);
+        $dis_link = self::get_domain_url() . 'index.php?page=9910&cmd=a_edisable&group=' . $user_obj['kid'] . '&n=' . md5($user_obj['email']);
         if ($e_obj['e_html'] == 1) {
             $content = str_replace("[BR]", "<br>", $content);
-            $content = str_replace("!!DISABLE_LETTER_LINK!!", '<a target="_blank" href="' . self::get_domain_url() .
-                'includes/modules/newsletter/newsletter.inc.php?cmd=a_edisable&group=' . $user_obj['kid'] . '&n=' . md5($user_obj['email']) . '">' . $e_obj['e_unsubscribe'] .
-                '</a>', $content);
+            $content = str_replace("!!DISABLE_LETTER_LINK!!", '<a target="_blank" href="' . $dis_link . '">' . $e_obj['e_unsubscribe'] . '</a>', $content);
             $content = str_replace("!!TRACKING_CODE!!", '<img style="display:none" width="0" height="0" src="' . self::get_domain_url() .
                 'index.php?page=9910&cmd=recordn&id=' . $e_obj['id'] . '&n=' . base64_encode($user_obj['email']) . '" >', $content);
             $content = str_replace("</body>", "<!-- IP " . getenv('REMOTE_ADDR') . " --></body>", $content);
         }
         else {
-            $content = str_replace("!!DISABLE_LETTER_LINK!!", self::get_domain_url() . 'index.php?page=9910&cmd=a_edisable&group=' . $user_obj['kid'] . '&n=' . md5($user_obj['email']),
-                $content);
+            $content = str_replace("!!DISABLE_LETTER_LINK!!", $dis_link, $content);
             $content = str_replace("[BR]", "\n", $content);
             $content = str_replace("!!TRACKING_CODE!!", '', $content);
         }
@@ -109,8 +107,8 @@ class newsletter_master_class extends keimeno_class {
         $msg->Bcc = "";
         $msg->TextOnly = $EOBJ['e_html'] == 1 ? false : true;
         $msg->Content = utf8_decode($newsletter_content);
-        $afiles = unserialize($EOBJ['attachments']);
-        if (count($afiles) > 0) {
+        $afiles = ($EOBJ['attachments'] != "") ? unserialize($EOBJ['attachments']) : array();
+        if (is_array($afiles) && count($afiles) > 0) {
             foreach ((array )$afiles as $key => $afile) {
                 if (file_exists(NEWS_FOLDER . $afile) && $afile != "" && is_file(NEWS_FOLDER . $afile)) {
                     $msg->Attach(NEWS_FOLDER . $afile);

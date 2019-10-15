@@ -85,8 +85,10 @@ class kdb {
                 $this->error("Link-ID == false, connect failed. Wrong Password or User or Database. Please check. " . mysqli_connect_error());
             }
             else {
-                if ($utf8 === TRUE)
+                if ($utf8 === TRUE) {
                     $this->query("SET CHARACTER SET utf8");
+                }
+                $this->query("SET SESSION sql_mode = 'NO_ENGINE_SUBSTITUTION'");
             }
             self::set_link_id($this->link_id);
         }

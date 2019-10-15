@@ -13,7 +13,7 @@ function start_update() {
         });  
         $("#uptfinish").show();        
         $("#updwarning").hide();
-        simple_load_nocache('menu_reload_cont','run.php?epage=modulman.inc&cmd=reloadmenu'); 
+        simple_load_nocache('js-appmenu','run.php?epage=modulman.inc&cmd=reloadmenu'); 
     } else {
         $("#uptfault").show();
     }   

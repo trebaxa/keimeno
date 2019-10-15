@@ -366,7 +366,7 @@ class websites_class extends keimeno_class {
         $this->TEMPL_OBJ->template['urltpl'] = content_class::gen_url_template($id);
         $lang = new language_class();
         $this->TEMPL_OBJ->template['langfe'] = $lang->build_lang_select_smarty($this->langid);
-    
+
         $this->smarty->assign('TPLOBJ', $this->TEMPL_OBJ->template);
 
         $this->load_contentmatrix($this->TEMPL_OBJ->template['formcontent']['id']);
@@ -976,6 +976,22 @@ class websites_class extends keimeno_class {
         $this->hard_exit();
     }
 
+
+    /**
+     * websites_class::add_page_to_topl()
+     * 
+     * @param mixed $id
+     * @param mixed $pageid
+     * @return void
+     */
+    function add_page_to_topl($id, $pageid) {
+        $TOPL = dao_class::get_data_first(TBL_CMS_TOPLEVEL, array('id' => $id));
+        $trees = explode(";", $TOPL['trees']);
+        $trees[] = $pageid;
+        $trees = array_unique($trees);
+        update_table(TBL_CMS_TOPLEVEL, 'id', $id, array('trees' => implode(';', $trees)));
+    }
+
     /**
      * websites_class::breadcrumb_update()
      * 
@@ -1233,6 +1249,15 @@ class websites_class extends keimeno_class {
     function cmd_add_content() {
         $FORM = (array )$_POST['FORM'];
         $PLUGFORM = self::arr_stripslashes((array )$_POST['PLUGFORM']);
+        $id = (int)$_POST['id'];
+
+        $res = dao_class::get_data_first(TBL_CMS_TEMPMATRIX, array('id' => (int)$id));
+        $parr = unserialize($res['tm_plugform']);
+        if (is_array($parr)) {
+            $PLUGFORM = array_merge($parr, $PLUGFORM);
+        }
+
+
         $FORM['tm_plugform'] = serialize($PLUGFORM);
         $C = $this->db->query_first("SELECT * FROM " . TBL_CMS_TEMPCONTENT . " WHERE id=" . $FORM['tm_cid']);
         $FORM['tm_tid'] = $C['tid'];
@@ -1260,7 +1285,7 @@ class websites_class extends keimeno_class {
             $FORM['tm_content'] = str_replace('/{URL_TPL_', '{URL_TPL_', $FORM['tm_content']);
         }
 
-        $id = (int)$_POST['id'];
+
         update_table(TBL_CMS_TEMPMATRIX, 'id', $id, $FORM);
 
         #exec plugin save
@@ -1520,7 +1545,7 @@ class websites_class extends keimeno_class {
         $this->WEBSITE['first_plugs']['WYSIWYG'] = array(
             'id' => '',
             'tm_type' => 'W',
-            'plug_name' => 'Text mit Bilder (WYSIWYG Editor)',
+            'plug_name' => 'Text mit Bilder (RTE Editor)',
             'modident' => '');
         $this->WEBSITE['first_plugs']['SCRIPTCODE'] = array(
             'id' => '',
@@ -2114,8 +2139,8 @@ class websites_class extends keimeno_class {
         $topl_found = false;
         $result = $this->db->query("SELECT * FROM " . TBL_CMS_TOPLEVEL . " ORDER BY morder,description");
         while ($row = $this->db->fetch_array_names($result)) {
-            $toplevel_checkoxes .= '<div class="checkbox"><label><input type="checkbox" ' . ((in_array($pageid, explode(';', $row['trees']))) ? 'checked' : '') . ' name="TLACTIVE[' . $row['id'] .
-                ']" value="' . $row['id'] . '"> ' . $row['description'] . '</label></div>';
+            $toplevel_checkoxes .= '<div class="checkbox"><label><input type="checkbox" ' . ((in_array($pageid, explode(';', $row['trees']))) ? 'checked' : '') .
+                ' name="TLACTIVE[' . $row['id'] . ']" value="' . $row['id'] . '"> ' . $row['description'] . '</label></div>';
             if (in_array($pageid, explode(';', $row['trees'])))
                 $topl_found = true;
         }

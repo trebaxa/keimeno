@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Keimeno Login</title>
     <link rel="stylesheet" href="./assets/fonts/fontawesome/css/all.css">
-    <link href="./assets/css/app.css" rel="stylesheet">    
-    <link rel="stylesheet" type="text/css" href="./assets/css/layout-login.css">
+    <link href="./assets/css/app.all.min.css?<%$smarty.now|date_format:"%d%m%Y"%>" rel="stylesheet">    
+    <link rel="stylesheet" type="text/css" href="./assets/css/layout-login.css?<%$smarty.now|date_format:"%d%m%Y"%>">
     
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -53,11 +53,11 @@
             <div class="login-body">
               <div class="form-group">
                 <label for="username" class="sr-only">Benutzername</label>
-                <input type="text" name="FORM[mitindent]" id="username" class="form-control input-lg" required placeholder="Benutzername" <% if ($gbl_config.admin_password_autocomplete==1) %>autocomplete="off"<%/if%>>
+                <input type="text" placeholder="Username" name="FORM[mitindent]" id="username" class="form-control input-lg" required <% if ($gbl_config.admin_password_autocomplete==1) %>autocomplete="off"<%/if%>>
               </div>
               <div class="form-group">
                 <label for="password" class="sr-only">Passwort</label>
-                <input type="password" placeholder="****" name="FORM[password]" id="password" class="form-control input-lg" required placeholder="Passwort" <% if ($gbl_config.admin_password_autocomplete==1) %>autocomplete="off"<%/if%>>
+                <input type="password" placeholder="****" name="FORM[password]" id="password" class="form-control input-lg" required <% if ($gbl_config.admin_password_autocomplete==1) %>autocomplete="off"<%/if%>>
               </div>
             </div>
             <div class="login-footer text-center">
@@ -75,6 +75,10 @@
         </div>
     </div>
 </div>
-
+<script>
+    if ($('#sidebar-menu').length>0) {
+        window.location.href="<%$PATH_CMS%>admin";
+    }
+</script>
   </body>
 </html>

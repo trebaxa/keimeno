@@ -65,7 +65,7 @@
     <div class="form-group">    
         <label>{LBLA_CONTENT}:</label>
             <% if ($NEWSLETTER.newsedit.e_html==1)%>
-                <div class="text-warning bg-warning">{LBL_CORREKTROOT}</div>
+                <div class="alert alert-warning">{LBL_CORREKTROOT}</div>
                 <%$NEWSLETTER.htmleditor%>
             <%else%>
                 <textarea class="se-html" rows="30" name="FORM[e_content]"><% $NEWSLETTER.newsedit.e_content|hsc%></textarea> 

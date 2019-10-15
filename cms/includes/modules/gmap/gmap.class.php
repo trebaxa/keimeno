@@ -65,4 +65,18 @@ class gmap_class extends gmap_master_class {
         return $params;
     }
 
+    /**
+     * gmap_class::on_output()
+     * 
+     * @param mixed $params
+     * @return
+     */
+    function on_output($params) {
+        $txt = '<script async defer src="https://maps.googleapis.com/maps/api/js?key=<%$gmap.gmapkey%>&callback=init_gmap_app" ></script>';
+        if (!strstr($params['html'], 'maps.googleapis.com')) {
+            $params['html'] = str_replace('</body>', smarty_compile($txt) . PHP_EOL . '</body>', $params['html']);
+        }
+        return $params;
+    }
+
 }

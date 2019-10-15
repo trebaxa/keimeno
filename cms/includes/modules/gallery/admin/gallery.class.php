@@ -657,8 +657,8 @@ class gallery_class extends modules_class {
      * @return
      */
     function genEditImgTag($id, $toadd = '', $a = 'edit', $idc = 'id') {
-        return '<a title="{LBLA_EDIT}" class="btn btn-default" href="' . $_SERVER['PHP_SELF'] . '?' . $idc . '=' . $id . '&cmd=' . $a . $toadd .
-            '"><span class="glyphicon glyphicon-pencil" ><!----></span></a>';
+        return '<a title="{LBLA_EDIT}" class="btn btn-secondary" href="' . $_SERVER['PHP_SELF'] . '?' . $idc . '=' . $id . '&cmd=' . $a . $toadd .
+            '"><span class="far fa-edit" ><!----></span></a>';
     }
 
     /*  function gen_del_img_tagConfirm($id, $akt = 'a_del', $confirm = '{LBL_CONFIRM}', $toadd = '') {
@@ -832,6 +832,7 @@ class gallery_class extends modules_class {
     function loadGallery($gallery_id, $th_width = 160, $th_height = 100, $adminuse = true, $th_type = 'resize', $cs_fullsizew = 800, $cs_fullsizeh = 600, $start = 0,
         $count = 0) {
         $gallery = array();
+        $album = dao_class::get_data_first(TBL_CMS_GALGROUP, array('id' => $gallery_id));
         $k = 0;
         $_SESSION['cs_gal']['approved'] = intval($_SESSION['cs_gal']['approved']);
         if ($adminuse === false) {
@@ -882,7 +883,7 @@ class gallery_class extends modules_class {
                     # $this->genApproveImgTag($row['PICID'], $row['approved'], '&epage=' . $_GET['epage'] . '&gid=' . $row['GID'], '', 'a_approvepic'),
                     'imginfo' => $row,
                     'img_descshort' => $description,
-                    'img_fullsize' => SSL_PATH_SYSTEM . PATH_SHOP . PICS_GAL_ROOT_ADMIN . $row['pic_name'],
+                    'img_fullsize' => SSL_PATH_SYSTEM . PATH_CMS . PICS_GAL_ROOT_ADMIN . $row['pic_name'],
                     'img_id' => $row['PICID'],
                     'img_descplain' => htmlspecialchars(strip_tags($row['pic_content'])),
                     'img_groupident' => str_replace(array(
@@ -914,7 +915,7 @@ class gallery_class extends modules_class {
                 }
                 $gallery[$row['PICID']] = $sm_arr;
                 $total_size += $row['pic_size'];
-                $groupname = $row['groupname'];
+                #$groupname = $row['groupname'];
                 $k++;
             }
         }
@@ -936,7 +937,8 @@ class gallery_class extends modules_class {
 
             $this->gallery_obj = array(
                 'gallery' => $gallery,
-                'groupname' => $groupname,
+                'groupname' => $album['groupname'],
+                'album' => $album,
                 'totalsize' => $total_size,
                 'piccount' => $k,
                 'pic_count_gallery' => $this->pic_count_all,
@@ -1035,7 +1037,7 @@ class gallery_class extends modules_class {
         #  $this->smarty->assign('paging', $this->genPaging($_GET['start'], 35, $_GET['gid'], $this->gallery_obj['pic_count_gallery']));
         $tmp = array_shift($galist['gallery']);
         #  'selectbtn' => gen_submit_btn('{LBL_BTN_REFRESH}'),
-        
+
         $POBJ = array('galinfo' => $galist, 'album_picid' => $tmp['imginfo']['picid']);
         $this->smarty->assign('POBJ', $POBJ);
         $this->parse_to_smarty();

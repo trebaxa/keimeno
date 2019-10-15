@@ -55,9 +55,11 @@
                     </div><!-- /.panel-heading -->
                     
                     <div class="panel-body">
+                       <div class="btn-group btn-group-sm">
                         <a class="btn btn-secondary json-link" href="<% $PHPSELF %>?cmd=a_sendpassword&kid=<% $GET.kid %>">{LA_NEUESPASSWORTZUSENDEN}</a>
                         <a class="btn btn-secondary json-link" href="<% $PHPSELF %>?cmd=sendaktlink&kid=<% $GET.kid %>">Aktivierungslink senden</a>
                         <%$POBJ.delcusticon%>
+                        </div>
                         
                     </div><!-- /.panel-body -->
                 </div><!-- /.panel panel-default -->

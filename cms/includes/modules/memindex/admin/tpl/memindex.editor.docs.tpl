@@ -1,5 +1,5 @@
  <div class="row">
-    <div class="col-md-3" id="js-folder-tree" style="background-color:#2A3F54">
+    <div class="col-md-3" id="js-folder-tree" style="background-color:#ffffff">
 
     </div> 
     <div class="col-md-9">

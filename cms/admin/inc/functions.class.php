@@ -260,10 +260,12 @@ class kf extends keimeno_class {
      */
     public static function gen_thumbnail($src, $width, $height, $type = 'resize', $usecache = true) {
         global $GRAPHIC_FUNC;
-        if (!file_exists('..' . $src) || !is_file('..' . $src))
+        $src = '../' . ltrim($src, '/');
+        if (!file_exists($src) || !is_file($src)) {
             $src = '/images/gal_defekt.jpg';
-        $src = str_replace('../', '/', $src);
-        $imgsrc = PATH_CMS . 'admin/' . CACHE . $GRAPHIC_FUNC->makeThumb('..' . $src, $width, $height, 'admin/' . CACHE, $usecache, $type);
+        }
+        $img = $GRAPHIC_FUNC->makeThumb($src, $width, $height, 'admin/' . CACHE, $usecache, $type);
+        $imgsrc = ($img != "") ? PATH_CMS . 'admin/' . CACHE . $img : $src;
         return $imgsrc;
     }
 
@@ -470,7 +472,7 @@ class kf extends keimeno_class {
                     $parts = explode(".", $key);
                     $key = $parts[1];
                 }
-                echo '"' . format_string_to_xls($data[$key]) . '"' . "\t";
+                echo '"' . utf8_decode( format_string_to_xls($data[$key]) ) . '"' . "\t";
             }
             echo "\r\n";
         }

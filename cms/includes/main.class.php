@@ -64,7 +64,7 @@ class main_class extends keimeno_class {
      * @return
      */
     function cmd_loghack() {
-        firewall_class::report_hack('HTTP Injection');
+        firewall_class::report_hack('HTTP_INJECTION');
     }
 
 
@@ -411,38 +411,6 @@ class main_class extends keimeno_class {
         $this->hard_exit();
     }
 
-    /**
-     * main_class::cmd_setcmsoptions()
-     * 
-     * @return
-     */
-    function cmd_setcmsoptions() {
-        $crj_obj = new crj_class();
-        foreach ($_GET as $key => $value) {
-            $FORM[$key] = $this->db->real_escape_string($value);
-        }
-        $l = array(
-            'page',
-            'clid',
-            'aktion',
-            'cmsid',
-            'id',
-            'tl',
-            'gid',
-            'sid_id');
-        foreach ($l as $key => $v)
-            unset($FORM[$v]);
-        foreach ($FORM as $key => $value) {
-            $sql = "UPDATE " . TBL_CMS_GBLCONFIG . " SET config_value='" . $value . "' WHERE config_name='" . $key . "' LIMIT 1";
-            $this->db->query($sql);
-            if (get_data_count(TBL_CMS_GBLCONFIG, 'config_name', "config_name='" . $key . "'") == 0) {
-                $this->db->query("INSERT INTO " . TBL_CMS_GBLCONFIG . " SET gid=10,config_value='" . $value . "',config_name='" . $key . "'");
-            }
-        }
-        $crj_obj->genCMSSetXml();
-        echo 'DONE';
-        $this->hard_exit();
-    }
 
     /**
      * main_class::cmd_docronjob()
@@ -802,7 +770,7 @@ class main_class extends keimeno_class {
         # check if is illegal access by permissions
         if ((int)$page > 0 && !in_array($page, $all_allowed_page_ids)) {
             $this->LOGCLASS->addLog('HACKING', 'Access protected page/file, ' . self::anonymizing_ip(REAL_IP) . ', ' . $_SERVER['REQUEST_URI']);
-            firewall_class::report_hack('Try access protected file or page');
+          #  firewall_class::report_hack('Try access protected file or page');
             self::msge('No public access to page ' . $page . ' Check if page is viewable for public group.');
             $this->redirect_301('/index.html');
         }

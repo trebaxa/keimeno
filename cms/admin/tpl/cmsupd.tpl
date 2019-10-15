@@ -85,7 +85,7 @@
 
 
 <% if ($section=='update' || $section=='') %>
-    <script src="./assets/js/cmsupt.js"></script>
+    <script src="./assets/js/cmsupt.js?<%$time%>"></script>
     <%include file="cb.page.title.tpl" icon="fas fa-database" title="Keimeno Update"%>
     <div class="row">
         <div class="col-md-6">

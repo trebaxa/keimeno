@@ -27,8 +27,18 @@ $( function() {
     });
 });
 
-function reload_resource(id) {
-    simple_load('admincontent','<%$eurl%>cmd=load_resource&flxid='+id);    
+function reload_resource(id, content_matrix_id,langid) {    
+    simple_load('admincontent','<%$eurl%>cmd=load_resource&flxid='+id);
+    var url = '<%$eurl%>cmd=get_content_json&flxid='+id+'&content_matrix_id='+content_matrix_id+'&langid='+langid;
+    $.getJSON(url , function( data ) {
+     $.each( data, function( key, val ) {
+        
+      if (val.v_type=='img' && val.value!="") {
+        $('#js-dataset-img-'+val.id).find('img:first').attr('src', '../file_data/resource/images/'+val.value+'?a='+Math.random());
+        $('#js-dataset-img-'+val.id).show();
+       }
+      });
+    });    
 }   
 
 function reload_dataset(content_matrix_id, langid, table) {   

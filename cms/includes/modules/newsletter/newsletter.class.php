@@ -49,12 +49,12 @@ class newsletter_class extends newsletter_master_class {
         if ($_GET['group'] > 0) {
             $cuobj = $this->db->query_first("SELECT * FROM " . TBL_CMS_CUST . " WHERE kid=" . (int)$_GET['group'] . " LIMIT 1");
             if (md5($cuobj['email']) == $_GET['n'] && $gbl_config['newsletter_disable_unreg'] == 0) {
-                $this->db->query("UPDATE " . TBL_CMS_CUST . " SET mailactive=0 WHERE email=" . (int)$_GET['group'] . " LIMIT 1");
-                keimeno_class::msg('{NEWSL_DEACT_VALID}');
+                $this->db->query("UPDATE " . TBL_CMS_CUST . " SET mailactive=0 WHERE kid=" . (int)$_GET['group'] . " LIMIT 1");
+                keimeno_class::msg('Newsletter deaktiviert');
                 HEADER("Location: index.html");
             }
             else {
-                keimeno_class::msge('{NEWSL_DEACT_INVALID}');
+                keimeno_class::msge('Abmeldung nicht möglich');
                 HEADER("Location: index.html");
             }
         }

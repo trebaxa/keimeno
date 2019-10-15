@@ -9,6 +9,7 @@
       <php>newsletter.inc</php>
       <hasperm>true</hasperm>
       <parse>true</parse>
+      <stdclass>newsletter_class</stdclass>
       <epage>newsletter.inc</epage>
       <epage_dir>MODULE_ROOT</epage_dir>
       <is_content_page>false</is_content_page>

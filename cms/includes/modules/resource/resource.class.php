@@ -49,6 +49,20 @@ class resource_class extends resource_master_class {
         return $this->RESOURCE;
     }
 
+    /**
+     * resource_class::on_java_compile()
+     * 
+     * @param mixed $params
+     * @return
+     */
+    function on_java_compile($params) {
+        $result = $this->db->query("SELECT * FROM  " . TBL_RESRCPL . " WHERE t_java!=''");
+        while ($row = $this->db->fetch_array_names($result)) {
+            $params['js_content'] .= $row['t_java'] . PHP_EOL;
+        }
+        return $params;
+    }
+
 
     /**
      * resource_class::set_template()
@@ -134,7 +148,7 @@ class resource_class extends resource_master_class {
      */
     public function set_dataset_opt($dataset, $resrc_id, $table) {
         $coldef = self::load_dataset_vars_table($resrc_id, $table);
-       # echo $resrc_id;
+        # echo $resrc_id;
         foreach ($dataset as $kkey => $row) {
             $dataset[$kkey] = self::transform_dataset_values($row, $coldef);
             $dataset[$kkey]['row'] = $row;
@@ -295,6 +309,7 @@ class resource_class extends resource_master_class {
                 $exists = (is_file(CMS_ROOT . 'file_data/resource/images/' . $flexvarsdata[$row['id']]['v_value']) && file_exists(CMS_ROOT . 'file_data/resource/images/' . $flexvarsdata[$row['id']]['v_value']));
                 if ($exists == true) {
                     $var_value = PATH_CMS . 'file_data/resource/images/' . $flexvarsdata[$row['id']]['v_value'];
+                    $this->RESOURCE['content_table'][$key][$row['v_varname'] . '_date'] = $flexvarsdata[$row['id']]['v_value'];
                 }
 
                 # crop if needed
@@ -305,14 +320,26 @@ class resource_class extends resource_master_class {
                         $gravity = $flexvarsdata[$row['id']]['v_settings']['foto']['foto_gravity'];
                     }
                     if (self::get_ext($flexvarsdata[$row['id']]['v_value']) != 'svg') {
-                        $img_opt['foto_width'] = ($img_opt['foto_width'] > 0) ? $img_opt['foto_width'] : 100;
-                        $img_opt['foto_height'] = ($img_opt['foto_height'] > 0) ? $img_opt['foto_height'] : 100;
+                        $img_opt['foto_width'] = ($img_opt['foto_width'] > 0) ? $img_opt['foto_width'] : 1900;
+                        $img_opt['foto_height'] = ($img_opt['foto_height'] > 0) ? $img_opt['foto_height'] : 600;
+
+                        $img_opt['foto_width_sm'] = ($img_opt['foto_width_sm'] > 0) ? $img_opt['foto_width_sm'] : 400;
+                        $img_opt['foto_height_sm'] = ($img_opt['foto_height_sm'] > 0) ? $img_opt['foto_height_sm'] : 300;
+
+                        $img_opt['foto_width_md'] = ($img_opt['foto_width_md'] > 0) ? $img_opt['foto_width_md'] : 800;
+                        $img_opt['foto_height_md'] = ($img_opt['foto_height_md'] > 0) ? $img_opt['foto_height_md'] : 600;
                         if ($exists == true) {
                             $img_opt = self::get_optimal_size($img_opt);
                             $var_value = thumbit_fe('./file_data/resource/images/' . $flexvarsdata[$row['id']]['v_value'], $img_opt['foto_width'], $img_opt['foto_height'], $img_opt['foto_resize'],
                                 $gravity);
+                            $this->RESOURCE['content_table'][$key][$row['v_varname'] . '_img_lg'] = $var_value;
+                            $this->RESOURCE['content_table'][$key][$row['v_varname'] . '_img_sm'] = thumbit_fe('./file_data/resource/images/' . $flexvarsdata[$row['id']]['v_value'], $img_opt['foto_width_sm'],
+                                $img_opt['foto_height_sm'], 'resize');
+                            $this->RESOURCE['content_table'][$key][$row['v_varname'] . '_img_md'] = thumbit_fe('./file_data/resource/images/' . $flexvarsdata[$row['id']]['v_value'], $img_opt['foto_width_md'],
+                                $img_opt['foto_height_md'], 'resize');
                         }
                     }
+                    $this->RESOURCE['content_table'][$key][$row['v_varname'] . '_img'] = PATH_CMS . 'file_data/resource/images/' . $flexvarsdata[$row['id']]['v_value'];
                 }
             }
             elseif ($row['v_type'] == 'file') {
@@ -327,6 +354,7 @@ class resource_class extends resource_master_class {
             }
 
             $this->RESOURCE['content_table'][$key][$row['v_varname']] = $var_value;
+            $this->RESOURCE['content_table'][$key]['id'] = $cont_matrix_id;
             $local = "";
             if ($this->gbl_config['std_lang_id'] != $this->GBL_LANGID) {
                 $local = '/' . $_SESSION['GBL_LOCAL_ID'];
@@ -403,7 +431,7 @@ class resource_class extends resource_master_class {
                     foreach ($lang_arr as $lang) {
                         $local_id = ($this->gbl_config['std_lang_id'] == $lang['id']) ? "" : $lang['local'] . '/';
                         $url = array(
-                            'url' => self::get_http_protocol() . '://www.' . FM_DOMAIN . PATH_CMS . $local_id . ltrim($resrc['resrc_link'], '/'),
+                            'url' => self::get_domain_url() . $local_id . ltrim($resrc['resrc_link'], '/'),
                             'frecvent' => $params['sm_changefreq'],
                             'priority' => $params['sm_priority']);
                         $params['urls'][] = $url;

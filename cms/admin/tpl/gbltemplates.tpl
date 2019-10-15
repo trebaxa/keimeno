@@ -7,7 +7,10 @@
 <%/if%>    
 
 <script>
-        function clear_gbltpl_form() {
-            $('#js-gbltpl-editor').remove();
-        }
+    function clear_gbltpl_form(tid) {
+        $('#js-gbltpl-editor').remove();
+        $('#gbltpltreeul').jstree(true).delete_node('gbltreenode-'+tid);
+    }
+    
+    
 </script> 

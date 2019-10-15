@@ -20,13 +20,17 @@ $_GET['id'] = ($_GET['id'] == 0) ? $_POST['id'] : $_GET['id'];
 //*****************************
 if (($_GET['aktion'] == "START_SEND" || $_POST['aktion'] == "START_SEND") && $_GET['id'] > 0) {
     $gbl_config['news_num'] = 100;
-    $pause_time = 30;
-
+    $pause_time = 3;
+    $emails_to = array();
     $_SESSION['EMAILS_SEND_ARR'] = array();
     if ((int)$_POST['roundzero'] == 1) {
-        $kdb->query("UPDATE " . TBL_CMS_CUST . " SET mailsend=0"); // Setzt alle Kunden auf verschickbar bei ERSTEN Start
+        $kdb->query("UPDATE " . TBL_CMS_CUST . " SET mailsend=0"); // Setzt alle Kunden auf verschickbar bei ERSTEN Start        
+        $kdb->query("UPDATE " . TBL_CMS_NEWSLETTEREMAILS . " SET mailsend=0");
     }
     $E_OBJ = $kdb->query_first("SELECT * FROM " . TBL_CMS_EMAILER . " WHERE id='" . $_GET['id'] . "' LIMIT 1");
+    $start_time = time();
+
+    // load customers by customers groups
     $result = $kdb->query("SELECT * FROM " . TBL_CMS_CUST . " U, " . TBL_CMS_CUSTTOGROUP . " G 
  			WHERE U.mailsend=0
  			AND (U.email<>'' OR U.email_notpublic<>'')
@@ -36,22 +40,40 @@ if (($_GET['aktion'] == "START_SEND" || $_POST['aktion'] == "START_SEND") && $_G
  			GROUP BY U.kid
  			ORDER BY U.kid DESC 
  			LIMIT " . $gbl_config['news_num']);
-    $start_time = time();
-    $mail_feedback .= '<table class="table table-striped table-hover" >';
     while ($row = $kdb->fetch_array_names($result)) {
-        $row['email'] = (!validate_email_input($row['email_notpublic'])) ? $row['email'] : $row['email_notpublic'];
-        $z++;
-        if (!in_array($row['email'], $_SESSION['EMAILS_SEND_ARR'])) {
-            $SendSuccess = $NEWSLETTER_OBJ->sendNewsToEmail($row['email'], $gbl_config['news_senderemail'], $E_OBJ, $row);
+        $email_send_to = (!validate_email_input($row['email_notpublic'])) ? $row['email'] : $row['email_notpublic'];
+        $emails_to[] = array('kid' => $row['kid'], 'email' => $email_send_to);
+    }
+
+    # load email lists
+    $email_lists = unserialize($E_OBJ['e_egroups']);
+    if (count($email_lists) > 0) {
+        $result = $kdb->query("SELECT email FROM " . TBL_CMS_NEWSLETTEREMAILS . " WHERE mailsend=0 AND gid IN (" . implode(',', $email_lists) . ") LIMIT 50");
+        while ($row = $kdb->fetch_array_names($result)) {
+            $emails_to[] = array('kid' => 0, 'email' => $row['email']);
         }
-        $mail_feedback .= '<tr><td>' . $z . '</td><td>' . $row['email'] . '</td><td align="right"><div class="bg-success">OK</div></td></tr>';
-        $kdb->query("UPDATE " . TBL_CMS_CUST . " SET mailsend=1 WHERE kid=" . $row['kid'] . " OR email LIKE '" . $row['email'] . "' OR email_notpublic LIKE '" . $row['email'] .
-            "'");
+    }
+    $mail_feedback .= '<table class="table table-striped table-hover" ><tbody>';
+
+    foreach ($emails_to as $row) {
+        $email_send_to = $row['email'];
+        $z++;
+        if (!in_array($email_send_to, $_SESSION['EMAILS_SEND_ARR'])) {
+            $SendSuccess = $NEWSLETTER_OBJ->sendNewsToEmail($email_send_to, $gbl_config['news_senderemail'], $E_OBJ, $row);
+        }
+        $mail_feedback .= '<tr><td>' . $z . '</td><td>' . $email_send_to . '</td><td align="right"><div class="alert alert-success">OK</div></td></tr>';
+        if ($row['kid'] > 0) {
+            $kdb->query("UPDATE " . TBL_CMS_CUST . " SET mailsend=1 
+                WHERE kid=" . $row['kid'] . " 
+                OR email LIKE '" . $email_send_to . "' 
+                OR email_notpublic LIKE '" . $email_send_to . "'");
+        }
+        $kdb->query("UPDATE " . TBL_CMS_NEWSLETTEREMAILS . " SET mailsend=1 WHERE email='" . $email_send_to . "'");
         sleep(0.01);
-        $_SESSION['EMAILS_SEND_ARR'][] = $row['email'];
+        $_SESSION['EMAILS_SEND_ARR'][] = $email_send_to;
     }
     unset($_SESSION['EMAILS_SEND_ARR']);
-    $mail_feedback .= '</table>';
+    $mail_feedback .= '</tbody></table>';
     $result = $kdb->query("SELECT * FROM " . TBL_CMS_CUST . " U, " . TBL_CMS_CUSTTOGROUP . " G 
  			WHERE U.kid>0 
  			AND U.mailsend=0
@@ -62,6 +84,10 @@ if (($_GET['aktion'] == "START_SEND" || $_POST['aktion'] == "START_SEND") && $_G
  			GROUP BY U.kid
  			ORDER BY U.kid DESC ");
     $count = $kdb->num_rows($result);
+    if (count($email_lists) > 0) {
+        $result = $kdb->query("SELECT * FROM " . TBL_CMS_NEWSLETTEREMAILS . " WHERE mailsend=0 AND gid IN (" . implode(',', $email_lists) . ")");
+        $count += $kdb->num_rows($result);
+    }
     $result = $kdb->query("SELECT * FROM " . TBL_CMS_CUST . " U, " . TBL_CMS_CUSTTOGROUP . " G 
  			WHERE U.kid>0 
  			AND U.mailsend=1
@@ -72,6 +98,12 @@ if (($_GET['aktion'] == "START_SEND" || $_POST['aktion'] == "START_SEND") && $_G
  			GROUP BY U.kid
  			ORDER BY U.kid DESC ");
     $count_done = $kdb->num_rows($result);
+
+    if (count($email_lists) > 0) {
+        $result = $kdb->query("SELECT * FROM " . TBL_CMS_NEWSLETTEREMAILS . " WHERE mailsend=1 AND gid IN (" . implode(',', $email_lists) . ") 			");
+        $count_done += $kdb->num_rows($result);
+    }
+
     if ($count > 0) {
         $restart_in = ($pause_time - (time() - $start_time));
         if ($restart_in < 0)
@@ -111,7 +143,7 @@ if (($_GET['aktion'] == "START_SEND" || $_POST['aktion'] == "START_SEND") && $_G
  					setTimeout("setSecs()", 1000);
  					//-->
 					</script>	
-		 <form method="POST" name="clock">{LBLA_RESTARTIN} <input type="text" class="form-control" name="sekunden" size="3" value="' . $restart_in .
+		 <form method="POST" name="clock">{LBLA_RESTARTIN} <input type="text" readonly="" class="form-control" name="sekunden" size="3" value="' . $restart_in .
             '"> {LBLA_SECONDS}</form>';
         if ($mail_feedback != "")
             $ADMINOBJ->content .= $mail_feedback;
@@ -125,11 +157,19 @@ if (($_GET['aktion'] == "START_SEND" || $_POST['aktion'] == "START_SEND") && $_G
             if ($em != "")
                 $sento_mails[] = $em;
         }
+        if (count($email_lists) > 0) {
+            $result = $kdb->query("SELECT * FROM " . TBL_CMS_NEWSLETTEREMAILS . " WHERE mailsend=1");
+            while ($row = $kdb->fetch_array_names($result)) {
+                $sento_mails[] = $row['email'];
+            }
+        }
+
         $sento_mails = array_unique($sento_mails);
         $send_mails = implode('!', $sento_mails);
         $kdb->query("UPDATE " . TBL_CMS_EMAILER . " SET e_date='" . date("Y-m-d") . "',e_time='" . date("H:i:s") . "',send_emails='" . $TCMASTER->db->
             real_escape_string($send_mails) . "',e_timeint='" . time() . "',e_done='1',e_sendcount='" . count($sento_mails) . "' WHERE id='" . $E_OBJ['id'] . "'");
         $kdb->query("UPDATE " . TBL_CMS_CUST . " SET mailsend=1");
+        $kdb->query("UPDATE " . TBL_CMS_NEWSLETTEREMAILS . " SET mailsend=1");
         $TCMASTER->LOGCLASS->addLog('SENDMAIL', 'newsletter finished');
         $NEWSLETTER_OBJ->msg("{LBLA_NEWSFINISHED}.");
         header('location: ' . $_SERVER['PHP_SELF'] . '?epage=' . $_REQUEST['epage'] . '&cmd=show_hist');

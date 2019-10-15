@@ -901,12 +901,12 @@ class gal_class extends modules_class {
                     LEFT JOIN " . TBL_CMS_GALCON . " GC ON (GC.pic_id=A.id AND GC.lang_id=" . (int)$rowl['id'] . ") 
                     WHERE A.id=" . (int)$row['picid']);
                     $url = array('images' => array());
-                    $url['url'] = self::get_http_protocol() . '://www.' . FM_DOMAIN . $this->genGalleryLink($row["id"], $row["groupname"], $rowl['id']);
+                    $url['url'] = rtrim(self::get_domain_url(), '/') . $this->genGalleryLink($row["id"], $row["groupname"], $rowl['id']);
                     $url['frecvent'] = $params['sm_changefreq'];
                     $url['priority'] = $params['sm_priority'];
                     if ((int)$row['picid'] > 0) {
                         $url['images'][] = array(
-                            'loc' => self::get_http_protocol() . '://www.' . FM_DOMAIN . PATH_CMS . 'images/gallery/' . $galgroup_image['pic_name'],
+                            'loc' => self::get_domain_url() . 'images/gallery/' . $galgroup_image['pic_name'],
                             'title' => ($galgroup_image['pic_title'] == "") ? $galgroup_image['pic_name'] : $galgroup_image['pic_title'],
                             );
                     }

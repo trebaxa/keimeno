@@ -6,12 +6,12 @@
     
 <div class="row">    
     <div class="col-md-2">
-        <ul class="nav nav-pills nav-stacked">
-          <li><a href="javascript:void(0)" onclick="simple_load('js-datasetvars','<%$eurl%>cmd=reload_dataset_vars&id=<%$GET.id%>&gid=0')">- alle -</a></li>
+        <div class="list-group">
+          <a class="list-group-item list-group-item-action" href="javascript:void(0)" onclick="simple_load('js-datasetvars','<%$eurl%>cmd=reload_dataset_vars&id=<%$GET.id%>&gid=0')">- alle -</a>
           <% foreach from=$FLEXTEMP.flextpl.groups item=group %>
-           <li><a href="javascript:void(0)" onclick="simple_load('js-datasetvars','<%$eurl%>cmd=reload_dataset_vars&id=<%$GET.id%>&gid=<%$group.id%>')"><%$group.g_name%></a></li>
+           <a class="list-group-item list-group-item-action" href="javascript:void(0)" onclick="simple_load('js-datasetvars','<%$eurl%>cmd=reload_dataset_vars&id=<%$GET.id%>&gid=<%$group.id%>')"><%$group.g_name%></a>
           <%/foreach%> 
-        </ul>    
+        </div>    
     </div>
     <div class="col-md-10">
         <div id="js-datasetvars">

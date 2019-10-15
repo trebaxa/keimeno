@@ -34,6 +34,19 @@ class resource_content_class extends resource_admin_class {
     }
 
     /**
+     * resource_content_class::cmd_show_dataset_jcrop()
+     * 
+     * @return void
+     */
+    function cmd_show_dataset_jcrop() {
+        $this->load_resrc_for_edit($_GET['flxid'], $_GET['content_matrix_id'], $_GET['table'], $_GET['langid']);
+        $this->RESOURCE['seldataset'] = $this->RESOURCE['flextpl']['dataset'][$_GET['rowid']];
+        #   echoarr($this->RESOURCE['seldataset']);
+        $this->parse_to_smarty();
+        kf::echo_template('resource.addcontent.dataset.jcrop');
+    }
+
+    /**
      * resource_content_class::cmd_show_addds()
      * 
      * @return void
@@ -66,6 +79,52 @@ class resource_content_class extends resource_admin_class {
         $this->load_resrc_for_edit($_GET['flxid'], $_GET['content_matrix_id'], $_GET['table']);
         $this->parse_to_smarty();
         kf::echo_template('resource.addcontent');
+    }
+
+    /**
+     * resource_content_class::cmd_dataset_jcropsave()
+     * 
+     * @return void
+     */
+    function cmd_dataset_jcropsave() {
+        $content_matrix_id = (int)$_POST['content_matrix_id'];
+        $flxid = (int)$_POST['flxid'];
+        $column = (string )$_POST['column'];
+        $table = (string )$_POST['table'];
+        $rowid = (int)$_POST['rowid'];
+        $langid = (int)$_POST['langid'];
+        $langid = ($langid <= 0) ? 1 : $langid;
+        $id = (int)$_POST['id'];
+        $PIC = dao_class::get_data_first(TBL_CMS_PREFIX . $table, array(
+            'id' => $rowid,
+            'ds_langid' => $langid,
+            ));
+        $FORM = (array )$_POST['FORM'];
+        $targ_w = $FORM['w'];
+        $targ_h = $FORM['h'];
+        $jpeg_quality = 78;
+        if ($targ_w > 0 && $targ_h > 0) {
+            $src = CMS_ROOT . 'file_data/resource/images/' . $PIC[$column];
+            $img_r = imagecreatefromjpeg($src);
+            $dst_r = ImageCreateTrueColor($targ_w, $targ_h);
+            imagecopyresampled($dst_r, $img_r, 0, 0, $FORM['x'], $FORM['y'], $targ_w, $targ_h, $FORM['w'], $FORM['h']);
+            $label = str_replace(array(
+                '.',
+                '.' . self::get_ext($PIC[$column]),
+                self::get_ext($PIC[$column])), '', basename($PIC[$column]));
+            clean_cache_like($label);
+            $newfilename = $this->unique_filename($this->froot, $label . '.' . self::get_ext($PIC[$column]));
+            #  echo $this->froot . $newfilename;
+            imagejpeg($dst_r, $this->froot . $newfilename, $jpeg_quality);
+            $this->deldatasetimg($flxid, $rowid, $column, $table, $langid);
+            # echoarr($PIC);
+            dao_class::update_table(TBL_CMS_PREFIX . $table, array($column => basename($newfilename)), array('id' => $rowid, 'ds_langid' => $langid));
+            self::msg('{LBL_SAVED}');
+        }
+        else {
+            self::msge('Fehler in Auswahl');
+        }
+        $this->ej('show_resrcdatawset_edit');
     }
 
     /**
@@ -112,6 +171,8 @@ class resource_content_class extends resource_admin_class {
                         $this->deldatasetimg($flxid, $rowid, $column, $table, $langid);
                     }
                     $gen_img_name = self::gen_seo_name($FORM, $fname);
+                    $label = str_replace('.' . self::get_ext($fname), '', $gen_img_name);
+                    clean_cache_like($label);
                     $fname = $this->unique_filename($this->froot, $gen_img_name);
                     $target = $this->froot . $fname;
                     if (!move_uploaded_file($_FILES['datei']['tmp_name'][$column], $target)) {

@@ -7,6 +7,7 @@
         <form class="layfileup" action="<%$PHPSELF%>" method="post" enctype="multipart/form-data">
     
             <table class="table table-striped table-hover">
+            <tbody>
                 <tr>
                     <td><%$row.label%>:</td>
                     <td>
@@ -26,6 +27,7 @@
                     </td>
                     
                 </tr>
+                </tbody>
             </table>
     
             <input type="hidden" name="cmd" value="fileupload">

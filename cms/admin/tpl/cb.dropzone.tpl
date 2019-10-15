@@ -1,6 +1,9 @@
 <% if ($title=="") %>
     <% assign var=title value="Drag & Drop Dateien hier" %>
 <%/if%>
+<% if ($paramName=="") %>
+    <% assign var=paramName value="file" %>
+<%/if%>
   <div class="dropzonecss" id="drop-zone-files-<%$ident%>">
             <%$title%>
         </div>
@@ -33,8 +36,8 @@
             });
             notice_dropdown.on("queuecomplete", function() {
                  $('#drop-zone-files-<%$ident%>').html('<%$title%>');
-                 $('#dropzonefeedback-<%$ident%>').fadeOut();
-                 <%$reloadFunction%>
+                 setTimeout("$('#dropzonefeedback-<%$ident%>').fadeOut()", 6000 );
+                 <% if ($reloadFunction!="") %><%$reloadFunction%>;<%/if%>
             });
         });
 

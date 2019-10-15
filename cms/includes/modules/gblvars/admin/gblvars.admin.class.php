@@ -81,11 +81,9 @@ class gblvars_admin_class extends gblvars_master_class {
      */
     function cmd_ax_create_gblvars() {
         $FORM = (array )$_REQUEST['FORM'];
-        $FORM['var_desc'] = strip_tags($FORM['var_desc']);
-        $FORM['var_name'] = 'new_node';
+        $FORM['var_desc'] = strip_tags($FORM['var_name']);
         insert_table(TBL_CMS_GBLVARS, $FORM);
-        ECHO json_encode(array('id' => $FORM['var_name']));
-        $this->hard_exit();
+        $this->ej('load_gblvars');
     }
 
     /**

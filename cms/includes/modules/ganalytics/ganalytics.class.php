@@ -57,11 +57,18 @@ class ganalytics_class extends ganalytics_master_class {
                 'link_attribution' => ($this->gbl_config['ga_link_attribution'] == 1) ? 'true' : 'false',
                 );
             $this->parse_to_smarty();
-            $gcode = file_get_contents(CMS_ROOT . 'includes/modules/ganalytics/tpl/ganalytics.tpl');
+            if ($this->gbl_config['ga_method'] == 'opt-in' || $this->gbl_config['ga_method'] == '') {
+                $gcode = file_get_contents(CMS_ROOT . 'includes/modules/ganalytics/tpl/ganalytics.tpl');
+            }
+            else {
+                $gcode = file_get_contents(CMS_ROOT . 'includes/modules/ganalytics/tpl/ganalytics-optout.tpl');
+            }
+
             $gcode = str_replace(array(
                 "\n",
                 "\r",
                 "\t"), "", smarty_compile($gcode));
+            $gcode = preg_replace('/\s+/', ' ', $gcode);
             $params['html'] = str_replace('</head>', $gcode . PHP_EOL . '</head>', $params['html']);
         }
         return $params;

@@ -245,7 +245,7 @@ class config_class extends keimeno_class {
                         }
                         else
                             if ($row['is_list'] != "") {
-                                $content .= '<td ><select class="form-control input-sm" name="FORM[' . $row['config_name'] . ']">';
+                                $content .= '<td ><select class="custom-select input-sm" name="FORM[' . $row['config_name'] . ']">';
                                 $list = explode("|", $row['is_list']);
                                 foreach ($list as $lv)
                                     $content .= '<option ' . (($lv == $row['config_value']) ? 'selected' : '') . ' value="' . $lv . '">' . $lv . '</option>';
@@ -253,7 +253,7 @@ class config_class extends keimeno_class {
                             }
                             else
                                 if ($row['is_countryiso'] == 1) {
-                                    $content .= '<td ><select class="form-control input-sm" name="FORM[' . $row['config_name'] . ']">';
+                                    $content .= '<td ><select class="custom-select input-sm" name="FORM[' . $row['config_name'] . ']">';
                                     $result2 = $this->db->query("SELECT * FROM " . $TABLE_LAND . " WHERE 1 ORDER BY land");
                                     while ($row2 = $this->db->fetch_array_names($result2)) {
                                         $content .= '<option ' . (($row['config_value'] == $row2['country_code_2']) ? 'selected' : '') . ' value="' . $row2['country_code_2'] . '">' . $row2['land'] .
@@ -263,7 +263,7 @@ class config_class extends keimeno_class {
                                 }
                                 else
                                     if ($row['is_timezone'] == 1) {
-                                        $content .= '<td ><select class="form-control input-sm" name="FORM[' . $row['config_name'] . ']">';
+                                        $content .= '<td ><select class="custom-select input-sm" name="FORM[' . $row['config_name'] . ']">';
                                         $result2 = $this->db->query("SELECT * FROM " . $TABLE_TZ . " WHERE 1 ORDER BY gmt");
                                         while ($row2 = $this->db->fetch_array_names($result2)) {
                                             $content .= '<option ' . (($row['config_value'] == $row2['tz']) ? 'selected' : '') . ' value="' . $row2['tz'] . '">' . $row2['gmt'] . ' [' . $row2['tz'] .
@@ -273,7 +273,7 @@ class config_class extends keimeno_class {
                                     }
                                     else
                                         if ($row['is_font'] == 1) {
-                                            $content .= '<td ><select class="form-control input-sm" name="FORM[' . $row['config_name'] . '] ">';
+                                            $content .= '<td ><select class="custom-select input-sm" name="FORM[' . $row['config_name'] . '] ">';
                                             $file_list = array();
                                             $dh = opendir('../fonts/');
                                             while (false !== ($filename = readdir($dh))) {
@@ -291,7 +291,7 @@ class config_class extends keimeno_class {
                                         else
                                             if ($row['is_lang'] == 1) {
                                                 $content .= '<td >
-						<select class="form-control input-sm" name="FORM[' . $row['config_name'] . '] "><option value="0">DYNAMIC</option>';
+						<select class="custom-select input-sm" name="FORM[' . $row['config_name'] . '] "><option value="0">DYNAMIC</option>';
                                                 $result2 = $this->db->query("SELECT * FROM " . $TABLE_LADMIN . " WHERE approval='1' ORDER BY language");
                                                 while ($row2 = $this->db->fetch_array_names($result2)) {
                                                     $content .= '<option ' . (($row['config_value'] == $row2['id']) ? 'selected' : '') . ' value="' . $row2['id'] . '">' . $row2['post_lang'] . '</option>';
@@ -301,7 +301,7 @@ class config_class extends keimeno_class {
                                             else
                                                 if ($row['is_gbltplmodname'] != "") {
                                                     $content .= '<td >
-						<select class="form-control input-sm" name="FORM[' . $row['config_name'] . '] ">';
+						<select class="custom-select input-sm" name="FORM[' . $row['config_name'] . '] ">';
                                                     $result2 = $this->db->query("SELECT * FROM " . TBL_CMS_TEMPLATES . " WHERE gbl_template=1 AND modident='" . $row['is_gbltplmodname'] . "' ORDER BY description");
                                                     while ($row2 = $this->db->fetch_array_names($result2)) {
                                                         $content .= '<option ' . (($row['config_value'] == $row2['id']) ? 'selected' : '') . ' value="' . $row2['id'] . '">' . $row2['description'] . '</option>';
@@ -311,7 +311,7 @@ class config_class extends keimeno_class {
                                                 else
                                                     if ($row['is_mail'] != "") {
                                                         $content .= '<td >
-						<select class="form-control input-sm" name="FORM[' . $row['config_name'] . '] ">';
+						<select class="custom-select input-sm" name="FORM[' . $row['config_name'] . '] ">';
                                                         $result2 = $this->db->query("SELECT * FROM " . TBL_CMS_MAILTEMP . " WHERE  module_id='" . $row['is_mail'] . "' ORDER BY title");
                                                         while ($row2 = $this->db->fetch_array_names($result2)) {
                                                             $content .= '<option ' . (($row['config_value'] == $row2['id']) ? 'selected' : '') . ' value="' . $row2['id'] . '">' . $row2['title'] . '</option>';
@@ -321,7 +321,7 @@ class config_class extends keimeno_class {
                                                     else
                                                         if ($row['is_rediapi'] == 1) {
                                                             $content .= '<td >
-						<select class="form-control input-sm" name="FORM[' . $row['config_name'] . '] ">';
+						<select class="custom-select input-sm" name="FORM[' . $row['config_name'] . '] ">';
                                                             $result2 = $this->db->query("SELECT * FROM " . TBL_CMS_REDIAPI . " WHERE 1 ORDER BY r_name");
                                                             while ($row2 = $this->db->fetch_array_names($result2)) {
                                                                 $content .= '<option ' . (($row['config_value'] == $row2['id']) ? 'selected' : '') . ' value="' . $row2['id'] . '">' . $row2['r_name'] . '</option>';
@@ -331,7 +331,7 @@ class config_class extends keimeno_class {
                                                         else
                                                             if ($row['is_lang_fe'] == 1) {
                                                                 $content .= '<td >
-						<select class="form-control input-sm" name="FORM[' . $row['config_name'] . '] ">';
+						<select class="custom-select input-sm" name="FORM[' . $row['config_name'] . '] ">';
                                                                 $result2 = $this->db->query("SELECT * FROM " . $TABLE_LANG . " WHERE approval='1' ORDER BY language");
                                                                 while ($row2 = $this->db->fetch_array_names($result2)) {
                                                                     $content .= '<option ' . (($row['config_value'] == $row2['id']) ? 'selected' : '') . ' value="' . $row2['id'] . '">' . $row2['post_lang'] . '</option>';
@@ -341,7 +341,7 @@ class config_class extends keimeno_class {
                                                             else
                                                                 if ($row['is_jqueryver'] == 1) {
                                                                     $content .= '<td >
-							<select class="form-control input-sm" name="FORM[' . $row['config_name'] . '] ">';
+							<select class="custom-select input-sm" name="FORM[' . $row['config_name'] . '] ">';
                                                                     $file_list = array();
                                                                     $dh = opendir('../js/');
                                                                     while (false !== ($filename = readdir($dh))) {
@@ -357,7 +357,7 @@ class config_class extends keimeno_class {
                                                                 else
                                                                     if ($row['is_modernizr'] == 1) {
                                                                         $content .= '<td >
-							<select class="form-control input-sm" name="FORM[' . $row['config_name'] . '] ">';
+							<select class="custom-select input-sm" name="FORM[' . $row['config_name'] . '] ">';
                                                                         $file_list = array();
                                                                         $dh = opendir('../js/');
                                                                         while (false !== ($filename = readdir($dh))) {
@@ -373,7 +373,7 @@ class config_class extends keimeno_class {
                                                                     else
                                                                         if ($row['is_land'] == 1) {
                                                                             $content .= '<td >
-						<select class="form-control input-sm" name="FORM[' . $row['config_name'] . '] ">';
+						<select class="custom-select input-sm" name="FORM[' . $row['config_name'] . '] ">';
                                                                             $result2 = $this->db->query("SELECT * FROM " . $TABLE_LAND . " WHERE 1 ORDER BY land");
                                                                             while ($row2 = $this->db->fetch_array_names($result2)) {
                                                                                 $content .= '<option ' . (($row['config_value'] == $row2['id']) ? 'selected' : '') . ' value="' . $row2['id'] . '">' . $row2['land'] . '</option>';
@@ -383,7 +383,7 @@ class config_class extends keimeno_class {
                                                                         else
                                                                             if ($row['is_curr'] == 1 && $TABLE_CURR != "") {
                                                                                 $content .= '<td >
-						<select class="form-control input-sm" name="FORM[' . $row['config_name'] . '] ">';
+						<select class="custom-select input-sm" name="FORM[' . $row['config_name'] . '] ">';
                                                                                 $result2 = $this->db->query("SELECT * FROM " . $TABLE_CURR . " WHERE 1 ORDER BY letter_code");
                                                                                 while ($row2 = $this->db->fetch_array_names($result2)) {
                                                                                     $content .= '<option ' . (($row['config_value'] == $row2['letter_code']) ? 'selected' : '') . ' value="' . $row2['letter_code'] . '">' . $row2['letter_code'] .
@@ -396,7 +396,7 @@ class config_class extends keimeno_class {
                                                                                     0) ? '&nbsp;<span class="small">max.: ' . $row['max'] : '') . '</span></td>';
                                                                             }
                                                                             if (isset($_GET['show_group']))
-                                                                                $content .= '<td ><input type="hidden" name="ids[]" value="' . $row['config_name'] . '"><select class="form-control input-sm" name="groups[]" >' .
+                                                                                $content .= '<td ><input type="hidden" name="ids[]" value="' . $row['config_name'] . '"><select class="custom-select input-sm" name="groups[]" >' .
                                                                                     build_options_for_selectbox(TBL_CONFGROUPS, 'id', 'catgroup', $where = 'ORDER BY catgroup', $row[gid]) . '</select></td>';
 
                 $content .= '<td><code>' . htmlspecialchars('<% $gbl_config.' . $row['config_name'] . ' %>') . '</code></td></tr>';

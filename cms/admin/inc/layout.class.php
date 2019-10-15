@@ -135,8 +135,9 @@ class layout_class extends keimeno_class {
         }
         $this->gen_img_list();
         $this->LAY['images'][$_POST['ident']]['err'] = $err_msg;
-        if ($err == false)
+        if ($err == false) {
             $this->LAY['images'][$_POST['ident']]['msg'] = '{LBLA_SAVED}';
+        }
         $this->parse_to_smarty();
         kf::echo_template('layout.img');
     }

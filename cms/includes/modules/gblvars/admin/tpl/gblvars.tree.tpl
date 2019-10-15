@@ -1,29 +1,39 @@
-<div id="gblvarstreeul">
-<ul>
-<li id="gblvarstreeroot" data-haschildren="1" ><a id="ident-0" href="javascript:void(0)"  data-tid="0">Globale Variablen</a>
-    <ul>
+<ul class="sub-sub-menu">
 <% function name="gblvarstreevar" %>
     <%foreach from=$items item=element%>     
-            <li id="gblvarstreenode-<%$element.var_name%>" <% if ($element.haschildren==0) %>data-tid="<%$element.var_name%>"<%/if%> data-haschildren="<% if ($element.haschildren==1) %>1<%else%>0<%/if%>" data-modid="<%$element.modident%>" data-isadmin="<%$element.admin%>" <% if ($element.haschildren==0) %>data-jstree='{"icon":"far fa-file-alt"}'<%/if%> >
-            <a id="ident-<%$element.var_name%>"  
-             data-tid="<%$element.var_name%>" data-modid="<%$element.modident%>"
-            href="javascript:void(0)" title="<%$element.var_desc|sthsc%>"
-            ><% if ($element.haschildren==1) %><%$element.var_desc|st%><%else%><%$element.var_desc|st%><%/if%>    
-            </a>
-            
-            <%if !empty($element.children)%>
-                <ul><%call name="gblvarstreevar" items=$element.children%></ul>
-            <%/if%>
-            
+            <li>
+                <a class="js-gblvars-click"   
+                 data-tid="<%$element.var_name%>" data-modid="<%$element.modident%>" data-haschildren="<% if ($element.haschildren==1) %>1<%else%>0<%/if%>"
+                href="javascript:void(0)" title="<%$element.var_desc|sthsc%>"
+                ><% if ($element.haschildren==1) %><%$element.var_desc|st%><%else%><%$element.var_desc|st%><%/if%>    
+                </a>                
+                <%if !empty($element.children)%>
+                    <ul class="sub-sub-menu"><%call name="gblvarstreevar" items=$element.children%></ul>
+                <%/if%>
             </li>
  
     <%/foreach%>
 <%/function%><% call name="gblvarstreevar" items=$GBLVARS.vars %>
         </ul>
-    </li>
- </ul> 
-</div>
+<div class="sub-sub-link">
+    <a onclick="simple_load('admincontent','<%$PATH_CMS%>admin/run.php?epage=gblvars.inc&cmd=ax_start&section=start');" href="javascript:void(0)" data-tid="0" class="menu-toggle">Globale Variablen</a>
+    <a onclick="simple_load('admincontent','<%$PATH_CMS%>admin/run.php?epage=gblvars.inc&cmd=ax_start&section=start');" href="javascript:void(0)" data-tid="0" class="menu-toggle toggle-btn"><i class="fas fa-chevron-right"></i></a>
+</div>  
 
+
+<script>
+$( ".js-gblvars-click" ).unbind('click');
+$( ".js-gblvars-click" ).click(function(e) {
+   if ($(this).data('haschildren')==0 && $(this).data('tid')!="") {
+        simple_load('admincontent','<%$PATH_CMS%>admin/run.php?epage=gblvars.inc&id='+$(this).data('tid')+'&cmd=ax_edit');
+   }
+});  
+
+init_tree_toggle();
+  
+</script>  
+
+<%*
 <script>
 
   function customMenu(node) {    
@@ -174,3 +184,4 @@
       
 </script>
 
+*%>

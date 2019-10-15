@@ -4,7 +4,7 @@
     <settings>
       <module_name>Google Maps</module_name>
       <id>gmap</id>
-      <active>false</active>
+      <active>true</active>
       <version>1.0</version>
       <php>gmap.inc</php>
       <hasperm>true</hasperm>
@@ -18,6 +18,7 @@
     </settings>
     <events>
       <event eventname="beforesmartycompile" method="class" classname="gmap_class" function="parse_googlemaps"/>
+      <event eventname="OnOutput" method="class" classname="gmap_class" function="on_output"/>
     </events>
     <includes>
       <include type="class" classname="gmap_master_class">gmap.master</include>

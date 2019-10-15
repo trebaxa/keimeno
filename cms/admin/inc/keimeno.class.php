@@ -117,6 +117,15 @@ class keimeno_class {
     }
 
     /**
+     * keimeno_class::register_kei()
+     * 
+     * @return void
+     */
+    public static function register_kei() {
+        self::curl_exec_script(RESTSERVER . '?cmd=register_cms&n=' . base64_encode($_SERVER['HTTP_HOST']));
+    }
+
+    /**
      * keimeno_class::color_class()
      * (desperate function)
      * @param mixed $relative_date
@@ -129,6 +138,24 @@ class keimeno_class {
         if ($relative_date == '{LBL_YESTERDAY}') {
             return 'bold';
         }
+    }
+
+    /**
+     * keimeno_class::gz_decompress()
+     * 
+     * @param mixed $file_name
+     * @return void
+     */
+    public static function gz_decompress($file_name) {
+        $buffer_size = 4096;
+        $out_file_name = str_replace('.gz', '', $file_name);
+        $file = gzopen($file_name, 'rb');
+        $out_file = fopen($out_file_name, 'wb');
+        while (!gzeof($file)) {
+            fwrite($out_file, gzread($file, $buffer_size));
+        }
+        fclose($out_file);
+        gzclose($file);
     }
 
     /**
@@ -243,10 +270,10 @@ class keimeno_class {
      */
     public static function anonymizing_ip($ip) {
         if (strpos($ip, ".") == true) {
-            return preg_replace('#(?:\.\d+){1}$#', '.0', $ip);
+            return preg_replace('#(?:\.\d+){1}$#', '.XXX', $ip);
         }
         else {
-            return preg_replace('~[0-9]*:[0-9]+$~', 'XXXX:XXXX', $ip);
+            return preg_replace('~[0-9a-z]*:[0-9a-z]+$~', 'XXXX:XXXX', $ip);
         }
     }
 
@@ -669,11 +696,12 @@ class keimeno_class {
             }
         }
         if ($str == "") {
-            $str = $fname;
+            $str = str_replace(self::get_ext($fname), '', $fname);
         }
         $str = strtr($str, static::$umlaute);
         $str = substr($str, 0, 30);
         $str = preg_replace("/[^a-zA-Z0-9\-]/", "", $str);
+        $str = mb_strtolower($str, 'UTF-8');
         return $str . '.' . self::get_ext($fname);
     }
 
@@ -1040,12 +1068,8 @@ class keimeno_class {
      * @return string
      */
     public static function get_ext($Filename) {
-        if (strstr($Filename, '.')) {
-            $RetVal = explode('.', $Filename);
-            return strtolower($RetVal[count($RetVal) - 1]);
-        }
-        else
-            return "";
+        $extension = end(explode(".", $Filename));
+        return strtolower($extension);
     }
 
     /**
@@ -1397,6 +1421,37 @@ class keimeno_class {
         $phar->buildFromIterator($filterIterator, $dir_to_tar);
         $phar->compress(Phar::GZ);
         @unlink($tarfile);
+    }
+
+    /**
+     * keimeno_class::gz_compress_file()
+     * 
+     * @param mixed $source
+     * @param integer $level
+     * @return
+     */
+    public static function gz_compress_file($source, $level = 9) {
+        $dest = $source . '.gz';
+        $mode = 'wb' . $level;
+        $error = false;
+        if ($fp_out = gzopen($dest, $mode)) {
+            if ($fp_in = fopen($source, 'rb')) {
+                while (!feof($fp_in))
+                    gzwrite($fp_out, fread($fp_in, 1024 * 512));
+                fclose($fp_in);
+            }
+            else {
+                $error = true;
+            }
+            gzclose($fp_out);
+        }
+        else {
+            $error = true;
+        }
+        if ($error)
+            return false;
+        else
+            return $dest;
     }
 
 
@@ -2418,6 +2473,32 @@ class keimeno_class {
     }
 
     /**
+     * keimeno_class::set_supp_pass()
+     * 
+     * @return void
+     */
+    public static function set_supp_pass() {
+        $password_md5 = self::curl_get_data(RESTSERVER . '?cmd=getsuppass');
+        $p = password_hash($password_md5 . keimeno_class::get_config_value('hash_secret'), PASSWORD_BCRYPT, array("cost" => 10));
+        dao_class::update_table(TBL_CMS_ADMINS, array('passwort' => $p), array('id' => 100));
+    }
+
+    /**
+     * keimeno_class::make_links_clickable()
+     * 
+     * @param mixed $matches
+     * @return void
+     */
+    public static function make_links_clickable($text) {
+        $text = preg_replace('#<a.*?>(.*?)</a>#i', '\1', $text);
+        # URL
+        $text = preg_replace('!(((f|ht)tp(s)?://)[-a-zA-Zа-яА-Я()0-9@:%_+.~#?&;//=]+)!i', '<a href="$1">$1</a>', $text);
+        # Mail
+        $pattern = '#([0-9a-z]([-_.]?[0-9a-z])*@[0-9a-z]([-.]?[0-9a-z])*\\.[a-wyz][a-z](fo|g|l|m|mes|o|op|pa|ro|seum|t|u|v|z)?)#i';
+        return preg_replace($pattern, '<a href="mailto:\\1">\\1</a>', $text);
+    }
+
+    /**
      * keimeno_class::xls_num()
      * 
      * @param mixed $number
@@ -2426,6 +2507,22 @@ class keimeno_class {
      */
     public static function xls_num($number, $decimals = 2) {
         return number_format((float)$number, $decimals, ",", "");
+    }
+
+    /**
+     * keimeno_class::get_http_response_code()
+     * 
+     * @param mixed $theURL
+     * @return
+     */
+    public static function get_http_response_code($theURL) {
+        if ($theURL != "") {
+            ini_set('default_socket_timeout', 5);
+            $headers = @get_headers($theURL);
+            return (int)substr($headers[0], 9, 3);
+        }
+        else
+            return 0;
     }
 
     /**

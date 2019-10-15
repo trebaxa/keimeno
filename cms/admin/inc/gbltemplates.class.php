@@ -204,7 +204,7 @@ class gbltpl_class extends keimeno_class {
 
     function cmd_deltpljson() {
         $this->cmd_a_delete();
-        $this->ej('clear_gbltpl_form');
+        $this->ej('clear_gbltpl_form', $_GET['id']);
     }
 
     /**
@@ -285,6 +285,18 @@ class gbltpl_class extends keimeno_class {
         $tempalte_id = $this->createnew($FORM);
         ECHO json_encode(array('id' => $tempalte_id, 'modid' => $modid));
         $this->hard_exit();
+    }
+
+    /**
+     * gbltpl_class::cmd_add_gbltpl()
+     * 
+     * @return void
+     */
+    function cmd_add_gbltpl() {
+        $FORM = self::arr_trim($_POST['FORM']);
+        $tempalte_id = $this->createnew($FORM);
+        #$this->ej('load_gbl_template', $tempalte_id);
+        $this->ej('std_load_gbltpl', $tempalte_id.',1,1');
     }
 
     /*
@@ -753,7 +765,7 @@ class gbltpl_class extends keimeno_class {
             }
 
         }
-      
+
         foreach ($arr as $key => $row) {
             if ($MODULE[$row['modident']]['module_name'] != "") {
                 $MODULE[$row['modident']]['mod_name'] = ucfirst($MODULE[$row['modident']]['module_name']);
@@ -778,7 +790,7 @@ class gbltpl_class extends keimeno_class {
                 $this->GBLTPL['gbltpltree'][$modident]['haschildren'] = 1;
             }
         }
-       
+
         $this->GBLTPL['gbltpltree'] = $this->sort_multi_array($this->GBLTPL['gbltpltree'], 'mod_name', SORT_ASC, SORT_STRING);
         $this->parse_to_smarty();
         kf::echo_template('gbltemplate.orgatree');

@@ -56,8 +56,6 @@
 
 <% if ($cmd=="show_send") %>
     <% include file="newsletter.recipient.tpl"%>
-
-
 <%/if%>   
 
 <% if ($cmd=="members") %>
@@ -65,35 +63,7 @@
 <%/if%>         
 
 <% if ($cmd=="a_tracking") %>
-<% if (count($NEWSLETTER.all_feedback )>0) %> 
-<h3>{LBLA_NEWSHASREAD} (<%$NEWSLETTER.all_feedback_count%>):</h3>
-        <table class="table table-striped table-hover" id="okfeedback-table">
-            <thead>
-                <tr>
-                    <th>Email</th>
-                    <th>{LBLA_READED} X</th>
-                    <th>Status</th>
-                </tr>
-           </thead>     
-        <% foreach from=$NEWSLETTER.all_feedback key=email item=counter %>
-            <tr>
-                <td><%$email %></td>
-                <td><%$counter %></td>
-                <td>
-                <% if ($email|in_array:$NEWSLETTER.no_feedback) %>
-                    <i class="fa fa-warning fa-red"><!----></i>
-                <%else%>
-                    <i class="fa fa-check-circle fa-green"><!----></i>                    
-                <%/if%>    
-                </td>
-            </tr>
-        <%/foreach%>
-    </table>
-<%* Tabellen Sortierungs Script *%>
-<%assign var=tablesortid value="okfeedback-table" scope="global"%>
-<%include file="table.sorting.script.tpl"%>       
-<%/if%>    
-          
+    <% include file="newsletter.tracking.tpl"%>
 <%/if%>   
 
 <script>

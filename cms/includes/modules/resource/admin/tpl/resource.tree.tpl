@@ -1,29 +1,41 @@
-    <div id="resrc_treeul">
-    <ul>
-    <li id="resrc_treeroot" data-haschildren="1" ><a id="ident-0" href="javascript:void(0)"  data-tid="0">Resource Manager</a>
-        <ul>
+<ul class="sub-sub-menu">
     <% function name="resrc_treevar" %>
         <%foreach from=$items item=element%>     
-                <li id="resrc_treenode-<%$element.id%>" <% if ($element.haschildren==0) %>data-tid="<%$element.id%>"<%/if%> data-haschildren="<% if ($element.haschildren==1) %>1<%else%>0<%/if%>" data-modid="<%$element.modident%>" data-isadmin="<%$element.admin%>" <% if ($element.haschildren==0) %>data-jstree='{"icon":"far fa-file-alt"}'<%/if%> >
-                <a id="ident-<%$element.id%>"  
-                 data-tid="<%$element.id%>" data-modid="<%$element.modident%>"
-                href="javascript:void(0)" title="<%$element.f_name|sthsc%>"
-                ><% if ($element.haschildren==1) %><%$element.f_name|st|truncate:10%><%else%><%$element.f_name|st%><%/if%>    
-                </a>
-                
-                <%if !empty($element.children)%>
-                    <ul><%call name="resrc_treevar" items=$element.children%></ul>
-                <%/if%>
+                <li>
+                    <a class="js-resource-click" id="ident-<%$element.id%>"  
+                     data-tid="<%$element.id%>" data-modid="<%$element.modident%>" data-haschildren="<% if ($element.haschildren==1) %>1<%else%>0<%/if%>"
+                    href="javascript:void(0)" title="<%$element.f_name|sthsc%>"
+                    ><% if ($element.haschildren==1) %><%$element.f_name|st|truncate:10%><%else%><%$element.f_name|st%><%/if%>    
+                    </a>
+                    
+                    <%if !empty($element.children)%>
+                        <ul class="sub-sub-menu"><%call name="resrc_treevar" items=$element.children%></ul>
+                    <%/if%>
                 
                 </li>
      
         <%/foreach%>
     <%/function%><% call name="resrc_treevar" items=$flextpl_list %>
             </ul>
-        </li>
-     </ul> 
-    </div>
-    
+<div class="sub-sub-link">
+    <a onclick="simple_load('admincontent','<%$PATH_CMS%>admin/run.php?epage=resource.inc&cmd=ax_start&section=start');" href="javascript:void(0)" data-tid="0" class="menu-toggle">Resource Manager</a>
+    <a onclick="simple_load('admincontent','<%$PATH_CMS%>admin/run.php?epage=resource.inc&cmd=ax_start&section=start');" href="javascript:void(0)" data-tid="0" class="menu-toggle toggle-btn"><i class="fas fa-chevron-right"></i></a>
+</div>             
+
+<script>
+$( ".js-resource-click" ).unbind('click');
+$( ".js-resource-click" ).click(function(e) {
+   if ($(this).data('haschildren')==0 && $(this).data('tid')>0) {
+        simple_load('admincontent','<%$PATH_CMS%>admin/run.php?epage=resource.inc&id='+$(this).data('tid')+'&section=edit&cmd=ax_editflextpl');
+        scrollToAnchor('admincontent');
+   }
+});  
+
+init_tree_toggle();
+  
+</script>    
+
+<%*    
     <script>
     
       function customMenu(node) {
@@ -177,3 +189,4 @@
         $("#resrc_treeul").jstree("open_node", "#resrc_treeroot");
     <%/if%>
     </script>
+*%>

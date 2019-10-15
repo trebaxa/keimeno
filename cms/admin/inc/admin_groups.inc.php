@@ -23,9 +23,7 @@ $AG->add_object($PERM);
 $AG->TCR->interpreter();
 
 
-$menu = array("{LBLA_ADMINGROUPS_MANAGER}" => "", # "{LBL_ROLES}" => "aktion=roles",
-        );
-
+#$menu = array("{LBLA_ADMINGROUPS_MANAGER}" => "", # "{LBL_ROLES}" => "aktion=roles",        );
 #$ADMINOBJ->set_top_menu($menu);
 
 $AG->load_groups();
@@ -36,5 +34,3 @@ if ($_GET['aktion'] == "roles") {
 
 $ADMINOBJ->inc_tpl("admingroups.admin");
 $AG->parse_to_smarty();
-
-?>

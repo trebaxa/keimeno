@@ -7,9 +7,9 @@
     line-height: 80px;
 }
 </style>
-<div class="row">
+<div class="row mt-lg">
  <div class="col-md-6">
-   <h3>Gallery <span class="js-gallery-title"></span> (<%$GALADMIN.galtab|@count%>)</h3>
+   <div class="js-gallery-title"></div>   
  </div>
  <div class="col-md-6">
         <div class="dropzonecss" id="js-gallery-dropzone">
@@ -55,16 +55,16 @@ $(document).ready(function() {
 });
 
 
-    $('.js-gallery-title').html('- <%$POBJ.galinfo.groupname%> [<%$GET.gid%>]');
+    $('.js-gallery-title').html('<h3><%$POBJ.galinfo.groupname%></h3>Anzahl: <span class="badge badge-info"><%$GALADMIN.galtab|@count%></span>');
     $('.js-gallery-info').html('Anzahl: <%$POBJ.galinfo.pic_count_gallery%>&nbsp;|&nbsp;belegt:<% $POBJ.galinfo.totalsizekb %>&nbsp;|&nbsp;Speicher:<% $POBJ.galinfo.gblsizekb %>');
    
 </script>
-<div class="row form-inline">
+<div class="row form-inline mb-lg">
     <div class="col-md-6">
     <form class="form-inline">
 	 <div class="form-group">
         <label>Filter:</label>	
-        <select class="form-control js-filtergal">
+        <select class="form-control custom-select js-filtergal">
     		 <option <% if ($GALADMIN.cs_gal.approved==2) %>selected<%/if%> value="<%$eurl%>cmd=load_pics&section=<%$section%>&gid=<%$GALADMIN.gid%>&cs_filter=2">alle Bilder</option>
     		 <option <% if ($GALADMIN.cs_gal.approved==0) %>selected<%/if%> value="<%$eurl%>cmd=load_pics&section=<%$section%>&gid=<%$GALADMIN.gid%>&cs_filter=0">nicht genehmigte</option>
     		 <option <% if ($GALADMIN.cs_gal.approved==1) %>selected<%/if%> value="<%$eurl%>cmd=load_pics&section=<%$section%>&gid=<%$GALADMIN.gid%>&cs_filter=1">genehmigte</option>
@@ -74,7 +74,7 @@ $(document).ready(function() {
     </div>
     <div class="col-md-6 text-right">
     <% if ($POBJ.galinfo.piccount>0) %>
-		<form method="post" action="<%$PHPSELF%>" enctype="multipart/form-data">
+		<form method="post" class="form-inline" action="<%$PHPSELF%>" enctype="multipart/form-data">
 			<input type="hidden" name="gid" value="<%$GALADMIN.gid%>">
 			<input type="hidden" value="<%$epage%>" name="epage">
 			<input type="hidden" name="aktion" value="a_sort">
@@ -114,17 +114,18 @@ $( ".js-filtergal" ).change(function() {
 <% if (count($GALADMIN.galtab)>0) %>
 		<div class="row" id="fototable">
         	<% foreach from=$GALADMIN.galtab item=foto name=gloop %>
-        <div  style="height:350px;overflow:hidden;margin-bottom:10px;" class="col-md-3" id="pic-cont-<%$foto.imginfo.PICID%>">
-        <div class="thumbnail" style="height:auto;">
+        <div   class="col-md-3" id="pic-cont-<%$foto.imginfo.PICID%>">
+        <div class="card" style="height:auto;">
             <a title="{LBL_RESOLUTION}:<%$foto.width_foto_px%> x <%$foto.height_foto_px%>
             <br>{LBL_FILESIZE}: <% $foto.filesize %>
             <br>{LBL_PUBLISHEDAT}: 	<% $foto.img_posttime %>            
-            " data-toggle="tooltip" data-placement="bottom" class="ajax-link" rel="<%$foto.preview%>" title="{LBL_EDIT}" onclick="showPageLoadInfo();" href="<%$foto.edit_link%>">
-				<img class="img-fluid" src="<% $foto.thumbnail %>" alt="<%$foto.imginfo.pic_title|sthsc%>" >
+            " data-toggle="tooltip" data-placement="bottom" rel="<%$foto.preview%>" title="{LBL_EDIT}" onclick="showPageLoadInfo();" href="<%$foto.edit_link%>">
+				<img class="card-img-top" src="<% $foto.thumbnail %>" alt="<%$foto.imginfo.pic_title|sthsc%>" >
 				</a>
-            <div class="caption wordbreak text-center">
-                <h4><% if ($foto.imginfo.pic_title!="") %><% $foto.imginfo.pic_title|truncate:60 %><%else%>-<%/if%></h4>
-            </div>
+            
+            <div class="card-body wordbreak text-center">
+                <h5 class="card-title"><% if ($foto.imginfo.pic_title!="") %><% $foto.imginfo.pic_title|truncate:60 %><%else%>-<%/if%></h5>
+            
     <div class="row">
         <div class="col-md-12 text-center">
             <div class="btn-group">
@@ -157,7 +158,7 @@ $( ".js-filtergal" ).change(function() {
 				</table>	
 			</div> <!-- col -->
            </div> <!-- row -->
-            
+            </div>
             </div></div>
             <% /foreach %>
 	</div>
@@ -186,6 +187,7 @@ $( ".js-filtergal" ).change(function() {
 <%else%>
 <div class="alert alert-info">Keine Bilder vorhanden</div>
 <%/if%>
+<div class="text-right"><small>ID: <%$GET.gid%></small></div>
 <script>
 $(function () {
   $('[data-toggle="tooltip"]').tooltip({html: true})

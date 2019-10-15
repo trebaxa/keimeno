@@ -10,14 +10,14 @@
 
 <% if ($cmd=='') %>
         <%include file="cb.panel.header.tpl" title="{LBLA_ADMINGROUPS_MANAGER}"%>        
-        <form class="stdform form-inline" action="<%$PHPSELF%>" method="post" enctype="multipart/form-data">
+        <form class="jsonform" action="<%$PHPSELF%>" method="post" enctype="multipart/form-data">
             <input type="hidden" name="cmd" value="ag_savetable">
             <input type="hidden" name="epage" value="<%$epage%>">
             
             <table class="table table-striped table-hover" id="admingrouptable">
                 <thead>
                     <tr>
-                        <th>Sort.</th>
+                        <th class="col-md-1">Sort.</th>
                         <th>{LBL_GROUPNAME}</th>
                   <!--      <th><a href="<%$PHPSELF%>?aktion=<%$aktion%>&epage=<%$epage%>&col=rl_ident&direc=<%$REQUEST.direc%>">{LBL_ROLE} Ident</a></th>
                         <th><a href="<%$PHPSELF%>?aktion=<%$aktion%>&epage=<%$epage%>&col=rl_name&direc=<%$REQUEST.direc%>">{LBL_ROLE}</a></th>-->
@@ -41,6 +41,7 @@
                 <%/foreach%>
                 </tbody>
             </table>
+            
             <div class="form-feet"><%$subbtn%></div>
         </form>
          <%include file="cb.panel.footer.tpl"%>

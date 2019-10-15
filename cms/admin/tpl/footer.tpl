@@ -44,6 +44,9 @@
         <script>
             set_ajaxapprove_icons();
             set_ajaxdelete_icons('{LBL_CONFIRM}','<%$epage%>');
+            function sleep (time) {
+              return new Promise((resolve) => setTimeout(resolve, time));
+            }
         </script>
     <% if ($DEBUG==1) %>
         <!-- FastClick -->
@@ -69,14 +72,17 @@
         <script src="./assets/vendors/ace123/emmet/emmet.js"></script>
         <script src="./assets/vendors/ace123/src-min-noconflict/ace.js"></script>
         <script src="./assets/vendors/ace123/src-min-noconflict/ext-emmet.js"></script>
+        <script src="./assets/vendors/jcrop/dist/jcrop.js"></script>
+        <link rel="stylesheet" href="./assets/vendors/jcrop/dist/jcrop.css" type="text/css" />
     <%else%>
         <script src="./assets/vendors/ace123/emmet/emmet.js"></script>
         <script src="./assets/vendors/ace123/src-min-noconflict/ace.js"></script>
         <script src="./assets/vendors/ace123/src-min-noconflict/ext-emmet.js"></script>
-        <script src="./assets/js/footer.min.js"></script>
+                
     <%/if%>
 
-    <script src="./assets/vendors/jquery-ui-1.12.1/jquery-ui.js"></script>
+        <script src="./assets/vendors/jquery-ui-1.12.1/jquery-ui.js"></script>        
+        <script src="./assets/js/footer.min.js"></script>
 
         </body>
     </html>

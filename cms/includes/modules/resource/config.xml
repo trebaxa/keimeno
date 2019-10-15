@@ -21,6 +21,7 @@
       <event eventname="OnAutorunAdmin" method="class" classname="resource_admin_class" function="on_autorun_admin"/>
       <event eventname="beforesmartycompile" method="class" classname="resource_class" function="parse_detail_page"/>
       <event eventname="xmlsitemap" method="class" classname="resource_class" function="gen_xmlsitemap"/>
+      <event eventname="OnJavaCompile" method="class" classname="resource_class" function="on_java_compile"/>
     </events>
     <includes>
       <include type="class" classname="resource_master_class">resource.master</include>

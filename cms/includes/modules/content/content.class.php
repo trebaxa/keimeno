@@ -369,7 +369,7 @@ class content_class extends keimeno_class {
         $SM = $this->db->query_first("SELECT * FROM " . TBL_CMS_SITEMAP . " WHERE sm_ident='content' AND sm_active=1");
         if ($SM['sm_active'] == 1) {
             $params = array_merge($params, $SM);
-            $url['url'] = rtrim(self::get_http_protocol() . '://www.' . FM_DOMAIN . PATH_CMS, '/');
+            $url['url'] = rtrim(self::get_domain_url(), '/');
             $url['frecvent'] = $params['sm_changefreq'];
             $url['priority'] = $params['sm_priority'];
             $params['urls'][] = $url;
@@ -387,7 +387,7 @@ class content_class extends keimeno_class {
                     $tid = ($row['t_htalinklabel'] != "") ? 0 : $row['tid'];
 
                     $url = array(
-                        'url' => self::get_http_protocol() . '://www.' . FM_DOMAIN . gen_page_link($tid, $url_label, $rowl['id'], $rowl['local']),
+                        'url' => rtrim(self::get_domain_url(), '/') . gen_page_link($tid, $url_label, $rowl['id'], $rowl['local']),
                         'frecvent' => $params['sm_changefreq'],
                         'priority' => $params['sm_priority'],
                         );

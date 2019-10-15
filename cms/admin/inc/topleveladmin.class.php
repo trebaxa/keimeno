@@ -14,17 +14,32 @@
 class topleveladmin_class extends keimeno_class {
 
 
+    /**
+     * topleveladmin_class::__construct()
+     * 
+     * @return
+     */
     function __construct() {
         parent::__construct();
         $this->TCR = new kcontrol_class($this);
 
     }
 
+    /**
+     * topleveladmin_class::cmd_topaxapprove_item()
+     * 
+     * @return
+     */
     function cmd_topaxapprove_item() {
         $this->db->query("UPDATE " . TBL_CMS_TOPLEVEL . " SET approval='" . $this->TCR->GET['value'] . "' WHERE id=" . (int)$this->TCR->GET['ident'] . " LIMIT 1");
         $this->ej();
     }
 
+    /**
+     * topleveladmin_class::cmd_delete_topl_icon()
+     * 
+     * @return
+     */
     function cmd_delete_topl_icon() {
         $T = $this->db->query_first("SELECT * FROM " . TBL_CMS_TPLCON . " WHERE lang_id=" . (int)$_GET['lang_id'] . " AND tid=" . (int)$_GET['id']);
         delete_file(CMS_ROOT . 'file_data/themeimg/' . $T['tpl_icon']);
@@ -32,6 +47,11 @@ class topleveladmin_class extends keimeno_class {
         $this->hard_exit();
     }
 
+    /**
+     * topleveladmin_class::cmd_delete_theme_image()
+     * 
+     * @return
+     */
     function cmd_delete_theme_image() {
         $T = $this->db->query_first("SELECT * FROM " . TBL_CMS_TPLCON . " WHERE lang_id=" . (int)$_GET['lang_id'] . " AND tid=" . (int)$_GET['id']);
         delete_file(CMS_ROOT . 'file_data/themeimg/' . $T['theme_image']);
@@ -39,6 +59,11 @@ class topleveladmin_class extends keimeno_class {
         $this->hard_exit();
     }
 
+    /**
+     * topleveladmin_class::cmd_save_tpltable()
+     * 
+     * @return
+     */
     function cmd_save_tpltable() {
         $FORM = (array )$_POST['FORM'];
         $FORM = $this->sort_multi_array($FORM, 'morder', SORT_ASC, SORT_NUMERIC);
@@ -53,11 +78,21 @@ class topleveladmin_class extends keimeno_class {
         $this->echo_json_fb();
     }
 
+    /**
+     * topleveladmin_class::parse_to_smarty()
+     * 
+     * @return
+     */
     function parse_to_smarty() {
         $this->smarty->assign('TOPLMAN', $this->TOPLMAN);
     }
 
 
+    /**
+     * topleveladmin_class::cmd_show_all()
+     * 
+     * @return
+     */
     function cmd_show_all() {
         $nodes = new cms_tree_class();
         $nodes->db = $this->db;
@@ -83,19 +118,29 @@ class topleveladmin_class extends keimeno_class {
             }
 
             $row['theme_image'] = ($row['theme_image'] != "") ? '/file_data/themeimg/' . $row['theme_image'] : '/images/opt_no_pic.jpg';
-            $row[thumb] =  kf::gen_thumbnail($row['theme_image'], 100, 30) . '?a=' . rand(0, 10000);
+            $row['thumb'] =  kf::gen_thumbnail($row['theme_image'], 100, 30) . '?a=' . rand(0, 10000);
             $this->TOPLMAN['topltable'][] = $row;
         }
         self::allocate_memory($nodes);
         self::allocate_memory($temp_class_obj);
     }
 
+    /**
+     * topleveladmin_class::cmd_ax_show_all()
+     * 
+     * @return
+     */
     function cmd_ax_show_all() {
         $this->cmd_show_all();
         $this->parse_to_smarty();
         kf::echo_template('toplevel.editor');
     }
 
+    /**
+     * topleveladmin_class::cmd_rename_topl()
+     * 
+     * @return
+     */
     function cmd_rename_topl() {
         $FORM = $_REQUEST['FORM'];
         list($tmp, $tid) = explode('-', $_GET['id']);
@@ -105,6 +150,11 @@ class topleveladmin_class extends keimeno_class {
     }
 
 
+    /**
+     * topleveladmin_class::cmd_save_topl()
+     * 
+     * @return
+     */
     function cmd_save_topl() {
         $id = (int)$_POST['id'];
         if ($_POST['id'] == 0) {
@@ -170,6 +220,11 @@ class topleveladmin_class extends keimeno_class {
         $this->ej('set_topl_ids', $id . ',' . $conid);
     }
 
+    /**
+     * topleveladmin_class::cmd_create_toplevel()
+     * 
+     * @return
+     */
     function cmd_create_toplevel() {
         list($tmp, $modid) = explode('-', $_GET['id']);
         $FORM = $_GET['FORM'];
@@ -184,6 +239,11 @@ class topleveladmin_class extends keimeno_class {
         $this->hard_exit();
     }
 
+    /**
+     * topleveladmin_class::cmd_edit()
+     * 
+     * @return
+     */
     function cmd_edit() {
         global $LNGOBJ;
         $GRAPHIC_FUNC = new graphic_class();
@@ -205,18 +265,33 @@ class topleveladmin_class extends keimeno_class {
         return $FORM;
     }
 
+    /**
+     * topleveladmin_class::cmd_ax_topl_edit()
+     * 
+     * @return
+     */
     function cmd_ax_topl_edit() {
         $this->cmd_edit();
         $this->parse_to_smarty();
         kf::echo_template('toplevel.editor');
     }
 
+    /**
+     * topleveladmin_class::cmd_reloadimgs()
+     * 
+     * @return
+     */
     function cmd_reloadimgs() {
         $TOPL = $this->cmd_edit();
         echo json_encode(array('theme' => strval($TOPL['con']['theme_imagethumb']), 'icon' => strval($TOPL['con']['tpl_iconthumb'])));
         $this->hard_exit();
     }
 
+    /**
+     * topleveladmin_class::cmd_deltoplevel()
+     * 
+     * @return
+     */
     function cmd_deltoplevel() {
         $id = (int)$_GET['ident'];
         $tmp_obj = $this->db->query_first("SELECT * FROM " . TBL_CMS_TOPLEVEL . " WHERE id='" . $id . "' LIMIT 1");
@@ -241,6 +316,11 @@ class topleveladmin_class extends keimeno_class {
     }
 
 
+    /**
+     * topleveladmin_class::cmd_load_toplevel_tree()
+     * 
+     * @return
+     */
     function cmd_load_toplevel_tree() {
         $result = $this->db->query("SELECT T.*,TC.theme_image FROM " . TBL_CMS_TOPLEVEL . " T
 		LEFT JOIN " . TBL_CMS_TPLCON . " TC ON (TC.tid=T.id AND TC.theme_image!='')
@@ -254,5 +334,3 @@ class topleveladmin_class extends keimeno_class {
         kf::echo_template('toplevel.tree');
     }
 }
-
-?>

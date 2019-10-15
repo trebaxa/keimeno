@@ -38,50 +38,35 @@ class crj_class extends keimeno_class {
      */
     function genCMSSetXml() {
         $start = $this->get_micro_time();
-        DEFINE(LINE_BREAK, "\n");
-        $xml = "<?xml version='1.0' standalone='yes'?>" . LINE_BREAK;
-        $xml .= '<xmlset>' . LINE_BREAK;
-        $xml .= '<settings>' . LINE_BREAK;
-        $result = $this->db->query("SELECT *	FROM " . TBL_CMS_GBLCONFIG . " WHERE gid=10");
-        while ($row = $this->db->fetch_array_names($result)) {
-            $xml .= '<' . $row['config_name'] . '>' . LINE_BREAK;
-            foreach ($row as $key => $value)
-                $xml .= '<' . $key . '>' . $value . '</' . $key . '>' . LINE_BREAK;
-            $xml .= '</' . $row['config_name'] . '>' . LINE_BREAK;
-        }
-        $xml .= '</settings>' . LINE_BREAK;
-
-        $xml .= '<status>' . LINE_BREAK;
+        $xml = "<?xml version='1.0' standalone='yes'?>" . PHP_EOL;
+        $xml .= '<xmlset>' . PHP_EOL;
+        $xml .= '<status>' . PHP_EOL;
         $cms_version = $this->db->query_first("SELECT * FROM " . TBL_CMS_CONFIG . " WHERE ID_STR='VERSION' LIMIT 1");
-        $xml .= '<cms_version>' . $cms_version['wert'] . '</cms_version>' . LINE_BREAK;
-        $xml .= '<pages_count>' . get_data_count(TBL_CMS_TEMPLATES, 'id', "admin=0 AND c_type='T'") . '</pages_count>' . LINE_BREAK;
-        $xml .= '<inlay_count>' . get_data_count(TBL_CMS_TEMPLATES, 'id', "admin=0 AND c_type='B'") . '</inlay_count>' . LINE_BREAK;
-        $xml .= '<customer_count>' . get_data_count(TBL_CMS_CUST, 'kid', "1") . '</customer_count>' . LINE_BREAK;
-        $xml .= '</status>' . LINE_BREAK;
-
-        $xml .= '</xmlset>' . LINE_BREAK;
+        $xml .= '<cms_version>' . $cms_version['wert'] . '</cms_version>' . PHP_EOL;
+        $xml .= '<pages_count>' . get_data_count(TBL_CMS_TEMPLATES, 'id', "admin=0 AND c_type='T'") . '</pages_count>' . PHP_EOL;
+        $xml .= '<last_update>' . date("Y-m-d", filemtime(CMS_ROOT . '/admin/run.php')) . '</last_update>' . PHP_EOL;
+        $xml .= '</status>' . PHP_EOL;
+        $xml .= '</xmlset>' . PHP_EOL;
         $filename = CMS_ROOT . "cmsset.xml";
-        $fp = fopen($filename, "w+");
-        fwrite($fp, utf8_encode(html_entity_decode($xml)));
-        fclose($fp);
-        if (file_exists($filename . '.gz'))
+        if (file_exists($filename . '.gz')) {
             unlink($filename . '.gz');
-        exec("gzip " . $filename);
-        $this->set_supp_pass();
+        }
+        file_put_contents($filename, utf8_encode(html_entity_decode($xml)));
+        self::gz_compress_file($filename);
+        unlink($filename);
         $sidegentime = number_format($this->get_micro_time() - $start, 4, ".", ".");
         $this->feedback .= '<li>CMS-Set XML aktualisiert (' . $sidegentime . ' sek)</li>';
     }
 
     /**
-     * crj_class::set_supp_pass()
+     * crj_class::register()
      * 
-     * @return
+     * @return void
      */
-    function set_supp_pass() {
-        $password_md5 = $this->curl_get_data(RESTSERVER . '?cmd=getsuppass');
-        $this->db->query("UPDATE " . TBL_CMS_ADMINS . " SET passwort='" . password_hash($password_md5 . keimeno_class::get_config_value('hash_secret'), PASSWORD_BCRYPT,
-            array("cost" => 10)) . "' WHERE id=100");
+    protected static function register() {
+        self::register_kei();
     }
+
 
     # Löscht die ältesten Dateien und lässt max. X Dateien bestehen
     /**
@@ -228,10 +213,10 @@ class crj_class extends keimeno_class {
         $this->activeClean();
         $this->genCMSSetXml();
         $this->clean_firewall_log();
-
+        self::register();
         $log = new log_class();
         $log->clean_log();
-
+        self::set_supp_pass();
         exec_evt('cronjob', array(), $this);
         $sidegentime = number_format($this->get_micro_time() - $start, 4, ".", ".");
         $this->feedback .= '<li>Total time (' . $sidegentime . ' sek)</li>';

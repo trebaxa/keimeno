@@ -104,6 +104,6 @@
     });
     
     function reload_menu() {
-        simple_load('menu_reload_cont','<%$eurl%>cmd=reloadmenu');    
+        simple_load('js-appmenu','<%$eurl%>cmd=reloadmenu');    
     }
 </script>

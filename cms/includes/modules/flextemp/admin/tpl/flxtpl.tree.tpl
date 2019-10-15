@@ -1,30 +1,39 @@
 <% if ($PERM.core_acc_flextemplates==true) %>
-    <div id="flextpls_treeul">
-    <ul>
-    <li id="flextpls_treeroot" data-haschildren="1" ><a id="ident-0" href="javascript:void(0)"  data-tid="0">Flex Templates</a>
-        <ul>
+<ul class="sub-sub-menu">
     <% function name="flextpls_treevar" %>
         <%foreach from=$items item=element%>
-                <li id="flextpls_treenode-<%$element.id%>" <% if ($element.haschildren==0) %>data-tid="<%$element.id%>"<%/if%> data-haschildren="<% if ($element.haschildren==1) %>1<%else%>0<%/if%>" data-modid="<%$element.modident%>" data-isadmin="<%$element.admin%>" <% if ($element.haschildren==0) %>data-jstree='{"icon":"fas fa-file-code"}'<%/if%> >
-                <a id="ident-<%$element.id%>"
-                 data-tid="<%$element.id%>" data-modid="<%$element.modident%>"
-                href="javascript:void(0)" title="<%$element.f_name|sthsc%>"
-                ><span><% if ($element.haschildren==1) %><%$element.f_name|st|truncate:10%><%else%><%$element.f_name|st%><%/if%></span>
-                </a>
-
-                <%if !empty($element.children)%>
-                    <ul><%call name="flextpls_treevar" items=$element.children%></ul>
-                <%/if%>
+                <li>
+                    <a class="js-flex-click" id="ident-<%$element.id%>" data-haschildren="<% if ($element.haschildren==1) %>1<%else%>0<%/if%>"
+                     data-tid="<%$element.id%>" data-modid="<%$element.modident%>"
+                    href="javascript:void(0)" title="<%$element.f_name|sthsc%>"
+                    ><span><% if ($element.haschildren==1) %><%$element.f_name|st|truncate:10%><%else%><%$element.f_name|st%><%/if%></span>
+                    </a>
+    
+                    <%if !empty($element.children)%>
+                        <ul class="sub-sub-menu"><%call name="flextpls_treevar" items=$element.children%></ul>
+                        
+                    <%/if%>
 
                 </li>
 
         <%/foreach%>
     <%/function%><% call name="flextpls_treevar" items=$flextpl_list %>
             </ul>
-        </li>
-     </ul>
-    </div>
-
+<div class="sub-sub-link">
+    <a onclick="simple_load('admincontent','<%$PATH_CMS%>admin/run.php?epage=flextemp.inc&cmd=ax_start&section=start');" href="javascript:void(0)" data-tid="0" class="menu-toggle">Flex Templates</a>
+    <a onclick="simple_load('admincontent','<%$PATH_CMS%>admin/run.php?epage=flextemp.inc&cmd=ax_start&section=start');" href="javascript:void(0)" data-tid="0" class="menu-toggle toggle-btn"><i class="fas fa-chevron-right"></i></a>
+</div>  
+<script>
+$( ".js-flex-click" ).unbind('click');
+$( ".js-flex-click" ).click(function(e) {
+   if ($(this).data('haschildren')==0 && $(this).data('tid')>0) {
+        simple_load('admincontent','<%$PATH_CMS%>admin/run.php?epage=flextemp.inc&id='+$(this).data('tid')+'&section=edit&cmd=ax_editflextpl');
+   }
+});  
+init_tree_toggle();
+  
+</script>   
+<%*
     <script>
 
       function customMenu(node) {
@@ -173,4 +182,5 @@
         $("#flextpls_treeul").jstree("open_node", "#flextpls_treeroot");
     <%/if%>
     </script>
+*%>
 <%/if%>

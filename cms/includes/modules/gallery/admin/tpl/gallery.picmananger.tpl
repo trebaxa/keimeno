@@ -6,17 +6,17 @@
 *%>
 <%include file="gallery.fotoupload.tpl"%>
 
-<% if ($GALADMIN.gid==0) %><div class="alert alert-info">	{LBL_PLEASECHOOSEGAL}</div><%/if%>
+<% if ($GALADMIN.gid==0) %><div class="alert alert-info">{LBL_PLEASECHOOSEGAL}</div><%/if%>
 <% if ($GALADMIN.albumcount==0) %><div class="alert alert-info">{LBL_ADDGAL}</div><%/if%>
  
-<%include file="cb.panel.header.tpl" title="Gallery"%>
+<%include file="cb.panel.header.tpl" title="Meine Bilder"%>
     <form method="post" action="<%$PHPSELF%>" enctype="multipart/form-data" class="jsonform">
         <input type="hidden" value="<%$epage%>" name="epage">
         <input type="hidden" value="<%$section%>" name="section">
             <div class="row">
                 <div class="col-sm-3 col-md-2 sidebar">	
                     <% if ($GALADMIN.albumcount>0) %>
-                        <h5>Gallery <span class="js-gallery-title"></span></h5>
+                       <!-- <h5>Gallery <span class="js-gallery-title"></span></h5> -->
                     <%/if%>
             		<div id="adminmenu">
             		      <%include file="gallery.tree.tpl"%>

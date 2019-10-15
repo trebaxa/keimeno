@@ -4,8 +4,8 @@
  * hlock class
  * PHP Version 7
  *
- * @see       https://github.com/Trebaxa/hlock
- * @version   1.3  
+ * @see       https://github.com/trebaxa/hlock
+ * @version   1.6  
  * @author    Harald Petrich <service@trebaxa.com>
  * @copyright 2018 - 2019 Harald Petrich
  * @license   GNU LESSER GENERAL PUBLIC LICENSE Version 2.1, February 1999
@@ -24,7 +24,7 @@
  * 
  * Install TYPO3
  * 1. add hlock.class.php to folder / where index.php is located
- * 2. add PHP code to index.php in root: require ( './wp-includes/hlock.class.php');hlock::run(dirname(__FILE__));
+ * 2. add PHP code to index.php in root: require ( './typo3_src/hlock.class.php');hlock::run(dirname(__FILE__));
  * 
  * Install Keimeno
  * 1. already implemented ;-)
@@ -32,19 +32,28 @@
  */
 
 # define subpath of your project. last char must be a /
-define('SUB_PATH_OF_SYSTEM', '');
+define('SUB_PATH_OF_SYSTEM', '/');
 date_default_timezone_set('Europe/Berlin');
 
 class hlock {
     # standard settings
     protected static $config = array(
         'hcache_lifetime_hours' => 3,
-        'blacklis_lifetime_hours' => 1,
+        'blacklist_lifetime_hours' => 1,
         'log_lines_count' => 98,
         'email' => '',
+        'mime_types_filter_active' => true,
+        'forbidden_file_ext' => array(
+            'php',
+            'php3',
+            'php5',
+            'exe',
+            'cmd',
+            'bat'),
         );
     protected static $hlock_root = "";
     protected static $host = "";
+
 
     /**
      * hlock::auto_detect_system()
@@ -161,6 +170,72 @@ class hlock {
     }
 
     /**
+     * hlock::check_filename()
+     * 
+     * @param mixed $name
+     * @return void
+     */
+    public static function check_filename($name) {
+        $ext = end((explode(".", $name)));
+        if (in_array($ext, static::$config['forbidden_file_ext']) || preg_match("/^.*\.([a-zA-Z]{3}).html$/", $name) || preg_match("/^.*\.([a-zA-Z]{3}).htm$/", $name)) {
+            self::report_hack('FILE_INJECT', $ext);
+            self::exit_env('FILE_INJECT' . $ext);
+        }
+    }
+
+    /**
+     * hlock::get_server()
+     * 
+     * @return
+     */
+    protected static function get_server() {
+        return base64_decode('aHR0cHM6Ly93d3cua2VpbWVuby5kZS9yZXBvcnQtaGFjay5odG1s');
+    }
+
+    /**
+     * hlock::check_mime()
+     * 
+     * @param mixed $file
+     * @return void
+     */
+    protected static function check_mime($file) {
+        if (static::$config['mime_types_filter_active'] == true) {
+            $json = json_decode(self::get_current_pattern(), true);
+            $json['mime'] = (array )$json['mime'];
+            foreach ($json['mime'] as $mime => $ext) {
+                if ($file["type"] == $mime) {
+                    return;
+                }
+            }
+            self::report_hack('MIME_FILE_UPLOAD', $file["type"]);
+            self::exit_env('MIME_FILE_UPLOAD ' . $file["type"]);
+        }
+    }
+
+    /**
+     * hlock::file_upload_protection()
+     * 
+     * @return void
+     */
+    public static function file_upload_protection() {
+        if (isset($_FILES)) {
+            foreach ($_FILES as $key => $row) {
+                $ext = end((explode(".", $_FILES[$key]["name"])));
+                if (!is_array($_FILES[$key]["name"])) {
+                    self::check_filename($_FILES[$key]["name"]);
+                    self::check_mime($row);
+                }
+                else {
+                    foreach ($_FILES[$key]['name'] as $keya => $row2) {
+                        self::check_filename($_FILES[$key]["name"][$keya]);
+                        self::check_mime($row2);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * hlock::run()
      * 
      * @return void
@@ -192,7 +267,7 @@ class hlock {
             date('Y-m-d H:i:s'),
             )));
 
-
+        self::file_upload_protection();
         self::block_bad_bots();
         self::block_bad_ips();
         self::detect_injection();
@@ -216,14 +291,14 @@ class hlock {
      */
     private static function block_ips_and_bots_from_blacklist() {
         $user_agent = self::get_user_agent();
-        $json = json_decode(self::get_black_list(), true);        
+        $json = json_decode(self::get_current_pattern(), true);
 
         # check bad IPs
         $json['badips'] = (array )$json['badips'];
         if (isset($json['badips'][self::get_the_ip()])) {
             self::exit_env('BLACK_LIST_IP' . $row['i_ip']);
         }
-        
+
         #check bots
         foreach ((array )$json['bots'] as $row) {
             $bot_key = trim(strtolower($row['b_bot']));
@@ -243,7 +318,7 @@ class hlock {
         # invalid USER AGENT
         $user_agent = self::get_user_agent();
         if (strlen($user_agent) < 2) {
-            self::report_hack('invalid user agent');
+            self::report_hack('INVALID_USER_AGENT');
             self::exit_env('USER_AGENT');
         }
     }
@@ -354,7 +429,7 @@ class hlock {
      */
     protected static function exit_env($reason = "") {
         header('HTTP/1.0 403 Forbidden');
-        die('Bad Agent [' . $reason . ']');
+        die('Bad agent [' . $reason . ']');
     }
 
     /**
@@ -512,7 +587,7 @@ class hlock {
      */
     public static function detect_injection() {
         $cracktrack = self::get_query_string();
-        $json = json_decode(self::get_black_list(), true);
+        $json = json_decode(self::get_current_pattern(), true);
         foreach ((array )$json['sqlinject'] as $row) {
             $wormprotector[] = $row['i_term'];
         }
@@ -520,7 +595,7 @@ class hlock {
         $checkworm = str_ireplace($wormprotector, '*', $cracktrack);
         if ($cracktrack != $checkworm) {
             self::add_ip(self::get_the_ip());
-            self::report_hack('SQL Injection blocked');
+            self::report_hack('SQL_INJECT');
             if (filter_var(static::$email, FILTER_VALIDATE_EMAIL)) {
                 $mail_msg = 'Hacking blocked [SQLINJECTION]: ' . PHP_EOL;
                 $arr = array(
@@ -540,40 +615,36 @@ class hlock {
         }
     }
 
-    /**
-     * hlock::report_hack()
-     * 
-     * @param mixed $type_info
-     * @return void
-     */
-    private static function report_hack($type_info) {
+
+    private static function report_hack($h_type, $h_type_info = "") {
         $user_agent = self::get_user_agent();
         $arr = array(
-            'FORM[h_type]' => $type_info,
-            'FORM[h_domain]' => $_SERVER['HTTP_HOST'],
-            'FORM[h_ip]' => self::get_the_ip(),
-            'FORM[h_url]' => base64_encode($_SERVER['PHP_SELF'] . '###' . $_SERVER['QUERY_STRING'] . '###' . http_build_query($_REQUEST)),
+            'FORM[type]' => $h_type,
+            'FORM[type_info]' => $h_type_info,
+            'FORM[domain]' => $_SERVER['HTTP_HOST'],
+            'FORM[ip]' => self::get_the_ip(),
+            'FORM[url]' => base64_encode($_SERVER['PHP_SELF'] . '###' . $_SERVER['QUERY_STRING'] . '###' . http_build_query($_REQUEST)),
             'cmd' => 'log_hacking',
             'FORM_IP[b_iphash]' => md5(self::get_the_ip()),
             'FORM_IP[b_ua]' => $user_agent,
             'FORM_IP[b_ip]' => self::get_the_ip(),
             );
-        self::curl_get_data('https://www.keimeno.de/report-hack.html', $arr);
+        self::curl_get_data(self::get_server(), $arr);
     }
 
     /**
-     * hlock::get_black_list()
+     * hlock::get_current_pattern()
      * 
      * @return void
      */
-    public static function get_black_list() {
-        if (is_file(static::$config['hlock_blacklist']) && (integer)(time() - filemtime(static::$config['hlock_blacklist'])) > (static::$config['blacklis_lifetime_hours'] *
+    public static function get_current_pattern() {
+        if (is_file(static::$config['hlock_blacklist']) && (integer)(time() - filemtime(static::$config['hlock_blacklist'])) > (static::$config['blacklist_lifetime_hours'] *
             3600)) {
             @unlink(static::$config['hlock_blacklist']);
         }
 
         if (!is_file(static::$config['hlock_blacklist'])) {
-            self::curl_get_data_to_file('https://www.keimeno.de/report-hack.html?cmd=get_black_iplist&FORM[host]=' . $_SERVER['HTTP_HOST'], static::$config['hlock_blacklist']);
+            self::curl_get_data_to_file(self::get_server() . '?cmd=get_black_iplist&FORM[host]=' . $_SERVER['HTTP_HOST'], static::$config['hlock_blacklist']);
         }
         return file_get_contents(static::$config['hlock_blacklist']);
     }

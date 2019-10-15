@@ -107,7 +107,7 @@ class upt_class extends keimeno_class {
             "std_lang_id" => "1",
             "use_shop_for_customer" => "0");
         foreach ($upt_arr as $key => $value) {
-            $this->db->query("UPDATE " . TBL_CMS_GBLCONFIG . " SET config_value='" . $value . "' WHERE config_name='" . $key . "'");
+            dao_class::update_table(TBL_CMS_GBLCONFIG, array('config_value' => $value), array('config_name' => $key));
         }
         $this->init_lang_codes(true);
 
@@ -177,7 +177,7 @@ class upt_class extends keimeno_class {
      * @return
      */
     public function register_keimeno() {
-        $json_result = $this->curl_exec_script(RESTSERVER . '?cmd=register_cms&n=' . base64_encode($_SERVER['HTTP_HOST']));
+        self::register_kei();
     }
 
 
@@ -766,7 +766,7 @@ class upt_class extends keimeno_class {
             self::untar_archive(CMS_ROOT . $tar_file, CMS_ROOT, true);
         }
 
-        
+
         /**
          * upt_class::upt_pictures()
          * 
@@ -823,7 +823,7 @@ class upt_class extends keimeno_class {
             $this->rewriteSmartyTPL();
 
             # if all update scripts ran well, update to final version
-            if ($NO_FAILURE == true) {                
+            if ($NO_FAILURE == true) {
                 $this->set_remote_version();
             }
         }

@@ -115,9 +115,18 @@
                       <a href="../file_data/resource/images/<%$row.value%>" target="_blank"><img src="../file_data/resource/images/<%$row.value%>?a=<%$randid%>" class="img-fluid" /></a>
                     </div>
                     <div class="col-md-1">
-                        <button class="btn btn-secondary" onclick="execrequest('<%$eurl%>cmd=delflexvarimg&content_matrix_id=<%$GET.content_matrix_id%>&rowid=<%$row.id%>&flxid=<%$GET.flxid%>&langid=<%$GET.langid%>');$('#js-dataset-img-<%$row.id%>').fadeOut();" type="button"><i class="fa fa-trash"></i></button>
-                    </div>
+                        <div class="btn-group">
+                        <% if ($row.value|pathinfo:$smarty.const.PATHINFO_EXTENSION=='jpg' || $row.value|pathinfo:$smarty.const.PATHINFO_EXTENSION=='jpeg') %>
+                            <a class="btn btn-secondary ajax-link" onclick="$('#modal_frame').modal('hide');" href="<%$eurl%>cmd=show_jcrop&content_matrix_id=<%$GET.content_matrix_id%>&rowid=<%$row.id%>&flxid=<%$GET.flxid%>&langid=<%$GET.langid%>"><i class="fas fa-cut"></i></a>
+                        <%/if%>                            
+                            <button class="btn btn-secondary" onclick="execrequest('<%$eurl%>cmd=delflexvarimg&content_matrix_id=<%$GET.content_matrix_id%>&rowid=<%$row.id%>&flxid=<%$GET.flxid%>&langid=<%$GET.langid%>');$('#js-dataset-img-<%$row.id%>').fadeOut();" type="button"><i class="fa fa-trash"></i></button>
+                          </div>  
+                        </div>
+                 </div>
+                                     
+                        
                     <div class="col-md-8">    
+                     <% if ($row.v_opt.img.foto_resize=="crop")%>
                      <div class="form-group">
                             <label for="<%$row.id%>-v_settings">Individual Crop Position</label>
                             <select class="form-control custom-select" id="<%$row.id%>-v_settings" name="SETTINGS[<%$row.id%>][foto][foto_gravity]" >
@@ -133,12 +142,13 @@
                                     <option <% if ($row.v_settings.foto.foto_gravity=='East')%>selected<%/if%> value="East">East</option>
                             </select>    
                         </div>                        
+                       <%/if%> 
                     </div>
                  </div>       
                  
             <%/if%>     
             <p class="help-block"><%$row.v_name%></p>
-        </div>
+        
      <%/foreach%>        
      <button type="submit" class="btn btn-primary">{LA_SAVE}</button>
      <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>

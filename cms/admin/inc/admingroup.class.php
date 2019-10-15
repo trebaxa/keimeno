@@ -66,7 +66,7 @@ class admingroup_class extends keimeno_class {
             $row['ag_sort'] = (int)$row['ag_sort'];
             update_table(TBL_CMS_ADMINGROUPS, 'id', $id, $row);
         }
-        $this->hard_exit();
+        $this->ej();
     }
 
     /**

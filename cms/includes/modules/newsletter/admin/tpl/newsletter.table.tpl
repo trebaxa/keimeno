@@ -9,7 +9,7 @@
 <tbody>
 <% foreach from=$NEWSLETTER.newsletter_table item=row %>	
   <tr>
-        <td><% $row.e_subject %></td>
+        <td><a class="ajax-link" title="bearbeiten" href="<%$eurl%>id=<%$row.id%>&cmd=edit"><% $row.e_subject %></a></td>
         <td><% $row.e_sendcount %></td>
         <td><%$row.e_date%> um <% $row.e_time %></td>
         <td class="text-right">
@@ -18,7 +18,7 @@
                 <% foreach from=$row.icons item=icon %><%$icon%><%/foreach%>
                 <a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&id=<% $row.id %>&cmd=a_tracking" title="Tracking anzeigen"><i class="far fa-chart-bar"><!----></i></a>  	     
                 <a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&cmd=clone&id=<% $row.id %>" title="Klonen"><i class="far fa-file-alt"><!----></i></a>
-                <a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&id=<%$row.id%>&cmd=xlsexport"><i class="far fa-file-alt-excel"><!----></i></a>
+                <a class="btn btn-secondary" href="<%$PHPSELF%>?epage=<%$epage%>&id=<%$row.id%>&cmd=xlsexport"><i class="far fa-file-excel"></i><!----></i></a>
             </div>   
   	     </td>
    </tr>

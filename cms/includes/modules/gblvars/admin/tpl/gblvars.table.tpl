@@ -1,3 +1,4 @@
+<%include file="cb.panel.header.tpl" title="Globale Variablen"%>
 <% if (count($GBLVARS.vars)>0) %>
     <form class="jsonform form-inline-" method="post" action="<%$PHPSELF%>" enctype="multipart/form-data">
         <input type="hidden" name="cmd" value="save_table"/>
@@ -29,3 +30,4 @@
 <%else%>
     <p class="alert-alert-info">Noch keine Variablen angelegt.</p>    
 <%/if%>    
+<%include file="cb.panel.footer.tpl"%>

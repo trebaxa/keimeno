@@ -634,9 +634,17 @@ class resource_admin_class extends resource_master_class {
                 $this->RESOURCE['flextpl']['resrc_table'] = $this->load_content_table($row['v_opt']['resrc']['id']);
             }
             elseif ($row['v_type'] == 'img') {
-                $img = ($value != "") ? $this->froot . $value : CMS_ROOT . 'images/opt_no_pic.jpg';
-                $this->RESOURCE['flextpl']['flexvars'][$v_vid]['thumb'] = (self::get_ext($img) == 'svg') ? PATH_CMS . 'file_data/resource/images/' . basename($img) : './' .
-                    CACHE . graphic_class::makeThumb($img, 60, 60, 'admin/' . CACHE, true, 'crop', "", "", 'center');
+                #  $img = ($value != "") ? $this->froot . $value : CMS_ROOT . 'images/opt_no_pic.jpg';
+                #  $this->RESOURCE['flextpl']['flexvars'][$v_vid]['thumb'] = (self::get_ext($img) == 'svg') ? PATH_CMS . 'file_data/resource/images/' . basename($img) : './' .
+                #      CACHE . graphic_class::makeThumb($img, 60, 60, 'admin/' . CACHE, true, 'crop', "", "", 'center');
+                if ($value == "") {
+                    $this->RESOURCE['flextpl']['flexvars'][$v_vid]['thumb'] = '../images/opt_no_pic.jpg';
+                }
+                else {
+                    $img = $this->froot . $value;
+                    $this->RESOURCE['flextpl']['flexvars'][$v_vid]['thumb'] = (self::get_ext($img) == 'svg') ? PATH_CMS . 'file_data/resource/images/' . basename($img) : './' .
+                        CACHE . graphic_class::makeThumb($img, 60, 60, 'admin/' . CACHE, true, 'crop', "", "", 'center');
+                }
             }
             elseif ($row['v_type'] == 'file') {
                 $this->RESOURCE['flextpl']['flexvars'][$v_vid]['file_root'] = $this->file_root . $value;
@@ -757,7 +765,15 @@ class resource_admin_class extends resource_master_class {
      * @return
      */
     function cmd_delflexvar() {
+        $result = $this->db->query("SELECT * FROM " . TBL_RESRCVARS . " WHERE v_vid=" . (int)$_GET['ident']);
+        while ($row = $this->db->fetch_array_names($result)) {
+            foreach ($this->languages as $lang) {
+                $this->delflexvarimg($row['v_cid'], $row['v_vid'], $lang['id']);
+                $this->del_resrc_var_file($row['v_cid'], $row['v_vid'], $lang['id']);
+            }
+        }
         $this->db->query("DELETE FROM " . TBL_RESRCDV . " WHERE id=" . $_GET['ident']);
+        $this->db->query("DELETE FROM " . TBL_RESRCVARS . " WHERE v_vid=" . $_GET['ident']);
         $this->ej();
     }
 
@@ -858,7 +874,15 @@ class resource_admin_class extends resource_master_class {
         }
         else {
             $FORM['v_varname'] = $this->gen_var_name($FORM['v_name']);
-            insert_table(TBL_RESRCDV, $FORM);
+            $v_vid = insert_table(TBL_RESRCDV, $FORM);
+            $result = $this->db->query("SELECT * FROM " . TBL_RESRC_CONTENT . " WHERE c_ftid=" . $FORM['v_ftid']);
+            while ($row = $this->db->fetch_array_names($result)) {
+                insert_table(TBL_RESRCVARS, array(
+                    'v_vid' => $v_vid,
+                    'v_cid' => $row['id'],
+                    'v_ftid' => $FORM['v_ftid'],
+                    'v_langid' => 1));
+            }
         }
         $this->ej('reload_flexvars_vars');
     }
@@ -1006,6 +1030,7 @@ class resource_admin_class extends resource_master_class {
      * @return
      */
     function del_resrc_var_file($content_matrix_id, $rowid, $langid = 1) {
+        $langid = ($langid == 0) ? 1 : $langid;
         $rowid = (int)$rowid;
         if ($rowid > 0) {
             $ROW = $this->db->query_first("SELECT * FROM " . TBL_RESRCVARS . " WHERE v_langid=" . (int)$langid . " AND v_cid=" . $content_matrix_id . " AND v_vid=" . $rowid);
@@ -1022,7 +1047,8 @@ class resource_admin_class extends resource_master_class {
      * @param mixed $rowid
      * @return
      */
-    function delflexvarimg($v_cid, $rowid, $langid) {
+    function delflexvarimg($v_cid, $rowid, $langid = 1) {
+        $langid = ($langid == 0) ? 1 : $langid;
         $rowid = (int)$rowid;
         if ($rowid > 0) {
             $ROW = $this->db->query_first("SELECT * FROM " . TBL_RESRCVARS . " WHERE v_langid=" . (int)$langid . " AND v_cid=" . $v_cid . " AND v_vid=" . $rowid);
@@ -1030,6 +1056,53 @@ class resource_admin_class extends resource_master_class {
                 delete_file($this->froot . $ROW['v_value']);
             $this->delete_flexvar_value($v_cid, $rowid, $langid);
         }
+    }
+
+    /**
+     * resource_admin_class::cmd_jcrobsave()
+     * 
+     * @return void
+     */
+    function cmd_jcropsave() {
+        $content_matrix_id = (int)$_POST['content_matrix_id'];
+        $langid = (int)$_POST['langid'];
+        $langid = ($langid <= 0) ? 1 : $langid;
+        $id = (int)$_POST['id'];
+        $PIC = dao_class::get_data_first(TBL_RESRCVARS, array(
+            'v_vid' => $id,
+            'v_langid' => $langid,
+            'v_cid' => $content_matrix_id));
+        $FORM = (array )$_POST['FORM'];
+        $targ_w = $FORM['w'];
+        $targ_h = $FORM['h'];
+        $jpeg_quality = 78;
+        if ($targ_w > 0 && $targ_h > 0) {
+            $src = CMS_ROOT . 'file_data/resource/images/' . $PIC['v_value'];
+            $img_r = imagecreatefromjpeg($src);
+            $dst_r = ImageCreateTrueColor($targ_w, $targ_h);
+            imagecopyresampled($dst_r, $img_r, 0, 0, $FORM['x'], $FORM['y'], $targ_w, $targ_h, $FORM['w'], $FORM['h']);
+            $label = str_replace(array(
+                '.',
+                '.' . self::get_ext($PIC['v_value']),
+                self::get_ext($PIC['v_value'])), '', basename($PIC['v_value']));
+            clean_cache_like($label);
+            $newfilename = $this->unique_filename($this->froot, $label . '.' . self::get_ext($PIC['v_value']));
+            #  echo $this->froot . $newfilename;
+            imagejpeg($dst_r, $this->froot . $newfilename, $jpeg_quality);
+            $this->delflexvarimg($content_matrix_id, $id, $langid);
+            # echoarr($PIC);
+            insert_table(TBL_RESRCVARS, array(
+                'v_cid' => $content_matrix_id,
+                'v_vid' => $id,
+                'v_langid' => $langid,
+                'v_ftid' => $_POST['flxid'],
+                'v_value' => basename($newfilename)));
+            self::msg('{LBL_SAVED}');
+        }
+        else {
+            self::msge('Fehler in Auswahl');
+        }
+        $this->ej('show_resrc_edit');
     }
 
     /**
@@ -1069,7 +1142,7 @@ class resource_admin_class extends resource_master_class {
                 if ($fname != "" && self::is_image($_FILES['datei']['tmp_name'][$id])) {
                     # remove existing one
                     $this->delflexvarimg($content_matrix_id, $id, $langid);
-                    $fname = $this->unique_filename($this->froot, $CM['c_label'] . '.' . self::get_ext($fname));
+                    $fname = $this->unique_filename($this->froot, str_replace(array('.'), '', $CM['c_label']) . '.' . self::get_ext($fname));
                     $target = $this->froot . $fname;
 
                     if (!move_uploaded_file($_FILES['datei']['tmp_name'][$id], $target)) {
@@ -1140,7 +1213,7 @@ class resource_admin_class extends resource_master_class {
 
         # rebuild page_inde
         $this->rebuild_page_index();
-        $this->ej('reload_resource', (int)$_POST['flxid']);
+        $this->ej('reload_resource', (int)$_POST['flxid'] . ',' . $content_matrix_id . ',' . $langid);
 
     }
 
@@ -1380,6 +1453,30 @@ class resource_admin_class extends resource_master_class {
         $this->load_resrc_for_edit($_GET['flxid'], $_GET['content_matrix_id'], $_GET['table'], $_GET['langid']);
         $this->parse_to_smarty();
         kf::echo_template('resource.addcontent.form');
+    }
+
+    /**
+     * resource_admin_class::cmd_get_content_json()
+     * 
+     * @return void
+     */
+    function cmd_get_content_json() {
+        $this->load_resrc_for_edit($_GET['flxid'], $_GET['content_matrix_id'], $_GET['table'], $_GET['langid']);
+        $this->parse_to_smarty();
+        echo json_encode($this->RESOURCE['flextpl']['flexvars']);
+        die;
+    }
+
+
+    /**
+     * resource_admin_class::cmd_show_jcrop()
+     * 
+     * @return void
+     */
+    function cmd_show_jcrop() {
+        $this->load_resrc_for_edit($_GET['flxid'], $_GET['content_matrix_id'], $_GET['table'], $_GET['langid']);
+        $this->parse_to_smarty();
+        kf::echo_template('resource.addcontent.jcrop');
     }
 
 

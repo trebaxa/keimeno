@@ -1,13 +1,55 @@
+<ul class="sub-sub-menu">
+    <% function name="gbltpltree" %>
+        <%foreach from=$items item=element%>     
+            <li>
+                <%if !empty($element.children)%>
+                    <ul class="sub-sub-menu"><%call name="gbltpltree" items=$element.children%></ul>
+                    <div class="sub-sub-link">
+                            <a onclick="simple_load('admincontent','<%$PATH_CMS%>admin/run.php?epage=gbltemplates.inc&cmd=load_start&modident=<%$element.modident%>');" href="javascript:void(0)" data-tid="<%$element.id%>" class="menu-toggle"><%$element.module_name|sthsc%></a>
+                            <a onclick="simple_load('admincontent','<%$PATH_CMS%>admin/run.php?epage=gbltemplates.inc&cmd=load_start&modident=<%$element.modident%>');" href="javascript:void(0)" data-tid="<%$element.id%>" class="menu-toggle toggle-btn"><i class="fas fa-chevron-right"></i></a>
+                     </div>
+                <%else%>
+                    <a class="js-gbltpl-click" data-isadmin="<%$element.admin%>" data-modid="<%$element.modident%>" data-haschildren="<% if ($element.haschildren==1) %>1<%else%>0<%/if%>" id="ident-<%$element.id%>" data-tid="<%$element.id%>"  <% if ($element.haschildren==0) %> data-modid="<%$element.modident%>"<%else%> data-modid="<%$element.id%>"<%/if%> href="javascript:void(0)" title="<%$element.description|sthsc%>"><%$element.description|st%></a>
+                <%/if%>
+            </li>
+        <%/foreach%>
+    <%/function%>
+    <% call name="gbltpltree" items=$GBLTPL.gbltpltree %>    
+</ul>
+<div class="sub-sub-link">
+    <a onclick="simple_load('admincontent','<%$PATH_CMS%>admin/run.php?epage=gbltemplates.inc&cmd=load_start&modident=');" href="javascript:void(0)" data-tid="0" class="menu-toggle">System Templates</a>
+    <a onclick="simple_load('admincontent','<%$PATH_CMS%>admin/run.php?epage=gbltemplates.inc&cmd=load_start&modident=');" href="javascript:void(0)" data-tid="0" class="menu-toggle toggle-btn"><i class="fas fa-chevron-right"></i></a>
+</div>
+
+<script>
+$( ".js-gbltpl-click" ).unbind('click');
+$( ".js-gbltpl-click" ).click(function(e) {       
+       if ($(this).data('haschildren')==0 && $(this).data('tid')>0) {
+            simple_load('admincontent','<%$PATH_CMS%>admin/run.php?epage=gbltemplates.inc&id='+$(this).data('tid')+'&uselang=1&cmd=load_gbltpl_ax');
+            scrollToAnchor('admincontent');
+            return;
+       } 
+       if ($(this).data('tid')==0 || $(this).data('haschildren')==1) {
+            simple_load('admincontent','<%$PATH_CMS%>admin/run.php?epage=gbltemplates.inc&cmd=load_start&modident='+$(this).data('modid'));
+            scrollToAnchor('admincontent');
+       }
+});  
+
+init_tree_toggle();
+  
+</script>   
+
+<%*
 <% if ($PERM.core_acc_systpl==1) %>
-    <div id="gbltpltreeul">
+    
         <ul class="knone">
             <li id="gbltreeroot" data-haschildren="1" data-tid="0">
                 <a id="ident-0" href="javascript:void(0)" data-tid="0">System Templates</a>
                 <ul class="knone">
                     <% function name="gbltpltree" %>
                     <%foreach from=$items item=element%>     
-                        <li id="gbltreenode-<%$element.id%>" <% if ($element.haschildren==0) %>data-tid="<%$element.id%>"<%/if%> data-haschildren="<% if ($element.haschildren==1) %>1<%else%>0<%/if%>" data-modid="<%$element.modident%>" data-isadmin="<%$element.admin%>" <% if ($element.haschildren==0) %>data-jstree='{"icon":"far fa-file-alt"}'<%/if%> >
-                            <a id="ident-<%$element.id%>" data-tid="<%$element.id%>" data-modid="<%$element.modident%>" href="javascript:void(0)" title="<%$element.description|sthsc%>"><% if ($element.haschildren==1) %><%$element.module_name|st%><%else%><%$element.description|st%><%/if%></a>
+                        <li id="gbltreenode-<%$element.id%>" <% if ($element.haschildren==0) %>data-tid="<%$element.id%>" data-modid="<%$element.modident%>"<%else%> data-modid="<%$element.id%>" <%/if%> data-haschildren="<% if ($element.haschildren==1) %>1<%else%>0<%/if%>"  data-isadmin="<%$element.admin%>" <% if ($element.haschildren==0) %>data-jstree='{"icon":"far fa-file-alt"}'<%/if%> >
+                            <a id="ident-<%$element.id%>" data-tid="<%$element.id%>"  <% if ($element.haschildren==0) %> data-modid="<%$element.modident%>"<%else%> data-modid="<%$element.id%>"<%/if%> href="javascript:void(0)" title="<%$element.description|sthsc%>"><% if ($element.haschildren==1) %><%$element.module_name|st%><%else%><%$element.description|st%><%/if%></a>
                             <%if !empty($element.children)%>
                                 <ul><%call name="gbltpltree" items=$element.children%></ul>
                             <%/if%>
@@ -19,11 +61,11 @@
                 </ul>
             </li>           
         </ul> 
-    </div> <!-- /#gbltpltreeul -->
+    
 
     <script>
 
-  function customMenu(node) {
+  function customMenuGbl(node) {
   
         var items = {
             createItem: { // The "create" menu item
@@ -62,9 +104,11 @@
                 }
             }
         };
+        
         if (node.children.length>=0) {
             delete items.deleteItem;
             delete items.renameItem;
+            
         }
         else{
            
@@ -77,7 +121,7 @@
     }
     // ,"dnd", "search",    "state", "types", "wholerow"
     $('#gbltpltreeul').jstree({  
-         "plugins" : [ "contextmenu", "types", "wholerow" ],
+         "plugins" : [  "types", "wholerow" ],
          core : {
             "animation" : 0,
             "check_callback" : true,
@@ -97,7 +141,7 @@
                     "valid_children" : []
                 }
             },
-          "contextmenu": {items: customMenu}
+         /* "contextmenu": {items: customMenuGbl} */
      
         }).bind("select_node.jstree", function(event,data) {  
            var link_id = data.node.id;
@@ -105,8 +149,8 @@
                 simple_load('admincontent','<%$PATH_CMS%>admin/run.php?epage=gbltemplates.inc&id='+$('#'+link_id).data('tid')+'&uselang=1&cmd=load_gbltpl_ax');
                 return;
            } 
-           if ($('#'+link_id).data('tid')==0) {
-                simple_load('admincontent','<%$PATH_CMS%>admin/run.php?epage=gbltemplates.inc&cmd=load_start');
+           if ($('#'+link_id).data('tid')==0 || $('#'+link_id).data('haschildren')==1) {
+                simple_load('admincontent','<%$PATH_CMS%>admin/run.php?epage=gbltemplates.inc&cmd=load_start&modident='+$('#'+link_id).data('modid'));
            }            
            if ($('#'+link_id).data('haschildren')==1) {
              if ($("#"+link_id).parent().hasClass("jstree-open")) {
@@ -169,3 +213,5 @@
 
 </script>
 <%/if%>
+
+*%>
