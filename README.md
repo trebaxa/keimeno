@@ -14,7 +14,7 @@ Installations Anleitung
 -Entpacken Sie die Datei und laden Sie sie via FTP auf den Webspace
 -Führen Sie die install.php per URL Aufruf aus: http://www.meine-domain.tld/install.php
 
-Der Installer lädt vollautomatisch vom Trebaxa Server alle benötigten Dateien herunter und richtet diese ein. Folgen Sie nun einfach dem Assistenten, um die Installation abzuschließen.
+Der Installer lädt vollautomatisch vom Trebaxa Server alle benötigten Dateien herunter und richtet diese ein. Folgen Sie nun einfach dem Assistenten, um die Installation abzuschließen. Trinken Sie währenddessen ruhig einen leckeren Kaffee ;-)
 
  
 **Was sind die Voraussetzungen**
