@@ -50,7 +50,7 @@ class instagram_master_class extends modules_class {
             $foto_crop_pos = ($PLUGIN_OPT['foto_crop_pos'] > 0) ? $PLUGIN_OPT['foto_crop_pos'] : 'center';
             $ele_count = ($PLUGIN_OPT['ele_count'] > 0) ? $PLUGIN_OPT['ele_count'] : 100;
             $foto_resize_method = ($PLUGIN_OPT['foto_resize_method'] != '') ? $PLUGIN_OPT['foto_resize_method'] : 'resize';
-            $cache_file_events = CMS_ROOT . CACHE . 'instagram.json';
+            $cache_file_events = CMS_ROOT . CACHE . 'instagram_' . md5(implode('',$PLUGIN_OPT)) . '.json';
             $arr = array();
             if ($this->gblconfig->insta_cacheactive == 0) {
                 @unlink($cache_file_events);
@@ -71,6 +71,8 @@ class instagram_master_class extends modules_class {
                             'id' => $media->getId(),
                             'shortcode' => $media->getShortCode(),
                             'created_time' => $media->getCreatedTime(),
+                            'title' => '',
+                            'name' => '',
                             'caption' => $media->getCaption(),
                             'number_of_comments' => $media->getCommentsCount(),
                             'number_of_likes' => $media->getLikesCount(),
@@ -80,7 +82,7 @@ class instagram_master_class extends modules_class {
                             'image' => $local_foto,
                             'thumb_small' => $thumb_small,
                             'thumb' => $thumb,
-                            );
+                            'socialtype' => 'instagram');
                     }
                 }
                 file_put_contents($cache_file_events, json_encode($arr));

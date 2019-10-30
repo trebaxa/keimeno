@@ -29,7 +29,7 @@ class flextemp_admin_class extends flextemp_master_class {
 
     protected $tplvars = array(
         "edt" => "Edit Field",
-        "hedt" => "WYSIWYG Editor",
+        "hedt" => "RTE Editor",
         "sc" => "HTML Script",
         "sel" => "Select Box",
         "seli" => "Select Box with Index",
@@ -1034,8 +1034,11 @@ class flextemp_admin_class extends flextemp_master_class {
      */
     function deldatasetimg($flxid, $rowid, $column) {
         $FLEX = $this->load_flex_tpl($flxid);
-        $ROW = $this->db->query_first("SELECT * FROM " . $FLEX['f_table'] . " WHERE id=" . $rowid);
+        $ROW = dao_class::get_data_first($FLEX['f_table'], array('id' => (int)$rowid));
+        #$this->db->query_first("SELECT * FROM " . $FLEX['f_table'] . " WHERE id=" . $rowid);
         @unlink($this->froot . $ROW[$column]);
+        $label = str_replace('.' . self::get_ext($ROW[$column]), '', $ROW[$column]);
+        clean_cache_like($label);
         update_table($FLEX['f_table'], 'id', $rowid, array($column => ''));
     }
 
@@ -1095,6 +1098,64 @@ class flextemp_admin_class extends flextemp_master_class {
     }
 
     /**
+     * flextemp_admin_class::cmd_show_dataset_jcrop()
+     * 
+     * @return void
+     */
+    function cmd_show_dataset_jcrop() {
+        $this->load_flex_tpl_for_edit($_GET['flxid'], $_GET['content_matrix_id'], $_GET['gid']);
+        # $this->FLEXTEMP['plugopt'] = $this->load_plug_opt($_GET['content_matrix_id']);
+        $this->FLEXTEMP['seldataset'] = $this->FLEXTEMP['flextpl']['dataset'][$_GET['rowid']];
+        $this->parse_to_smarty();
+        kf::echo_template('flxtpl.plugin.dataset.jcrop');
+    }
+
+    /**
+     * flextemp_admin_class::cmd_dataset_jcropsave()
+     * 
+     * @return void
+     */
+    function cmd_dataset_jcropsave() {
+        $content_matrix_id = (int)$_POST['content_matrix_id'];
+        $flxid = (int)$_POST['flxid'];
+        $column = (string )$_POST['column'];
+        $table = (string )$_POST['table'];
+        $rowid = (int)$_POST['rowid'];
+        $langid = (int)$_POST['langid'];
+        $langid = ($langid <= 0) ? 1 : $langid;
+        $id = (int)$_POST['id'];
+        $this->load_flex_tpl_for_edit($flxid);
+        $PIC = dao_class::get_data_first($this->FLEXTEMP['flextpl']['f_table'], array('id' => $rowid, ));
+        $FORM = (array )$_POST['FORM'];
+        $targ_w = $FORM['w'];
+        $targ_h = $FORM['h'];
+        $jpeg_quality = 78;
+        if ($targ_w > 0 && $targ_h > 0) {
+            $src = CMS_ROOT . 'file_data/flextemp/images/' . $PIC[$column];
+            $img_r = imagecreatefromjpeg($src);
+            $dst_r = ImageCreateTrueColor($targ_w, $targ_h);
+            imagecopyresampled($dst_r, $img_r, 0, 0, $FORM['x'], $FORM['y'], $targ_w, $targ_h, $FORM['w'], $FORM['h']);
+            $label = str_replace(array(
+                '.',
+                '.' . self::get_ext($PIC[$column]),
+                self::get_ext($PIC[$column])), '', basename($PIC[$column]));
+            clean_cache_like($label);
+            $newfilename = $this->unique_filename($this->froot, $label . '.' . self::get_ext($PIC[$column]));
+            #  echo $this->froot . $newfilename;
+            imagejpeg($dst_r, $this->froot . $newfilename, $jpeg_quality);
+            $this->deldatasetimg($flxid, $rowid, $column, $table, $langid);
+            # echoarr($PIC);
+            dao_class::update_table($this->FLEXTEMP['flextpl']['f_table'], array($column => basename($newfilename)), array('id' => $rowid));
+            #  update_table($this->FLEXTEMP['flextpl']['f_table'], 'id', $rowid, $FORM);
+            self::msg('{LBL_SAVED}');
+        }
+        else {
+            self::msge('Fehler in Auswahl');
+        }
+        $this->ej('show_flxtpldataset_edit');
+    }
+
+    /**
      * flextemp_admin_class::cmd_add_ds_to_db()
      * 
      * @return
@@ -1125,6 +1186,7 @@ class flextemp_admin_class extends flextemp_master_class {
                 mkdir($this->file_root, 0775);
             }
 
+            # process image upload
             if (isset($_FILES['datei']) && is_array($_FILES['datei']['name'])) {
 
                 foreach ($_FILES['datei']['name'] as $column => $fname) {

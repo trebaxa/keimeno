@@ -658,7 +658,7 @@ function set_script_editor() {
                         $('#editor-' + id).height(newHeight.toString() + "px");
                         $('#editor-' + id + '-section').height(newHeight.toString() + "px");
                         editor.resize();
-                        console.log(newHeight);
+                        //console.log(newHeight);
                 };
                 heightUpdateFunction();
 
@@ -1287,6 +1287,18 @@ function init_tree_toggle() {
         $('#js_menu').find('.active').removeClass('active');
         $(this).closest('li').addClass('active');
     });
+}
+
+function replace_umlaute(str) {
+    var s = str.replace(
+        /Ä/g, "Ae").replace(
+        /ä/g, "ae").replace(
+        /Ö/g, "Oe").replace(
+        /ö/g, "oe").replace(
+        /Ü/g, "Ue").replace(
+        /ü/g, "ue").replace(
+        /ß/g, "ss");
+     return s;
 }
 
 

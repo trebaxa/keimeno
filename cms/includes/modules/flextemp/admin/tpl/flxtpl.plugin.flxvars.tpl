@@ -40,7 +40,7 @@
                 <div class="form-group col-md-4">
                     <label>Auswahl</label>
                     <select class="form-control custom-select" name="SETTINGS[<%$row.id%>][resrc][cid][]" multiple="" style="min-height:300px;">
-                        <option <% if (0==count($row.v_settings.resrc.cid)) %>selected<%/if%> value="0">- alle -</option>
+                        <option <% if (0==count($row.v_settings.resrc.cid) || 1==count($row.v_settings.resrc.cid)) %>selected<%/if%> value="0">- alle -</option>
                        <% foreach from=$row.resrc_table item=rvol key=rkey %>
                             <option <% if ($rvol.CID|inarray:$row.v_settings.resrc.cid) %>selected<%/if%> value="<%$rvol.CID%>"><%$rvol.c_label%></option>
                        <%/foreach%>              
@@ -49,7 +49,7 @@
                 <div class="col-md-8">
                 
                     <div class="form-group col-md-4">
-                        <label>Anzahl (wenn "alle" - 0 bedeutet alle)</label>
+                        <label>Anzahl (0 bedeutet "alle")</label>
                         <input required="" type="text" class="js-num-field form-control" name="SETTINGS[<%$row.id%>][resrc][quantity]" value="<%$row.v_settings.resrc.quantity|sthsc|intval%>" />
                     </div>
                     <div class="form-group col-md-4">
@@ -124,7 +124,8 @@
                     <div class="col-md-1">
                         <button class="btn btn-secondary" onclick="execrequest('<%$eurl%>cmd=delflexvarimg&content_matrix_id=<%$GET.content_matrix_id%>&rowid=<%$row.id%>&flxid=<%$GET.flxid%>');$('#js-dataset-img-<%$row.id%>').fadeOut();" type="button"><i class="fa fa-trash"></i></button>
                     </div>
-                    <div class="col-md-8">    
+                    <div class="col-md-8">
+                      
                      <div class="form-group">
                             <label for="<%$row.id%>-v_settings">Individual Crop Position</label>
                             <select class="form-control custom-select" id="<%$row.id%>-v_settings" name="SETTINGS[<%$row.id%>][foto][foto_gravity]" >

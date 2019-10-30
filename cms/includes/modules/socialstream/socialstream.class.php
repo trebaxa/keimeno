@@ -75,9 +75,23 @@ class socialstream_class extends modules_class {
                 if ($row['message'] != "") {
                     $row['socialtype'] = 'fb';
                     $row['text'] = $row['message'];
-                    $row['title'] = (($row['caption'] != "") ? $row['caption'] : ucfirst($row['type']));
+                    $row['title'] = (($row['caption'] != "") ? $row['caption'] : "");
                     $row['link'] = 'https://www.facebook.com/' . $this->gblconfig->fb_fanpagename;
                     $social_stream[strtotime($row['created_time'])] = $row;
+                }
+            }
+        }
+
+        // Instagram
+        if (class_exists('instagram_class') && (int)$PLUGIN_OPT['no_insta'] != 1) {
+            $fb = new instagram_class();
+            $arr = $fb->get_insta_stream($PLUGIN_OPT);
+            foreach ((array )$arr as $key => $row) {
+                if ($row['caption'] != "") {
+                    $row['socialtype'] = 'instagram';
+                    $row['text'] = $row['caption'];
+                    $row['title'] = ""; #(($row['caption'] != "") ? $row['caption'] : "");
+                    $social_stream[$row['created_time']] = $row;
                 }
             }
         }
@@ -113,7 +127,7 @@ class socialstream_class extends modules_class {
         else {
             ksort($social_stream);
         }
-
+        #echoarr($social_stream);
         $social_stream = (array )$this->get_part_of_array($social_stream, 0, (int)$PLUGIN_OPT['ele_count']);
         foreach ($social_stream as $ptime => $row) {
             $social_stream[$ptime]['beforexmonths'] = round((time() - $ptime) / 60 / 60 / 24 / 30);

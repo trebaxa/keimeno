@@ -16,7 +16,7 @@
                     <th></th>
                 </tr>
             </thead>
-           
+           <tbody>
             <% foreach from=$FLEXTEMP.flextpl.datasetvarsdb item=row key=column%>
                 <tr>
                     <td><input required="" type="text" class="form-control" value="<% $row.v_name|sthsc%>" name="FORM[<%$row.id%>][v_name]" /></td>
@@ -29,7 +29,7 @@
                         <select name="FORM[<%$row.id%>][v_gid]" class="form-control">
                             <%*<option <% if ($row.v_gid==0) %>selected<%/if%> value="0">- keine -</option>*%>
                            <% foreach from=$FLEXTEMP.flextpl.groups item=group %>
-                            <option <% if ($row.v_gid==$group.id) %>selected<%/if%> value="<%$group.id%>"><%$group.g_name%></option>
+                                <option <% if ($row.v_gid==$group.id) %>selected<%/if%> value="<%$group.id%>"><%$group.g_name%></option>
                            <%/foreach%> 
                         </select>
                     <%else%>
@@ -44,6 +44,7 @@
                     </td> 
                 </tr>
             <%/foreach%>
+            </tbody>
         </table>
          <%$subbtn%>
         </form>

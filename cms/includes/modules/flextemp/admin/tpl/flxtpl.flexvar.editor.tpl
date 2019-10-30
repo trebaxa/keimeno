@@ -22,13 +22,14 @@
           <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-md-6">
+                        <label for="js-vdesr">Variablen Beschreibung</label>
+                        <input type="text" id="js-vdesr" required="" value="<%$FLEXTEMP.flxvaredit.v_descr|sthsc%>" name="FORM[v_descr]" class="form-control" />
+                    </div> 
+                    <div class="form-group col-md-6">
                         <label for="js-vname">Variablen Name</label>
                         <input type="text" id="js-vname" required="" value="<%$FLEXTEMP.flxvaredit.v_name|sthsc%>" name="FORM[v_name]" class="form-control" />
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="js-vdesr">Variablen Beschreibung</label>
-                        <input type="text" id="js-vdesr" required="" value="<%$FLEXTEMP.flxvaredit.v_descr|sthsc%>" name="FORM[v_descr]" class="form-control" />
-                    </div>    
+                       
                 </div>
                 <div class="row">
                     <div class="form-group col-md-6">
@@ -62,10 +63,14 @@
       </form>
       
 <script>
-$( "#js-vname" ).blur(function() {
-  if ($('#js-vdesr').val()=="") {
-    $('#js-vdesr').val($( "#js-vname" ).val());
-  }
+
+
+
+$( "#js-vdesr" ).keyup(function() {
+    var a = $( "#js-vdesr" ).val();
+    var b = replace_umlaute(a);
+    b = b.replace(/[^a-z0-9]/gi,'');
+    $('#js-vname').val(b.toLowerCase());  
 });
 
 </script>      

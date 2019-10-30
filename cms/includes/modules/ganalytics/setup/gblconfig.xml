@@ -28,6 +28,7 @@
     <modident><![CDATA[ganalytics]]></modident>
     <is_gbltplmodname><![CDATA[]]></is_gbltplmodname>
     <is_mail><![CDATA[]]></is_mail>
+    <is_password_safe><![CDATA[0]]></is_password_safe>
   </item>
   <item>
     <config_name><![CDATA[ga_forcessl]]></config_name>
@@ -57,6 +58,7 @@
     <modident><![CDATA[ganalytics]]></modident>
     <is_gbltplmodname><![CDATA[]]></is_gbltplmodname>
     <is_mail><![CDATA[]]></is_mail>
+    <is_password_safe><![CDATA[0]]></is_password_safe>
   </item>
   <item>
     <config_name><![CDATA[ga_link_attribution]]></config_name>
@@ -86,6 +88,7 @@
     <modident><![CDATA[ganalytics]]></modident>
     <is_gbltplmodname><![CDATA[]]></is_gbltplmodname>
     <is_mail><![CDATA[]]></is_mail>
+    <is_password_safe><![CDATA[0]]></is_password_safe>
   </item>
   <item>
     <config_name><![CDATA[ga_ua_ident]]></config_name>
@@ -115,6 +118,7 @@
     <modident><![CDATA[ganalytics]]></modident>
     <is_gbltplmodname><![CDATA[]]></is_gbltplmodname>
     <is_mail><![CDATA[]]></is_mail>
+    <is_password_safe><![CDATA[0]]></is_password_safe>
   </item>
   <item>
     <config_name><![CDATA[ga_aw_ident]]></config_name>
@@ -144,6 +148,7 @@
     <modident><![CDATA[ganalytics]]></modident>
     <is_gbltplmodname><![CDATA[]]></is_gbltplmodname>
     <is_mail><![CDATA[]]></is_mail>
+    <is_password_safe><![CDATA[0]]></is_password_safe>
   </item>
   <item>
     <config_name><![CDATA[ga_send_page_view]]></config_name>
@@ -173,6 +178,7 @@
     <modident><![CDATA[ganalytics]]></modident>
     <is_gbltplmodname><![CDATA[]]></is_gbltplmodname>
     <is_mail><![CDATA[]]></is_mail>
+    <is_password_safe><![CDATA[0]]></is_password_safe>
   </item>
   <item>
     <config_name><![CDATA[ga_active]]></config_name>
@@ -202,6 +208,7 @@
     <modident><![CDATA[ganalytics]]></modident>
     <is_gbltplmodname><![CDATA[]]></is_gbltplmodname>
     <is_mail><![CDATA[]]></is_mail>
+    <is_password_safe><![CDATA[0]]></is_password_safe>
   </item>
   <item>
     <config_name><![CDATA[ga_method]]></config_name>
@@ -231,5 +238,6 @@
     <modident><![CDATA[ganalytics]]></modident>
     <is_gbltplmodname><![CDATA[]]></is_gbltplmodname>
     <is_mail><![CDATA[]]></is_mail>
+    <is_password_safe><![CDATA[0]]></is_password_safe>
   </item>
 </config>

@@ -23,13 +23,14 @@
           <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-md-6">
+                        <label for="js-vdesr">Feld Beschreibung</label>
+                        <input type="text" id="js-vdesr" required="" value="<%$RESOURCE.flxvaredit.v_descr|sthsc%>" name="FORM[v_descr]" class="form-control" />
+                    </div>   
+                    <div class="form-group col-md-6">
                         <label for="js-vname">Feld Name</label>
                         <input type="text" id="js-vname" required="" value="<%$RESOURCE.flxvaredit.v_name|sthsc%>" name="FORM[v_name]" class="form-control" />
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="js-vdesr">Feld Beschreibung</label>
-                        <input type="text" id="js-vdesr" required="" value="<%$RESOURCE.flxvaredit.v_descr|sthsc%>" name="FORM[v_descr]" class="form-control" />
-                    </div>    
+                     
                 </div>
                 <div class="row">
                     <div class="form-group col-md-6">
@@ -52,10 +53,11 @@
       </form>
       
 <script>
-$( "#js-vname" ).blur(function() {
-  if ($('#js-vdesr').val()=="") {
-    $('#js-vdesr').val($( "#js-vname" ).val());
-  }
+$( "#js-vdesr" ).keyup(function() {
+    var a = $( "#js-vdesr" ).val();
+    var b = replace_umlaute(a);
+    b = b.replace(/[^a-z0-9]/gi,'');
+    $('#js-vname').val(b.toLowerCase());  
 });
 
 </script>      

@@ -383,7 +383,7 @@ class fbwp_class extends fbwp_master_class {
         $feed = array('data' => array());
 
         if ($this->facebook != null) {
-            $cache_file = CMS_ROOT . CACHE . 'fbfanpagestatus.tmp';
+            $cache_file = CMS_ROOT . CACHE . 'fb_' . md5(implode('', $PLUGIN_OPT)) . '.tmp';
             $time = 0;
             if ($this->gblconfig->fb_cacheactive == 0) {
                 @unlink($cache_file);

@@ -96,13 +96,22 @@
                 </div>   
                 
                 <div class="row" id="js-dataset-img-<%$column%>" <% if ($FLEXTEMP.seldataset.row.$column=="") %>style="display:none"<%/if%>>
-                    <div class="col-md-3" > 
-                        <img src="../file_data/flextemp/images/<%$FLEXTEMP.seldataset.row.$column|hsc%>" class="img-fluid img-thumbnail" />
+                    <div class="col-md-4" > 
+                        <img src="../file_data/flextemp/images/<%$FLEXTEMP.seldataset.row.$column|hsc%>?a=<%$randid%>" class="img-fluid img-thumbnail" />
                     </div>
-                    <div class="col-md-1">
-                        <button class="btn btn-secondary" onclick="execrequest('<%$eurl%>cmd=deldatasetimg&rowid=<%$GET.rowid%>&flxid=<%$GET.flxid%>&column=<%$column%>');$('#js-dataset-img-<%$column%>').fadeOut();" type="button"><i class="fa fa-trash"></i></button>               
+                    <div class="col-md-2">
+                        <div class="btn-group">
+                            <% if ($FLEXTEMP.seldataset.row.$column|pathinfo:$smarty.const.PATHINFO_EXTENSION=='jpg' || $FLEXTEMP.seldataset.row.$column|pathinfo:$smarty.const.PATHINFO_EXTENSION=='jpeg') %>
+                                <a class="btn btn-secondary ajax-link" data-target="js-after-plugin-editor" onclick="$('#modal_frame').modal('hide');" href="<%$eurl%>cmd=show_dataset_jcrop&rowid=<%$GET.rowid%>&column=<%$column%>&content_matrix_id=<%$GET.content_matrix_id%>&flxid=<%$GET.flxid%>&gid=<%$GET.gid%>&aid=<%$row.id%>"><i class="fas fa-cut"></i></a>                                
+                            <%/if%>  
+                            <button class="btn btn-secondary" onclick="execrequest('<%$eurl%>cmd=deldatasetimg&rowid=<%$GET.rowid%>&flxid=<%$GET.flxid%>&column=<%$column%>');$('#js-dataset-img-<%$column%>').fadeOut();" type="button"><i class="fa fa-trash"></i></button>
+                        
+                        </div>
+                                       
                     </div>
-                    <div class="col-md-8">    
+                    <div class="col-md-6">    
+                    
+                    <% if ($row.v_opt.img.foto_resize=='crop') %>  
                      <div class="form-group">
                             <label for="<%$row.v_col%>-v_settings">Individual Crop Position</label>
                             <select class="form-control custom-select" id="<%$row.v_col%>-v_settings" name="FORM[ds_settings][foto][foto_gravity]" >
@@ -117,7 +126,8 @@
                                     <option <% if ($FLEXTEMP.seldataset.row.ds_settings.foto.foto_gravity=='West')%>selected<%/if%> value="West">West</option>
                                     <option <% if ($FLEXTEMP.seldataset.row.ds_settings.foto.foto_gravity=='East')%>selected<%/if%> value="East">East</option>
                             </select>    
-                        </div>                        
+                        </div>  
+                        <%/if%>                      
                     </div>
                  </div>       
                  

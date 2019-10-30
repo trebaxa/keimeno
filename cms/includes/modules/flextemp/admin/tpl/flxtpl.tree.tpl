@@ -25,9 +25,10 @@
 </div>  
 <script>
 $( ".js-flex-click" ).unbind('click');
-$( ".js-flex-click" ).click(function(e) {
+$( ".js-flex-click" ).click(function(e) {   
    if ($(this).data('haschildren')==0 && $(this).data('tid')>0) {
         simple_load('admincontent','<%$PATH_CMS%>admin/run.php?epage=flextemp.inc&id='+$(this).data('tid')+'&section=edit&cmd=ax_editflextpl');
+        scrollToAnchor('admincontent');
    }
 });  
 init_tree_toggle();
